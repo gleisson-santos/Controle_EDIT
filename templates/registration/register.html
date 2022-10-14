@@ -1,0 +1,43 @@
+
+{% extends 'dados/base.html'  %}
+{% load crispy_forms_tags %}
+{% block conteudo %}
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<!------ Informações do login ---------->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<div id="login-overlay" class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Faça Login!!</h4>
+        </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="well">
+
+                            <form method="post">
+                                <p class="lead text-center" >Atenção ao criar o <span class="text-success ">Login!</span></p>
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ next }}">
+
+                                {{ form|crispy }}
+
+                                <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                            </form>
+                            <p class="change-form-p">Já possui uma conta? <a href="/accounts/login">Clique aqui!</a></p>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <ul class="list-unstyled" style="line-height: 2">
+                        <!-- <li><a href="/read-more/"><u>Read more</u></a></li> -->
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

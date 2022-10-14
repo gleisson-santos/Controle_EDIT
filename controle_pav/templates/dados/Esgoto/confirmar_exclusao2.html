@@ -1,0 +1,24 @@
+{% extends 'dados/base.html'  %}
+{% block conteudo %}
+
+<br><br><br>
+<div class="container">
+      <div class="card text-center">
+        
+
+        <div class="alert alert-danger" role="alert">
+           Confirmar exclusão da SS: {{item.Ss}} ? <a href="{% url 'pavimentos2' %}" class="alert-link" >Clique para cancelar!</a>
+        </div>
+
+        <form method='POST'>
+          <button style="margin: 10px;" class="btn btn-danger" type="submit">Confirmar</button>
+          {% csrf_token %}
+        </form>
+
+        <div class="card-footer text-muted">
+          Após exclusão, não sera possivel restagar o item!
+        </div>
+        
+      </div>
+</div>
+{% endblock %}

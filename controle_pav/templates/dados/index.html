@@ -1,0 +1,454 @@
+{% extends 'dados/base.html'  %}
+{% load static %}
+{% load widget_tweaks %}
+{% block conteudo %}
+
+<br> <br> <br> <br>
+<h1 style="text-align: center;">Controle de Demandas</h1>
+<div class="container mt-5">
+    <div class="row mb-5">
+ 
+        
+        <!-- Pavimentos -->
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="card border-dark">
+                <div class="card-header">Pavimentos</div>
+                <div class="card-body">
+
+                    <p class="card-text">
+                        Mantenha os <code>Pavimentos</code> atualizados!
+                    </p>
+                    <h8>  <i class="fas fa-table me-1"></i>{{filtro4}} Pavimento(s) Pendentes!(s)</h8>
+                    <p class="card-text">{{filtro6}} <code>Asfalto</code> {{filtro7}}<code> Concreto</code> </p>
+                </div>
+                <div class="card-footer text-end">
+
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#cadpavimento">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Cadastrar
+                     </button>  
+
+                    <a href="{% url 'pavimentos' %}"
+                       class="btn btn-outline-success btn-sm">
+                       <i class="fa fa-list-alt" aria-hidden="true"></i>
+                       Listar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Pendencias de Pavimentos-->
+        <div class="modal fade bd-example-modal-lg" id="cadpavimento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cadastrar de Pavimento</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                         
+                        </button>
+                        
+                    </div>  <br>
+
+                    <div class="container-fluid">
+                        <div class="card-body">                  
+                            <form action="" method="POST">
+                                {% csrf_token %}   
+
+                                <div> 
+
+                                    <div class="input-group mb-3">
+                                        <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Localidade</span>
+                                        {% render_field pavimento5.Localidade  class="form-control" style="height: 38px;" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9"%}     
+                                        ⠀                   
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Situação</span>
+                                        {% render_field pavimento5.Medir class="form-control" style="height: 38px;" %}
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Ss</span>
+                                        {% render_field pavimento5.Ss  class="form-control" style="height: 30px;" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9"%}     
+                                        ⠀                   
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Data</span>
+                                        {% render_field pavimento5.Data class="form-control" style="height: 38px;" %}
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Equipe</span>
+                                            {% render_field pavimento5.Equipe class="form-control" style="height: 38px;" %}
+                                        ⠀
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Bairro</span>
+                                        {% render_field pavimento5.Bairro class="form-control" style="height: 30px;" placeholder=" item obrigatorio"%}
+                                    </div>
+                
+                                    
+                                    <div class="input-group mb-3">
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Rua</span>
+                                        {% render_field pavimento5.Rua class="form-control" style="height: 30px;" placeholder=" item obrigatorio"%}
+                                        ⠀
+                                        <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Referencia</span>
+                                        {% render_field pavimento5.Referencia class="form-control" style="height: 30px;" placeholder=" item obrigatorio"%}
+                                    </div>
+                
+                
+                                    <div class="input-group mb-3">
+                                        
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Metragem</span>
+                                        {% render_field pavimento5.Metragem class="form-control" style="height: 30px;" placeholder=" Ex: 1,50 x 1,25" maxlength="50"%}
+                                        ⠀
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Observações</span>
+                                        {% render_field pavimento5.Observacao class="form-control" style="height: 30px;" placeholder=" item opcional"%}
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Servico</span>
+                                        {% render_field pavimento5.Servico  class="form-control" style="height: 38px;" %}
+                                        ⠀
+                                        <span style="width: 110px;" class="input-group-text">Executado</span>
+                                        {% render_field pavimento5.Executado class='form-control' style="height: 38px;"  %}
+                                    </div>
+
+                                </div>
+
+                                
+                                <div style='text-align:right;'>
+                                    <!-- Botoes -->
+                                    <button style="margin-top: 10px;" class="btn btn-secondary"><a style="color: white;" href="{% url 'index'%}" class="text-decoration-none"><i class="fa fa-reply" aria-hidden="true"></i>
+                                        Voltar</a></button> 
+                                    <button style="margin-top: 10px;" class="btn btn-success" name="gravar" value="Pav1" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
+                                        Salvar</button>        
+                                </div><br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Esgoto  -->
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="card border-dark">
+                <div class="card-header">Esgoto</div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Mantenha as pendências de <code>Esgoto</code> atualizadas!
+                    </p>
+                    <h8>  <i class="fas fa-table me-1"></i>{{filtro5}} Pendência(s) de Esgoto!</h8>
+                    <p class="card-text">{{filtro8}} <code>Vedações</code> {{filtro9}}<code> Consertos</code> {{filtro10}}<code> Desobstrução</code></p>
+                </div>
+                <div class="card-footer text-end">
+
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#cadesgoto">
+                        <i class="fa fa-plus" aria-hidden="true"></i>  Cadastrar
+                     </button> 
+
+                    <a href="{% url 'pavimentos2' %}"
+                       class="btn btn-outline-success btn-sm">
+                       <i class="fa fa-list-alt" aria-hidden="true"></i>
+                       Listar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Pendencias de Esgoto-->
+        <div class="modal fade bd-example-modal-lg" id="cadesgoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content row">
+                    
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Pendencia de Esgoto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div> <br>
+        
+                    <div class="container-fluid">
+                        <div class="card-body">                  
+                            <form action="" method="POST">
+                                {% csrf_token %}   
+
+                                <div> 
+                                    <div class="input-group mb-3">
+                                        <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Localidade</span>
+                                        {% render_field esgoto21.Localidade  class="form-control" style="height: 40px;" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9"%}      
+                                        ⠀ 
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Situação</span>
+                                        {% render_field esgoto21.Medir class="form-control" style="height: 40px;" %}
+                                    </div>
+                                    
+                                    
+                                    <div class="input-group mb-3">
+                                        <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Ss</span>
+                                        {% render_field esgoto21.Ss  class="form-control" style="height: 40px;" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9"%}      
+                                        ⠀ 
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Data</span>
+                                        {% render_field esgoto21.Data class="form-control" style="height: 40px;" %}
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Equipe</span>
+                                        {% render_field esgoto21.Equipe class="form-control" style="height: 40px;" %}
+                                        ⠀ 
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Bairro</span>
+                                        {% render_field esgoto21.Bairro class="form-control" style="height: 40px;" placeholder=" item obrigatorio"%}
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Rua</span>
+                                        {% render_field esgoto21.Rua class="form-control" style="height: 40px;" placeholder=" item obrigatorio"%}
+                                        ⠀ 
+                                        <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Referencia</span>
+                                        {% render_field esgoto21.Referencia class="form-control" style="height: 40px;" placeholder=" item obrigatorio"%}
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Servico</span>
+                                        {% render_field esgoto21.Servico  class="form-control" style="height: 40px;" %}
+                                        ⠀ 
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Observações</span>
+                                        {% render_field esgoto21.Observacao class="form-control" style="height: 40px;" placeholder=" item opcional"%}
+                                    </div>
+                                </div>
+
+                                <div style="width: 250px;" class="input-group mb-3">
+                                    <span style="width: 110px;" class="input-group-text">Executado</span>
+                                    {% render_field esgoto21.Executado class='form-control' style="height: 40px;"  %}
+                                </div>
+
+                                <div style='text-align:right;'>
+                                    <button  class="btn btn-secondary"><a style="color: white;" href="{% url 'index'%}" class="text-decoration-none"><i class="fa fa-reply" aria-hidden="true"></i>
+                                        Voltar</a></button> 
+                                    <button  class="btn btn-success"  name="gravar" value="Esgoto1" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
+                                        Salvar</button>        
+                                </div><br>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Pendencias  -->
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="card border-dark">
+                <div class="card-header">Pendencias</div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Mantenha as <code>Pendências</code> atualizadas.
+                        
+                    </p>
+                    
+                    <h8>  <i class="fas fa-table me-1"></i>Geradas em no maximo 24Hs!(s)</h8>
+                    <p class="card-text">{{filtro11}} <code>Pendencias</code>
+                </div>
+
+                <div class="card-footer text-end">
+                    
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#cadpendencia"  id="chama_modal_agendar">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Cadastrar
+                     </button>  
+
+                    <a href="{% url 'informativo' %}"
+                       class="btn btn-outline-success btn-sm">
+                       <i class="fa fa-list-alt" aria-hidden="true"></i>
+                       Listar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Pendencias -->
+        <div class="modal fade" id="cadpendencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content row">
+                    
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Pendencias Gerais</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div><br>
+
+                    <div class="container">
+                        <div class="card-body">                  
+                            <form action="" method="POST">
+                                <!-- Não se esqueçer dessa misera dessa fdp tag -->
+                                {% csrf_token %}
+                                <!-- Div de todos os formularios -->
+                                <div  >      
+                                    
+                                    <div class="input-group mb-3">
+                                        <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Localidade</span>
+                                        {% render_field cadastro1.Localidade  class="form-control" style="height: 38px;" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9"%}     
+                                        ⠀                   
+                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Situação</span>
+                                        {% render_field cadastro1.Medir class="form-control" style="height: 38px;" %}
+                                    </div>
+                        
+                                    <div class="input-group mb-3">
+                                        <span style="width: 90px;" class="input-group-text">Ss</span>
+                                        {% render_field cadastro1.Ss  class="form-control" style="height: 30px;" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9" %}
+                                    </div>
+                
+                                    <div class="input-group mb-3">
+                                        <span style="width: 90px;" class="input-group-text">Tipo</span>
+                                        {% render_field cadastro1.Tipo  class="form-control" style="height: 30px;" placeholder=" item obrigatorio" %}
+                                    </div>
+                
+                                    <div class="input-group mb-3">
+                                        <span style="width: 90px;" class="input-group-text" >Solicitante</span>
+                                        {% render_field cadastro1.Solicitante  class="form-control" style="height: 30px;" placeholder=" item obrigatorio" %} 
+                                    </div>
+                
+                                    <!-- Data -->
+                                    <div class="input-group mb-3">
+                                        <span style="width: 90px;" style="height: 40px;" class="input-group-text">Data</span>
+                                        {% render_field cadastro1.Data class="form-control" style="height: 38px;" %}
+                                    </div>
+                
+                                    <div class="input-group mb-3">
+                                        <span style="width: 90px;" class="input-group-text" >Detalhes</span>
+                                        {% render_field cadastro1.Detalhes class="form-control" style="height: 30px;" placeholder=" item opcional" %}
+                                    </div>
+                
+                                </div>
+                                <!-- Pendente -->
+                                <div style="width: 250px;" class="input-group mb-3">
+                                    <span style="width: 90px;" class="input-group-text">Executado</span>
+                                    {% render_field cadastro1.Executado class='form-control' style="height: 38px;"  %}
+                                </div>
+                                
+                                <div style='text-align:right;'>
+                                <!-- Botoes -->
+                                        <button  class="btn btn-secondary"><a style="color: white;" href="{% url 'index'%}" class="text-decoration-none"><i class="fa fa-reply" aria-hidden="true"></i>
+                                            Voltar</a></button> 
+                                    <button  class="btn btn-success" name="gravar" value="Pendencia" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
+                                        Salvar</button>        
+                                </div>      <br>                       
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="card border-secondary">
+        <div class="card-header">Pendencias</div>
+        <div class="card-body text-secondary">
+            <p class="card-text">Aqui está a lista de <code>Pendências</code> registradas.</p>
+
+            <table style='text-align:center' class="table table-striped table-bordered table-hover table-responsive">
+                <tr>
+                        <!-- Cabeçalho -->
+                        <th></th>
+                        <th>localidade</th>
+                        <th>Situação</th>
+                        <th>Ss</th>
+                        <th>Tipo</th>
+                        <th>Solicitante</th>
+                        <th>Data</th>
+                        <th>Detalhes</th>
+                        <th>Excluir</th>
+                </tr>
+
+                {% if user.groups.all.0.name == 'Lauro' %}
+                    {% for dado in localidade_l.qs %}
+                        <tr>
+                            <td><input type="checkbox" name="tag[]" value="1" /></td>
+                            <!-- for para iterar sobre todos os itens do banco de dados -->
+                            <!-- Itens quais eu quero acessaar do BD -->
+                            <td>{{dado.Localidade}}</td>
+                            <td>
+                                {% if dado.Medir == 'Medir' %}  
+                                <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
+                                {% elif dado.Medir == 'Prioridade' %}
+                                <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
+                                {% else %}
+                                <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
+                                {% endif %}
+                            </td>
+                            <td>{{dado.Ss}}</td>
+                            <td>{{dado.Tipo|lower|capfirst}}</td>
+                            <td>{{dado.Solicitante|lower|capfirst}}</td>
+                            <td>{{dado.Data|date:"d/m/Y"}}</td>
+                            <td>{{dado.Detalhes|lower|capfirst}}</td>
+                    
+                            <td>
+                                <a href="{% url 'excluir_p' dado.id %}">
+                                <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
+                            </td>
+                        </tr>
+                     {% endfor %}
+                {% elif  user.groups.all.0.name == 'Salvador'%}
+                    {% for dado in localidade_2.qs %}
+                        <tr>
+                            <td><input type="checkbox" name="tag[]" value="1" /></td>
+                            <!-- for para iterar sobre todos os itens do banco de dados -->
+                            <!-- Itens quais eu quero acessaar do BD -->
+                            <td>{{dado.Localidade}}</td>
+                            <td>
+                                {% if dado.Medir == 'Medir' %}  
+                                <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
+                                {% elif dado.Medir == 'Prioridade' %}
+                                <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
+                                {% else %}
+                                <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
+                                {% endif %}
+                            </td>
+                            <td>{{dado.Ss}}</td>
+                            <td>{{dado.Tipo|lower|capfirst}}</td>
+                            <td>{{dado.Solicitante|lower|capfirst}}</td>
+                            <td>{{dado.Data|date:"d/m/Y"}}</td>
+                            <td>{{dado.Detalhes|lower|capfirst}}</td>
+                    
+                            <td>
+                                <a href="{% url 'excluir_p' dado.id %}">
+                                <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    {% for dado in filtro3.qs %}
+                        <tr>
+                            <td><input type="checkbox" name="tag[]" value="1" /></td>
+                            <!-- for para iterar sobre todos os itens do banco de dados -->
+                            <!-- Itens quais eu quero acessaar do BD -->
+                            <td>{{dado.Localidade}}</td>
+                            <td>
+                                {% if dado.Medir == 'Medir' %}  
+                                <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
+                                {% elif dado.Medir == 'Prioridade' %}
+                                <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
+                                {% else %}
+                                <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
+                                {% endif %}
+                            </td>
+                            <td>{{dado.Ss}}</td>
+                            <td>{{dado.Tipo|lower|capfirst}}</td>
+                            <td>{{dado.Solicitante|lower|capfirst}}</td>
+                            <td>{{dado.Data|date:"d/m/Y"}}</td>
+                            <td>{{dado.Detalhes|lower|capfirst}}</td>
+                    
+                            <td>
+                                <a href="{% url 'excluir_p' dado.id %}">
+                                <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
