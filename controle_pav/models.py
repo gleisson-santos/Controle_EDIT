@@ -7,7 +7,7 @@ from django.db import models
 
 
 class Pavimento(models.Model):
-    Ss = models.TextField(max_length=255)
+    Ss = models.IntegerField()
     Data = models.DateField('data', null=True, blank=True)
     Prazo = models.BooleanField(default=False)
 
