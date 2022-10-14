@@ -49,12 +49,46 @@ def index(request):
     dados = PendenciasFilter(request.GET, queryset=dados2)
 
     pav_pend = Pavimento.objects.filter(Executado='0').count()
+
+    pav_pendlf = Pavimento.objects.filter(
+        Localidade="Lauro", Executado='0').count()
+    pav_pendssa = Pavimento.objects.filter(
+        Localidade="Salvador", Executado='0').count()
+
     esg_pend = Esgoto.objects.filter(Executado='0').count()
+    esg_pendlf = Esgoto.objects.filter(
+        Localidade="Lauro", Executado='0').count()
+    esg_pendssa = Esgoto.objects.filter(
+        Localidade="Salvador", Executado='0').count()
+
+    Asfaltolf = Pavimento.objects.filter(
+        Localidade="Lauro",  Servico='Asfalto', Executado='0').count()
+    Concretolf = Pavimento.objects.filter(
+        Localidade="Lauro",  Servico='Concreto', Executado='0').count()
+
+    Asfaltossa = Pavimento.objects.filter(
+        Localidade="Salvador",  Servico='Asfalto', Executado='0').count()
+    Concretossa = Pavimento.objects.filter(
+        Localidade="Salvador",  Servico='Concreto', Executado='0').count()
 
     Asfalto = Pavimento.objects.filter(
         Servico='Asfalto', Executado='0').count()
     Concreto = Pavimento.objects.filter(
         Servico='Concreto', Executado='0').count()
+
+    Vedaçãolf = Esgoto.objects.filter(
+        Localidade="Lauro", Servico='Vedacao', Executado='0').count()
+    Consertoslf = Esgoto.objects.filter(
+        Localidade="Lauro", Servico='Consertos', Executado='0').count()
+    Desobstruçãolf = Esgoto.objects.filter(
+        Localidade="Lauro", Servico='Desobstrucao', Executado='0').count()
+
+    Vedaçãossa = Esgoto.objects.filter(
+        Localidade="Salvador", Servico='Vedacao', Executado='0').count()
+    Consertosssa = Esgoto.objects.filter(
+        Localidade="Salvador", Servico='Consertos', Executado='0').count()
+    Desobstruçãossa = Esgoto.objects.filter(
+        Localidade="Salvador", Servico='Desobstrucao', Executado='0').count()
 
     Vedação = Esgoto.objects.filter(Servico='Vedacao', Executado='0').count()
     Consertos = Esgoto.objects.filter(
@@ -62,29 +96,66 @@ def index(request):
     Desobstrução = Esgoto.objects.filter(
         Servico='Desobstrucao', Executado='0').count()
 
+    Pendencialf = Pendencias.objects.filter(
+        Localidade="Lauro", Executado='0').count()
+    Pendenciassa = Pendencias.objects.filter(
+        Localidade="Salvador", Executado='0').count()
     Pendencia = Pendencias.objects.filter(Executado='0').count()
+
+    lauro = Pendencias.objects.filter(Localidade='Lauro')
+    filterlauro = PendenciasFilter(
+        request.GET, queryset=lauro)
+
+    salvador = Pendencias.objects.filter(Localidade='Salvador')
+    filtersalvador = PendenciasFilter(
+        request.GET, queryset=salvador)
 
     context = {
 
         'dados': dados2,
         'filtro3': dados,
 
-        'filtro4': pav_pend,
-        'filtro5': esg_pend,
+        'pav_pend': pav_pend,
 
-        'filtro6': Asfalto,
-        'filtro7': Concreto,
+        'filtrolf': pav_pendlf,
+        'filtrossa': pav_pendssa,
 
-        'filtro8': Vedação,
-        'filtro9': Consertos,
-        'filtro10': Desobstrução,
+        'esg_pend': esg_pend,
+        'esg_pendlf': esg_pendlf,
+        'esg_pendssa': esg_pendssa,
 
-        'filtro11': Pendencia,
+        'Asfaltossa': Asfaltossa,
+        'Concretossa': Concretossa,
+
+        'Asfaltolf': Asfaltolf,
+        'Asfaltossa': Concretolf,
+
+        'Asfalto': Asfalto,
+        'Concreto': Concreto,
+
+        'Vedaçãolf': Vedaçãolf,
+        'Consertoslf': Consertoslf,
+        'Desobstruçãolf': Desobstruçãolf,
+
+        'Vedaçãossa': Vedaçãossa,
+        'Consertosssa': Consertosssa,
+        'Desobstruçãossa': Desobstruçãossa,
+
+        'Vedação': Vedação,
+        'Consertos': Consertos,
+        'Desobstrução': Desobstrução,
+
+        'Pendencia': Pendencia,
+        'Pendencialf': Pendencialf,
+        'Pendenciassa': Pendenciassa,
 
         'cadastro1': pendencia_form,
 
         'esgoto21': esgoto1_form,
         'pavimento5': pavimento2_form,
+
+        'localidade_l': filterlauro,
+        'localidade_2': filtersalvador,
 
     }
     return render(request, template_name, context)
@@ -107,7 +178,8 @@ def pavimentos(request):
     dados2 = Pavimento.objects.order_by("Executado", "Data").all()
     dados = PavimentoFilter(request.GET, queryset=dados2)
 
-    pav_pend = Pavimento.objects.filter(Executado='0').count()
+    pav_pend = Pavimento.objects.filter(
+        Localidade="Lauro", Executado='0').count()
 
     lauro = Pavimento.objects.filter(Localidade='Lauro')
     filterlauro = PavimentoFilter(
@@ -192,7 +264,7 @@ def pavimentos2(request):
     dados2 = Esgoto.objects.order_by("Executado", "Data").all()
     dados = EsgotoFilter(request.GET, queryset=dados2)
 
-    pav_pend = Esgoto.objects.filter(Executado='0').count()
+    pav_pend = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
 
     lauro = Esgoto.objects.filter(Localidade='Lauro')
     filterlauro = EsgotoFilter(
@@ -278,7 +350,11 @@ def informativo(request):
     dados2 = Pendencias.objects.order_by("Executado", "Data")
     dados = PendenciasFilter(request.GET, queryset=dados2)
 
-    dados3 = Pendencias.objects.filter(Executado='0').count()
+    qtdlf = Pendencias.objects.filter(
+        Localidade="Lauro", Executado='0').count()
+    qtdssa = Pendencias.objects.filter(
+        Localidade="Salvador", Executado='0').count()
+    qtd = Pendencias.objects.filter(Executado='0').count()
 
     lauro = Pendencias.objects.filter(Localidade='Lauro')
     filterlauro = PendenciasFilter(
@@ -291,7 +367,10 @@ def informativo(request):
     context = {
         'dados': dados2,
         'filtro3': dados,
-        'filtro4': dados3,
+
+        'qtdlf': qtdlf,
+        'qtdssa': qtdssa,
+        'qtd': qtd,
 
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,

@@ -18,8 +18,17 @@
                     <p class="card-text">
                         Mantenha os <code>Pavimentos</code> atualizados!
                     </p>
-                    <h8>  <i class="fas fa-table me-1"></i>{{filtro4}} Pavimento(s) Pendentes!(s)</h8>
-                    <p class="card-text">{{filtro6}} <code>Asfalto</code> {{filtro7}}<code> Concreto</code> </p>
+                    {% if user.groups.all.0.name == 'Lauro' %}
+                        <h8>  <i class="fas fa-table me-1"></i>{{filtrolf}} Pavimento(s) Pendentes!(s)</h8>
+                        <p class="card-text">{{Asfaltolf}} <code>Asfalto</code> {{Asfaltossa}}<code> Concreto</code> </p>
+
+                    {% elif user.groups.all.0.name == 'Salvador' %}
+                        <h8>  <i class="fas fa-table me-1"></i>{{filtrossa}} Pavimento(s) Pendentes!(s)</h8>
+                        <p class="card-text">{{Asfaltossa}} <code>Asfalto</code> {{Concretossa}}<code> Concreto</code> </p>
+                    {% else %}
+                        <h8>  <i class="fas fa-table me-1"></i>{{pav_pend}} Pavimento(s) Pendentes!(s)</h8>
+                        <p class="card-text">{{Asfalto}} <code>Asfalto</code> {{Concreto}}<code> Concreto</code> </p>
+                    {% endif %}
                 </div>
                 <div class="card-footer text-end">
 
@@ -134,8 +143,19 @@
                     <p class="card-text">
                         Mantenha as pendências de <code>Esgoto</code> atualizadas!
                     </p>
-                    <h8>  <i class="fas fa-table me-1"></i>{{filtro5}} Pendência(s) de Esgoto!</h8>
-                    <p class="card-text">{{filtro8}} <code>Vedações</code> {{filtro9}}<code> Consertos</code> {{filtro10}}<code> Desobstrução</code></p>
+                    {% if user.groups.all.0.name == 'Lauro' %}
+                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pendlf}} Pendência(s) de Esgoto!</h8>
+                        <p class="card-text">{{Vedaçãolf}} <code>Vedações</code> {{Consertoslf}}<code> Consertos</code> {{Desobstruçãolf}}<code> Desobstrução</code></p>
+
+                    {% elif  user.groups.all.0.name == 'Salvador' %}
+                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pendssa}} Pendência(s) de Esgoto!</h8>
+                        <p class="card-text">{{Vedaçãossa}} <code>Vedações</code> {{Consertosssa}}<code> Consertos</code> {{Desobstruçãossa}}<code> Desobstrução</code></p>
+
+                    {% else %}
+                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pend}} Pendência(s) de Esgoto!</h8>
+                        <p class="card-text">{{Vedação}} <code>Vedações</code> {{Consertos}}<code> Consertos</code> {{Desobstrução}}<code> Desobstrução</code></p>
+
+                    {% endif %}
                 </div>
                 <div class="card-footer text-end">
 
@@ -241,9 +261,19 @@
                         Mantenha as <code>Pendências</code> atualizadas.
                         
                     </p>
-                    
-                    <h8>  <i class="fas fa-table me-1"></i>Geradas em no maximo 24Hs!(s)</h8>
-                    <p class="card-text">{{filtro11}} <code>Pendencias</code>
+                    {% if user.groups.all.0.name == 'Lauro' %}
+                        <h8>  <i class="fas fa-table me-1"></i>Geradas em no maximo 24Hs!(s)</h8>
+                        <p class="card-text">{{Pendencialf}} <code>Pendencias</code>
+
+                    {% elif user.groups.all.0.name == 'Salvador' %}
+                        <h8>  <i class="fas fa-table me-1"></i>Geradas em no maximo 24Hs!(s)</h8>
+                        <p class="card-text">{{Pendenciassa}} <code>Pendencias</code>
+
+                    {% else %}
+                        <h8>  <i class="fas fa-table me-1"></i>Geradas em no maximo 24Hs!(s)</h8>
+                        <p class="card-text">{{Pendencia}} <code>Pendencias</code>
+
+                    {% endif %}
                 </div>
 
                 <div class="card-footer text-end">
