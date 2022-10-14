@@ -122,7 +122,16 @@
     </div>
     
     <div class='form-control' style="font-size: 12px;">
-        <h8>  <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) -  {{filtro1}} Pendente(s)</h8>
+        {% if user.groups.all.0.name == 'Lauro' %}
+            <h8>  <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) -  {{qtdlf}} Pendente(s)</h8>
+
+        {% elif user.groups.all.0.name == 'Salvador' %}
+            <h8>  <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) -  {{qtdssa}} Pendente(s)</h8>
+
+        {% else %}
+            <h8>  <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) -  {{qtd}} Pendente(s)</h8>
+
+        {% endif %}
     </div>
 
     <table style="width:100% "style='text-align:center' class="table table-striped table-bordered table-hover table-responsive" id="tabela-listar">

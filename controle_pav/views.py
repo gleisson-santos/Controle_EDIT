@@ -49,7 +49,6 @@ def index(request):
     dados = PendenciasFilter(request.GET, queryset=dados2)
 
     pav_pend = Pavimento.objects.filter(Executado='0').count()
-
     pav_pendlf = Pavimento.objects.filter(
         Localidade="Lauro", Executado='0').count()
     pav_pendssa = Pavimento.objects.filter(
@@ -128,7 +127,7 @@ def index(request):
         'Concretossa': Concretossa,
 
         'Asfaltolf': Asfaltolf,
-        'Asfaltossa': Concretolf,
+        'Concretolf': Concretolf,
 
         'Asfalto': Asfalto,
         'Concreto': Concreto,
@@ -178,8 +177,10 @@ def pavimentos(request):
     dados2 = Pavimento.objects.order_by("Executado", "Data").all()
     dados = PavimentoFilter(request.GET, queryset=dados2)
 
-    pav_pend = Pavimento.objects.filter(
-        Localidade="Lauro", Executado='0').count()
+    qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
+    qtdssa = Esgoto.objects.filter(
+        Localidade="Salvador", Executado='0').count()
+    qtd = Esgoto.objects.filter(Executado='0').count()
 
     lauro = Pavimento.objects.filter(Localidade='Lauro')
     filterlauro = PavimentoFilter(
@@ -192,7 +193,12 @@ def pavimentos(request):
     context = {
         'dados': dados2,
         'filtro': dados,
-        'filtro1': pav_pend,
+
+        'qtdlf': qtdlf,
+        'qtdssa': qtdssa,
+        'qtd': qtd,
+
+
         'pavimento9': pavimento22_form,
 
         'localidade_l': filterlauro,
@@ -247,7 +253,6 @@ def excluir(request, id_pavimento):
 
 
 # Esgoto
-
 @ login_required
 def pavimentos2(request):
     template_name = 'dados/Esgoto/pavimentos2.html'
@@ -264,7 +269,10 @@ def pavimentos2(request):
     dados2 = Esgoto.objects.order_by("Executado", "Data").all()
     dados = EsgotoFilter(request.GET, queryset=dados2)
 
-    pav_pend = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
+    qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
+    qtdssa = Esgoto.objects.filter(
+        Localidade="Salvador", Executado='0').count()
+    qtd = Esgoto.objects.filter(Executado='0').count()
 
     lauro = Esgoto.objects.filter(Localidade='Lauro')
     filterlauro = EsgotoFilter(
@@ -277,7 +285,10 @@ def pavimentos2(request):
     context = {
         'dados': dados2,
         'filtro2': dados,
-        'filtro1': pav_pend,
+
+        'qtdlf': qtdlf,
+        'qtdssa': qtdssa,
+        'qtd': qtd,
 
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
