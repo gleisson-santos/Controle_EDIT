@@ -26,6 +26,7 @@
                             <h3 class="text-success text-center">Faça login</h3>
                         
                             {% csrf_token %}
+                            
                             <input type="hidden" name="next" value="{{ next }}">
 
                             {{ form|crispy }}
