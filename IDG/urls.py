@@ -7,9 +7,12 @@ from django.urls import include, path
 
 urlpatterns = [
     # path de pavimento agua
-
-    path('',         views.index,         name='index'),
-    path('Pavimentos/pavimentos',         views.pavimentos,    name='pavimentos'),
+    path('admin/',
+         admin.site.urls),
+    path('',
+         views.index,         name='index'),
+    path('Pavimentos/pavimentos',
+         views.pavimentos,    name='pavimentos'),
     path('Pavimentos/novo_pavimento/',
          views.criar,         name='novo_pavimento'),
     path('Pavimentos/novo_pavimento/<int:id_pavimento>',
