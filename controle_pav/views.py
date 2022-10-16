@@ -7,9 +7,9 @@ from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter
 from .forms import Esgotoform, Pavimentoform, Pendenciasform
 from .models import Esgoto, Pavimento, Pendencias
 
+
 # PÁGINA PRINCIPAL
-
-
+@login_required
 def index(request):
     template_name = ('dados/index.html')
 
