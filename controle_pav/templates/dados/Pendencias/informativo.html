@@ -125,6 +125,7 @@
         <!-- Cabeçalho -->
         <thead>
             <tr>
+                <th></th>
                 <th >Localidade</th>
                 <th >Situação</th>
                 <th>Ss</th>
@@ -279,10 +280,9 @@
             {% else %}
                 {% for dado in filtro3.qs %}
                     <tr>   
-                        <!-- Itens quais eu quero acessaar do BD -->
-                        <td>{{dado.Localidade}} </td>
-                        
-                        <td>
+                        <td></td>
+                         <td>{{dado.Localidade}} </td>
+                         <td>
                             {% if dado.Medir == 'Medir' %}  
                             <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
                             {% elif dado.Medir == 'Prioridade' %}
@@ -345,29 +345,23 @@
 </div>
 {% endblock %}
 
+
 {% block scripts %}
 <script>
 
-$(document).ready(function(){
-    var table = $('#tabela-listar').DataTable({
-    
-        dom: 'Bfrtip',
-        buttons: [
-        {
-            extend: 'excel',
-            split: [ 'pdf', 'print'],
-        },
-            
-            'colvis'
-        ],
-    
+   $(document).ready(function(){
+        $('#tabela-listar').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend:    'excelHtml5',
+                    text:      '<i class="fa fa-download" aria-hidden="true"></i>',
+                    titleAttr: 'Excel'
+                },
+                'colvis'
+            ],
         stateSave: true,
         responsive: true,
-    
-        {% comment %} colReorder: true,
-        fixedHeader: true,
-        keys: true, {% endcomment %}
-    
         // "bSort": false,
         "aaSorting": [],
         "pageLength": 25,
@@ -616,14 +610,12 @@ $(document).ready(function(){
             "processing": "Carregando...",
             "searchPlaceholder": "Buscar registros"
         } 
-    
-        });
         
-        new $.fn.dataTable.FixedHeader( table );
-    
-    });
+        });
 
+    });
 </script>
 {% endblock %}
+
 
 
