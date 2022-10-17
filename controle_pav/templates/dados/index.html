@@ -1,12 +1,12 @@
-# -*- coding: utf-8 -*-
 {% extends 'dados/base.html'  %}
 {% load static %}
 {% load widget_tweaks %}
 {% block conteudo %}
 
 <br> <br> <br> <br>
+
 <h1 style="text-align: center;">Controle de Demandas</h1>
-<div class="container mt-5">
+<div class="container mt-5" >
     <div class="row mb-5">
  
         
@@ -372,7 +372,7 @@
 
 
 
-    <div class="card border-secondary">
+    <div class="card border-secondary"  >
         <div class="card-header">Pendencias</div>
         <div class="card-body text-secondary">
             <p class="card-text">Aqui está a lista de <code>Pendências</code> registradas.</p>
@@ -385,10 +385,10 @@
                         <th>Situação</th>
                         <th>Ss</th>
                         <th>Tipo</th>
-                        <th>Solicitante</th>
-                        <th>Data</th>
-                        <th>Detalhes</th>
-                        <th>Excluir</th>
+                        <th class="hidden-xs hidden-sm">Solicitante</th>
+                        <th class="hidden-xs hidden-sm">Data</th>
+                        <th class="hidden-xs hidden-sm">Detalhes</th>
+                        <th class="hidden-xs hidden-sm">Excluir</th>
                 </tr>
 
                 {% if user.groups.all.0.name == 'Lauro' %}
@@ -465,11 +465,11 @@
                             </td>
                             <td>{{dado.Ss}}</td>
                             <td>{{dado.Tipo|lower|capfirst}}</td>
-                            <td>{{dado.Solicitante|lower|capfirst}}</td>
-                            <td>{{dado.Data|date:"d/m/Y"}}</td>
-                            <td>{{dado.Detalhes|lower|capfirst}}</td>
+                            <td class="hidden-xs hidden-sm">{{dado.Solicitante|lower|capfirst}}</td>
+                            <td class="hidden-xs hidden-sm">{{dado.Data|date:"d/m/Y"}}</td>
+                            <td class="hidden-xs hidden-sm">{{dado.Detalhes|lower|capfirst}}</td>
                     
-                            <td>
+                            <td class="hidden-xs hidden-sm">
                                 <a href="{% url 'excluir_p' dado.id %}">
                                 <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
                             </td>

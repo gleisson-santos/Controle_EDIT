@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "accounts",
     "crispy_forms",
     "bootstrap5",
+    'fontawesomefree',
 
 ]
 

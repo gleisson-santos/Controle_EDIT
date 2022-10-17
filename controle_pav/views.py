@@ -180,7 +180,8 @@ def pavimentos(request):
     qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
     qtdssa = Esgoto.objects.filter(
         Localidade="Salvador", Executado='0').count()
-    qtd = Esgoto.objects.filter(Executado='0').count()
+
+    qtd = Pavimento.objects.filter(Executado='0').count()
 
     lauro = Pavimento.objects.filter(Localidade='Lauro')
     filterlauro = PavimentoFilter(
