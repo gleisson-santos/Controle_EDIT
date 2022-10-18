@@ -50,7 +50,6 @@
     <!-- Navbar -->
     <!--logo <img src="{% static '/image/zzz.png' %}" height="45"> -->   
     
-
   
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"  >
       <div class="container-fluid"> 
@@ -64,69 +63,55 @@
           </button>  
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <!-- Uel dos menus -->
-          <ul  class="navbar-nav me-auto">
-
-          
-            {% if user.groups.all.0.name == 'Salvador' %}  
-            <li class="nav-item active" > 
-              <a class="nav-link" href="{% url 'index' %}">CNB - SALVADOR</a>
-            </li>
-          {% else %}
-            <li class="nav-item active" > 
-              <a class="nav-link" href="{% url 'index' %}">CNB - LAURO DE FREITAS</a>
-            </li>
-          {% endif %}
-          
-            <li class="nav-item">
-              <a  class="nav-link" href="{% url 'index' %}"> Home</a>    
-            </li>
-            <li class="nav-item">
-              <a  class="nav-link" href="{% url 'pavimentos' %}"> Pavimentos</a>    
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'pavimentos2' %}">Esgoto</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'informativo' %}">Pendencias</a>
-            </li>
-    
-          </ul>
-
-
-            <!-- Ul do horario -->
-
-        {% if user.is_authenticated %}
-          <ul class="navbar-nav float-right" style='color: white;' >
-
-            
-            {% if request.user.is_authenticated %}
-            <p> Olá {{ request.user.username|capfirst }}!⠀</p>
-            {% else %}
-                <p> Sem usuarios logados!!(</p>
-            {% endif %}  
-    
-            <script language=javascript type="text/javascript">
-              dayName = new Array ("Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado")
-              monName = new Array ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
-              now = new Date
-            </script>
-            <script language=javascript type="text/javascript">
-              document.write ("<p>  Hoje é " + dayName[now.getDay() ] + ", " + now.getDate () + " de " 
-                + monName [now.getMonth() ]   +  " de "  +     now.getFullYear () + " " + now.getHours() + ":" + now.getMinutes() + "</p>")
-            </script>
-     
-
-              <ul>
-                <a class="nav-link" href="/accounts/logout"> <i class="fa fa-power-off fa-lg"   aria-hidden="true"></i>
-                  Sair</a>  
+            <!-- Uel dos menus -->
+             <ul  class="navbar-nav me-auto">            
+               {% if user.groups.all.0.name == 'Salvador' %}  
+                <li class="nav-item active" > 
+                  <a class="nav-link" href="{% url 'index' %}">CNB - SALVADOR</a>
+                </li>
+                {% else %}
+                <li class="nav-item active" > 
+                  <a class="nav-link" href="{% url 'index' %}">CNB - LAURO DE FREITAS</a>
+                </li>
+                {% endif %}
+              
+                <li class="nav-item">
+                  <a  class="nav-link" href="{% url 'index' %}"> Home</a>    
+                </li>
+                <li class="nav-item">
+                  <a  class="nav-link" href="{% url 'pavimentos' %}"> Pavimentos</a>    
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'pavimentos2' %}">Esgoto</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'informativo' %}">Pendencias</a>
+                </li>
               </ul>
-          </ul>
-                  
-        
-          {% else %}
-          {% endif %}
+          
 
+              <div class="navbar-nav float-right" style='color: white;' >            
+                {% if user.is_authenticated %}
+                {% if request.user.is_authenticated %}
+                <p> Olá {{ request.user.username|capfirst }}!⠀</p>
+                {% else %}
+                    <p> Sem usuarios logados!!(</p>
+                {% endif %}  
+    
+                <script language=javascript type="text/javascript">
+                  dayName = new Array ("Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado")
+                  monName = new Array ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
+                  now = new Date
+                </script>
+                <script language=javascript type="text/javascript">
+                  document.write ("<p>  Hoje é " + dayName[now.getDay() ] + ", " + now.getDate () + " de " 
+                    + monName [now.getMonth() ]   +  " de "  +     now.getFullYear () + " " + now.getHours() + ":" + now.getMinutes() + "</p>")
+                </script>
+            
+                <a class="nav-link" href="/accounts/logout"> <i class="fa fa-power-off fa-lg"   aria-hidden="true"></i> </a>  
+                {% else %}
+                {% endif %}
+              </div>       
         </div>
       </div>
     </nav>
