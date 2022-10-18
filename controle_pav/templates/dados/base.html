@@ -65,14 +65,22 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Uel dos menus -->
              <ul  class="navbar-nav me-auto">            
-               {% if user.groups.all.0.name == 'Salvador' %}  
+               {% if user.groups.all.0.name == 'Salvador' %}
+
                 <li class="nav-item active" > 
                   <a class="nav-link" href="{% url 'index' %}">CNB - SALVADOR</a>
                 </li>
-                {% else %}
+
+                {% elif user.groups.all.0.name == 'Lauro' %} 
+
                 <li class="nav-item active" > 
                   <a class="nav-link" href="{% url 'index' %}">CNB - LAURO DE FREITAS</a>
                 </li>
+                {% else %}
+                <li class="nav-item active" > 
+                  <a class="nav-link" href="{% url 'index' %}">CNB - ADM</a>
+                </li>
+
                 {% endif %}
               
                 <li class="nav-item">
