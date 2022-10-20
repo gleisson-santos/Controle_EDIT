@@ -392,7 +392,7 @@
                 {% if user.groups.all.0.name == 'Lauro' %}
                     {% for dado in localidade_l.qs %}
                         <tr>
-                            <td><input type="checkbox" name="tag[]" value="1" /></td>
+                            <td></td>
                             <!-- for para iterar sobre todos os itens do banco de dados -->
                             <!-- Itens quais eu quero acessaar do BD -->
                             <td>{{dado.Localidade}}</td>
@@ -420,7 +420,7 @@
                 {% elif  user.groups.all.0.name == 'Salvador'%}
                     {% for dado in localidade_2.qs %}
                         <tr>
-                            <td><input type="checkbox" name="tag[]" value="1" /></td>
+                            <td></td>
                             <!-- for para iterar sobre todos os itens do banco de dados -->
                             <!-- Itens quais eu quero acessaar do BD -->
                             <td>{{dado.Localidade}}</td>
