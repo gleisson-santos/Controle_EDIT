@@ -134,10 +134,10 @@
         {% endif %}
     </div>
 
-    <table style="width:100% "style='text-align:center' class="table table-striped table-bordered table-hover table-responsive" id="tabela-listar">
+    <table style="width:100%" class="table table-striped table-bordered table-hover table-responsive" id="tabela-listar">
         <thead>
             <tr>
-                     <th></th> 
+                <th></th> 
                 <th>Localidade</th>
                 <th>Situação</th>
                 <th>Ss</th>
@@ -149,10 +149,11 @@
                 <th>Referencia</th>
                 <th>Serviço</th>
                 <th>Observações</th>
-                <th>Executado</th>
-                <th>Copiar</th>
-                <th>Detalhes</th>
+
                 <th>Editar</th>
+                <th>Copiar</th>
+                <th>Executado</th>
+                <th>Detalhes</th>
                 <th>Excluir</th>
             </tr>
          </thead>
@@ -162,7 +163,7 @@
             {% if user.groups.all.0.name == 'Lauro' %}
                 {% for dado in localidade_l.qs %}
                     <tr>
-                        <td><input type="checkbox" name="tag[]" value="1" /></td>
+                        <td></td>
                         <td>{{dado.Localidade}} </td>
                         <td>
                             {% if dado.Medir == 'Medir' %}  
@@ -199,14 +200,10 @@
                         <td>{{dado.Servico|lower|capfirst}}</td>
                         <td>{{dado.Observacao|lower|capfirst}}</td>
 
-                        <!--  Filtro checked--> 
-                        {% if dado.Executado %}
-                        <td> <input disabled type='checkbox' class="form-check-input"  id="flexSwitchCheckDefaultXl" checked >
-                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
-                        {% else %}
-                        <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
-                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
-                        {% endif %}
+                        <td>
+                            <a href="{% url 'editar2' dado.id %}">
+                            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
+                        </td>
 
                         <!--  Filtro Copiar informaçoes da tabela--> 
                         {% if dado.Copiar %}
@@ -231,17 +228,20 @@
                         </script>
                         {% endif %}
 
-                        <!--  Filtro Detalhes--> 
+                        <!--  Filtro checked--> 
+                        {% if dado.Executado %}
+                        <td> <input disabled type='checkbox' class="form-check-input"  id="flexSwitchCheckDefaultXl" checked >
+                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
+                        {% else %}
+                        <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
+                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
+                        {% endif %}
+
                         <td>
                             <a id='teste1' font size="2" class="text-decoration-none"  href="{% url 'detalhe2' dado.id%}">
                             <img src="https://img.icons8.com/dusk/64/000000/redo.png"  height="25" width="25" /></a>
                         </td>
-                        <!--  Filtro Editar--> 
-                        <td>
-                            <a href="{% url 'editar2' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
-                        </td>
-                        <!--  Filtro Excluir--> 
+
                         <td>
                             <a href="{% url 'excluir2' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
@@ -253,7 +253,7 @@
             {% elif  user.groups.all.0.name == 'Salvador'%}
                 {% for dado in localidade_2.qs %}
                     <tr>
-                        <td><input type="checkbox" name="tag[]" value="1" /></td>
+                        <td></td>
                         <td>{{dado.Localidade}} </td>
                         <td>
                             {% if dado.Medir == 'Medir' %}  
@@ -290,14 +290,10 @@
                         <td>{{dado.Servico|lower|capfirst}}</td>
                         <td>{{dado.Observacao|lower|capfirst}}</td>
 
-                        <!--  Filtro checked--> 
-                        {% if dado.Executado %}
-                        <td> <input disabled type='checkbox' class="form-check-input"  id="flexSwitchCheckDefaultXl" checked >
-                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
-                        {% else %}
-                        <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
-                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
-                        {% endif %}
+                        <td>
+                            <a href="{% url 'editar2' dado.id %}">
+                            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
+                        </td>
 
                         <!--  Filtro Copiar informaçoes da tabela--> 
                         {% if dado.Copiar %}
@@ -322,17 +318,20 @@
                         </script>
                         {% endif %}
 
-                        <!--  Filtro Detalhes--> 
+                        <!--  Filtro checked--> 
+                        {% if dado.Executado %}
+                        <td> <input disabled type='checkbox' class="form-check-input"  id="flexSwitchCheckDefaultXl" checked >
+                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
+                        {% else %}
+                        <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
+                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
+                        {% endif %}
+
                         <td>
                             <a id='teste1' font size="2" class="text-decoration-none"  href="{% url 'detalhe2' dado.id%}">
                             <img src="https://img.icons8.com/dusk/64/000000/redo.png"  height="25" width="25" /></a>
                         </td>
-                        <!--  Filtro Editar--> 
-                        <td>
-                            <a href="{% url 'editar2' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
-                        </td>
-                        <!--  Filtro Excluir--> 
+
                         <td>
                             <a href="{% url 'excluir2' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
@@ -384,14 +383,10 @@
                         <td>{{dado.Servico|lower|capfirst}}</td>
                         <td>{{dado.Observacao|lower|capfirst}}</td>
 
-                        <!--  Filtro checked--> 
-                        {% if dado.Executado %}
-                        <td> <input disabled type='checkbox' class="form-check-input"  id="flexSwitchCheckDefaultXl" checked >
-                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
-                        {% else %}
-                        <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
-                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
-                        {% endif %}
+                        <td>
+                            <a href="{% url 'editar2' dado.id %}">
+                            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
+                        </td>
 
                         <!--  Filtro Copiar informaçoes da tabela--> 
                         {% if dado.Copiar %}
@@ -416,17 +411,21 @@
                         </script>
                         {% endif %}
 
+                        <!--  Filtro checked--> 
+                        {% if dado.Executado %}
+                        <td> <input disabled type='checkbox' class="form-check-input"  id="flexSwitchCheckDefaultXl" checked >
+                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
+                        {% else %}
+                        <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
+                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
+                        {% endif %}
+
                         <!--  Filtro Detalhes--> 
                         <td>
                             <a id='teste1' font size="2" class="text-decoration-none"  href="{% url 'detalhe2' dado.id%}">
                             <img src="https://img.icons8.com/dusk/64/000000/redo.png"  height="25" width="25" /></a>
                         </td>
-                        <!--  Filtro Editar--> 
-                        <td>
-                            <a href="{% url 'editar2' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
-                        </td>
-                        <!--  Filtro Excluir--> 
+
                         <td>
                             <a href="{% url 'excluir2' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
