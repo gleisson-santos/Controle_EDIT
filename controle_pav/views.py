@@ -366,15 +366,14 @@ def informativo(request):
         Localidade="Lauro", Executado='0').count()
     qtdssa = Pendencias.objects.filter(
         Localidade="Salvador", Executado='0').count()
+
     qtd = Pendencias.objects.filter(Executado='0').count()
 
     lauro = Pendencias.objects.filter(Localidade='Lauro')
-    filterlauro = PendenciasFilter(
-        request.GET, queryset=lauro)
+    filterlauro = PendenciasFilter(request.GET, queryset=lauro)
 
     salvador = Pendencias.objects.filter(Localidade='Salvador')
-    filtersalvador = PendenciasFilter(
-        request.GET, queryset=salvador)
+    filtersalvador = PendenciasFilter(request.GET, queryset=salvador)
 
     context = {
         'dados': dados2,
