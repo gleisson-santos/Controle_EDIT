@@ -18,7 +18,8 @@ SECRET_KEY = "django-insecure-_4&@1n_bxim29ik7m4@*tg6m)l-+v9buwc)-%kif@$e%x!v^gc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['controle-teste-app.fly.dev', '127.0.0.1', 'testandor.herokuapp.com']
+ALLOWED_HOSTS = ['controle-teste-app.fly.dev',
+                 '127.0.0.1', 'testandor.herokuapp.com']
 
 
 # Application definition
@@ -50,6 +51,10 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 1800  # Deslogar apos 30min
+SESSION_SAVE_EVERY_REQUEST = True
 
 
 MIDDLEWARE_CLASSES = (
