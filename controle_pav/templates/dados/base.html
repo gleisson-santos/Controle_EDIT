@@ -101,14 +101,17 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'informativo' %}">Pendencias</a>
                 </li>
-              </ul>
-          
-
-              
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}"> <i class="fa fa-sign-out"></i> Sair</a>
+                </li>
+            </ul>
+            <div class="form-inline my-2 my-lg-0"  style='color: white;'>
               <div class="navbar-nav float-right" style='color: white;' >            
                 {% if user.is_authenticated %}
                 {% if request.user.is_authenticated %}
-                <p> Olá {{ request.user.username|capfirst }}!⠀</p>
+                
+                <p> Olá {{ request.user.username|capfirst }}!⠀ </p>
+                
                 {% else %}
                     <p> Sem usuarios logados!!(</p>
                 {% endif %}  
@@ -123,10 +126,15 @@
                     + monName [now.getMonth() ]   +  " de "  +     now.getFullYear () + " " + now.getHours() + ":" + now.getMinutes() + "</p>")
                 </script>
             
-                <a class="nav-link" href="/accounts/logout"> <i class="fa fa-power-off fa-lg"   aria-hidden="true"></i> </a>  
+                
                 {% else %}
                 {% endif %}
-              </div>       
+              </div>    
+            </div>
+          
+
+              
+   
         </div>
       </div>
     </nav>

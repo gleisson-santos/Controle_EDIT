@@ -178,18 +178,15 @@ def pavimentos(request):
     dados = PavimentoFilter(request.GET, queryset=dados2)
 
     qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
-    qtdssa = Esgoto.objects.filter(
-        Localidade="Salvador", Executado='0').count()
+    qtdssa = Esgoto.objects.filter(Localidade="Salvador", Executado='0').count()
 
     qtd = Pavimento.objects.filter(Executado='0').count()
 
     lauro = Pavimento.objects.filter(Localidade='Lauro')
-    filterlauro = PavimentoFilter(
-        request.GET, queryset=lauro)
+    filterlauro = PavimentoFilter(request.GET, queryset=lauro)
 
     salvador = Pavimento.objects.filter(Localidade='Salvador')
-    filtersalvador = PavimentoFilter(
-        request.GET, queryset=salvador)
+    filtersalvador = PavimentoFilter(request.GET, queryset=salvador)
 
     context = {
         'dados': dados2,

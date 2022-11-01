@@ -136,9 +136,10 @@
         {% endif %}       
     </div>
     
-    <table class="table table-striped table-bordered" style="width:100%" id="tabela-listar">
+    <table class="table table-striped table-bordered" style="width:100%" id="tabela-listar" >
         <thead>
             <tr>
+                <th></th>
                 <th>Localidade</th>
                 <th >Situação</th>
                 <th>Ss</th>
@@ -157,7 +158,8 @@
                 <th>Copiar</th>
                 <th>Executado</th>
                 <th>Detalhes</th>                
-                <th>Excluir</th>
+                {% comment %} <th>Executado</th>                 {% endcomment %}
+
             </tr>
         </thead>
         <!-- for para iterar sobre todos os itens do banco de dados -->
@@ -166,7 +168,7 @@
             {% if user.groups.all.0.name == 'Lauro' %}
                 {% for dado in localidade_l.qs %}
                     <tr>
-                        <td><input type="checkbox" name="tag[]" value="1" /></td>
+                        <td></td>
                         <td>{{dado.Localidade}} </td>
                         <td>
                             {% if dado.Medir == 'Medir' %}  
@@ -246,11 +248,7 @@
                             <a id='teste1' font size="2" class="text-decoration-none"  href="{% url 'detalhe' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/redo.png"  height="25" width="25" /></a>
                         </td>
-     
-                        <td>
-                            <a href="{% url 'excluir' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
-                        </td>
+    
                     </tr>
                 {% endfor %}
 
@@ -258,7 +256,7 @@
             {% elif  user.groups.all.0.name == 'Salvador'%}
                 {% for dado in localidade_2.qs %}
                     <tr>
-                        <td><input type="checkbox" name="tag[]" value="1" /></td>
+                        <td></td>
                         <td>{{dado.Localidade}} </td>
                         <td>
                             {% if dado.Medir == 'Medir' %}  
@@ -338,10 +336,10 @@
                             <img src="https://img.icons8.com/dusk/64/000000/redo.png"  height="25" width="25" /></a>
                         </td>
 
-                        <td>
+                        {% comment %} <td>
                             <a href="{% url 'excluir' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
-                        </td>
+                        </td> {% endcomment %}
                     </tr>
                 {% endfor %}
 
@@ -349,7 +347,7 @@
             {% else %}
                 {% for dado in filtro.qs %}
                     <tr>
-                        
+                        <td></td>
                         <td>{{dado.Localidade}} </td>
                         <td>
                             {% if dado.Medir == 'Medir' %}  
@@ -432,10 +430,10 @@
                             <img src="https://img.icons8.com/dusk/64/000000/redo.png"  height="25" width="25" /></a>
                         </td>
                                   
-                        <td>
+                        {% comment %} <td>
                             <a href="{% url 'excluir' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
-                        </td>
+                        </td> {% endcomment %}
                     </tr>
                 {% endfor %}
             {% endif %}  
