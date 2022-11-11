@@ -1,8 +1,9 @@
+from csv import reader
 from datetime import date, datetime
 from random import choices
-from re import I
-from csv import reader
+
 from django.db import models
+
 
 # modelos que irão representar uma tabela no banco de dados
 class Pavimento(models.Model):
@@ -10,11 +11,10 @@ class Pavimento(models.Model):
     Data = models.DateField('data', null=True, blank=True)
     Prazo = models.BooleanField(default=False)
 
-
     with open('static/texto/equipes.csv', 'r') as arquivo:
         equipes = arquivo.read()
         EQUIPE = (
-            
+
             ('equipes', equipes.split(',')[0]),
             ('equipes', equipes.split(',')[1]),
             ('equipes', equipes.split(',')[2]),
@@ -26,20 +26,17 @@ class Pavimento(models.Model):
 
         )
 
-
-
     # with open("static/texto/Texto.txt", 'r') as arquivo:
     #     equipes = arquivo.read()
     #     for equipe in equipes:
     #         EQUIPE = (
-                    
+
     #                 ('equipes', equipes.split()[0]),
     #                 ('equipes', equipes.split()[1]),
     #                 ('equipes', equipes.split()[2]),
     #                 ('equipes', equipes.split()[3]),
 
     #             )
-
 
     # EQUIPE = (
     #     ("Eq213-Silvio",   "Eq213-Silvio"),
