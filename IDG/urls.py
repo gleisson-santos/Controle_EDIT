@@ -1,16 +1,16 @@
 from unicodedata import name
 
-from accounts import views
-from controle_pav import views
 from django.contrib import admin
 from django.urls import include, path
+
+from accounts import views
+from controle_pav import views
 
 urlpatterns = [
     # path de pavimento agua
     path('admin/',
          admin.site.urls),
-    path('',
-         views.index,         name='index'),
+    path('',  views.index,         name='index'),
     path('Pavimentos/pavimentos',
          views.pavimentos,    name='pavimentos'),
     path('Pavimentos/novo_pavimento/',
