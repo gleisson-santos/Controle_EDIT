@@ -8,15 +8,12 @@ from controle_pav import views
 
 urlpatterns = [
     # path de pavimento agua
-    path('admin/',
-         admin.site.urls),
+    path('admin/',         admin.site.urls),
     path('',  views.index,         name='index'),
-    path('Pavimentos/pavimentos',
-         views.pavimentos,    name='pavimentos'),
-    path('Pavimentos/novo_pavimento/',
-         views.criar,         name='novo_pavimento'),
-    path('Pavimentos/novo_pavimento/<int:id_pavimento>',
-         views.editar,        name='editar'),
+    path('Pavimentos/pavimentos',         views.pavimentos,    name='pavimentos'),
+    path('Pavimentos/novo_pavimento/',         views.criar,         name='novo_pavimento'),    
+    path('Pavimentos/novo_pavimento/<int:id_pavimento>',   views.editar,        name='editar'),
+
     path('Pavimentos/excluir_pavimento/<int:id_pavimento>',
          views.excluir,       name='excluir'),
     path('<int:id_pavimento>',

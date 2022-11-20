@@ -7,7 +7,7 @@ from django.db import models
 
 # modelos que irão representar uma tabela no banco de dados
 class Pavimento(models.Model):
-    Ss = models.TextField(max_length=255)
+    Ss = models.IntegerField(max_length=20)
     Data = models.DateField('data', null=True, blank=True)
     Prazo = models.BooleanField(default=False)
 
@@ -56,10 +56,10 @@ class Pavimento(models.Model):
 
     # )
 
-    Equipe = models.TextField(max_length=255, choices=EQUIPE)
-    Bairro = models.TextField(max_length=255)
-    Rua = models.TextField(max_length=255)
-    Referencia = models.TextField(max_length=255)
+    Equipe = models.CharField(max_length=255, choices=EQUIPE)
+    Bairro = models.CharField(max_length=255)
+    Rua = models.CharField(max_length=255)
+    Referencia = models.CharField(max_length=255)
 
     SERVICO = (
         ("Asfalto", "Asfalto"),
@@ -67,12 +67,12 @@ class Pavimento(models.Model):
         ("Blocos", "Blocos")
     )
 
-    Servico = models.TextField(max_length=255, choices=SERVICO)
+    Servico = models.CharField(max_length=255, choices=SERVICO)
 
-    Metragem = models.TextField(max_length=255)
-    Observacao = models.TextField(max_length=255, blank=True)
-    Ss_Final = models.TextField(max_length=255, blank=True)
-    Met_Final = models.TextField(max_length=255, blank=True)
+    Metragem = models.CharField(max_length=255)
+    Observacao = models.CharField(max_length=255, blank=True)
+    Ss_Final = models.CharField(max_length=255, blank=True)
+    Met_Final = models.CharField(max_length=255, blank=True)
 
     EXECUTADO = (
         (True, "Executado"),

@@ -18,10 +18,10 @@
         <!--  Filtro superido geral da tabela--> 
         <form method="get"  >
             {% csrf_token %}
-            <!--  Criar novo item--> 
             <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#cadpavimento">
                 <i class="fa fa-plus" aria-hidden="true"></i>Adicionar
              </button> 
+            <!--  Criar novo item--> 
             
             <div class="form-inline col-md-1 mb-0" style='float:right'>
                 ⠀<button type="submit" class="btn btn-primary mb-2" style="margin-top: 18px;">Filtrar</button>
@@ -152,13 +152,14 @@
                 <th>Rua</th>
                 <th>Referencia</th>
                 <th>Serviço</th>
-                <th>Metragem</th>            
+                <th>Metragem</th>   
+                <th>Ex</th>         
                 <th>Ss_Final</th>
                 <th>Met_Final </th>
 
                 <th>Editar</th>
                 <th>Copiar</th>
-                <th>Executado</th>
+                
                 <th>Detalhes</th>                
                 {% comment %} <th>Executado</th>                 {% endcomment %}
 
@@ -384,16 +385,120 @@
                         <td>{{dado.Referencia|lower|capfirst}}</td>
                         <td>{{dado.Servico|lower|capfirst}}</td>
                         <td>{{dado.Metragem}}</td>
+                        <!--  Filtro checked--> 
+                        {% if dado.Executado %}
+                        <td> <input disabled type='checkbox' class="form-check-input"  id="flexSwitchCheckDefaultXl" checked >
+                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
+                        {% else %}
+                        <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
+                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
+                        {% endif %}
 
                         <td>{{dado.Ss_Final}}</td>
                         <td>{{dado.Met_Final}}</td>
+
+               
 
                         <td>
                             <a href="{% url 'editar' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
                         </td>
+                   
+                         <!-- <td>
+                            <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editar2">
+                                Editar
+                            </button> 
+                        </td>
+
+                         
+                        <div class="modal fade bd-example-modal-lg" id="editar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Editar registro</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>  <br>
+
+                                    <div class="container-fluid">
+                                        <div class="card-body">                  
+                                            <form action="" method="POST">
+                                                {% csrf_token %}
+                               
+                                        
+                                               <div class="form-group row" > 
+                                                   
+                                                   <div  class="input-group mb-3">
+                                                       <span style="width: 110px;" class="input-group-text">Localidade</span>
+                                                       {% render_field formulario.Localidade class='form-control' style="height: 40px;"  %}
+                                                       ⠀  
+                                                       <span style="width: 110px;" class="input-group-text">Executado</span>
+                                                       {% render_field formulario.Executado class='form-control' style="height: 40px;"  %}
+                                                       ⠀ 
+                                                       <span style="width: 110px;" class="input-group-text">Situação</span>
+                                                       {% render_field formulformularioario.Medir class='form-control' style="height: 40px;"  %}
+                                                   </div>
+                               
+                                                   
+                                                   <div class="input-group mb-3">
+                                                       <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Ss</span>
+                                                       {% render_field formulario.Ss  class="form-control" style="height: 40px;" placeholder="Informe a SS" minlength="9"  maxlength="9"%}
+                                                       ⠀   
+                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Data</span>
+                                                       {% render_field formulario.Data class="form-control" style="height: 40px;" %}
+                                                       ⠀   
+                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Equipe</span>
+                                                       {% render_field formulario.Equipe class="form-control" style="height: 40px;" placeholder="Sigla da equipe" %}
+                                                   </div>              
+                                           
+                                    
+                                                   <div class="input-group mb-3">
+                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Bairro</span>
+                                                       {% render_field formulario.Bairro class="form-control" style="height: 40px;" placeholder="Informe o bairro" %}
+                                                       ⠀   
+                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Rua</span>
+                                                       {% render_field formulario.Rua class="form-control" style="height: 40px;" placeholder="Informe a Rua" %}
+                                                       ⠀   
+                                                       <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Referencia</span>
+                                                       {% render_field formulario.Referencia class="form-control" style="height: 40px;" placeholder="Informe pontos de Referencia" %}
+                                                   </div>
+                                     
+                                                   <div class="input-group mb-3">
+                                                       <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Servico</span>
+                                                        {% render_field formulario.Servico  class="form-control" style="height: 40px;" placeholder="Informe Servico" %}
+                                                        ⠀   
+                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Metragem</span>
+                                                       {% render_field formulario.Metragem class="form-control" style="height: 40px;" placeholder="Ex: 1,50 x 1,25" %}
+                                                       ⠀   
+                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Observações</span>
+                                                       {% render_field formulario.Observacao class="form-control" style="height: 40px;" placeholder="Inf. Extras" %}
+                                                   </div>
+                               
+                                                    
+                                                   <div class="input-group mb-3">
+                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Ss_Final</span>
+                                                       {% render_field formulario.Ss_Final  class="form-control" style="height: 40px;" %}
+                                                       ⠀  
+                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Met_Final</span>
+                                                       {% render_field formulario.Met_Final  class="form-control" style="height: 40px;" %}
+                                                   </div>
+                               
+                                               </div>
+                                       
+        
+                                               <button   class="btn btn-secondary"><a style="color: white;" href="{% url 'pavimentos'%}" class="text-decoration-none">Voltar</a></button> 
+                                               <button   class="btn btn-success" type="submit" name="editar4" value="Editar4">Salvar</button>        
+                                           </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
                   
-                        <!--  Filtro Copiar informaçoes da tabela--> 
+                        Filtro Copiar informaçoes da tabela--> 
                         {% if dado.Copiar %}
                         <td></td>
                         {% else %}
@@ -417,14 +522,7 @@
                         {% endif %}
 
                         
-                        <!--  Filtro checked--> 
-                        {% if dado.Executado %}
-                        <td> <input disabled type='checkbox' class="form-check-input"  id="flexSwitchCheckDefaultXl" checked >
-                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
-                        {% else %}
-                        <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
-                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
-                        {% endif %}
+                 
 
            
                         <td>

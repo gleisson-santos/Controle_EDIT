@@ -1,4 +1,5 @@
 
+from multiprocessing import context
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
@@ -174,6 +175,7 @@ def pavimentos(request):
     else:
         pavimento22_form = Pavimentoform()
 
+
     dados2 = Pavimento.objects.order_by("Executado", "Data").all()
     dados = PavimentoFilter(request.GET, queryset=dados2)
 
@@ -196,11 +198,13 @@ def pavimentos(request):
         'qtdssa': qtdssa,
         'qtd': qtd,
 
-
+        
         'pavimento9': pavimento22_form,
 
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
+
+        
     }
 
     return render(request, template_name, context)
@@ -239,6 +243,26 @@ def editar(request, id_pavimento):
         if formulario.is_valid():
             formulario.save()
         return redirect('pavimentos')
+
+
+# @ login_required
+# def editar20(request, pk):
+#     template_name = 'dados/Pavimentos/editar20.html'
+#     obj = Pavimento.objects.get(pk=pk)
+#     form = Pavimentoform(request.POST or None, instance=obj)
+
+#     context = {'object': obj, 'form':form}
+#     return render(request, template_name, context)
+    
+# @ login_required
+# def editar_update(request, pk):
+#     template_name = 'dados/Pavimentos/editar20.html'
+#     obj = Pavimento.objects.get(pk=pk)
+#     form = Pavimentoform(request.POST or None, instance=obj)
+
+#     context = {'object': obj}
+#     return render(request, template_name, context)
+
 
 
 @ login_required
