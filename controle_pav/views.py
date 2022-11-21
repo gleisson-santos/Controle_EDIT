@@ -178,7 +178,8 @@ def pavimentos(request):
     dados = PavimentoFilter(request.GET, queryset=dados2)
 
     qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
-    qtdssa = Esgoto.objects.filter(Localidade="Salvador", Executado='0').count()
+    qtdssa = Esgoto.objects.filter(
+        Localidade="Salvador", Executado='0').count()
 
     qtd = Pavimento.objects.filter(Executado='0').count()
 
@@ -239,6 +240,21 @@ def editar(request, id_pavimento):
         if formulario.is_valid():
             formulario.save()
         return redirect('pavimentos')
+
+
+# @ login_required
+# def expense_detail(request, pk):
+#     template = 'dados/Pavimentos/expense_detail.html'
+#     obj = Pavimento.objects.get(pk=pk)
+#     form = Pavimentoform(request.POST or None, instance=obj)
+
+#     context = {'object': obj, 'form': form}
+#     return render(request, template, context)
+
+
+# @ login_required
+# def expense_update(request):
+#     return render(request, 'dados/Pavimentos/pavimentos.html')
 
 
 @ login_required
