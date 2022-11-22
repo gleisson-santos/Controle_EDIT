@@ -143,27 +143,24 @@
             <tr>
                 <th></th>
                 <th>Localidade</th>
-                <th >Situação</th>
+                <th>Situação</th>
                 <th>Ss</th>
                 <th>Data</th>
-                <!-- <th>Prazo</th> -->
+                <th>Prazo</th>
                 <th>Equipe</th>
                 <th>Bairro</th>
                 <th>Rua</th>
                 <th>Referencia</th>
-                <th>Editar</th>
                 <th>Serviço</th>
                 <th>Metragem</th>   
-                <th>Ex</th>         
+                <th>Executado</th>         
                 <th>Ss_Final</th>
                 <th>Met_Final </th>
-
+                <th>Editar</th>
                 
-                <th>Copiar</th>
-                
+                <th>Copiar</th>                
                 <th>Detalhes</th>                
-                {% comment %} <th>Executado</th>                 {% endcomment %}
-
+                <th>Excluir</th>              
             </tr>
         </thead>
         <!-- for para iterar sobre todos os itens do banco de dados -->
@@ -350,10 +347,7 @@
                 <!-- Query para o Grupo ADM GERAL -->
             {% else %}
                 {% for dado in filtro.qs %}
-                    <tr 
-                        hx-target="this"
-                        hx-swap="outerHTML" 
-                    >
+                    <tr  {% comment %} hx-target="this" hx-swap="outerHTML"  {% endcomment %}>
                         <td></td>
                         <td>{{dado.Localidade}} </td>
                         <td>
@@ -369,7 +363,7 @@
                         <td>{{dado.Data|date:"d/m/Y"}}</td>
                     
                         <!-- Inf Filtro Fora e dentro do Prazo -->                   
-                        <!-- {% if dado.atual %}
+                        {% if dado.atual %}
                             <td>
                                 {{dado.atual2}}
                             <img  data-toggle="tooltip" data-placement="top" title="No Prazo" style="text-align: center;" src="https://img.icons8.com/external-bright-fill-juicy-fish/84/000000/external-business-business-bright-fill-bright-fill-juicy-fish-29.png" 
@@ -381,49 +375,44 @@
                             <img  data-toggle="tooltip" data-placement="top" title="Fora do Prazo" style="text-align: center;" src="https://img.icons8.com/external-bright-fill-juicy-fish/84/000000/external-business-business-bright-fill-bright-fill-juicy-fish-30.png" 
                             height="25" width="25" />
                             </td> 
-                        {% endif %} -->
+                        {% endif %}
 
                         <td>{{dado.Equipe|lower|capfirst}}</td>
                         <td>{{dado.Bairro|lower|capfirst}}</td>
                         <td>{{dado.Rua|lower|capfirst}}</td>
                         <td>{{dado.Referencia|lower|capfirst}}</td>
 
-                        
+                        {% comment %}                         
                         <td class="text-center">
                             <span hx-get="{% url 'expense_detail' dado.pk %}">
                             <i class="fa fa-square link span-is-link" ></i>
                             </span>
-                        </td> 
-
+                        </td>  
+                        {% endcomment %}
 
                         <td>{{dado.Servico|lower|capfirst}}</td>
                         <td>{{dado.Metragem}}</td>
                         <!--  Filtro checked--> 
                         {% if dado.Executado %}
-                        <td> <input disabled type='checkbox' class="form-check-input"  id="flexSwitchCheckDefaultXl" checked >
-                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
+                            <td> <input disabled type='checkbox' class="form-check-input"  id="flexSwitchCheckDefaultXl" checked >
+                                <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+                            </td>
                         {% else %}
-                        <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
-                        <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
+                            <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
+                                <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+                            </td>
                         {% endif %}
 
                         <td>{{dado.Ss_Final}}</td>
-                        <td>{{dado.Met_Final}}</td>
+                        <td>{{dado.Met_Final}}</td>           
 
-               
-
-                        <!-- <td>
+                        <td>
                             <a href="{% url 'editar' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
-
-                        </td> -->
+                                <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  
+                            </a>
+                        </td>
                    
-                
-            
-                      
-                
                         <!--  Filtro Copiar informaçoes da tabela--> 
-
                         {% if dado.Copiar %}
                         <td></td>
                         {% else %}
@@ -446,19 +435,15 @@
                         </script>
                         {% endif %}
 
-                        
-                 
-
-           
                         <td>
                             <a id='teste1' font size="2" class="text-decoration-none"  href="{% url 'detalhe' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/redo.png"  height="25" width="25" /></a>
                         </td>
                                   
-                        {% comment %} <td>
+                        <td>
                             <a href="{% url 'excluir' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
-                        </td> {% endcomment %}
+                        </td> 
                     </tr>
                 {% endfor %}
             {% endif %}  

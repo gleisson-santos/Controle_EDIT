@@ -1,6 +1,7 @@
 
 from ast import Return
 from multiprocessing import context
+
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
@@ -8,7 +9,6 @@ from django.shortcuts import redirect, render
 from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter
 from .forms import Esgotoform, Pavimentoform, Pendenciasform
 from .models import Esgoto, Pavimento, Pendencias
-
 
 
 # PÁGINA PRINCIPAL
@@ -177,7 +177,6 @@ def pavimentos(request):
     else:
         pavimento22_form = Pavimentoform()
 
-
     dados2 = Pavimento.objects.order_by("Executado", "Data").all()
     dados = PavimentoFilter(request.GET, queryset=dados2)
 
@@ -201,13 +200,13 @@ def pavimentos(request):
         'qtdssa': qtdssa,
         'qtd': qtd,
 
-        
+
         'pavimento9': pavimento22_form,
 
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
 
-        
+
     }
 
     return render(request, template_name, context)
@@ -256,7 +255,7 @@ def editar(request, id_pavimento):
 
 #     context = {'object': obj, 'form':form}
 #     return render(request, template_name, context)
-    
+
 # @ login_required
 # def editar_update(request, pk):
 #     template_name = 'dados/Pavimentos/editar20.html'
@@ -267,32 +266,29 @@ def editar(request, id_pavimento):
 #     return render(request, template_name, context)
 
 
-@ login_required
-def expense_detail(request, pk):
-    template = 'dados/Pavimentos/expense_detail.html'
-    obj = Pavimento.objects.get(pk=pk)
-    form = Pavimentoform(request.POST or None, instance=obj)
+# @ login_required
+# def expense_detail(request, pk):
+#     template = 'dados/Pavimentos/expense_detail.html'
+#     obj = Pavimento.objects.get(pk=pk)
+#     form = Pavimentoform(request.POST or None, instance=obj)
 
-    context = {'object': obj, 'form': form}
-    return render(request, template, context)
-
-
-@ login_required
-def expense_update(request, pk):
-    template = 'dados/Pavimentos/expense_hx.html'
-    obj = Pavimento.objects.get(pk=pk)
-    form = Pavimentoform(request.POST or None, instance=obj)
-    context = {'object': obj}
-
-    if request.method == 'POST':
-            if form.is_valid():
-                form.save()
-        
-    return render(request, template, context)
-
-    
+#     context = {'object': obj, 'form': form}
+#     return render(request, template, context)
 
 
+# @ login_required
+# def expense_update(request, pk):
+#     template = 'dados/Pavimentos/pavimentos.html'
+#     obj = Pavimento.objects.get(pk=pk)
+#     form = Pavimentoform(request.POST or None, instance=obj)
+#     context = {'object': obj, 'form': form}
+
+#     if request.method == 'POST':
+#         if request.POST['editar'] == 'Editar':
+#             if form.is_valid():
+#                 form.save()
+
+#     return render(request, template, context)
 
 
 @ login_required

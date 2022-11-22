@@ -5,6 +5,8 @@ from .models import Esgoto, Pavimento, Pendencias
 
 
 class Pavimentoform(ModelForm):
+    Data = forms.DateField(label='Data', widget=forms.DateInput(format='%Y-%m-%d',
+                                                                attrs={'type': 'date', }), input_formats=('%Y-%m-%d',), )
 
     class Meta:
         model = Pavimento

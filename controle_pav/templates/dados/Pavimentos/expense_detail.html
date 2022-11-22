@@ -1,34 +1,35 @@
-<tr id="trPavimento">
-  <td></td>
-  <td>{{form.Localidade}}</td>
-  <td>{{form.Medir}}</td>
-  <td>{{form.Ss}}</td>
-  <td>{{form.Data}}</td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td class="text-center">
-        <button
-        name="edit8989" value="Edit8989"
-        type="submit"
-        class="btn btn-success"
-        hx-post="{% url 'expense_update' object.pk %}"
-        hx-target="#trPavimento"
-        hx-swap="outerHTML"
-        >
-        Confirmar
-        </button>
+{% comment %} {% load crispy_forms_tags %}
+  
+  <tr id="trPavimento">
+    <td></td>
+    <td>{{form.Localidade}}</td>
+    <td>{{form.Medir}}</td>
+    <td>{{form.Ss}}</td>
+    <td>{{form.Data}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="text-center">
+          <button
+          name="editar" value="Editar"
+          type="submit"
+          class="btn btn-success"
+          hx-post="{% url 'expense_update' object.pk %}"
+          hx-target="#trPavimento"
+          hx-swap="outerHTML"
+          >
+          Confirmar
+          </button>
 
-        <button       
-        class="btn btn-danger"    
-        hx-get="{% url 'expense_update' object.pk %}"
-        hx-target="#trPavimento"
-        hx-swap="outerHTML"
-        >
-        Cancelar
-      </button >
-    </td>
-</tr>
-
+          <button       
+          class="btn btn-danger"    
+          hx-get="{% url 'expense_update' object.pk %}"
+          hx-target="#trPavimento"
+          hx-swap="outerHTML"
+          >
+          Cancelar
+        </button >
+      </td>
+  </tr> {% endcomment %}

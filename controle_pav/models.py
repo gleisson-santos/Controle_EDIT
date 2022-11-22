@@ -95,25 +95,25 @@ class Pavimento(models.Model):
 
     Medir = models.TextField(null=True, blank=True, choices=MEDIR)
 
-    # @property
-    # def atual(self):
-    #     hoje = datetime.now().date()
-    #     data = self.Data
-    #     # abs vai me retornar um numero positivo independente da ordem
-    #     a = abs((hoje - data).days)
-    #     return a <= 2
+    @property
+    def atual(self):
+        hoje = datetime.now().date()
+        data = self.Data
+        # abs vai me retornar um numero positivo independente da ordem
+        a = abs((hoje - data).days)
+        return a <= 2
 
-    # @property
-    # def atual2(self):
-    #     hoje = datetime.now().date()
-    #     data = self.Data
-    #     # abs vai me retornar um numero positivo independente da ordem
-    #     a = abs((hoje - data).days)
-    #     return a
+    @property
+    def atual2(self):
+        hoje = datetime.now().date()
+        data = self.Data
+        # abs vai me retornar um numero positivo independente da ordem
+        a = abs((hoje - data).days)
+        return a
 
-    # # Referencia de nome la na view na parte ADM django
-    # def __str__(self):
-    #     return '%s %s' % (self.Ss, self.Data)
+    # Referencia de nome la na view na parte ADM django
+    def __str__(self):
+        return '%s %s' % (self.Ss, self.Data)
 
 
 class Esgoto(models.Model):
