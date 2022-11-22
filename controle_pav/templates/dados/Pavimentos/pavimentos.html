@@ -1,4 +1,4 @@
-{% extends 'dados/base.html'  %}
+{% extends 'dados/base.html' %}
 {% load crispy_forms_tags %}
 {% load widget_tweaks %}
 {% load static %}
@@ -151,13 +151,14 @@
                 <th>Bairro</th>
                 <th>Rua</th>
                 <th>Referencia</th>
+                <th>Editar</th>
                 <th>Serviço</th>
                 <th>Metragem</th>   
                 <th>Ex</th>         
                 <th>Ss_Final</th>
                 <th>Met_Final </th>
 
-                <th>Editar</th>
+                
                 <th>Copiar</th>
                 
                 <th>Detalhes</th>                
@@ -349,7 +350,10 @@
                 <!-- Query para o Grupo ADM GERAL -->
             {% else %}
                 {% for dado in filtro.qs %}
-                    <tr>
+                    <tr 
+                        {% comment %} hx-target="this"
+                        hx-swap="outerHTML" {% endcomment %}
+                    >
                         <td></td>
                         <td>{{dado.Localidade}} </td>
                         <td>
@@ -383,6 +387,15 @@
                         <td>{{dado.Bairro|lower|capfirst}}</td>
                         <td>{{dado.Rua|lower|capfirst}}</td>
                         <td>{{dado.Referencia|lower|capfirst}}</td>
+
+                        {% comment %} 
+                        <td class="text-center">
+                            <span hx-get="{% url 'expense_detail' dado.pk %}">
+                            <i class="fa fa-square link span-is-link" ></i>
+                            </span>
+                        </td> {% endcomment %}
+
+
                         <td>{{dado.Servico|lower|capfirst}}</td>
                         <td>{{dado.Metragem}}</td>
                         <!--  Filtro checked--> 
@@ -402,6 +415,7 @@
                         <td>
                             <a href="{% url 'editar' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
+
                         </td>
                    
                          <!-- <td>
@@ -497,8 +511,13 @@
                             </div>
                         </div> -->
 
-                  
-                        Filtro Copiar informaçoes da tabela--> 
+                
+                        </td> 
+
+                      
+                
+                        <!--  Filtro Copiar informaçoes da tabela--> 
+
                         {% if dado.Copiar %}
                         <td></td>
                         {% else %}

@@ -10,16 +10,27 @@ urlpatterns = [
     # path de pavimento agua
     path('admin/',         admin.site.urls),
     path('',  views.index,         name='index'),
+
     path('Pavimentos/pavimentos',         views.pavimentos,    name='pavimentos'),
     path('Pavimentos/novo_pavimento/',         views.criar,         name='novo_pavimento'),    
     path('Pavimentos/novo_pavimento/<int:id_pavimento>',   views.editar,        name='editar'),
 
+    path('Pavimentos/pavimentos',         views.pavimentos,    name='pavimentos'),
+    path('Pavimentos/novo_pavimento/',         views.criar,         name='novo_pavimento'),
+    path('Pavimentos/novo_pavimento/<int:id_pavimento>',         views.editar,        name='editar'),
+
+
+    #     path('<int:pk>/',         views.expense_detail,        name='expense_detail'),
+
+    #     path('<int:pk>/update/',         views.expense_update,
+    #          name='expense_update'),
+
+
     path('Pavimentos/excluir_pavimento/<int:id_pavimento>',
          views.excluir,       name='excluir'),
-    path('<int:id_pavimento>',
-         views.detalhe,       name='detalhe'),
-    path('accounts/', include('accounts.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('<int:id_pavimento>',         views.detalhe,       name='detalhe'),
+    path('accounts/', include('accounts.urls')),    path('accounts/',
+                                                         include('django.contrib.auth.urls')),
 
     # path de esgoto
     path('Esgoto/pavimentos2',

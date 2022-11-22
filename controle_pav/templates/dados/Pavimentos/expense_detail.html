@@ -1,0 +1,33 @@
+
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+<tr id="trPavimento">
+    <td></td>
+    <td>{{form.Localidade}}</td>
+    <td>{{form.Medir}}</td>
+    <td>{{form.Equipe}}</td>
+    <td>{{form.Data}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="text-center">
+        <button
+            type="submit"
+            class="btn btn-success"
+        >
+        Confirmar
+        </button>
+
+        <button       
+        class="btn btn-danger"    
+          hx-get="{% url 'expense_update' object.pk %}"
+          hx-target="#trPavimento"
+          hx-swap="outerHTML"
+        >
+          Cancelar
+        </button >
+      </td>
+</tr>
