@@ -1,4 +1,5 @@
 
+from ast import Return
 from multiprocessing import context
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -7,6 +8,7 @@ from django.shortcuts import redirect, render
 from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter
 from .forms import Esgotoform, Pavimentoform, Pendenciasform
 from .models import Esgoto, Pavimento, Pendencias
+
 
 
 # PÁGINA PRINCIPAL
@@ -265,18 +267,31 @@ def editar(request, id_pavimento):
 #     return render(request, template_name, context)
 
 
-# def expense_detail(request, pk):
-#     template = 'dados/Pavimentos/expense_detail.html'
-#     obj = Pavimento.objects.get(pk=pk)
-#     form = Pavimentoform(request.POST or None, instance=obj)
+@ login_required
+def expense_detail(request, pk):
+    template = 'dados/Pavimentos/expense_detail.html'
+    obj = Pavimento.objects.get(pk=pk)
+    form = Pavimentoform(request.POST or None, instance=obj)
 
-#     context = {'object': obj, 'form': form}
-#     return render(request, template, context)
+    context = {'object': obj, 'form': form}
+    return render(request, template, context)
 
 
-# @ login_required
-# def expense_update(request):
-#     return render(request, 'dados/Pavimentos/pavimentos.html')
+@ login_required
+def expense_update(request, pk):
+    template = 'dados/Pavimentos/expense_hx.html'
+    obj = Pavimento.objects.get(pk=pk)
+    form = Pavimentoform(request.POST or None, instance=obj)
+    context = {'object': obj}
+
+    if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+        
+    return render(request, template, context)
+
+    
+
 
 
 

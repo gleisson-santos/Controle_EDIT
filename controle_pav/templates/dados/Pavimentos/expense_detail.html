@@ -1,33 +1,34 @@
-
-{% load crispy_forms_tags %}
-{% load widget_tweaks %}
-
 <tr id="trPavimento">
-    <td></td>
-    <td>{{form.Localidade}}</td>
-    <td>{{form.Medir}}</td>
-    <td>{{form.Equipe}}</td>
-    <td>{{form.Data}}</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td class="text-center">
+  <td></td>
+  <td>{{form.Localidade}}</td>
+  <td>{{form.Medir}}</td>
+  <td>{{form.Ss}}</td>
+  <td>{{form.Data}}</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td class="text-center">
         <button
-            type="submit"
-            class="btn btn-success"
+        name="edit8989" value="Edit8989"
+        type="submit"
+        class="btn btn-success"
+        hx-post="{% url 'expense_update' object.pk %}"
+        hx-target="#trPavimento"
+        hx-swap="outerHTML"
         >
         Confirmar
         </button>
 
         <button       
         class="btn btn-danger"    
-          hx-get="{% url 'expense_update' object.pk %}"
-          hx-target="#trPavimento"
-          hx-swap="outerHTML"
+        hx-get="{% url 'expense_update' object.pk %}"
+        hx-target="#trPavimento"
+        hx-swap="outerHTML"
         >
-          Cancelar
-        </button >
-      </td>
+        Cancelar
+      </button >
+    </td>
 </tr>
+

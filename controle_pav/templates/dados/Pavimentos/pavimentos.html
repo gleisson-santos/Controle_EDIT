@@ -146,7 +146,7 @@
                 <th >Situação</th>
                 <th>Ss</th>
                 <th>Data</th>
-                <th>Prazo</th>
+                <!-- <th>Prazo</th> -->
                 <th>Equipe</th>
                 <th>Bairro</th>
                 <th>Rua</th>
@@ -351,8 +351,8 @@
             {% else %}
                 {% for dado in filtro.qs %}
                     <tr 
-                        {% comment %} hx-target="this"
-                        hx-swap="outerHTML" {% endcomment %}
+                        hx-target="this"
+                        hx-swap="outerHTML" 
                     >
                         <td></td>
                         <td>{{dado.Localidade}} </td>
@@ -369,7 +369,7 @@
                         <td>{{dado.Data|date:"d/m/Y"}}</td>
                     
                         <!-- Inf Filtro Fora e dentro do Prazo -->                   
-                        {% if dado.atual %}
+                        <!-- {% if dado.atual %}
                             <td>
                                 {{dado.atual2}}
                             <img  data-toggle="tooltip" data-placement="top" title="No Prazo" style="text-align: center;" src="https://img.icons8.com/external-bright-fill-juicy-fish/84/000000/external-business-business-bright-fill-bright-fill-juicy-fish-29.png" 
@@ -381,19 +381,19 @@
                             <img  data-toggle="tooltip" data-placement="top" title="Fora do Prazo" style="text-align: center;" src="https://img.icons8.com/external-bright-fill-juicy-fish/84/000000/external-business-business-bright-fill-bright-fill-juicy-fish-30.png" 
                             height="25" width="25" />
                             </td> 
-                        {% endif %}
+                        {% endif %} -->
 
                         <td>{{dado.Equipe|lower|capfirst}}</td>
                         <td>{{dado.Bairro|lower|capfirst}}</td>
                         <td>{{dado.Rua|lower|capfirst}}</td>
                         <td>{{dado.Referencia|lower|capfirst}}</td>
 
-                        {% comment %} 
+                        
                         <td class="text-center">
                             <span hx-get="{% url 'expense_detail' dado.pk %}">
                             <i class="fa fa-square link span-is-link" ></i>
                             </span>
-                        </td> {% endcomment %}
+                        </td> 
 
 
                         <td>{{dado.Servico|lower|capfirst}}</td>
@@ -412,108 +412,14 @@
 
                
 
-                        <td>
+                        <!-- <td>
                             <a href="{% url 'editar' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
 
-                        </td>
+                        </td> -->
                    
-                         <!-- <td>
-                            <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editar2">
-                                Editar
-                            </button> 
-                        </td>
-
-                         
-                        <div class="modal fade bd-example-modal-lg" id="editar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Editar registro</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>  <br>
-
-                                    <div class="container-fluid">
-                                        <div class="card-body">                  
-                                            <form action="" method="POST">
-                                                {% csrf_token %}
-                               
-                                        
-                                               <div class="form-group row" > 
-                                                   
-                                                   <div  class="input-group mb-3">
-                                                       <span style="width: 110px;" class="input-group-text">Localidade</span>
-                                                       {% render_field formulario.Localidade class='form-control' style="height: 40px;"  %}
-                                                       ⠀  
-                                                       <span style="width: 110px;" class="input-group-text">Executado</span>
-                                                       {% render_field formulario.Executado class='form-control' style="height: 40px;"  %}
-                                                       ⠀ 
-                                                       <span style="width: 110px;" class="input-group-text">Situação</span>
-                                                       {% render_field formulformularioario.Medir class='form-control' style="height: 40px;"  %}
-                                                   </div>
-                               
-                                                   
-                                                   <div class="input-group mb-3">
-                                                       <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Ss</span>
-                                                       {% render_field formulario.Ss  class="form-control" style="height: 40px;" placeholder="Informe a SS" minlength="9"  maxlength="9"%}
-                                                       ⠀   
-                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Data</span>
-                                                       {% render_field formulario.Data class="form-control" style="height: 40px;" %}
-                                                       ⠀   
-                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Equipe</span>
-                                                       {% render_field formulario.Equipe class="form-control" style="height: 40px;" placeholder="Sigla da equipe" %}
-                                                   </div>              
-                                           
-                                    
-                                                   <div class="input-group mb-3">
-                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Bairro</span>
-                                                       {% render_field formulario.Bairro class="form-control" style="height: 40px;" placeholder="Informe o bairro" %}
-                                                       ⠀   
-                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Rua</span>
-                                                       {% render_field formulario.Rua class="form-control" style="height: 40px;" placeholder="Informe a Rua" %}
-                                                       ⠀   
-                                                       <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Referencia</span>
-                                                       {% render_field formulario.Referencia class="form-control" style="height: 40px;" placeholder="Informe pontos de Referencia" %}
-                                                   </div>
-                                     
-                                                   <div class="input-group mb-3">
-                                                       <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Servico</span>
-                                                        {% render_field formulario.Servico  class="form-control" style="height: 40px;" placeholder="Informe Servico" %}
-                                                        ⠀   
-                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Metragem</span>
-                                                       {% render_field formulario.Metragem class="form-control" style="height: 40px;" placeholder="Ex: 1,50 x 1,25" %}
-                                                       ⠀   
-                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Observações</span>
-                                                       {% render_field formulario.Observacao class="form-control" style="height: 40px;" placeholder="Inf. Extras" %}
-                                                   </div>
-                               
-                                                    
-                                                   <div class="input-group mb-3">
-                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Ss_Final</span>
-                                                       {% render_field formulario.Ss_Final  class="form-control" style="height: 40px;" %}
-                                                       ⠀  
-                                                       <span style="width: 110px;" style="height: 40px;" class="input-group-text">Met_Final</span>
-                                                       {% render_field formulario.Met_Final  class="form-control" style="height: 40px;" %}
-                                                   </div>
-                               
-                                               </div>
-                                       
-        
-                                               <button   class="btn btn-secondary"><a style="color: white;" href="{% url 'pavimentos'%}" class="text-decoration-none">Voltar</a></button> 
-                                               <button   class="btn btn-success" type="submit" name="editar4" value="Editar4">Salvar</button>        
-                                           </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
                 
-                        </td> 
-
+            
                       
                 
                         <!--  Filtro Copiar informaçoes da tabela--> 
