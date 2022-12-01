@@ -26,13 +26,13 @@
     }
 </style>
 <!-- Custom styles for this template -->
-<link href="signin.css" rel="stylesheet">
+<link href="css/signin.css" rel="stylesheet">
 
 
     <div class="d-flex justify-content-center">
         
         <form method="post" ><br>
-            <img class="mb-4" src="{% static 'image/22.png' %}" alt="" width="250" height="150">
+            <img  src="{% static 'image/logo.svg' %}" alt="" width="350" height="250">
 
             <h4 class="text-center" class="h4 mb-3 font-weight-normal">Faça Login</h4>
         
@@ -45,18 +45,14 @@
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1" >Lembrar</label>
             <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-            <br><br>
+            <br>
+            <p><a href="/accounts/register" class="btn btn-info btn-block">Criar uma conta!</a></p>
             <p class="text-center" class="mt-5 mb-3 text-muted">&copy; 2022</p>
+            {% comment %} <div class="col-xs-12 text-center" >
+              <br>
+              <p class="lead text-center" >Não possui conta?</p>  
+              <p><a href="/accounts/register" class="btn btn-info btn-block">Criar uma conta!</a></p>
+            </div> {% endcomment %}
         </form>
-
     </div>
-
-{% comment %} 
-    <div class="col-xs-12 text-center" >
-      <br>
-      <p class="lead text-center" >Não possui conta?</p>  
-      <p><a href="/accounts/register" class="btn btn-info btn-block">Criar uma conta!</a></p>
-  </div> {% endcomment %}
-
-
 {% endblock %}

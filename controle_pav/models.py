@@ -7,7 +7,7 @@ from django.db import models
 
 # modelos que irão representar uma tabela no banco de dados
 class Pavimento(models.Model):
-    Ss = models.IntegerField(max_length=20)
+    Ss = models.IntegerField()
     Data = models.DateField('data', null=True, blank=True)
     Prazo = models.BooleanField(default=False)
 
