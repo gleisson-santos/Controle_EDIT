@@ -86,7 +86,7 @@
                 <li class="nav-item active" > 
                   <a class="nav-link" href="{% url 'index' %}">CNB - ADM</a>
                 </li>
-                {% endif %}
+              {% endif %}
               
                 <li class="nav-item">
                   <a  class="nav-link" href="{% url 'index' %}"> Home</a>    
@@ -123,18 +123,13 @@
                 <script language=javascript type="text/javascript">
                   document.write ("<p>  Hoje é " + dayName[now.getDay() ] + ", " + now.getDate () + " de " 
                     + monName [now.getMonth() ]   +  " de "  +     now.getFullYear () + " " + now.getHours() + ":" + now.getMinutes() + "</p>")
-                </script>
-            
-                
+                </script>                
                 {% else %}
                 {% endif %}
               </div>    
-            </div>
-          
-
-              
-   
+            </div>           
         </div>
+
       </div>
     </nav>
   {% endif %}
