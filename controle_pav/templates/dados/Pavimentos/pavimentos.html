@@ -3,6 +3,8 @@
 {% load widget_tweaks %}
 {% load static %}
 {% block conteudo %}
+
+<link rel="stylesheet" href="{% static '../static/css/buttonpav.css' %}">
 <!--  Irar mostrar informações apenas se usuario estiver logado--> 
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -18,9 +20,12 @@
         <!--  Filtro superido geral da tabela--> 
         <form method="get"  >
             {% csrf_token %}
-            <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#cadpavimento">
+            <!-- <button class="button2">
+                Hover me
+            </button> -->
+            <!-- <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#cadpavimento">
                 <i class="fa fa-plus" aria-hidden="true"></i>Adicionar
-             </button> 
+            </button>  -->
             <!--  Criar novo item--> 
             
             <div class="form-inline col-md-1 mb-0" style='float:right'>
