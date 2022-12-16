@@ -1,11 +1,12 @@
 {% extends 'dados/base.html' %} {% load crispy_forms_tags %} {% load widget_tweaks %} {% load static %} {% block conteudo %}
 
 <link rel="stylesheet" href="{% static '../static/css/buttonpav.css' %}" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
 <!--  Irar mostrar informações apenas se usuario estiver logado-->
 
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
-<br /><br /><br />
+<br />
+<br />
+<br />
 
 <div
   id="ww_58c621522c0b9"
@@ -141,7 +142,6 @@
         <th>Bairro</th>
         <th>Rua</th>
         <th>Referencia</th>
-        <th>Copiar</th>
         <th>Serviço</th>
         <th>Metragem</th>
         <th>Executado</th>
@@ -149,6 +149,7 @@
         <th>Met_Final</th>
         <th>Editar</th>
 
+        <th>Copiar</th>
         <th>Detalhes</th>
         <th>Excluir</th>
       </tr>
@@ -156,8 +157,7 @@
     <!-- for para iterar sobre todos os itens do banco de dados -->
     <tbody>
       <!-- Query para o Grupo de Lauro -->
-      {% if user.groups.all.0.name == 'Lauro' %} {% for dado in localidade_l.qs%}
-      <!-- for para iterar sobre todos os itens do banco de dados -->
+      {% if user.groups.all.0.name == 'Lauro' %} {% for dado in localidade_l.qs %}
       <tr>
         <td></td>
         <td>{{dado.Localidade}}</td>
@@ -204,13 +204,21 @@
         <td>{{dado.Bairro|lower|capfirst}}</td>
         <td>{{dado.Rua|lower|capfirst}}</td>
         <td>{{dado.Referencia|lower|capfirst}}</td>
+        <td>{{dado.Servico|lower|capfirst}}</td>
+        <td>{{dado.Metragem}}</td>
+        <td>{{dado.Ss_Final}}</td>
+        <td>{{dado.Met_Final}}</td>
+
+        <td>
+          <a href="{% url 'editar' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png" height="25" width="25" /> </a>
+        </td>
 
         <!--  Filtro Copiar informaçoes da tabela-->
         {% if dado.Copiar %}
         <td></td>
         {% else %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
         <td>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
           <a class="btn" data-clipboard-text="  Recomposição de pavimento: {{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} ref ss: {{dado.Ss|capfirst}} inf {{dado.Equipe|capfirst}}">
             <img src="https://img.icons8.com/dusk/64/000000/copy.png" alt="Image" height="25" width="25" />
           </a>
@@ -223,28 +231,11 @@
         </script>
         {% endif %}
 
-        <td>{{dado.Servico|lower|capfirst}}</td>
-        <td>{{dado.Metragem}}</td>
-        <td>{{dado.Ss_Final}}</td>
-        <td>{{dado.Met_Final}}</td>
-
-        <td>
-          <a href="{% url 'editar' dado.id %}">
-            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png" height="25" width="25" />
-          </a>
-        </td>
-
         <!--  Filtro checked-->
         {% if dado.Executado %}
-        <td>
-          <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
-          <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-        </td>
+        <td><input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked /> <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
         {% else %}
-        <td>
-          <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
-          <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-        </td>
+        <td><input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" /> <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
         {% endif %}
 
         <!--  Filtro Detalhes-->
@@ -307,9 +298,7 @@
         <td>{{dado.Met_Final}}</td>
 
         <td>
-          <a href="{% url 'editar' dado.id %}">
-            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png" height="25" width="25" />
-          </a>
+          <a href="{% url 'editar' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png" height="25" width="25" /> </a>
         </td>
 
         <!--  Filtro Copiar informaçoes da tabela-->
@@ -332,15 +321,9 @@
 
         <!--  Filtro checked-->
         {% if dado.Executado %}
-        <td>
-          <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
-          <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-        </td>
+        <td><input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked /> <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
         {% else %}
-        <td>
-          <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
-          <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-        </td>
+        <td><input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" /> <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
         {% endif %}
 
         <!--  Filtro Detalhes-->
@@ -355,6 +338,7 @@
         {% endcomment %}
       </tr>
       {% endfor %}
+
       <!-- Query para o Grupo ADM GERAL -->
       {% else %} {% for dado in filtro.qs %}
       <tr {% comment %} hx-target="this" hx-swap="outerHTML" {% endcomment %}>
