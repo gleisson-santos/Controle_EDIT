@@ -76,15 +76,30 @@ h1 {
 }
 
 /* Estilos do "Cadastro de Pendencias Modal*/
-#btnpen {
+#cadpend {
   margin-top: 2px;
 }
 
-#btnpen span {
+#cadpend span {
   height: 36px;
   width: 90px;
 }
-#btnpen .form-control {
+#cadpend .form-control {
   height: 36px;
   width: 80px;
+}
+
+
+#btnpen {
+  text-align: right;
+}
+
+#btnpen button {
+  margin-bottom: 10px;
+  margin-top: -5px;
+}
+
+#btnpen a {
+  color: #fff;
+  text-decoration: none;
 }
