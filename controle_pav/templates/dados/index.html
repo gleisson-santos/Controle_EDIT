@@ -1,11 +1,10 @@
-{% extends 'dados/base.html'  %}
-{% load static %}
+{% extends 'dados/base.html' %}
 {% load widget_tweaks %}
 {% block conteudo %}
+{% load static %}
 
-<br> <br> <br> <br>
 
-<h1 style="text-align: center;">Controle de Demandas</h1>
+<h1>Controle de Demandas</h1>
 <div class="container mt-5" >
     <div class="row mb-5">
  
@@ -13,25 +12,25 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="card border-dark">
                 <div class="card-header">Pavimentos</div>
-                <div class="card-body">
 
-                    <p class="card-text">
-                        Mantenha os <code>Pavimentos</code> atualizados!
-                    </p>
+                <div class="card-body">
+                    <p class="card-text">Mantenha os <code>Pavimentos</code> atualizados! </p>
+
                     {% if user.groups.all.0.name == 'Lauro' %}
-                        <h8>  <i class="fas fa-table me-1"></i>{{filtrolf}} Pavimento(s) Pendentes!(s)</h8>
+                        <h3> <i class="fas fa-table me-1"></i>{{filtrolf}} Pavimento(s) Pendentes!(s)</h3>
                         <p class="card-text">{{Asfaltolf}} <code>Asfalto</code> {{Concretolf}}<code> Concreto</code> </p>
 
                     {% elif user.groups.all.0.name == 'Salvador' %}
                         <h8>  <i class="fas fa-table me-1"></i>{{filtrossa}} Pavimento(s) Pendentes!(s)</h8>
                         <p class="card-text">{{Asfaltossa}} <code>Asfalto</code> {{Concretossa}}<code> Concreto</code> </p>
+
                     {% else %}
                         <h8>  <i class="fas fa-table me-1"></i>{{pav_pend}} Pavimento(s) Pendentes!(s)</h8>
                         <p class="card-text">{{Asfalto}} <code>Asfalto</code> {{Concreto}}<code> Concreto</code> </p>
                     {% endif %}
                 </div>
-                <div class="card-footer text-end">
 
+                <div class="card-footer text-end">
                     <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#cadpavimento">
                         <i class="fa fa-plus" aria-hidden="true"></i> Cadastrar
                      </button>  
@@ -51,99 +50,95 @@
                 <div class="modal-content">
                     
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Cadastrar de Pavimento</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Pavimentos</h5>
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>
-                         
+                            <span aria-hidden="true">&times;</span>                         
                         </button>
-                        
-                    </div>  <br>
+                    </div> 
 
                     <div class="container-fluid">
                         <div class="card-body">                  
                             <form action="" method="POST">
                                 {% csrf_token %}   
 
-                                <div> 
-
-                                    <div class="input-group mb-3">
-                                        <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Localidade</span>
-                                        {% render_field pavimento5.Localidade  class="form-control" style="height: 38px;" %}     
+                                <div id="cadpav"> 
+                                    <div class="input-group mb-3" >
+                                        <span class="input-group-text" >Localidade</span>
+                                        {% render_field pavimento5.Localidade  class="form-control"  %}     
                                         ⠀                   
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Situação</span>
-                                        {% render_field pavimento5.Medir class="form-control" style="height: 38px;" %}
+                                        <span class="input-group-text">Situação</span>
+                                        {% render_field pavimento5.Medir class="form-control" %}
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Ss</span>
-                                        {% render_field pavimento5.Ss  class="form-control" style="height: 30px;" placeholder="Informe 9 Digitos"%}     
+                                        <span class="input-group-text" >Ss</span>
+                                        {% render_field pavimento5.Ss  class="form-control" minlength="9" maxlength="9" %}     
                                         ⠀                   
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Data</span>
-                                        {% render_field pavimento5.Data class="form-control" style="height: 38px;" %}
+                                        <span class="input-group-text">Data</span>
+                                        {% render_field pavimento5.Data class="form-control" %}
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Equipe</span>
-                                            {% render_field pavimento5.Equipe class="form-control" style="height: 38px;" %}
+                                        <span  class="input-group-text">Equipe</span>
+                                            {% render_field pavimento5.Equipe class="form-control" %}
                                         ⠀
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Bairro</span>
-                                        {% render_field pavimento5.Bairro class="form-control" style="height: 30px;" placeholder=" item obrigatorio"%}
+                                        <span class="input-group-text">Bairro</span>
+                                        {% render_field pavimento5.Bairro class="form-control" placeholder=" item obrigatorio"%}
                                     </div>
                 
-                                    
                                     <div class="input-group mb-3">
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Rua</span>
-                                        {% render_field pavimento5.Rua class="form-control" style="height: 30px;" placeholder=" item obrigatorio"%}
+                                        <span class="input-group-text">Rua</span>
+                                        {% render_field pavimento5.Rua class="form-control" placeholder=" item obrigatorio"%}
                                         ⠀
-                                        <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Referencia</span>
-                                        {% render_field pavimento5.Referencia class="form-control" style="height: 30px;" placeholder=" item obrigatorio"%}
+                                        <span class="input-group-text">Referência</span>
+                                        {% render_field pavimento5.Referencia class="form-control" placeholder=" item obrigatorio"%}
                                     </div>
                 
-                
-                                    <div class="input-group mb-3">
-                                        
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Metragem</span>
-                                        {% render_field pavimento5.Metragem class="form-control" style="height: 30px;" placeholder=" Ex: 1,50 x 1,25" maxlength="50"%}
+                                    <div class="input-group mb-3">                                        
+                                        <span class="input-group-text">Metragem</span>
+                                        {% render_field pavimento5.Metragem class="form-control" placeholder=" Ex: 1,50 x 1,25" maxlength="50"%}
                                         ⠀
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Observações</span>
-                                        {% render_field pavimento5.Observacao class="form-control" style="height: 30px;" placeholder=" item opcional"%}
+                                        <span  class="input-group-text">Obs</span>
+                                        {% render_field pavimento5.Observacao class="form-control" placeholder=" item opcional"%}
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Servico</span>
-                                        {% render_field pavimento5.Servico  class="form-control" style="height: 38px;" %}
+                                        <span class="input-group-text">Serviço</span>
+                                        {% render_field pavimento5.Servico  class="form-control" %}
                                         ⠀
-                                        <span style="width: 110px;" class="input-group-text">Executado</span>
-                                        {% render_field pavimento5.Executado class='form-control' style="height: 38px;"  %}
+                                        <span class="input-group-text">Executado</span>
+                                        {% render_field pavimento5.Executado class='form-control'  %}
                                     </div>
-
                                 </div>
-
                                 
-                                <div style='text-align:right;'>
+                                <div id="btnpav">
                                     <!-- Botoes -->
-                                    <button style="margin-top: 10px;" class="btn btn-secondary"><a style="color: white;" href="{% url 'index'%}" class="text-decoration-none"><i class="fa fa-reply" aria-hidden="true"></i>
-                                        Voltar</a></button> 
-                                    <button style="margin-top: 10px;" class="btn btn-success" name="gravar" value="Pav1" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
-                                        Salvar</button>        
-                                </div><br>
-                            </form>
+                                    <button  class="btn btn-secondary"><a href="{% url 'index'%}" ><i class="fa fa-reply" aria-hidden="true"></i>
+                                        Voltar</a>
+                                    </button> 
+                                    <button class="btn btn-success" name="gravar" value="Pav1" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
+                                        Salvar
+                                    </button>        
+                                </div>
+                            </form>                            
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
+
         <!--Esgoto  -->
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="card border-dark">
                 <div class="card-header">Esgoto</div>
+
                 <div class="card-body">
-                    <p class="card-text">
-                        Mantenha as pendências de <code>Esgoto</code> atualizadas!
-                    </p>
+                    <p class="card-text">Mantenha as pendências de <code>Esgoto</code> atualizadas! </p>
+
                     {% if user.groups.all.0.name == 'Lauro' %}
-                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pendlf}} Pendência(s) de Esgoto!</h8>
+                        <h6>  <i class="fas fa-table me-1"></i>{{esg_pendlf}} Pendência(s) de Esgoto!</h6>
                         <p class="card-text">{{Vedaçãolf}} <code>Vedações</code> {{Consertoslf}}<code> Consertos</code> {{Desobstruçãolf}}<code> Desobstrução</code></p>
 
                     {% elif  user.groups.all.0.name == 'Salvador' %}
@@ -156,8 +151,8 @@
 
                     {% endif %}
                 </div>
-                <div class="card-footer text-end">
 
+                <div class="card-footer text-end">
                     <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#cadesgoto">
                         <i class="fa fa-plus" aria-hidden="true"></i>  Cadastrar
                      </button> 
@@ -188,60 +183,63 @@
                             <form action="" method="POST">
                                 {% csrf_token %}   
 
-                                <div> 
+                                <div id="cadesg"> 
+
                                     <div class="input-group mb-3">
-                                        <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Localidade</span>
-                                        {% render_field esgoto21.Localidade  class="form-control" style="height: 40px;" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9"%}      
+                                        <span class="input-group-text">Localidade</span>
+                                        {% render_field esgoto21.Localidade  class="form-control"%}      
                                         ⠀ 
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Situação</span>
-                                        {% render_field esgoto21.Medir class="form-control" style="height: 40px;" %}
-                                    </div>
+                                        <span class="input-group-text">Situação</span>
+                                        {% render_field esgoto21.Medir class="form-control"%}
+                                    </div>                                    
                                     
-                                    
                                     <div class="input-group mb-3">
-                                        <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Ss</span>
-                                        {% render_field esgoto21.Ss  class="form-control" style="height: 40px;" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9"%}      
+                                        <span class="input-group-text" >Ss</span>
+                                        {% render_field esgoto21.Ss  class="form-control" minlength="9" maxlength="9" %}      
                                         ⠀ 
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Data</span>
-                                        {% render_field esgoto21.Data class="form-control" style="height: 40px;" %}
+                                        <span class="input-group-text">Data</span>
+                                        {% render_field esgoto21.Data class="form-control" %}
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Equipe</span>
-                                        {% render_field esgoto21.Equipe class="form-control" style="height: 40px;" %}
+                                        <span class="input-group-text">Equipe</span>
+                                        {% render_field esgoto21.Equipe class="form-control" %}
                                         ⠀ 
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Bairro</span>
-                                        {% render_field esgoto21.Bairro class="form-control" style="height: 40px;" placeholder=" item obrigatorio"%}
+                                        <span class="input-group-text">Bairro</span>
+                                        {% render_field esgoto21.Bairro class="form-control" placeholder=" item obrigatorio"%}
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Rua</span>
-                                        {% render_field esgoto21.Rua class="form-control" style="height: 40px;" placeholder=" item obrigatorio"%}
+                                        <span  class="input-group-text">Rua</span>
+                                        {% render_field esgoto21.Rua class="form-control" placeholder=" item obrigatorio"%}
                                         ⠀ 
-                                        <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Referencia</span>
-                                        {% render_field esgoto21.Referencia class="form-control" style="height: 40px;" placeholder=" item obrigatorio"%}
+                                        <span  class="input-group-text">Referência</span>
+                                        {% render_field esgoto21.Referencia class="form-control" placeholder=" item obrigatorio"%}
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Servico</span>
-                                        {% render_field esgoto21.Servico  class="form-control" style="height: 40px;" %}
+                                        <span class="input-group-text">Serviço</span>
+                                        {% render_field esgoto21.Servico  class="form-control" %}
                                         ⠀ 
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Observações</span>
-                                        {% render_field esgoto21.Observacao class="form-control" style="height: 40px;" placeholder=" item opcional"%}
+                                        <span  class="input-group-text">Obs</span>
+                                        {% render_field esgoto21.Observacao class="form-control" placeholder=" item opcional"%}
+                                    </div>
+
+                                    <div  id="ex" class="input-group mb-3">
+                                        <span  class="input-group-text">Executado</span>
+                                        {% render_field esgoto21.Executado class='form-control'%}
                                     </div>
                                 </div>
 
-                                <div style="width: 250px;" class="input-group mb-3">
-                                    <span style="width: 110px;" class="input-group-text">Executado</span>
-                                    {% render_field esgoto21.Executado class='form-control' style="height: 40px;"  %}
-                                </div>
 
-                                <div style='text-align:right;'>
-                                    <button  class="btn btn-secondary"><a style="color: white;" href="{% url 'index'%}" class="text-decoration-none"><i class="fa fa-reply" aria-hidden="true"></i>
-                                        Voltar</a></button> 
+                                <div id="btnesg">
+                                    <button  class="btn btn-secondary"><a href="{% url 'index'%}"><i class="fa fa-reply" aria-hidden="true"></i>
+                                        Voltar</a>
+                                    </button> 
                                     <button  class="btn btn-success"  name="gravar" value="Esgoto1" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
-                                        Salvar</button>        
-                                </div><br>
+                                        Salvar
+                                    </button>        
+                                </div>
 
                             </form>
                         </div>
@@ -249,17 +247,17 @@
                 </div>
             </div>
         </div>
-            <!-- Pendencias  -->
+
+
+        <!-- Pendencias  -->
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="card border-dark">
                 <div class="card-header">Pendencias</div>
                 <div class="card-body">
-                    <p class="card-text">
-                        Mantenha as <code>Pendências</code> atualizadas.
-                        
-                    </p>
+                    <p class="card-text"> Mantenha as <code>Pendências</code> atualizadas.</p>
+
                     {% if user.groups.all.0.name == 'Lauro' %}
-                        <h8>  <i class="fas fa-table me-1"></i>Geradas em no maximo 24Hs!(s)</h8>
+                        <h6>  <i class="fas fa-table me-1"></i>Geradas em no maximo 24Hs!(s)</h6>
                         <p class="card-text">{{Pendencialf}} <code>Pendencias</code>
 
                     {% elif user.groups.all.0.name == 'Salvador' %}
@@ -269,7 +267,6 @@
                     {% else %}
                         <h8>  <i class="fas fa-table me-1"></i>Geradas em no maximo 24Hs!(s)</h8>
                         <p class="card-text">{{Pendencia}} <code>Pendencias</code>
-
                     {% endif %}
                 </div>
 
@@ -294,7 +291,7 @@
                 <div class="modal-content row">
                     
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Pendencias Gerais</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Pendencias</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -305,41 +302,41 @@
                             <form action="" method="POST">
                                 <!-- Não se esqueçer dessa misera dessa fdp tag -->
                                 {% csrf_token %}
-                                <!-- Div de todos os formularios -->
-                                <div  >      
+
+                                <div id="btnpen">      
                                     
                                     <div class="input-group mb-3">
-                                        <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Localidade</span>
-                                        {% render_field cadastro1.Localidade  class="form-control" style="height: 38px;" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9"%}     
+                                        <span class="input-group-text" >Localidade</span>
+                                        {% render_field cadastro1.Localidade  class="form-control"%}     
                                         ⠀                   
-                                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Situação</span>
-                                        {% render_field cadastro1.Medir class="form-control" style="height: 38px;" %}
+                                        <span class="input-group-text">Situação</span>
+                                        {% render_field cadastro1.Medir class="form-control" %}
                                     </div>
                         
                                     <div class="input-group mb-3">
-                                        <span style="width: 90px;" class="input-group-text">Ss</span>
-                                        {% render_field cadastro1.Ss  class="form-control" style="height: 30px;" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9" %}
+                                        <span  class="input-group-text">Ss</span>
+                                        {% render_field cadastro1.Ss  class="form-control" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9" %}
                                     </div>
                 
                                     <div class="input-group mb-3">
-                                        <span style="width: 90px;" class="input-group-text">Tipo</span>
-                                        {% render_field cadastro1.Tipo  class="form-control" style="height: 30px;" placeholder=" item obrigatorio" %}
+                                        <span  class="input-group-text">Tipo</span>
+                                        {% render_field cadastro1.Tipo  class="form-control" placeholder=" item obrigatorio" %}
                                     </div>
                 
                                     <div class="input-group mb-3">
-                                        <span style="width: 90px;" class="input-group-text" >Solicitante</span>
-                                        {% render_field cadastro1.Solicitante  class="form-control" style="height: 30px;" placeholder=" item obrigatorio" %} 
+                                        <span class="input-group-text" >Solicitante</span>
+                                        {% render_field cadastro1.Solicitante  class="form-control" placeholder=" item obrigatorio" %} 
                                     </div>
                 
                                     <!-- Data -->
                                     <div class="input-group mb-3">
-                                        <span style="width: 90px;" style="height: 40px;" class="input-group-text">Data</span>
-                                        {% render_field cadastro1.Data class="form-control" style="height: 38px;" %}
+                                        <span  class="input-group-text">Data</span>
+                                        {% render_field cadastro1.Data class="form-control" %}
                                     </div>
                 
                                     <div class="input-group mb-3">
-                                        <span style="width: 90px;" class="input-group-text" >Detalhes</span>
-                                        {% render_field cadastro1.Detalhes class="form-control" style="height: 30px;" placeholder=" item opcional" %}
+                                        <span class="input-group-text" >Detalhes</span>
+                                        {% render_field cadastro1.Detalhes class="form-control" placeholder=" item opcional" %}
                                     </div>
                 
                                 </div>
@@ -747,5 +744,4 @@ $(document).ready(function(){
 });
 </script>
 {% endblock %}
-
 

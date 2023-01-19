@@ -6,26 +6,19 @@
     <meta  http-equiv="Content-Type" content="text/html; charset=utf-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-        
-    {% comment %} <link rel="stylesheet" href="{% static 'static/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'static/css/buttons.dataTables.css' %}">
-    <link rel="stylesheet" href="{% static 'static/css/jquery.dataTables.css' %}"> {% endcomment %}
-    <!-- importação Datatables -->
-   
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"/>
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.2.4/css/fixedHeader.dataTables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css"/>
-
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{% static 'static/css/signin.css' %}">
-    <link rel="stylesheet" href="{% static 'static/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'static/css/buttonpav.css' %}">
     
-
+     <!-- Stilos do Data Tables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"/>    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.2.4/css/fixedHeader.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css"/>    
+    
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/buttonpav.css' %}">
     
     <!-- Iconfan -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -33,81 +26,73 @@
     <!-- Campo de Busca de Hora -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css"/>
 
-    {% comment %} <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/> {% endcomment %}
-
-
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.csss"/>
 
- 
-
-
     <!-- Title -->
-    <title>{% block title %}Gerenciamento de Serviços{% endblock %}</title>
+    <title>
+      {% block title %}Gerenciamento de Serviços{% endblock %}
+    </title>
 
     <!-- Favicon 
     <link rel="shortcut icon" href="{% static 'static/image/01.png' %}" type="image/png">-->
 
-    {% block styles %}{% endblock %}
+    {% block styles %}
+    {% endblock %}
   </head>
 
-  <body style="font-size: 13px;" >
-    <!-- Navbar -->
-    <!--logo <img src="{% static '/image/zzz.png' %}" height="45"> -->   
+  <body>
 
-  {% if request.user.is_authenticated %}
-    
+  {% if request.user.is_authenticated %}    
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"  >
       <div class="container-fluid"> 
-        
-            <!-- Botão responsivo -->
-          <button class="navbar-toggler" type="button"
-              data-toggle="collapse" data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false"
-              aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>  
+          <!-- Botão responsivo -->
+        <button class="navbar-toggler" type="button"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>  
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Uel dos menus -->
-            <ul  class="navbar-nav me-auto">            
-              {% if user.groups.all.0.name == 'Salvador' %}
+        <!-- Uel dos menus -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul  class="navbar-nav me-auto">        
 
-                <li class="nav-item active" > 
-                  <a class="nav-link" href="{% url 'index' %}">CNB - SALVADOR</a>
-                </li>
+          {% if user.groups.all.0.name == 'Salvador' %}
+            <li class="nav-item active" > 
+              <a class="nav-link" href="{% url 'index' %}">CNB - SALVADOR</a>
+            </li>
 
-                {% elif user.groups.all.0.name == 'Lauro' %} 
-
-                <li class="nav-item active" > 
-                  <a class="nav-link" href="{% url 'index' %}">CNB - LAURO DE FREITAS</a>
-                </li>
-                {% else %}
-                <li class="nav-item active" > 
-                  <a class="nav-link" href="{% url 'index' %}">CNB - ADM</a>
-                </li>
-              {% endif %}
+            {% elif user.groups.all.0.name == 'Lauro' %} 
+            <li class="nav-item active" > 
+              <a class="nav-link" href="{% url 'index' %}">CNB - LAURO DE FREITAS</a>
+            </li>
               
-                <li class="nav-item">
-                  <a  class="nav-link" href="{% url 'index' %}"> Home</a>    
-                </li>
-                <li class="nav-item">
-                  <a  class="nav-link" href="{% url 'pavimentos' %}"> Pavimentos</a>    
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'pavimentos2' %}">Esgoto</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'informativo' %}">Pendencias</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'logout' %}"> <i class="fa fa-sign-out"></i> Sair</a>
-                </li>
-            </ul>
-            <div class="form-inline my-2 my-lg-0"  style='color: white;'>
-              <div class="navbar-nav float-right" style='color: white;' >            
-                {% if user.is_authenticated %}
-                {% if request.user.is_authenticated %}
+            {% else %}
+            <li class="nav-item active" > 
+              <a class="nav-link" href="{% url 'index' %}">CNB - ADM</a>
+            </li>
+          {% endif %}
+            
+              <li class="nav-item">
+                <a  class="nav-link" href="{% url 'index' %}"> Home</a>    
+              </li>
+              <li class="nav-item">
+                <a  class="nav-link" href="{% url 'pavimentos' %}"> Pavimentos</a>    
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'pavimentos2' %}">Esgoto</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'informativo' %}">Pendencias</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}"> <i class="fa fa-sign-out"></i> Sair</a>
+              </li>
+          </ul>
+          <div class="navbar-nav float-right" style='color: white;' >            
+            {% if user.is_authenticated %}
+              {% if request.user.is_authenticated %}
                 
                 <p> Olá {{ request.user.username|capfirst }}!⠀ </p>
                 
@@ -120,41 +105,24 @@
                   monName = new Array ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
                   now = new Date
                 </script>
+
                 <script language=javascript type="text/javascript">
                   document.write ("<p>  Hoje é " + dayName[now.getDay() ] + ", " + now.getDate () + " de " 
                     + monName [now.getMonth() ]   +  " de "  +     now.getFullYear () + " " + now.getHours() + ":" + now.getMinutes() + "</p>")
-                </script>                
-                {% else %}
-                {% endif %}
-              </div>    
-            </div>           
-        </div>
+                </script>    
 
+              {% else %}
+            {% endif %}
+          </div>    
+
+        </div>
       </div>
     </nav>
   {% endif %}
        
     {% block conteudo %} {% endblock %}
-
-    {% comment %} <script src="{% static 'static/js/buttons.html5.js' %}"></script>
-    <script src="{% static 'static/js/buttons.bootstrap4.js' %}"></script>
-    <script src="{% static 'static/js/buttons.colVis.js' %}"></script>
-    <script src="{% static 'static/js/buttons.flash.js' %}"></script>
-
-    <script src="{% static 'static/js/dataTables.buttons.js' %}"></script>
-    <script src="{% static 'static/js/dataTables.bootstrap4.js' %}"></script>
-
-    <script src="{% static 'static/js/jquery.dataTables.js' %}"></script>
-    <script src="{% static 'static/js/jszip.min.js' %}"></script>
-    
-    <script src="{% static 'static/js/jquery-3.6.1.min.js' %}"></script>
-    <script src="{% static 'static/js/jquery-migrate-3.4.0.min.js' %}"></script>
-    <script src="{% static 'static/js/jquery-1.12.4.js' %}"></script>
-    <script src="{% static 'static/js/jquery.mask.js' %}"></script> {% endcomment %}
-  
-    <script src="{% static 'static/js/scripts.js' %}"></script>
-    <script src="{% static 'static/php/dados.php' %}"></script>
  
+    <script src="{% static 'js/scripts.js' %}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"        integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
@@ -162,52 +130,36 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
   
-    
-    {% comment %} <script src="https://unpkg.com/htmx.org@1.8.4" integrity="sha384-wg5Y/JwF7VxGk4zLsJEcAojRtlVp1FKKdGy1qN+OMtdq72WRvX/EdRdqg/LOhYeV" crossorigin="anonymous"></script> {% endcomment %}
-
-
-    {% comment %} <script>
-        document.body.addEventListener('htmx:configRequest', (event) => {
-        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
-        })
-    </script> {% endcomment %}
-
     <script type="text/javascript" language="javascript" src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"></script>
-    {% comment %} <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap.min.js"></script> {% endcomment %}
-    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.12.1/datatables.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.flash.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.print.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
-
-       <!-- Ordenação de colunas Manual -->
-
-
+    
+    <!-- Ordenação de colunas Manual -->
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/colreorder/1.5.6/js/dataTables.colReorder.min.js"></script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/fixedheader/3.2.4/js/dataTables.fixedHeader.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
-      <!-- Scritp do botão Excel -->
+    
+    <!-- Scritp do botão Excel -->
     <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/keytable/2.7.0/js/dataTables.keyTable.min.js"></script>
-
-      <!-- Campo de busca por data -->
+    
+    <!-- Campo de busca por data -->
     <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
-
-
-    <script type="text/javascript" language="javascript" src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"> </script>
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
+    
+    
+    {% comment %} <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script> {% endcomment %}
+    {% comment %} <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/fixedheader/3.2.4/js/dataTables.fixedHeader.min.js"></script> {% endcomment %}
+    {% comment %} 
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/keytable/2.7.0/js/dataTables.keyTable.min.js"></script> {% endcomment %}
+    {% comment %} <script type="text/javascript" language="javascript" src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"> </script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script> {% endcomment %}
 
      
-    {% block scripts %}
-
-    {% endblock %}
+    {% block scripts %} {% endblock %}
     
   </body>
 </html>

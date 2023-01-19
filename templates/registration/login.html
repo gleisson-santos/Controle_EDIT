@@ -1,58 +1,31 @@
-
-{% extends 'dados/base.html'  %}
+{% extends 'dados/base.html'%} 
 {% load crispy_forms_tags %}
 {% block conteudo %}
 {% load static %}
 
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-<style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-</style>
 <!-- Custom styles for this template -->
-<link href="css/signin.css" rel="stylesheet">
+<div class="d-flex justify-content-center" id="teste" >
+    <form method="post">
+        <br>
+        <img src="{% static 'image/22.png' %}" />
+        <h4 class="text-center">Faça Login</h4>
+        <input type="hidden" name="next" value="{{ next }}" />
 
+        {% csrf_token %}
+        {{ form|crispy }}
 
-    <div class="d-flex justify-content-center">
-        
-        <form method="post" ><br>
-            <img  src="{% static 'image/logo.svg' %}" alt="" width="350" height="250">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+        <label class="form-check-label" for="exampleCheck1">Lembrar</label>
 
-            <h4 class="text-center" class="h4 mb-3 font-weight-normal">Faça Login</h4>
-        
-            {% csrf_token %}
-            
-            <input type="hidden" name="next" value="{{ next }}">
+        <button id="aa" type="submit" class="btn btn-primary btn-block">Entrar</button>
+        <br>
 
-            {{ form|crispy }}
-            
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1" >Lembrar</label>
-            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-            <br>
-            <p><a href="/accounts/register" class="btn btn-info btn-block">Criar uma conta!</a></p>
-            <p class="text-center" class="mt-5 mb-3 text-muted">&copy; 2022</p>
-            {% comment %} <div class="col-xs-12 text-center" >
-              <br>
-              <p class="lead text-center" >Não possui conta?</p>  
-              <p><a href="/accounts/register" class="btn btn-info btn-block">Criar uma conta!</a></p>
-            </div> {% endcomment %}
-        </form>
-    </div>
+        {% comment %}
+        <p><a href="/accounts/register" class="btn btn-info btn-block">Criar uma conta!</a></p>
+        {% endcomment %}
+        <p class="text-center">&copy; 2022</p>
+    </form>
+</div>
 {% endblock %}

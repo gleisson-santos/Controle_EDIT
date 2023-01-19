@@ -7,54 +7,20 @@ from django.db import models
 
 # modelos que irão representar uma tabela no banco de dados
 class Pavimento(models.Model):
-    Ss = models.IntegerField()
+    Ss = models.IntegerField (max_length=9)
     Data = models.DateField('data', null=True, blank=True)
     Prazo = models.BooleanField(default=False)
-
-    with open('static/texto/equipes.csv', 'r') as arquivo:
+   
+    with open("controle_pav/static/texto/equipes.csv", 'r') as arquivo:
         equipes = arquivo.read()
-        EQUIPE = (
+        for equipe in equipes:
+            EQUIPE = (
 
-            ('equipes', equipes.split(',')[0]),
-            ('equipes', equipes.split(',')[1]),
-            ('equipes', equipes.split(',')[2]),
-            ('equipes', equipes.split(',')[3]),
-            ('equipes', equipes.split(',')[4]),
-            ('equipes', equipes.split(',')[5]),
-            ('equipes', equipes.split(',')[6]),
-            ('equipes', equipes.split(',')[7]),
+                    ('equipes', equipes.split()[0]),
+                    ('equipes', equipes.split()[1]),
 
-        )
+                )
 
-    # with open("static/texto/Texto.txt", 'r') as arquivo:
-    #     equipes = arquivo.read()
-    #     for equipe in equipes:
-    #         EQUIPE = (
-
-    #                 ('equipes', equipes.split()[0]),
-    #                 ('equipes', equipes.split()[1]),
-    #                 ('equipes', equipes.split()[2]),
-    #                 ('equipes', equipes.split()[3]),
-
-    #             )
-
-    # EQUIPE = (
-    #     ("Eq213-Silvio",   "Eq213-Silvio"),
-    #     ("Eq221-Edcarlos",   "Eq221-Edcarlos"),
-    #     ("Eq214-Cristiano",   "Eq214-Cristiano"),
-    #     ("Eq218A-Jilton",  "Eq218A-Jilton"),
-    #     ("Eq309A-Roberio", "Eq309A-Roberio"),
-    #     ("Eq224A-Haroldo", "Eq224A-Haroldo"),
-    #     ("Eq215A-Narciso", "Eq215A-Narciso"),
-    #     ("Eq320A-Celio",   "Eq320A-Celio"),
-    #     ("Eq315A-Hanilton", "Eq315A-Hanilton"),
-    #     ("Eq218A-Jilton", "Eq218A-Jilton"),
-    #     ("Eq308A-Adailton", "Eq308A-Adailton"),
-
-    #     ("EqEsgoto-Esgoto", "EqEsgoto-Esgoto"),
-    #     ("EqMoto-Motoqueiro", "EqMoto-Motoqueiro"),
-
-    # )
 
     Equipe = models.CharField(max_length=255, choices=EQUIPE)
     Bairro = models.CharField(max_length=255)
@@ -67,7 +33,7 @@ class Pavimento(models.Model):
         ("Blocos", "Blocos")
     )
 
-    Servico = models.CharField(max_length=255, choices=SERVICO)
+    Servico = models.CharField(max_length=255, choices=SERVICO, verbose_name=("Serviço"))
 
     Metragem = models.CharField(max_length=255)
     Observacao = models.CharField(max_length=255, blank=True)
@@ -117,7 +83,7 @@ class Pavimento(models.Model):
 
 
 class Esgoto(models.Model):
-    Ss = models.TextField(max_length=255)
+    Ss = models.IntegerField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
 
     EQUIPE = (
@@ -130,10 +96,10 @@ class Esgoto(models.Model):
         ("EqAgua-Vazamento", "EqAgua-Vazamento")
     )
 
-    Equipe = models.TextField(max_length=255, choices=EQUIPE)
-    Bairro = models.TextField(max_length=255)
-    Rua = models.TextField(max_length=255)
-    Referencia = models.TextField(max_length=255)
+    Equipe = models.CharField(max_length=255, choices=EQUIPE)
+    Bairro = models.CharField(max_length=255)
+    Rua = models.CharField(max_length=255)
+    Referencia = models.CharField(max_length=255)
 
     ESGOTO = (
         ("Vedacao", "Vedacao"),
@@ -142,7 +108,7 @@ class Esgoto(models.Model):
     )
 
     Servico = models.TextField(max_length=255, choices=ESGOTO)
-    Observacao = models.TextField(max_length=255, blank=True)
+    Observacao = models.CharField(max_length=255)
 
     CHOICES = (
         (True, "Executado"),
@@ -189,11 +155,11 @@ class Esgoto(models.Model):
 
 
 class Pendencias(models.Model):
-    Ss = models.TextField(max_length=255)
-    Tipo = models.TextField(max_length=255)
-    Solicitante = models.TextField(max_length=255, blank=True)
+    Ss = models.IntegerField ()
+    Tipo = models.CharField(max_length=255)
+    Solicitante = models.CharField(max_length=255, blank=True)
     Data = models.DateField('data', null=True, blank=True)
-    Detalhes = models.TextField(max_length=255)
+    Detalhes = models.CharField(max_length=255)
 
     CHOICES = (
         (True, "Executado"),
