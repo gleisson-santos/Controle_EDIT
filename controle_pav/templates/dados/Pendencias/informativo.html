@@ -6,14 +6,11 @@
 
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-
-<div id="ww_58c621522c0b9" v='1.3' loc='id' a='{"t":"ticker","lang":"pt","ids":["wl4995"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"#FFFFFF00","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'><a href="https://sharpweather.com/widgets/" id="ww_58c621522c0b9_u" target="_blank">Weather Widgets for Websites</a></div><script async src="https://app1.weatherwidget.org/js/?id=ww_58c621522c0b9"></script>
 <h1>Listagem de Pendencias</h1>
-
 <div class='container-fluid' >
     
-    <div>
-        <!--  Filtro superior geral da tabela--> 
+    <!--  Filtro superior geral da tabela--> 
+    <div >
         <form method="get"  >
             {% csrf_token %}
             <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#cadpendencia">
@@ -49,49 +46,46 @@
                             <!-- Não se esqueçer dessa misera dessa fdp tag -->
                             {% csrf_token %}
                             <!-- Div de todos os formularios -->
-                            <div style="width: 500px;" class="form-group row" >   
-                                
-                                <div style="width: 250px;" class="input-group mb-3">
-                                    <span style="width: 90px;" class="input-group-text">Localidade</span>
-                                    {% render_field cadastro2.Localidade class='form-control' style="height: 40px;"  %}
-                                </div>
-                    
+                            <div id="pavpend">                              
+                                                    
                                 <div class="input-group mb-3">
-                                    <span style="width: 90px;" class="input-group-text">Ss</span>
-                                    {% render_field cadastro2.Ss  class="form-control" style="height: 30px;" placeholder='Informe 9 digitos' minlength="9"  maxlength="9" %}
+                                    <span class="input-group-text">Ss</span>
+                                    {% render_field cadastro2.Ss  class="form-control" placeholder='Informe 9 digitos' minlength="9"  maxlength="9" %}
                                 </div>
             
                                 <div class="input-group mb-3">
-                                    <span style="width: 90px;" class="input-group-text">Tipo</span>
-                                    {% render_field cadastro2.Tipo  class="form-control" style="height: 30px;" placeholder=" item obrigatorio" %}
+                                    <span class="input-group-text">Tipo</span>
+                                    {% render_field cadastro2.Tipo  class="form-control" placeholder=" item obrigatorio" %}
                                 </div>
             
                                 <div class="input-group mb-3">
-                                    <span style="width: 90px;" class="input-group-text" >Solicitante</span>
-                                    {% render_field cadastro2.Solicitante  class="form-control" style="height: 30px;" placeholder=" item obrigatorio "%} 
-                                </div>
-            
-                                <!-- Data -->
-                                <div class="input-group mb-3">
-                                    <span style="width: 90px;" style="height: 40px;" class="input-group-text">Data</span>
-                                    {% render_field cadastro2.Data class="form-control" style="height: 38px;" %}
+                                    <span class="input-group-text" >Solicitante</span>
+                                    {% render_field cadastro2.Solicitante  class="form-control" placeholder=" item obrigatorio "%} 
                                 </div>
             
                                 <div class="input-group mb-3">
-                                    <span style="width: 90px;" class="input-group-text" >Detalhes</span>
-                                    {% render_field cadastro2.Detalhes class="form-control" style="height: 30px;" placeholder="Descreva os detalhes" %}
+                                    <span class="input-group-text">Data</span>
+                                    {% render_field cadastro2.Data class="form-control" %}
                                 </div>
             
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" >Detalhes</span>
+                                    {% render_field cadastro2.Detalhes class="form-control" placeholder="Descreva os detalhes" %}
+                                </div>
+            
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Executado</span>
+                                    {% render_field cadastro2.Executado class='form-control'  %}
+                                    ⠀                                                 
+                                    <span  class="input-group-text">Situação</span>
+                                    {% render_field cadastro2.Medir class='form-control' %}
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span style="width: 100px;" class="input-group-text">Localidade</span>
+                                    {% render_field cadastro2.Localidade class='form-control' style="height: px;"  %}
+                                </div>
                             </div>
-                            <!-- Pendente -->
-                            <div class="input-group mb-3">
-                                <span style="width: 90px;" class="input-group-text">Executado</span>
-                                {% render_field cadastro2.Executado class='form-control' style="height: 38px;"  %}
-                                ⠀                                                 
-                                <span style="width: 90px;" class="input-group-text">Situação</span>
-                                {% render_field cadastro2.Medir class='form-control' style="height: 38px;"  %}
-                            </div>
-                            
                             <div style='text-align:right;'>
                             <!-- Botoes -->
                                     <button  class="btn btn-secondary"><a style="color: white;" href="{% url 'informativo'%}" class="text-decoration-none"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
@@ -104,8 +98,7 @@
         </div>
     </div>
 
-
-        <!--  Notas de informação de pendencias--> 
+    <!--  Notas de informação de pendencias--> 
     <div class='form-control' style="font-size: 13px;">
 
         {% if user.groups.all.0.name == 'Lauro' %}
@@ -136,25 +129,24 @@
                 <th>Editar</th>
                 <th>Executado</th>
                 <th>Copiar</th>
-                <th>Excluir</th>
+                {% comment %} <th>Excluir</th> {% endcomment %}
             </tr>
         </thead>
         
+        <!-- Query para o Grupo de Lauro -->
         <tbody>
-                <!-- Query para o Grupo de Lauro -->
             {% if user.groups.all.0.name == 'Lauro' %}
                 {% for dado in localidade_l.qs %}
-                    <tr>
+                    <tr>   
                         <td></td>
-                        <!-- Itens quais eu quero acessaar do BD -->
-                        <td>{{dado.Localidade}} </td>
-                        <td>
+                         <td>{{dado.Localidade}} </td>
+                         <td>
                             {% if dado.Medir == 'Medir' %}  
-                            <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
+                            <h2 style="color: Green;">P/ Medir</h2>
                             {% elif dado.Medir == 'Prioridade' %}
-                            <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
+                            <h2 style="color: red;">Priorizar!</h2>
                             {% else %}
-                            <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
+                            <h2 style="color: Grey;">Normal</h2>
                             {% endif %}
                         </td>
                         <td>{{dado.Ss}}</td>
@@ -162,6 +154,13 @@
                         <td>{{dado.Solicitante|lower|capfirst}}</td>
                         <td>{{dado.Data|date:"d/m/Y"}}</td>
                         <td>{{dado.Detalhes|lower|capfirst}}</td>
+
+                        <td>
+                            <a href="{% url 'editar_p' dado.id %}">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                        </td>
+            
 
                         <!--  Filtro checked--> 
                         {% if dado.Executado %}
@@ -171,58 +170,49 @@
                         <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
                         <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
                         {% endif %}
-                    
 
                         <!--  Filtro Copiar informaçoes da tabela--> 
                         {% if dado.Copiar %}
-                        <td></td>
-                        {% else %}
-                        <td>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-                        <a class="btn" 
-                            data-clipboard-text=" {{dado.Tipo|lower|capfirst}} ref Ss: {{dado.Ss}} inf {{dado.Solicitante|lower|capfirst}}">
-                            <img src="https://img.icons8.com/dusk/64/000000/copy.png" alt="Image" height="25" width="25"  />
-                        </a>
-                        </td> 
-                        <script>
-                            const clipboard = new ClipboardJS('.btn')
-                            clipboard.on('success', function (e) {
-                    
-                            });
-
-                            clipboard.on('error', function (e) {
+                            <td></td>
+                            {% else %}
+                            <td>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+                                <button class="btn" data-clipboard-text=" {{dado.Tipo|lower|capfirst}} ref Ss: {{dado.Ss}} inf {{dado.Solicitante|lower|capfirst}}">
+                                    <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                </button>
+                            </td> 
+                            <script>
+                                const clipboard = new ClipboardJS('.btn')
+                                clipboard.on('success', function (e) {
                 
-                            });
-                        </script>
-                        {% endif %}
+                                });
+
+                                clipboard.on('error', function (e) {
                     
-
-                        <td>
-                            <a href="{% url 'editar_p' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
-                        </td>
-
-                        <td>
-                            <a href="{% url 'excluir_p' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
-                        </td>
-                    </tr>
+                                });
+                            </script>
+                        {% endif %}
+                        {% comment %}                     
+                            <td>
+                                <a href="{% url 'excluir_p' dado.id %}">
+                                <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
+                            </td> 
+                        {% endcomment %}
+                    </tr> 
                 {% endfor %}
-
                 <!-- Query para o Grupo de Salvador -->
             {% elif  user.groups.all.0.name == 'Salvador'%}
                 {% for dado in localidade_2.qs %}
-                    <tr>
+                    <tr>   
                         <td></td>
-                        <!-- Itens quais eu quero acessaar do BD -->
-                        <td>{{dado.Localidade}} </td>
-                        <td>
+                         <td>{{dado.Localidade}} </td>
+                         <td>
                             {% if dado.Medir == 'Medir' %}  
-                            <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
+                            <h2 style="color: Green;">P/ Medir</h2>
                             {% elif dado.Medir == 'Prioridade' %}
-                            <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
+                            <h2 style="color: red;">Priorizar!</h2>
                             {% else %}
-                            <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
+                            <h2 style="color: Grey;">Normal</h2>
                             {% endif %}
                         </td>
                         <td>{{dado.Ss}}</td>
@@ -230,6 +220,13 @@
                         <td>{{dado.Solicitante|lower|capfirst}}</td>
                         <td>{{dado.Data|date:"d/m/Y"}}</td>
                         <td>{{dado.Detalhes|lower|capfirst}}</td>
+
+                        <td>
+                            <a href="{% url 'editar_p' dado.id %}">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                        </td>
+            
 
                         <!--  Filtro checked--> 
                         {% if dado.Executado %}
@@ -239,44 +236,36 @@
                         <td><input disabled type="checkbox" class="form-check-input"  id="flexSwitchCheckDefaultXl">
                         <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
                         {% endif %}
-                    
 
                         <!--  Filtro Copiar informaçoes da tabela--> 
                         {% if dado.Copiar %}
-                        <td></td>
-                        {% else %}
-                        <td>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-                        <a class="btn" 
-                            data-clipboard-text=" {{dado.Tipo|lower|capfirst}} ref Ss: {{dado.Ss}} inf {{dado.Solicitante|lower|capfirst}}">
-                            <img src="https://img.icons8.com/dusk/64/000000/copy.png" alt="Image" height="25" width="25"  />
-                        </a>
-                        </td> 
-                        <script>
-                            const clipboard = new ClipboardJS('.btn')
-                            clipboard.on('success', function (e) {
-                    
-                            });
-
-                            clipboard.on('error', function (e) {
+                            <td></td>
+                            {% else %}
+                            <td>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+                                <button class="btn" data-clipboard-text=" {{dado.Tipo|lower|capfirst}} ref Ss: {{dado.Ss}} inf {{dado.Solicitante|lower|capfirst}}">
+                                    <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                </button>
+                            </td> 
+                            <script>
+                                const clipboard = new ClipboardJS('.btn')
+                                clipboard.on('success', function (e) {
                 
-                            });
-                        </script>
-                        {% endif %}
+                                });
+
+                                clipboard.on('error', function (e) {
                     
-
-                        <td>
-                            <a href="{% url 'editar_p' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
-                        </td>
-
-                        <td>
-                            <a href="{% url 'excluir_p' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
-                        </td>
-                    </tr>
+                                });
+                            </script>
+                        {% endif %}
+                        {% comment %}                     
+                            <td>
+                                <a href="{% url 'excluir_p' dado.id %}">
+                                <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
+                            </td> 
+                        {% endcomment %}
+                    </tr> 
                 {% endfor %}
-
                 <!-- Query para o Grupo ADM GERAL -->
             {% else %}
                 {% for dado in filtro3.qs %}
@@ -285,11 +274,11 @@
                          <td>{{dado.Localidade}} </td>
                          <td>
                             {% if dado.Medir == 'Medir' %}  
-                            <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
+                            <h2 style="color: Green;">P/ Medir</h2>
                             {% elif dado.Medir == 'Prioridade' %}
-                            <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
+                            <h2 style="color: red;">Priorizar!</h2>
                             {% else %}
-                            <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
+                            <h2 style="color: Grey;">Normal</h2>
                             {% endif %}
                         </td>
                         <td>{{dado.Ss}}</td>
@@ -300,7 +289,8 @@
 
                         <td>
                             <a href="{% url 'editar_p' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png"  height="25" width="25" />  </a>
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
                         </td>
             
 
@@ -315,31 +305,31 @@
 
                         <!--  Filtro Copiar informaçoes da tabela--> 
                         {% if dado.Copiar %}
-                        <td></td>
-                        {% else %}
-                        <td>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-                            <a class="btn" 
-                            data-clipboard-text=" {{dado.Tipo|lower|capfirst}} ref Ss: {{dado.Ss}} inf {{dado.Solicitante|lower|capfirst}}">
-                            <img src="https://img.icons8.com/dusk/64/000000/copy.png" alt="Image" height="25" width="25"  />
-                            </a>
-                        </td> 
-                        <script>
-                            const clipboard = new ClipboardJS('.btn')
-                            clipboard.on('success', function (e) {
-            
-                            });
-
-                            clipboard.on('error', function (e) {
+                            <td></td>
+                            {% else %}
+                            <td>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+                                <button class="btn" data-clipboard-text=" {{dado.Tipo|lower|capfirst}} ref Ss: {{dado.Ss}} inf {{dado.Solicitante|lower|capfirst}}">
+                                    <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                </button>
+                            </td> 
+                            <script>
+                                const clipboard = new ClipboardJS('.btn')
+                                clipboard.on('success', function (e) {
                 
-                            });
-                        </script>
-                        {% endif %}
+                                });
+
+                                clipboard.on('error', function (e) {
                     
-                        <td>
-                            <a href="{% url 'excluir_p' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
-                        </td>
+                                });
+                            </script>
+                        {% endif %}
+                        {% comment %}                     
+                            <td>
+                                <a href="{% url 'excluir_p' dado.id %}">
+                                <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
+                            </td> 
+                        {% endcomment %}
                     </tr> 
                 {% endfor %}
             {% endif %} 
@@ -351,7 +341,6 @@
 
 {% block scripts %}
 <script>
-
    $(document).ready(function(){
         $('#tabela-listar').DataTable({
             dom: 'Bfrtip',
