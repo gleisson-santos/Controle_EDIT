@@ -140,317 +140,276 @@
 
         <th>Editar</th>
         <th>Copiar</th>
-        <th>Executado</th>
+        <th>Exe.</th>
+        {% comment %} <th>Executado</th>
         <th>Detalhes</th>
-        <th>Excluir</th>
+        <th>Excluir</th> {% endcomment %}
       </tr>
     </thead>
     <!-- for para iterar sobre todos os itens do banco de dados -->
     <tbody>
       <!-- Query para o Grupo de Lauro -->
-      {% if user.groups.all.0.name == 'Lauro' %} {% for dado in localidade_l.qs %}
-      <tr>
-        <td></td>
-        <td>{{dado.Localidade}}</td>
-        <td>
-          {% if dado.Medir == 'Medir' %}
-          <h4 style="color: Green" class="badge badge-warning">P/ Medir</h4>
-          {% elif dado.Medir == 'Prioridade' %}
-          <h4 style="color: red" class="badge badge-warning">Priorizar!</h4>
-          {% else %}
-          <h4 style="color: Grey" class="badge badge-warning">Normal</h4>
-          {% endif %}
-        </td>
-        <td>{{dado.Ss}}</td>
-        <td>{{dado.Data|date:"d/m/Y"}}</td>
+      {% if user.groups.all.0.name == 'Lauro' %}
+        {% for dado in localidade_l.qs %}
+          <tr>
+            <td></td>
+            <td>{{dado.Localidade}}</td>
+            <td>
+              {% if dado.Medir == 'Medir' %}
+                <h2 style="color: Green">P/ Medir</h2>
+              {% elif dado.Medir == 'Prioridade' %}
+                <h2 style="color: red">Priorizar!</h2>
+              {% else %}
+                <h2 style="color: Grey">Normal</h2>
+              {% endif %}
+            </td>
+            <td>{{dado.Ss}}</td>
+            <td>{{dado.Data|date:"d/m/Y"}}</td>
 
-        <!-- Inf Filtro Fora e dentro do Prazo -->
-        <!-- <p>Data: {{ dado.Data }}, Hoje: {{ dado.atual }} -->
-        {% if dado.atual3 %}
-        <td>
-          {{dado.atual4}}
-          <img
-            data-toggle="tooltip"
-            data-placement="top"
-            title="No Prazo"
-            style="text-align: center"
-            src="https://img.icons8.com/external-bright-fill-juicy-fish/84/000000/external-business-business-bright-fill-bright-fill-juicy-fish-29.png"
-            height="25"
-            width="25" />
-        </td>
-        {% else %}
-        <td>
-          {{dado.atual4}}
-          <img
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Fora do Prazo"
-            style="text-align: center"
-            src="https://img.icons8.com/external-bright-fill-juicy-fish/84/000000/external-business-business-bright-fill-bright-fill-juicy-fish-30.png"
-            height="25"
-            width="25" />
-        </td>
-        {% endif %}
+            {% if dado.atual3 %}
+              <td>
+                {{dado.atual4}}
+                <i class="fas fa-calendar-check fa-lg"></i>
+              </td>
+            {% else %}
+              <td>
+                {{dado.atual4}}
+                <i class="fas fa-calendar-plus fa-lg"></i>
+              </td>
+            {% endif %}
 
-        <td>{{dado.Equipe|lower|capfirst}}</td>
-        <td>{{dado.Bairro|lower|capfirst}}</td>
-        <td>{{dado.Rua|lower|capfirst}}</td>
-        <td>{{dado.Referencia|lower|capfirst}}</td>
-        <td>{{dado.Servico|lower|capfirst}}</td>
-        <td>{{dado.Observacao|lower|capfirst}}</td>
+            <td>{{dado.Equipe|lower|capfirst}}</td>
+            <td>{{dado.Bairro|lower|capfirst}}</td>
+            <td>{{dado.Rua|lower|capfirst}}</td>
+            <td>{{dado.Referencia|lower|capfirst}}</td>
+            <td>{{dado.Servico|lower|capfirst}}</td>
+            <td>{{dado.Observacao|lower|capfirst}}</td>
 
-        <td>
-          <a href="{% url 'editar2' dado.id %}">
-            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png" height="25" width="25" />
-          </a>
-        </td>
+            <td>
+              <a href="{% url 'editar2' dado.id %}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+            </td>
 
-        <!--  Filtro Copiar informaçoes da tabela-->
-        {% if dado.Copiar %}
-        <td></td>
-        {% else %}
-        <td>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-          <a class="btn" data-clipboard-text="  Recomposição de pavimento: {{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} inf {{dado.Equipe|capfirst}}">
-            <img src="https://img.icons8.com/dusk/64/000000/copy.png" alt="Image" height="25" width="25" />
-          </a>
-        </td>
-        <script>
-          const clipboard = new ClipboardJS(".btn");
-          clipboard.on("success", function (e) {});
+            <!--  Filtro Copiar informaçoes da tabela-->
+            {% if dado.Copiar %}
+            <td></td>
+            {% else %}
+            <td>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+              <a class="btn" data-clipboard-text="  Executar: {{dado.Servico|capfirst}} inf {{dado.Equipe|capfirst}}">
+                <i class="fa fa-clipboard" aria-hidden="true"></i>
+              </a>
+            </td>
+              <script>
+                const clipboard = new ClipboardJS(".btn");
+                clipboard.on("success", function (e) {});
 
-          clipboard.on("error", function (e) {});
-        </script>
-        {% endif %}
+                clipboard.on("error", function (e) {});
+              </script>
+            {% endif %}
 
-        <!--  Filtro checked-->
-        {% if dado.Executado %}
-        <td>
-          <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
-          <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-        </td>
-        {% else %}
-        <td>
-          <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
-          <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-        </td>
-        {% endif %}
+            <!--  Filtro checked-->
+            {% if dado.Executado %}
+            <td>
+              <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
+              <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+            </td>
+            {% else %}
+            <td>
+              <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
+              <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+            </td>
+            {% endif %}
 
-        <td>
-          <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
-        </td>
+            <!--  Filtro Detalhes-->
+            {% comment %} <td>
+              <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
+            </td>
 
-        <td>
-          <a href="{% url 'excluir2' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
-        </td>
-      </tr>
-      {% endfor %}
+            <td>
+              <a href="{% url 'excluir2' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
+            </td> {% endcomment %}
+          </tr>
+        {% endfor %}
 
-      <!-- Query para o Grupo de Salvador -->
-      {% elif user.groups.all.0.name == 'Salvador'%} {% for dado in localidade_2.qs %}
-      <tr>
-        <td></td>
-        <td>{{dado.Localidade}}</td>
-        <td>
-          {% if dado.Medir == 'Medir' %}
-          <h4 style="color: Green" class="badge badge-warning">P/ Medir</h4>
-          {% elif dado.Medir == 'Prioridade' %}
-          <h4 style="color: red" class="badge badge-warning">Priorizar!</h4>
-          {% else %}
-          <h4 style="color: Grey" class="badge badge-warning">Normal</h4>
-          {% endif %}
-        </td>
-        <td>{{dado.Ss}}</td>
-        <td>{{dado.Data|date:"d/m/Y"}}</td>
+        <!-- Query para o Grupo de Salvador -->
+      {% elif user.groups.all.0.name == 'Salvador'%}
+        {% for dado in localidade_2.qs %}
+          <tr>
+            <td></td>
+            <td>{{dado.Localidade}}</td>
+            <td>
+              {% if dado.Medir == 'Medir' %}
+                <h2 style="color: Green">P/ Medir</h2>
+              {% elif dado.Medir == 'Prioridade' %}
+                <h2 style="color: red">Priorizar!</h2>
+              {% else %}
+                <h2 style="color: Grey">Normal</h2>
+              {% endif %}
+            </td>
+            <td>{{dado.Ss}}</td>
+            <td>{{dado.Data|date:"d/m/Y"}}</td>
 
-        <!-- Inf Filtro Fora e dentro do Prazo -->
-        <!-- <p>Data: {{ dado.Data }}, Hoje: {{ dado.atual }} -->
-        {% if dado.atual3 %}
-        <td>
-          {{dado.atual4}}
-          <img
-            data-toggle="tooltip"
-            data-placement="top"
-            title="No Prazo"
-            style="text-align: center"
-            src="https://img.icons8.com/external-bright-fill-juicy-fish/84/000000/external-business-business-bright-fill-bright-fill-juicy-fish-29.png"
-            height="25"
-            width="25" />
-        </td>
-        {% else %}
-        <td>
-          {{dado.atual4}}
-          <img
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Fora do Prazo"
-            style="text-align: center"
-            src="https://img.icons8.com/external-bright-fill-juicy-fish/84/000000/external-business-business-bright-fill-bright-fill-juicy-fish-30.png"
-            height="25"
-            width="25" />
-        </td>
-        {% endif %}
+            {% if dado.atual3 %}
+              <td>
+                {{dado.atual4}}
+                <i class="fas fa-calendar-check fa-lg"></i>
+              </td>
+            {% else %}
+              <td>
+                {{dado.atual4}}
+                <i class="fas fa-calendar-plus fa-lg"></i>
+              </td>
+            {% endif %}
 
-        <td>{{dado.Equipe|lower|capfirst}}</td>
-        <td>{{dado.Bairro|lower|capfirst}}</td>
-        <td>{{dado.Rua|lower|capfirst}}</td>
-        <td>{{dado.Referencia|lower|capfirst}}</td>
-        <td>{{dado.Servico|lower|capfirst}}</td>
-        <td>{{dado.Observacao|lower|capfirst}}</td>
+            <td>{{dado.Equipe|lower|capfirst}}</td>
+            <td>{{dado.Bairro|lower|capfirst}}</td>
+            <td>{{dado.Rua|lower|capfirst}}</td>
+            <td>{{dado.Referencia|lower|capfirst}}</td>
+            <td>{{dado.Servico|lower|capfirst}}</td>
+            <td>{{dado.Observacao|lower|capfirst}}</td>
 
-        <td>
-          <a href="{% url 'editar2' dado.id %}">
-            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png" height="25" width="25" />
-          </a>
-        </td>
+            <td>
+              <a href="{% url 'editar2' dado.id %}">
+                <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+              </a>
+            </td>
 
-        <!--  Filtro Copiar informaçoes da tabela-->
-        {% if dado.Copiar %}
-        <td></td>
-        {% else %}
-        <td>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-          <a class="btn" data-clipboard-text="  Recomposição de pavimento: {{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} inf {{dado.Equipe|capfirst}}">
-            <img src="https://img.icons8.com/dusk/64/000000/copy.png" alt="Image" height="25" width="25" />
-          </a>
-        </td>
-        <script>
-          const clipboard = new ClipboardJS(".btn");
-          clipboard.on("success", function (e) {});
+            <!--  Filtro Copiar informaçoes da tabela-->
+            {% if dado.Copiar %}
+            <td></td>
+            {% else %}
+            <td>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+              <a class="btn" data-clipboard-text="  Executar: {{dado.Servico|capfirst}} inf {{dado.Equipe|capfirst}}">
+                <i class="fa fa-clipboard" aria-hidden="true"></i>
+              </a>
+            </td>
+              <script>
+                const clipboard = new ClipboardJS(".btn");
+                clipboard.on("success", function (e) {});
 
-          clipboard.on("error", function (e) {});
-        </script>
-        {% endif %}
+                clipboard.on("error", function (e) {});
+              </script>
+            {% endif %}
 
-        <!--  Filtro checked-->
-        {% if dado.Executado %}
-        <td>
-          <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
-          <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-        </td>
-        {% else %}
-        <td>
-          <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
-          <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-        </td>
-        {% endif %}
+            <!--  Filtro checked-->
+            {% if dado.Executado %}
+            <td>
+              <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
+              <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+            </td>
+            {% else %}
+            <td>
+              <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
+              <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+            </td>
+            {% endif %}
 
-        <td>
-          <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
-        </td>
+            <!--  Filtro Detalhes-->
+            {% comment %} <td>
+              <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
+            </td>
 
-        <td>
-          <a href="{% url 'excluir2' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
-        </td>
-      </tr>
-      {% endfor %}
-      <!-- Query para o Grupo ADM GERAL -->
+            <td>
+              <a href="{% url 'excluir2' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
+            </td> {% endcomment %}
+          </tr>
+        {% endfor %}   
 
-      {% else %} {% for dado in filtro2.qs %}
-      <tr>
-        <td></td>
-        <td>{{dado.Localidade}}</td>
-        <td>
-          {% if dado.Medir == 'Medir' %}
-          <h4 style="color: Green" class="badge badge-warning">P/ Medir</h4>
+          <!-- Query para o Grupo ADM GERAL -->
+      {% else %} 
+        {% for dado in filtro2.qs %}
+          <tr>
+            <td></td>
+            <td>{{dado.Localidade}}</td>
+            <td>
+              {% if dado.Medir == 'Medir' %}
+                <h2 style="color: Green">P/ Medir</h2>
+              {% elif dado.Medir == 'Prioridade' %}
+                <h2 style="color: red">Priorizar!</h2>
+              {% else %}
+                <h2 style="color: Grey">Normal</h2>
+              {% endif %}
+            </td>
+            <td>{{dado.Ss}}</td>
+            <td>{{dado.Data|date:"d/m/Y"}}</td>
 
-          {% elif dado.Medir == 'Prioridade' %}
-          <h4 style="color: red" class="badge badge-warning">Priorizar!</h4>
+            {% if dado.atual3 %}
+              <td>
+                {{dado.atual4}}
+                <i class="fas fa-calendar-check fa-lg"></i>
+              </td>
+            {% else %}
+              <td>
+                {{dado.atual4}}
+                <i class="fas fa-calendar-plus fa-lg"></i>
+              </td>
+            {% endif %}
 
-          {% else %}
-          <h4 style="color: Grey" class="badge badge-warning">Normal</h4>
+            <td>{{dado.Equipe|lower|capfirst}}</td>
+            <td>{{dado.Bairro|lower|capfirst}}</td>
+            <td>{{dado.Rua|lower|capfirst}}</td>
+            <td>{{dado.Referencia|lower|capfirst}}</td>
+            <td>{{dado.Servico|lower|capfirst}}</td>
+            <td>{{dado.Observacao|lower|capfirst}}</td>
 
-          {% endif %}
-        </td>
-        <td>{{dado.Ss}}</td>
-        <td>{{dado.Data|date:"d/m/Y"}}</td>
+            <td>
+              <a href="{% url 'editar2' dado.id %}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </a>
+            </td>
 
-        <!-- Inf Filtro Fora e dentro do Prazo -->
-        <!-- <p>Data: {{ dado.Data }}, Hoje: {{ dado.atual }} -->
-        {% if dado.atual3 %}
-        <td>
-          {{dado.atual4}}
-          <img
-            data-toggle="tooltip"
-            data-placement="top"
-            title="No Prazo"
-            style="text-align: center"
-            src="https://img.icons8.com/external-bright-fill-juicy-fish/84/000000/external-business-business-bright-fill-bright-fill-juicy-fish-29.png"
-            height="25"
-            width="25" />
-        </td>
-        {% else %}
-        <td>
-          {{dado.atual4}}
-          <img
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Fora do Prazo"
-            style="text-align: center"
-            src="https://img.icons8.com/external-bright-fill-juicy-fish/84/000000/external-business-business-bright-fill-bright-fill-juicy-fish-30.png"
-            height="25"
-            width="25" />
-        </td>
-        {% endif %}
+            <!--  Filtro Copiar informaçoes da tabela-->
+            {% if dado.Copiar %}
+            <td></td>
+            {% else %}
+            <td>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+              <a class="btn" data-clipboard-text="  Executar: {{dado.Servico|capfirst}} inf {{dado.Equipe|capfirst}}">
+                <i class="fa fa-clipboard" aria-hidden="true"></i>
+              </a>
+            </td>
+              <script>
+                const clipboard = new ClipboardJS(".btn");
+                clipboard.on("success", function (e) {});
 
-        <td>{{dado.Equipe|lower|capfirst}}</td>
-        <td>{{dado.Bairro|lower|capfirst}}</td>
-        <td>{{dado.Rua|lower|capfirst}}</td>
-        <td>{{dado.Referencia|lower|capfirst}}</td>
-        <td>{{dado.Servico|lower|capfirst}}</td>
-        <td>{{dado.Observacao|lower|capfirst}}</td>
+                clipboard.on("error", function (e) {});
+              </script>
+            {% endif %}
 
-        <td>
-          <a href="{% url 'editar2' dado.id %}">
-            <img src="https://img.icons8.com/dusk/64/000000/edit--v1.png" height="25" width="25" />
-          </a>
-        </td>
+            <!--  Filtro checked-->
+            {% if dado.Executado %}
+            <td>
+              <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
+              <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+            </td>
+            {% else %}
+            <td>
+              <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
+              <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+            </td>
+            {% endif %}
 
-        <!--  Filtro Copiar informaçoes da tabela-->
-        {% if dado.Copiar %}
-        <td></td>
-        {% else %}
-        <td>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-          <a class="btn" data-clipboard-text="  Recomposição de pavimento: {{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} inf {{dado.Equipe|capfirst}}">
-            <img src="https://img.icons8.com/dusk/64/000000/copy.png" alt="Image" height="25" width="25" />
-          </a>
-        </td>
-        <script>
-          const clipboard = new ClipboardJS(".btn");
-          clipboard.on("success", function (e) {});
+            <!--  Filtro Detalhes-->
+            {% comment %} <td>
+              <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
+            </td>
 
-          clipboard.on("error", function (e) {});
-        </script>
-        {% endif %}
-
-        <!--  Filtro checked-->
-        {% if dado.Executado %}
-        <td>
-          <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
-          <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-        </td>
-        {% else %}
-        <td>
-          <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
-          <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-        </td>
-        {% endif %}
-
-        <!--  Filtro Detalhes-->
-        <td>
-          <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
-        </td>
-
-        <td>
-          <a href="{% url 'excluir2' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
-        </td>
-      </tr>
-      {% endfor %} {% endif %}
+            <td>
+              <a href="{% url 'excluir2' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
+            </td> {% endcomment %}
+          </tr>
+        {% endfor %} 
+      {% endif %}
+      
     </tbody>
   </table>
 </div>
-{% endblock %} {% block scripts %}
+{% endblock %} 
+
+{% block scripts %}
 <script>
   $(document).ready(function () {
     $("#tabela-listar").DataTable({

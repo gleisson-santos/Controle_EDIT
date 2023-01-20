@@ -5,7 +5,7 @@
 
 
 <h1>Controle de Demandas</h1>
-<div class="container mt-5" id="pengeral" >
+<div class="container mt-5"  >
     <div class="row mb-5">
  
         <!-- Pavimentos -->
@@ -365,7 +365,7 @@
     </div>
 
 
-    <div  class="card border-secondary" >
+    <div  class="card border-secondary" id="pengeral">
         <div class="card-header">
             Pendencias
         </div>
@@ -468,8 +468,7 @@
                                 </td> {% endcomment %}
                         
                                 <td>
-                                    <a href="{% url 'excluir_p' dado.id %}"> <i class="fa fa-trash fa-lg" aria-hidden="true"></i> </a> 
-                                
+                                   <a href="{% url 'excluir_p' dado.id %}"> <i class="fa fa-trash fa-lg" aria-hidden="true"></i> </a>                                 
                                 </td>
                             </tr>
                         {% endfor %}
@@ -484,7 +483,6 @@
 
 
 {% endblock %}
-
 
 {% block scripts %}
 <script>

@@ -7,7 +7,7 @@ from django.db import models
 
 # modelos que irão representar uma tabela no banco de dados
 class Pavimento(models.Model):
-    Ss = models.IntegerField (max_length=9)
+    Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
     Prazo = models.BooleanField(default=False)
    
@@ -83,7 +83,7 @@ class Pavimento(models.Model):
 
 
 class Esgoto(models.Model):
-    Ss = models.IntegerField(max_length=9)
+    Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
 
     EQUIPE = (
@@ -155,7 +155,7 @@ class Esgoto(models.Model):
 
 
 class Pendencias(models.Model):
-    Ss = models.IntegerField ()
+    Ss = models.CharField(max_length=9)
     Tipo = models.CharField(max_length=255)
     Solicitante = models.CharField(max_length=255, blank=True)
     Data = models.DateField('data', null=True, blank=True)
