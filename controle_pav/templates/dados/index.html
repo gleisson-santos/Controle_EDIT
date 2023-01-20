@@ -5,7 +5,7 @@
 
 
 <h1>Controle de Demandas</h1>
-<div class="container mt-5" >
+<div class="container mt-5" id="pengeral" >
     <div class="row mb-5">
  
         <!-- Pavimentos -->
@@ -365,119 +365,120 @@
     </div>
 
 
-    <div class="card border-secondary">
-        <div class="card-header">Pendencias</div>
+    <div  class="card border-secondary" >
+        <div class="card-header">
+            Pendencias
+        </div>
         <div class="card-body text-secondary">
             <p class="card-text">Aqui está a lista de <code>Pendências</code> registradas.</p>
 
-        <table style="text-align: center" class="table table-striped table-bordered table-hover table-responsive" id='tabela-listar'>
-            <thead>
-                <tr >
-                    <th></th>
-                    <th>localidade</th>
-                    <th>Situação</th>
-                    <th>Ss</th>
-                    <th>Tipo</th>
-                    <th>Solicitante</th>
-                    <th>Data</th>
-                    {% comment %} <th>Detalhes</th> {% endcomment %}
-                    <th>Excluir</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if user.groups.all.0.name == 'Lauro' %}
-                    {% for dado in localidade_l.qs %}
-                        <tr>
-                            <td></td>
-                            <td>{{dado.Localidade}}</td>
-                            <td>
-                                {% if dado.Medir == 'Medir' %}  
-                                <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
-                                {% elif dado.Medir == 'Prioridade' %}
-                                <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
-                                {% else %}
-                                <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
-                                {% endif %}
-                            </td>
-                            <td>{{dado.Ss}}</td>
-                            <td>{{dado.Tipo|lower|capfirst}}</td>
-                            <td>{{dado.Solicitante|lower|capfirst}}</td>
-                            <td>{{dado.Data|date:"d/m/Y"}}</td>
-                            {% comment %} <td>{{dado.Detalhes|lower|capfirst}}
-                                <i class="fa fa-file-code-o" aria-hidden="true"></i>
-                            </td> {% endcomment %}
-                    
-                            <td>
-                                <a href="{% url 'excluir_p' dado.id %}"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a> 
-                            </td>
-                        </tr>
-                     {% endfor %}
-                {% elif  user.groups.all.0.name == 'Salvador'%}
-                    {% for dado in localidade_2.qs %}
-                        <tr>
-                            <td></td>
-                            <!-- for para iterar sobre todos os itens do banco de dados -->
-                            <!-- Itens quais eu quero acessaar do BD -->
-                            <td>{{dado.Localidade}}</td>
-                            <td>
-                                {% if dado.Medir == 'Medir' %}  
-                                <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
-                                {% elif dado.Medir == 'Prioridade' %}
-                                <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
-                                {% else %}
-                                <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
-                                {% endif %}
-                            </td>
-                            <td>{{dado.Ss}}</td>
-                            <td>{{dado.Tipo|lower|capfirst}}</td>
-                            <td>{{dado.Solicitante|lower|capfirst}}</td>
-                            <td>{{dado.Data|date:"d/m/Y"}}</td>
-                            {% comment %} <td>{{dado.Detalhes|lower|capfirst}}
-                                <i class="fa fa-file-code-o" aria-hidden="true"></i>
-                            </td> {% endcomment %}
-                    
-                            <td>
-                                <a href="{% url 'excluir_p' dado.id %}"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a> 
-                            </td>
-                        </tr>
-                    {% endfor %}
-                {% else %}
-                    {% for dado in filtro3.qs %}
-                        <tr>
-                            <td></td>
-                            <!-- for para iterar sobre todos os itens do banco de dados -->
-                            <!-- Itens quais eu quero acessaar do BD -->
-                            <td>{{dado.Localidade}}</td>
-                            <td>
-                                {% if dado.Medir == 'Medir' %}  
-                                <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
-                                {% elif dado.Medir == 'Prioridade' %}
-                                <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
-                                {% else %}
-                                <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
-                                {% endif %}
-                            </td>
-                            <td>{{dado.Ss}}</td>
-                            <td>{{dado.Tipo|lower|capfirst}}</td>
-                            <td >{{dado.Solicitante|lower|capfirst}}</td>
-                            <td >{{dado.Data|date:"d/m/Y"}}</td>
-                            {% comment %} <td >{{dado.Detalhes|lower|capfirst}}
-                                <i class="fa fa-file-code-o" aria-hidden="true"></i>
-                            </td> {% endcomment %}
-                    
-                            <td>
-                                <a href="{% url 'excluir_p' dado.id %}"> <i class="fa fa-trash fa-lg" aria-hidden="true"></i> </a> 
-                               
-                            </td>
-                        </tr>
-                    {% endfor %}
-                {% endif %}
-            </tbody>
-        </table>
-
-
+            <table style="text-align: center" class="table table-striped table-bordered table-hover table-responsive" id='tabela-listar'>
+                <thead>
+                    <tr >
+                        <th></th>
+                        <th>localidade</th>
+                        <th>Situação</th>
+                        <th>Ss</th>
+                        <th>Tipo</th>
+                        <th>Solicitante</th>
+                        <th>Data</th>
+                        {% comment %} <th>Detalhes</th> {% endcomment %}
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if user.groups.all.0.name == 'Lauro' %}
+                        {% for dado in localidade_l.qs %}
+                            <tr>
+                                <td></td>
+                                <td>{{dado.Localidade}}</td>
+                                <td>
+                                    {% if dado.Medir == 'Medir' %}  
+                                    <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
+                                    {% elif dado.Medir == 'Prioridade' %}
+                                    <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
+                                    {% else %}
+                                    <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
+                                    {% endif %}
+                                </td>
+                                <td>{{dado.Ss}}</td>
+                                <td>{{dado.Tipo|lower|capfirst}}</td>
+                                <td>{{dado.Solicitante|lower|capfirst}}</td>
+                                <td>{{dado.Data|date:"d/m/Y"}}</td>
+                                {% comment %} <td>{{dado.Detalhes|lower|capfirst}}
+                                    <i class="fa fa-file-code-o" aria-hidden="true"></i>
+                                </td> {% endcomment %}
+                        
+                                <td>
+                                    <a href="{% url 'excluir_p' dado.id %}"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a> 
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% elif  user.groups.all.0.name == 'Salvador'%}
+                        {% for dado in localidade_2.qs %}
+                            <tr>
+                                <td></td>
+                                <!-- for para iterar sobre todos os itens do banco de dados -->
+                                <!-- Itens quais eu quero acessaar do BD -->
+                                <td>{{dado.Localidade}}</td>
+                                <td>
+                                    {% if dado.Medir == 'Medir' %}  
+                                    <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
+                                    {% elif dado.Medir == 'Prioridade' %}
+                                    <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
+                                    {% else %}
+                                    <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
+                                    {% endif %}
+                                </td>
+                                <td>{{dado.Ss}}</td>
+                                <td>{{dado.Tipo|lower|capfirst}}</td>
+                                <td>{{dado.Solicitante|lower|capfirst}}</td>
+                                <td>{{dado.Data|date:"d/m/Y"}}</td>
+                                {% comment %} <td>{{dado.Detalhes|lower|capfirst}}
+                                    <i class="fa fa-file-code-o" aria-hidden="true"></i>
+                                </td> {% endcomment %}
+                        
+                                <td>
+                                    <a href="{% url 'excluir_p' dado.id %}"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a> 
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% for dado in filtro3.qs %}
+                            <tr>
+                                <td></td>
+                                <!-- for para iterar sobre todos os itens do banco de dados -->
+                                <!-- Itens quais eu quero acessaar do BD -->
+                                <td>{{dado.Localidade}}</td>
+                                <td>
+                                    {% if dado.Medir == 'Medir' %}  
+                                    <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
+                                    {% elif dado.Medir == 'Prioridade' %}
+                                    <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
+                                    {% else %}
+                                    <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
+                                    {% endif %}
+                                </td>
+                                <td>{{dado.Ss}}</td>
+                                <td>{{dado.Tipo|lower|capfirst}}</td>
+                                <td >{{dado.Solicitante|lower|capfirst}}</td>
+                                <td >{{dado.Data|date:"d/m/Y"}}</td>
+                                {% comment %} <td >{{dado.Detalhes|lower|capfirst}}
+                                    <i class="fa fa-file-code-o" aria-hidden="true"></i>
+                                </td> {% endcomment %}
+                        
+                                <td>
+                                    <a href="{% url 'excluir_p' dado.id %}"> <i class="fa fa-trash fa-lg" aria-hidden="true"></i> </a> 
+                                
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
         </div>
     </div>
+
 </div>
 
 
