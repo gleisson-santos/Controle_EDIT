@@ -23,9 +23,9 @@ h2 {
   font-weight: bold;
 }
 
-/* Estilos do "Cadastro de Pavimento Modal*/
+/* Menu inicial "Cadastro de Pavimento Modal*/
 #cadpav {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 #cadpav span {
@@ -51,9 +51,9 @@ h2 {
 }
 
 
-/* Estilos do "Cadastro de Esgoto Modal*/
+/* Menu inicial "Cadastro de Esgoto Modal*/
 #cadesg {
-  margin-top: 2px;
+  margin-top: 10px;
 }
 
 #cadesg #ex {
@@ -84,9 +84,9 @@ h2 {
   text-decoration: none;
 }
 
-/* Estilos do "Cadastro de Pendencias Modal*/
+/* Menu Inicial "Cadastro de Pendencias Modal*/
 #cadpend {
-  margin-top: 2px;
+  margin-top: -5px;
 }
 
 #cadpend span {
@@ -135,7 +135,7 @@ h2 {
 
 /* Tabela de Pavimento :  Estilos do "Cadastro de Pavimento Modal*/
 #pavpend {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 #pavpend span {
@@ -170,4 +170,66 @@ h2 {
 
 .fa-clipboard {
   color: #708090;
+}
+
+
+/* Tabela de Esgoto :  Estilos do "Cadastro de Esgoto Modal*/
+
+#penesgo {
+  margin-top: 10px;
+}
+
+#penesgo span {
+  height: 36px;
+  width: 90px;
+}
+#penesgo .form-control {
+  height: 36px;
+  width: 10px;
+}
+
+#temp {
+  margin-top: 400px;
+}
+
+#btnesg {
+  text-align: right;
+}
+
+#btnesg button {
+  margin-bottom: 10px;
+  margin-top: -5px;
+}
+
+#btnesg a {
+  color: #fff;
+  text-decoration: none;
+
+}
+
+.w-10 {
+  width: 900px;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 90px;
+}
+
+.w-11 {
+  width: 500px;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 90px;
+}
+
+
+
+.alert-success {
+  display: none;
+  width: 300px;
+}
+
+.close {
+  text-decoration: none;
+  border: none;
+  font-weight: bold;
 }

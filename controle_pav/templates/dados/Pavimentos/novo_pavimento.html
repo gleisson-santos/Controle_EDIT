@@ -2,78 +2,72 @@
 {% load crispy_forms_tags %}
 {% load widget_tweaks %}
 {% block conteudo %}
+{% load static %}
 
-<br><br><br>  
 <div class="container">
-    <div class="card w-80">
+    <div class="card w-10">
         <div class="card-body">
-            <h2 style='text-align:center'>Alterar informações</h2>
+            <h3 style='text-align:center'>Alterar informações</h3>
             <form action="" method="POST">
                  {% csrf_token %}
 
-                <!-- Div de todos os formularios -->
-                <div class="form-group row" > 
-                    
-                    <div  class="input-group mb-3">
-                        <span style="width: 110px;" class="input-group-text">Localidade</span>
-                        {% render_field formulario.Localidade class='form-control' style="height: 40px;"  %}
-                        ⠀  
-                        <span style="width: 110px;" class="input-group-text">Executado</span>
-                        {% render_field formulario.Executado class='form-control' style="height: 40px;"  %}
-                        ⠀ 
-                        <span style="width: 110px;" class="input-group-text">Situação</span>
-                        {% render_field formulario.Medir class='form-control' style="height: 40px;"  %}
+                <div id="pavpend"> 
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Localidade</span>
+                        {% render_field formulario.Localidade class='form-control'%}
+                        ⠀                               
+                        <span class="input-group-text">Situação</span>
+                        {% render_field formulario.Medir class='form-control' %}
                     </div>
 
-                    <!-- SS -->
                     <div class="input-group mb-3">
-                        <span style="width: 110px;" style="width: 60px;" style="height: 40px;" class="input-group-text" >Ss</span>
-                        {% render_field formulario.Ss  class="form-control" style="height: 40px;" placeholder="Informe a SS" minlength="9"  maxlength="9"%}
-                        ⠀   
-                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Data</span>
-                        {% render_field formulario.Data class="form-control" style="height: 40px;" %}
-                        ⠀   
-                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Equipe</span>
-                        {% render_field formulario.Equipe class="form-control" style="height: 40px;" placeholder="Sigla da equipe" %}
-                    </div>              
-            
-                    <!-- Bairro -->
-                    <div class="input-group mb-3">
-                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Bairro</span>
-                        {% render_field formulario.Bairro class="form-control" style="height: 40px;" placeholder="Informe o bairro" %}
-                        ⠀   
-                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Rua</span>
-                        {% render_field formulario.Rua class="form-control" style="height: 40px;" placeholder="Informe a Rua" %}
-                        ⠀   
-                        <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Referencia</span>
-                        {% render_field formulario.Referencia class="form-control" style="height: 40px;" placeholder="Informe pontos de Referencia" %}
-                    </div>
-      
-                    <div class="input-group mb-3">
-                        <span style="width: 110px;" style="width: 90px;" style="height: 40px;" class="input-group-text">Servico</span>
-                         {% render_field formulario.Servico  class="form-control" style="height: 40px;" placeholder="Informe Servico" %}
-                         ⠀   
-                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Metragem</span>
-                        {% render_field formulario.Metragem class="form-control" style="height: 40px;" placeholder="Ex: 1,50 x 1,25" %}
-                        ⠀   
-                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Observações</span>
-                        {% render_field formulario.Observacao class="form-control" style="height: 40px;" placeholder="Inf. Extras" %}
+                        <span class="input-group-text" >Ss</span>
+                        {% render_field formulario.Ss  class="form-control" placeholder="Informe 9 Digitos" %}     
+                        ⠀                   
+                        <span class="input-group-text">Data</span>
+                        {% render_field formulario.Data class="form-control"%}
                     </div>
 
-                    <!-- Ss_Final  -->
                     <div class="input-group mb-3">
-                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Ss_Final</span>
-                        {% render_field formulario.Ss_Final  class="form-control" style="height: 40px;" %}
-                        ⠀  
-                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Met_Final</span>
-                        {% render_field formulario.Met_Final  class="form-control" style="height: 40px;" %}
+                        <span class="input-group-text">Equipe</span>
+                        {% render_field formulario.Equipe class="form-control" %}
+                        ⠀
+                        <span class="input-group-text">Bairro</span>
+                        {% render_field formulario.Bairro class="form-control" placeholder=" item obrigatorio"%}
                     </div>
 
+                    <div class="input-group mb-3">
+                        <span  class="input-group-text">Rua</span>
+                        {% render_field formulario.Rua class="form-control" placeholder=" item obrigatorio"%}
+                        ⠀
+                        <span class="input-group-text">Referência</span>
+                        {% render_field formulario.Referencia class="form-control" placeholder=" item obrigatorio"%}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Metragem</span>
+                        {% render_field formulario.Metragem class="form-control" placeholder=" Ex: 1,50 x 1,25" %}
+                        ⠀
+                        <span class="input-group-text">Obs</span>
+                        {% render_field formulario.Observacao class="form-control" placeholder=" item opcional"%}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Serviço</span>
+                        {% render_field formulario.Servico  class="form-control"%}
+                        ⠀
+                        <span class="input-group-text">Executado</span>
+                        {% render_field formulario.Executado class='form-control'%}
+                    </div>
                 </div>
-        
-                <!-- Botoes -->
-                <button   class="btn btn-secondary"><a style="color: white;" href="{% url 'pavimentos'%}" class="text-decoration-none">Voltar</a></button> 
-                <button   class="btn btn-success" type="submit">Salvar</button>        
+                
+                <div id="btn2pen">
+                    <!-- Botoes -->
+                    <button class="btn btn-secondary"><a href="{% url 'pavimentos'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
+                    <button class="btn btn-success" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
+                </div>
+
             </form>
         </div>
     </div>         

@@ -3,11 +3,20 @@
 {% block conteudo %}
 {% load static %}
 
-
 <h1>Controle de Demandas</h1>
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Pavimento</strong> inserido com Sucesso!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>        
+    </button>
+</div>
+
 <div class="container mt-5"  >
     <div class="row mb-5">
- 
+        
+
+        
         <!-- Pavimentos -->
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="card border-dark">
@@ -43,7 +52,7 @@
                 </div>
             </div>
         </div>
- 
+
         <!-- Modal Pendencias de Pavimentos-->
         <div class="modal fade bd-example-modal-lg" id="cadpavimento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -111,16 +120,19 @@
                                         {% render_field pavimento5.Executado class='form-control'  %}
                                     </div>
                                 </div>
+                            
                                 
                                 <div id="btnpav">
                                     <!-- Botoes -->
                                     <button  class="btn btn-secondary"><a href="{% url 'index'%}" ><i class="fa fa-reply" aria-hidden="true"></i>
                                         Voltar</a>
                                     </button> 
-                                    <button class="btn btn-success" name="gravar" value="Pav1" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
+                                    <button id="show" class="btn btn-success" name="gravar" value="Pav1" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
                                         Salvar
-                                    </button>        
+                                    </button>    
                                 </div>
+
+
                             </form>                            
                         </div>
                     </div>

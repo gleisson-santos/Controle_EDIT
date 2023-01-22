@@ -1,66 +1,64 @@
 {% extends 'dados/base.html'  %}
 {% block conteudo %}
 {% load widget_tweaks %}
+{% load static %}
 
-<br><br><br>
+
 <div class="container">
-    <div class="card w-80">
+    <div class="card w-11">
         <div class="card-body">
-            <h2 style='text-align:center'>Alterar informações</h2>
+            <h3 style='text-align:center'>Alterar informações</h3>
 
             <form action="" method="POST">
-                <!-- Não se esqueçer dessa misera dessa fdp tag -->
                 {% csrf_token %}
-                <!-- Div de todos os formularios -->
-                <div style="width: 500px;" class="form-group row" >     
-                    
-                    <div style="width: 250px;" class="input-group mb-3">
-                        <span style="width: 110px;" class="input-group-text">Localidade</span>
-                        {% render_field formulario.Localidade class='form-control' style="height: 40px;"  %}
-                    </div>
-        
+
+                <div id="pavpend">                              
+                                                    
                     <div class="input-group mb-3">
-                        <span style="width: 110px;" class="input-group-text">Ss</span>
-                        {% render_field formulario.Ss  class="form-control" style="height: 70px;" placeholder="Informe a" %}
+                        <span class="input-group-text">Ss</span>
+                        {% render_field formulario.Ss  class="form-control" placeholder='Informe 9 digitos' minlength="9"  maxlength="9" %}
                     </div>
 
                     <div class="input-group mb-3">
-                        <span style="width: 110px;" class="input-group-text">Tipo</span>
-                        {% render_field formulario.Tipo  class="form-control" style="height: 70px;" placeholder="Qual o tipo da Pendencia?" %}
+                        <span class="input-group-text">Tipo</span>
+                        {% render_field formulario.Tipo  class="form-control" placeholder=" item obrigatorio" %}
                     </div>
 
                     <div class="input-group mb-3">
-                        <span style="width: 110px;" class="input-group-text" >Solicitante</span>
-                        {% render_field formulario.Solicitante  class="form-control" style="height: 40px;" %} 
-                    </div>
-
-                    <!-- Data -->
-                    <div class="input-group mb-3">
-                        <span style="width: 110px;" style="height: 40px;" class="input-group-text">Data</span>
-                        {% render_field formulario.Data class="form-control" style="height: 40px;" %}
+                        <span class="input-group-text" >Solicitante</span>
+                        {% render_field formulario.Solicitante  class="form-control" placeholder=" item obrigatorio "%} 
                     </div>
 
                     <div class="input-group mb-3">
-                        <span style="width: 110px;" class="input-group-text" >Detalhes</span>
-                        {% render_field formulario.Detalhes class="form-control" style="height: 100px;" placeholder="Descreva detalhes da pendencia" %}
+                        <span class="input-group-text">Data</span>
+                        {% render_field formulario.Data class="form-control" %}
                     </div>
 
-                </div>
-                                       <!-- Pendente -->
-                <div style="width: 250px;" class="input-group mb-3">
-                    <span style="width: 110px;" class="input-group-text">Executado</span>
-                    {% render_field formulario.Executado class='form-control' style="height: 40px;"  %}
-                </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Detalhes</span>
+                        {% render_field formulario.Detalhes class="form-control" placeholder="Descreva os detalhes" %}
+                    </div>
 
-                <div style="width: 250px;" class="input-group mb-3">
-                    <span style="width: 110px;" class="input-group-text">Situação</span>
-                    {% render_field formulario.Medir class='form-control' style="height: 38px;"  %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Executado</span>
+                        {% render_field formulario.Executado class='form-control'  %}
+                        ⠀                                                 
+                        <span  class="input-group-text">Situação</span>
+                        {% render_field formulario.Medir class='form-control' %}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span style="width: 100px;" class="input-group-text">Localidade</span>
+                        {% render_field formulario.Localidade class='form-control' style="height: px;"  %}
+                    </div>
                 </div>
 
-
+                <div style='text-align:right;'>
                 <!-- Botoes -->
-                <button style="width: 70px;" style="margin-top: 10px;" class="btn btn-secondary"><a style="color: white;" href="{% url 'informativo'%}" class="text-decoration-none">Voltar</a></button> 
-                <button style="width: 70px;" style="margin-top: 10px;" class="btn btn-success" type="submit">Salvar</button>        
+                    <button  class="btn btn-secondary"><a style="color: white;" href="{% url 'informativo'%}" class="text-decoration-none"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
+                    <button  class="btn btn-success" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
+                </div>                 
+                
             </form>
         </div>
     </div>         
