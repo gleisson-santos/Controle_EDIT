@@ -147,9 +147,9 @@
                 <th>Serviço</th>
                 <th>Metragem</th>            
                 
-                <th>Copiar</th>
                 <th>Ss_Final</th>
                 <th>Met_Final </th>
+                <th>Copiar</th>
                 <th>Editar</th>
                 <th>Executado</th>
                 {% comment %} <th>Detalhes</th> {% endcomment %}
@@ -365,6 +365,8 @@
                     <td>{{dado.Servico|lower|capfirst}}</td>
                     <td>{{dado.Metragem|lower|capfirst}}</td>
                     
+                    <td>{{dado.Ss_Final|lower|capfirst}}</td>
+                    <td>{{dado.Met_Final|lower|capfirst}}</td>
                     <!--  Filtro Copiar informaçoes da tabela-->
                     {% if dado.Copiar %}
                         <td></td>
@@ -381,8 +383,6 @@
                             clipboard.on("error", function (e) {});
                         </script>
                     {% endif %}
-                    <td>{{dado.Ss_Final|lower|capfirst}}</td>
-                    <td>{{dado.Met_Final|lower|capfirst}}</td>
 
                     <td>
                         <a href="{% url 'editar' dado.id %}">

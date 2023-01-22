@@ -5,6 +5,7 @@
 
 <h1>Controle de Demandas</h1>
 
+
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Pavimento</strong> inserido com Sucesso!
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -16,7 +17,7 @@
     <div class="row mb-5">
         
 
-        
+       
         <!-- Pavimentos -->
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="card border-dark">
@@ -32,7 +33,7 @@
                     {% elif user.groups.all.0.name == 'Salvador' %}
                         <h8>  <i class="fas fa-table me-1"></i>{{filtrossa}} Pavimento(s) Pendentes!(s)</h8>
                         <p class="card-text">{{Asfaltossa}} <code>Asfalto</code> {{Concretossa}}<code> Concreto</code> </p>
-
+        
                     {% else %}
                         <h8>  <i class="fas fa-table me-1"></i>{{pav_pend}} Pavimento(s) Pendentes!(s)</h8>
                         <p class="card-text">{{Asfalto}} <code>Asfalto</code> {{Concreto}}<code> Concreto</code> </p>
