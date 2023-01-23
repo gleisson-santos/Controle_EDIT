@@ -233,3 +233,8 @@ h2 {
   border: none;
   font-weight: bold;
 }
+
+#bb {
+  margin: 0 auto;
+  margin-right: 5px;
+}

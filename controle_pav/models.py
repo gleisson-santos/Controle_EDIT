@@ -5,21 +5,27 @@ from django.db import models
 import pandas as pd
 
 
+
+
 # df = pd.read_csv("C:/Users/55719/Desktop/#Projeto - Controle_servcio_EDIT/Controle_EDIT/controle_pav/static/texto/equipes.csv", header=None)
-# # print(df.head())
+# print(df)
 
 def Equipe():
     with open("controle_pav/static/texto/equipes.csv", 'r') as arquivo:
         equipes = arquivo.read()
-        EQUIPE = (
-                ('equipes', equipes.split()[0]),
-                ('equipes', equipes.split()[1]),
-                ('equipes', equipes.split()[2]),
-                ('equipes', equipes.split()[3]),
-                ('equipes', equipes.split()[4]),
-                ('equipes', equipes.split()[5]),
-            )
+        EQUIPE = (                
+            ('equipes', equipes.split()[0]),
+            ('equipes', equipes.split()[1]),
+            ('equipes', equipes.split()[2]),
+            ('equipes', equipes.split()[3]),
+            ('equipes', equipes.split()[4]),
+            ('equipes', equipes.split()[5]),
+
+                    )
         return EQUIPE
+
+
+
 
 
 
