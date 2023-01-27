@@ -11,6 +11,10 @@ from .forms import Esgotoform, Pavimentoform, Pendenciasform
 from .models import Esgoto, Pavimento, Pendencias
 
 
+from django.contrib.auth.models import User
+from django.db import models
+
+
 # PÁGINA PRINCIPAL
 @login_required
 def index(request):
@@ -170,12 +174,22 @@ def pavimentos(request):
 
     # Cadastro Pavimento
     if request.method == 'POST':
-        pavimento22_form = Pavimentoform(request.POST)
-        if pavimento22_form.is_valid():
-            pavimento22_form.save()
+        form = Pavimentoform(request.POST or None)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.created_by = request.user
+            instance.save()
         return redirect('pavimentos')
     else:
-        pavimento22_form = Pavimentoform()
+        form = Pavimentoform()
+
+
+    form = MyForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.created_by = request.user
+        instance.save()
+
 
     dados2 = Pavimento.objects.order_by("Executado", "Data").all()
     dados = PavimentoFilter(request.GET, queryset=dados2)
@@ -201,7 +215,7 @@ def pavimentos(request):
         'qtd': qtd,
 
 
-        'pavimento9': pavimento22_form,
+        'pavimento9': form,
 
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
@@ -390,6 +404,8 @@ def excluir2(request, id_pavimento2):
         pavimento2.delete()
         return redirect('pavimentos2')
     return render(request, 'dados/Esgoto/confirmar_exclusao2.html', {'item': pavimento2})
+
+
 
 
 # Informativos

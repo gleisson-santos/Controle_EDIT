@@ -4,6 +4,9 @@ from random import choices
 from django.db import models
 import pandas as pd
 
+from django.contrib.auth.models import User
+from django.db import models
+
 
 
 
@@ -31,6 +34,8 @@ def Equipe():
 
 # modelos que irão representar uma tabela no banco de dados
 class Pavimento(models.Model):
+    Criador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+')
+
     Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
     Prazo = models.BooleanField(default=False)
