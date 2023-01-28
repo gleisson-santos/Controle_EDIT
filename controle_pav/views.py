@@ -7,12 +7,42 @@ from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 
 from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter
-from .forms import Esgotoform, Pavimentoform, Pendenciasform
+from .forms import Esgotoform, Pavimentoform, Pendenciasform, ContactForm
 from .models import Esgoto, Pavimento, Pendencias
 
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.mail import send_mail
+
+
+
+
+@login_required
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            # Send email here, for example using the built-in Django email function
+            send_mail(
+                'Subject',
+                'Mensagem',
+                'gleissonssa@outlook.com',
+                ['jsgleisson@gmail.com'],
+                fail_silently=False,
+            )
+            print(form.errors)
+            # redirect or show success message
+    else:
+        form = ContactForm()
+    return render(request, 'dados/contact.html', {'form': form})
+
+
+
+
 
 
 # PÁGINA PRINCIPAL
@@ -174,21 +204,17 @@ def pavimentos(request):
 
     # Cadastro Pavimento
     if request.method == 'POST':
-        form = Pavimentoform(request.POST or None)
+        form = Pavimentoform(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.created_by = request.user
             instance.save()
-        return redirect('pavimentos')
+            return redirect('pavimentos')
+        else:
+            print(form.errors)
+
     else:
         form = Pavimentoform()
-
-
-    form = MyForm(request.POST or None)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.created_by = request.user
-        instance.save()
 
 
     dados2 = Pavimento.objects.order_by("Executado", "Data").all()
@@ -257,58 +283,19 @@ def editar(request, id_pavimento):
     else:
         formulario = Pavimentoform(request.POST, instance=pavimento)
         if formulario.is_valid():
-            formulario.save()
+            item = formulario.save(commit=False)
+            item.last_edited_by = request.user
+            item.save()
         return redirect('pavimentos')
-
-
-# @ login_required
-# def editar20(request, pk):
-#     template_name = 'dados/Pavimentos/editar20.html'
-#     obj = Pavimento.objects.get(pk=pk)
-#     form = Pavimentoform(request.POST or None, instance=obj)
-
-#     context = {'object': obj, 'form':form}
-#     return render(request, template_name, context)
-
-# @ login_required
-# def editar_update(request, pk):
-#     template_name = 'dados/Pavimentos/editar20.html'
-#     obj = Pavimento.objects.get(pk=pk)
-#     form = Pavimentoform(request.POST or None, instance=obj)
-
-#     context = {'object': obj}
-#     return render(request, template_name, context)
-
-
-# @ login_required
-# def expense_detail(request, pk):
-#     template = 'dados/Pavimentos/expense_detail.html'
-#     obj = Pavimento.objects.get(pk=pk)
-#     form = Pavimentoform(request.POST or None, instance=obj)
-
-#     context = {'object': obj, 'form': form}
-#     return render(request, template, context)
-
-
-# @ login_required
-# def expense_update(request, pk):
-#     template = 'dados/Pavimentos/pavimentos.html'
-#     obj = Pavimento.objects.get(pk=pk)
-#     form = Pavimentoform(request.POST or None, instance=obj)
-#     context = {'object': obj, 'form': form}
-
-#     if request.method == 'POST':
-#         if request.POST['editar'] == 'Editar':
-#             if form.is_valid():
-#                 form.save()
-
-#     return render(request, template, context)
 
 
 @ login_required
 def excluir(request, id_pavimento):
     pavimento = Pavimento.objects.get(pk=id_pavimento)
     if request.method == 'POST':
+        pavimento.deleted_by = request.user
+        pavimento.last_deleted_by = request.user 
+        pavimento.save()
         pavimento.delete()
         return redirect('pavimentos')
     return render(request, 'dados/Pavimentos/confirmar_exclusao.html', {'item': pavimento})

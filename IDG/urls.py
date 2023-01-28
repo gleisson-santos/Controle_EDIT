@@ -57,4 +57,7 @@ urlpatterns = [
     path('Pendencias/excluir_pendencia/<int:id_pendencia>',
          views.excluir_p,       name='excluir_p'),
 
+
+     path('contact/', views.contact, name='contact'),  
+
 ]

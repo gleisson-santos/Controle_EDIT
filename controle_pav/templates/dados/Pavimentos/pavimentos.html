@@ -135,7 +135,9 @@
             <tr>
                 <th>ID</th>
                 <th>Localidade</th>
-                <th>Criador</th>
+                <th>Quem Criou</th>
+                <th>Quem Editou</th>
+                <th>Quem Deletou</th>
                 <th>Situação</th>
                 <th>Ss</th>
                 <th>Data</th>
@@ -154,7 +156,7 @@
                 <th>Editar</th>
                 <th>Executado</th>
                 {% comment %} <th>Detalhes</th> {% endcomment %}
-                {% comment %} <th>Excluir</th> {% endcomment %}
+                <th>Excluir</th>
             </tr>
         </thead>
 
@@ -336,6 +338,8 @@
                     <td></td>
                     <td>{{dado.Localidade}}</td>
                     <td>{{dado.created_by}}</td>
+                    <td>{{dado.last_edited_by}}</td>
+                    <td>{{dado.last_deleted_by}}</td>
                     <td>
                     {% if dado.Medir == 'Medir' %}
                         <h2 style="color: Green" >P/ Medir</h2>
@@ -407,11 +411,12 @@
 
                     {% comment %} <td>
                     <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
-                    </td>
+                    </td>{% endcomment %}
 
                     <td>
-                    <a href="{% url 'excluir2' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
-                    </td> {% endcomment %}
+                    <a href="{% url 'excluir' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
+                    </td> 
+                </tr>
                 </tr>
                 {% endfor %}
             {% endif %}              

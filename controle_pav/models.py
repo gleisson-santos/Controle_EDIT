@@ -28,14 +28,12 @@ def Equipe():
         return EQUIPE
 
 
-
-
-
-
 # modelos que irão representar uma tabela no banco de dados
 class Pavimento(models.Model):
-    Criador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+')
-
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
+    last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
+    last_deleted_by = models.ForeignKey(User, related_name='deleted_items', on_delete=models.SET_NULL, null=True, blank=True)
+     
     Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
     Prazo = models.BooleanField(default=False)
@@ -194,3 +192,9 @@ class Pendencias(models.Model):
 
     def __str__(self):
         return '%s %s' % (self.Tipo, self.Detalhes)
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=9)
+    email = models.CharField(max_length=200)
+    message = models.CharField(max_length=100)
