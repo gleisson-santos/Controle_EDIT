@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Esgoto, Pavimento, Pendencias, Contact 
+from .models import Esgoto, Pavimento, Pendencias 
 
 
 class Pavimentoform(ModelForm):
@@ -31,13 +31,3 @@ class Pendenciasform(ModelForm):
         model = Pendencias
         fields = '__all__'
 
-
-class ContactForm(forms.ModelForm):
-    name = forms.CharField(max_length=100)
-    email = forms.EmailField()
-    message = forms.CharField(widget=forms.Textarea)
-
-
-    class Meta:
-        model = Contact
-        fields = ('name', 'email', 'message')

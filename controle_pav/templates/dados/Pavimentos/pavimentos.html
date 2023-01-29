@@ -6,7 +6,9 @@
 
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-<h1>Listagem de Pavimentos</h1>   
+<h1>Listagem de Pavimentos</h1>   .
+
+
 <div class='container-fluid'>
     
     <!--  Filtro superido geral da tabela--> 
@@ -48,7 +50,7 @@
 
                 <div class="container-fluid">
                     <div class="card-body">                  
-                        <form action="" method="POST">
+                        <form action="" method="POST" >
                             {% csrf_token %}   
 
                             <div id="pavpend"> 
@@ -97,17 +99,19 @@
                                     <span class="input-group-text">Serviço</span>
                                     {% render_field pavimento9.Servico  class="form-control"%}
                                     ⠀
-                                    <span class="input-group-text">Executado</span>
+                                    <span  class="input-group-text">Executado</span>
                                     {% render_field pavimento9.Executado class='form-control'%}
                                 </div>
-                            </div>
+                              </div>
 
                             
                             <div id="btn2pen">
                                 <!-- Botoes -->
                                 <button class="btn btn-secondary"><a href="{% url 'pavimentos'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
-                                <button class="btn btn-success" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
+                                <button class="btn btn-success" value="Submit" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
                             </div>
+
+
                         </form>
                     </div>
                 </div>
@@ -137,7 +141,6 @@
                 <th>Localidade</th>
                 <th>Quem Criou</th>
                 <th>Quem Editou</th>
-                <th>Quem Deletou</th>
                 <th>Situação</th>
                 <th>Ss</th>
                 <th>Data</th>
@@ -339,7 +342,6 @@
                     <td>{{dado.Localidade}}</td>
                     <td>{{dado.created_by}}</td>
                     <td>{{dado.last_edited_by}}</td>
-                    <td>{{dado.last_deleted_by}}</td>
                     <td>
                     {% if dado.Medir == 'Medir' %}
                         <h2 style="color: Green" >P/ Medir</h2>
@@ -393,7 +395,7 @@
                     <td>
                         <a href="{% url 'editar' dado.id %}">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
+                        </a>                        
                     </td>
 
                     <!--  Filtro checked-->
@@ -414,7 +416,7 @@
                     </td>{% endcomment %}
 
                     <td>
-                    <a href="{% url 'excluir' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
+                    <a href="{% url 'excluir' dado.id %}"> <i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
                     </td> 
                 </tr>
                 </tr>

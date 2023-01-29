@@ -43,93 +43,87 @@
   <body>
 
 
-  {% if request.user.is_authenticated %}    
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"  >
-      <div class="container-fluid"> 
-          <!-- Botão responsivo -->
-        <button class="navbar-toggler" type="button"
-            data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>  
 
+
+    {% if request.user.is_authenticated %} 
   
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"  >
+        <div class="container-fluid"> 
+            <!-- Botão responsivo -->
+          <button class="navbar-toggler" type="button"
+              data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>  
 
-        <!-- Uel dos menus -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul  class="navbar-nav me-auto">        
-
-          {% if user.groups.all.0.name == 'Salvador' %}
-            <li class="nav-item active" > 
-              <a class="nav-link" href="{% url 'index' %}">CNB - SALVADOR</a>
-            </li>
-
-            {% elif user.groups.all.0.name == 'Lauro' %} 
-            <li class="nav-item active" > 
-              <a class="nav-link" href="{% url 'index' %}">CNB - LAURO DE FREITAS</a>
-            </li>
-              
-            {% else %}
-            <li class="nav-item active" > 
-              <a class="nav-link" href="{% url 'index' %}">CNB - ADM</a>
-            </li>
-          {% endif %}
-            
-              <li class="nav-item">
-                <a  class="nav-link" href="{% url 'index' %}"> Home</a>    
-              </li>
-              <li class="nav-item">
-                <a  class="nav-link" href="{% url 'pavimentos' %}"> Pavimentos</a>    
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'pavimentos2' %}">Esgoto</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'informativo' %}">Pendencias</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'contact' %}">Contato</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}"> <i class="fa fa-sign-out"></i> Sair</a>
-              </li>
-          </ul>
-          <div class="navbar-nav float-right" style='color: white;' >            
-            {% if user.is_authenticated %}
-              {% if request.user.is_authenticated %}
-                
-                <p> Olá {{ request.user.username|capfirst }}!⠀ </p>
-                
-                {% else %}
-                    <p> Sem usuarios logados!!(</p>
-                {% endif %}  
     
-                <script language=javascript type="text/javascript">
-                  dayName = new Array ("Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado")
-                  monName = new Array ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
-                  now = new Date
-                </script>
 
-                <script language=javascript type="text/javascript">
-                  document.write ("<p>  Hoje é " + dayName[now.getDay() ] + ", " + now.getDate () + " de " 
-                    + monName [now.getMonth() ]   +  " de "  +     now.getFullYear () + " " + now.getHours() + ":" + now.getMinutes() + "</p>")
-                </script>    
+          <!-- Uel dos menus -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul  class="navbar-nav me-auto">        
 
+            {% if user.groups.all.0.name == 'Salvador' %}
+              <li class="nav-item active" > 
+                <a class="nav-link" href="{% url 'index' %}">CNB - SALVADOR</a>
+              </li>
+
+              {% elif user.groups.all.0.name == 'Lauro' %} 
+              <li class="nav-item active" > 
+                <a class="nav-link" href="{% url 'index' %}">CNB - LAURO DE FREITAS</a>
+              </li>
+                
               {% else %}
+              <li class="nav-item active" > 
+                <a class="nav-link" href="{% url 'index' %}">CNB - ADM</a>
+              </li>
             {% endif %}
-            
-          </div>    
-          
+              
+                <li class="nav-item">
+                  <a  class="nav-link" href="{% url 'index' %}"> Home</a>    
+                </li>
+                <li class="nav-item">
+                  <a  class="nav-link" href="{% url 'pavimentos' %}"> Pavimentos</a>    
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'pavimentos2' %}">Esgoto</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'informativo' %}">Pendencias</a>
+                </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}"> <i class="fa fa-sign-out"></i> Sair</a>
+                </li>
+            </ul>
+            <div class="navbar-nav float-right" style='color: white;' >            
+              {% if user.is_authenticated %}
+                {% if request.user.is_authenticated %}
+                  
+                  <p> Olá {{ request.user.username|capfirst }}!⠀ </p>
+                  
+                  {% else %}
+                      <p> Sem usuarios logados!!(</p>
+                  {% endif %}  
+      
+                  <script language=javascript type="text/javascript">
+                    dayName = new Array ("Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado")
+                    monName = new Array ("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
+                    now = new Date
+                  </script>
+
+                  <script language=javascript type="text/javascript">
+                    document.write ("<p>  Hoje é " + dayName[now.getDay() ] + ", " + now.getDate () + " de " 
+                      + monName [now.getMonth() ]   +  " de "  +     now.getFullYear () + " " + now.getHours() + ":" + now.getMinutes() + "</p>")
+                  </script>    
+
+                {% else %}
+              {% endif %}
+              
+            </div>    
+          </div>
         </div>
-        
-
-      </div>
-
-
-  </div>
-    </nav>
-  {% endif %}
+      </nav>
+    {% endif %}
        
     {% block conteudo %} {% endblock %}
  

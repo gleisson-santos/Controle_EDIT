@@ -129,7 +129,7 @@
                 <th>Editar</th>
                 <th>Executado</th>
                 <th>Copiar</th>
-                {% comment %} <th>Excluir</th> {% endcomment %}
+                <th>Excluir</th>
             </tr>
         </thead>
         
@@ -192,12 +192,12 @@
                                 });
                             </script>
                         {% endif %}
-                        {% comment %}                     
-                            <td>
-                                <a href="{% url 'excluir_p' dado.id %}">
-                                <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
-                            </td> 
-                        {% endcomment %}
+                                          
+                        <td>
+                            <a href="{% url 'excluir_p' dado.id %}">
+                            <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
+                        </td> 
+                     
                     </tr> 
                 {% endfor %}
                 <!-- Query para o Grupo de Salvador -->
@@ -324,12 +324,12 @@
                                 });
                             </script>
                         {% endif %}
-                        {% comment %}                     
-                            <td>
-                                <a href="{% url 'excluir_p' dado.id %}">
-                                <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
-                            </td> 
-                        {% endcomment %}
+                                         
+                        <td>
+                            <a href="{% url 'excluir_p' dado.id %}">
+                            <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
+                        </td> 
+                       
                     </tr> 
                 {% endfor %}
             {% endif %} 

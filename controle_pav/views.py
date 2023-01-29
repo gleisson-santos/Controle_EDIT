@@ -7,42 +7,12 @@ from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 
 from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter
-from .forms import Esgotoform, Pavimentoform, Pendenciasform, ContactForm
+from .forms import Esgotoform, Pavimentoform, Pendenciasform
 from .models import Esgoto, Pavimento, Pendencias
 
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.core.mail import send_mail
-
-
-
-
-@login_required
-def contact(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            message = form.cleaned_data['message']
-            # Send email here, for example using the built-in Django email function
-            send_mail(
-                'Subject',
-                'Mensagem',
-                'gleissonssa@outlook.com',
-                ['jsgleisson@gmail.com'],
-                fail_silently=False,
-            )
-            print(form.errors)
-            # redirect or show success message
-    else:
-        form = ContactForm()
-    return render(request, 'dados/contact.html', {'form': form})
-
-
-
-
 
 
 # PÁGINA PRINCIPAL
@@ -212,7 +182,6 @@ def pavimentos(request):
             return redirect('pavimentos')
         else:
             print(form.errors)
-
     else:
         form = Pavimentoform()
 
@@ -221,8 +190,7 @@ def pavimentos(request):
     dados = PavimentoFilter(request.GET, queryset=dados2)
 
     qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
-    qtdssa = Esgoto.objects.filter(
-        Localidade="Salvador", Executado='0').count()
+    qtdssa = Esgoto.objects.filter(Localidade="Salvador", Executado='0').count()
 
     qtd = Pavimento.objects.filter(Executado='0').count()
 
@@ -243,9 +211,9 @@ def pavimentos(request):
 
         'pavimento9': form,
 
+
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
-
 
     }
 

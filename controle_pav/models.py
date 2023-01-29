@@ -194,7 +194,3 @@ class Pendencias(models.Model):
         return '%s %s' % (self.Tipo, self.Detalhes)
 
 
-class Contact(models.Model):
-    name = models.CharField(max_length=9)
-    email = models.CharField(max_length=200)
-    message = models.CharField(max_length=100)

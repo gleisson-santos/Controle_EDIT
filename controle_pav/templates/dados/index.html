@@ -12,6 +12,7 @@
     </button>
 </div> {% endcomment %}
 
+
 <div class="container mt-5"  >
     <div class="row mb-5">
        
@@ -393,8 +394,9 @@
                         <th>Tipo</th>
                         <th>Solicitante</th>
                         <th>Data</th>
-                        {% comment %} <th>Detalhes</th> {% endcomment %}
+                        <th>Editar</th>
                         <th>Excluir</th>
+                        {% comment %} <th>Detalhes</th> {% endcomment %}
                     </tr>
                 </thead>
                 <tbody>
@@ -444,7 +446,11 @@
                                 <td>{{dado.Ss}}</td>
                                 <td>{{dado.Tipo|lower|capfirst}}</td>
                                 <td>{{dado.Solicitante|lower|capfirst}}</td>
-                                <td>{{dado.Data|date:"d/m/Y"}}</td>
+                                <td>
+                                    <a href="{% url 'editar' dado.id %}">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>                        
+                                </td>
                                 {% comment %} <td>{{dado.Detalhes|lower|capfirst}}
                                     <i class="fa fa-file-code-o" aria-hidden="true"></i>
                                 </td> {% endcomment %}
@@ -474,9 +480,15 @@
                                 <td>{{dado.Tipo|lower|capfirst}}</td>
                                 <td >{{dado.Solicitante|lower|capfirst}}</td>
                                 <td >{{dado.Data|date:"d/m/Y"}}</td>
-                                {% comment %} <td >{{dado.Detalhes|lower|capfirst}}
+                                <td>
+                                    <a href="{% url 'editar_p' dado.id %}">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>                        
+                                </td>
+
+                                {% comment %} {% comment %} <td >{{dado.Detalhes|lower|capfirst}}
                                     <i class="fa fa-file-code-o" aria-hidden="true"></i>
-                                </td> {% endcomment %}
+                                </td> {% endcomment %} 
                         
                                 <td>
                                    <a href="{% url 'excluir_p' dado.id %}"> <i class="fa fa-trash fa-lg" aria-hidden="true"></i> </a>                                 
