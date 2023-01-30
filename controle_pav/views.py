@@ -15,8 +15,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-
-
 # PÁGINA PRINCIPAL
 @login_required
 def index(request):
@@ -27,8 +25,12 @@ def index(request):
         pendencia_form = Pendenciasform(request.POST)
         if request.POST['gravar'] == 'Pendencia':
             if pendencia_form.is_valid():
-                pendencia_form.save()
-            return redirect('index')
+                instance = pendencia_form.save(commit=False)
+                instance.created_by = request.user
+                instance.save()
+                return redirect('index')
+            else:
+                print(form.errors)
     else:
         pendencia_form = Pendenciasform()
 
@@ -37,8 +39,12 @@ def index(request):
         esgoto1_form = Esgotoform(request.POST)
         if request.POST['gravar'] == 'Esgoto1':
             if esgoto1_form.is_valid():
-                esgoto1_form.save()
-            return redirect('index')
+                instance = esgoto1_form.save(commit=False)
+                instance.created_by = request.user
+                instance.save()
+                return redirect('index')
+            else:
+                print(form.errors)
     else:
         esgoto1_form = Esgotoform()
 
@@ -47,76 +53,57 @@ def index(request):
         pavimento2_form = Pavimentoform(request.POST)
         if request.POST['gravar'] == 'Pav1':
             if pavimento2_form.is_valid():
-                pavimento2_form.save()
-                print('Enviado com Sucesso!!')
-            return redirect('index')
+                instance = pavimento2_form.save(commit=False)
+                instance.created_by = request.user
+                instance.save()
+                return redirect('index')
+            else:
+                print(form.errors)
     else:
         pavimento2_form = Pavimentoform()
 
-    dados2 = Pendencias.objects.order_by(
-        "Executado", "Data").filter(Executado='0').all()
+
+    dados2 = Pendencias.objects.order_by("Executado", "Data").filter(Executado='0').all()
     dados = PendenciasFilter(request.GET, queryset=dados2)
 
     pav_pend = Pavimento.objects.filter(Executado='0').count()
-    pav_pendlf = Pavimento.objects.filter(
-        Localidade="Lauro", Executado='0').count()
-    pav_pendssa = Pavimento.objects.filter(
-        Localidade="Salvador", Executado='0').count()
+    pav_pendlf = Pavimento.objects.filter( Localidade="Lauro", Executado='0').count()
+    pav_pendssa = Pavimento.objects.filter( Localidade="Salvador", Executado='0').count()
 
     esg_pend = Esgoto.objects.filter(Executado='0').count()
-    esg_pendlf = Esgoto.objects.filter(
-        Localidade="Lauro", Executado='0').count()
-    esg_pendssa = Esgoto.objects.filter(
-        Localidade="Salvador", Executado='0').count()
+    esg_pendlf = Esgoto.objects.filter( Localidade="Lauro", Executado='0').count()
+    esg_pendssa = Esgoto.objects.filter(Localidade="Salvador", Executado='0').count()
 
-    Asfaltolf = Pavimento.objects.filter(
-        Localidade="Lauro",  Servico='Asfalto', Executado='0').count()
-    Concretolf = Pavimento.objects.filter(
-        Localidade="Lauro",  Servico='Concreto', Executado='0').count()
+    Asfaltolf = Pavimento.objects.filter( Localidade="Lauro",  Servico='Asfalto', Executado='0').count()
+    Concretolf = Pavimento.objects.filter( Localidade="Lauro",  Servico='Concreto', Executado='0').count()
 
-    Asfaltossa = Pavimento.objects.filter(
-        Localidade="Salvador",  Servico='Asfalto', Executado='0').count()
-    Concretossa = Pavimento.objects.filter(
-        Localidade="Salvador",  Servico='Concreto', Executado='0').count()
+    Asfaltossa = Pavimento.objects.filter(  Localidade="Salvador",  Servico='Asfalto', Executado='0').count()
+    Concretossa = Pavimento.objects.filter(  Localidade="Salvador",  Servico='Concreto', Executado='0').count()
 
-    Asfalto = Pavimento.objects.filter(
-        Servico='Asfalto', Executado='0').count()
-    Concreto = Pavimento.objects.filter(
-        Servico='Concreto', Executado='0').count()
+    Asfalto = Pavimento.objects.filter( Servico='Asfalto', Executado='0').count()
+    Concreto = Pavimento.objects.filter(   Servico='Concreto', Executado='0').count()
 
-    Vedaçãolf = Esgoto.objects.filter(
-        Localidade="Lauro", Servico='Vedacao', Executado='0').count()
-    Consertoslf = Esgoto.objects.filter(
-        Localidade="Lauro", Servico='Consertos', Executado='0').count()
-    Desobstruçãolf = Esgoto.objects.filter(
-        Localidade="Lauro", Servico='Desobstrucao', Executado='0').count()
+    Vedaçãolf = Esgoto.objects.filter(   Localidade="Lauro", Servico='Vedacao', Executado='0').count()
+    Consertoslf = Esgoto.objects.filter(    Localidade="Lauro", Servico='Consertos', Executado='0').count()
+    Desobstruçãolf = Esgoto.objects.filter(    Localidade="Lauro", Servico='Desobstrucao', Executado='0').count()
 
-    Vedaçãossa = Esgoto.objects.filter(
-        Localidade="Salvador", Servico='Vedacao', Executado='0').count()
-    Consertosssa = Esgoto.objects.filter(
-        Localidade="Salvador", Servico='Consertos', Executado='0').count()
-    Desobstruçãossa = Esgoto.objects.filter(
-        Localidade="Salvador", Servico='Desobstrucao', Executado='0').count()
+    Vedaçãossa = Esgoto.objects.filter(    Localidade="Salvador", Servico='Vedacao', Executado='0').count()
+    Consertosssa = Esgoto.objects.filter(     Localidade="Salvador", Servico='Consertos', Executado='0').count()
+    Desobstruçãossa = Esgoto.objects.filter(     Localidade="Salvador", Servico='Desobstrucao', Executado='0').count()
 
     Vedação = Esgoto.objects.filter(Servico='Vedacao', Executado='0').count()
-    Consertos = Esgoto.objects.filter(
-        Servico='Consertos', Executado='0').count()
-    Desobstrução = Esgoto.objects.filter(
-        Servico='Desobstrucao', Executado='0').count()
+    Consertos = Esgoto.objects.filter(   Servico='Consertos', Executado='0').count()
+    Desobstrução = Esgoto.objects.filter(   Servico='Desobstrucao', Executado='0').count()
 
-    Pendencialf = Pendencias.objects.filter(
-        Localidade="Lauro", Executado='0').count()
-    Pendenciassa = Pendencias.objects.filter(
-        Localidade="Salvador", Executado='0').count()
+    Pendencialf = Pendencias.objects.filter(   Localidade="Lauro", Executado='0').count()
+    Pendenciassa = Pendencias.objects.filter(  Localidade="Salvador", Executado='0').count()
     Pendencia = Pendencias.objects.filter(Executado='0').count()
 
     lauro = Pendencias.objects.filter(Localidade='Lauro')
-    filterlauro = PendenciasFilter(
-        request.GET, queryset=lauro)
+    filterlauro = PendenciasFilter( request.GET, queryset=lauro)
 
     salvador = Pendencias.objects.filter(Localidade='Salvador')
-    filtersalvador = PendenciasFilter(
-        request.GET, queryset=salvador)
+    filtersalvador = PendenciasFilter(  request.GET, queryset=salvador)
 
     context = {
 
@@ -233,19 +220,21 @@ def criar(request):
     if request.method == 'POST':
         pavimento_form = Pavimentoform(request.POST)
         if pavimento_form.is_valid():
-            pavimento_form.save()
-        return redirect('novo_pavimento')
+            instance = pavimento_form.save(commit=False)
+            instance.created_by = request.user
+            instance.save()
+            return redirect('novo_pavimento')
+        else:
+            print(form.errors)
     else:
         pavimento_form = Pavimentoform()
-        formulario = {
-            'formulario': pavimento_form
-        }
+        formulario = {'formulario': pavimento_form}
         return render(request, 'dados/Pavimentos/novo_pavimento.html', context=formulario)
-
 
 @ login_required
 def editar(request, id_pavimento):
     pavimento = Pavimento.objects.get(pk=id_pavimento)
+    criador = pavimento.created_by
     if request.method == 'GET':
         # instance vai deixar o dormulario com os itens ja preenchidos de forma visiveis 'populado'
         formulario = Pavimentoform(instance=pavimento)
@@ -254,6 +243,7 @@ def editar(request, id_pavimento):
         formulario = Pavimentoform(request.POST, instance=pavimento)
         if formulario.is_valid():
             item = formulario.save(commit=False)
+            item.created_by = criador
             item.last_edited_by = request.user
             item.save()
         return redirect('pavimentos')
@@ -280,8 +270,12 @@ def pavimentos2(request):
     if request.method == 'POST':
         esgoto1_form = Esgotoform(request.POST)
         if esgoto1_form.is_valid():
-            esgoto1_form.save()
-        return redirect('pavimentos2')
+            instance = esgoto1_form.save(commit=False)
+            instance.created_by = request.user
+            instance.save()
+            return redirect('pavimentos2')
+        else:
+            print(form.errors)
     else:
         esgoto1_form = Esgotoform()
 
@@ -329,8 +323,12 @@ def criar2(request):
     if request.method == 'POST':
         pavimento_form = Esgotoform(request.POST)
         if pavimento_form.is_valid():
-            pavimento_form.save()
-        return redirect('novo_esgoto')
+            instance = esgoto1_form.save(commit=False)
+            instance.created_by = request.user
+            instance.save()
+            return redirect('novo_esgoto')
+        else:
+            print(form.errors)
     else:
         pavimento_form = Esgotoform()
         formulario = {
@@ -343,6 +341,7 @@ def criar2(request):
 @ login_required
 def editar2(request, id_pavimento2):
     pavimento2 = Esgoto.objects.get(pk=id_pavimento2)
+    criador = pavimento2.created_by
     if request.method == 'GET':
         # instance vai deixar o dormulario com os itens ja preenchidos de forma visiveis 'populado'
         formulario = Esgotoform(instance=pavimento2)
@@ -350,7 +349,10 @@ def editar2(request, id_pavimento2):
     else:
         formulario = Esgotoform(request.POST, instance=pavimento2)
         if formulario.is_valid():
-            formulario.save()
+            item = formulario.save(commit=False)
+            item.created_by = criador
+            item.last_edited_by = request.user
+            item.save()
         return redirect('pavimentos2')
 
 
@@ -374,8 +376,12 @@ def informativo(request):
     if request.method == 'POST':
         pendencia_form = Pendenciasform(request.POST)
         if pendencia_form.is_valid():
-            pendencia_form.save()
-        return redirect('informativo')
+            instance = pendencia_form.save(commit=False)
+            instance.created_by = request.user
+            instance.save()
+            return redirect('informativo')
+        else:
+            print(form.errors)
     else:
         pendencia_form = Pendenciasform()
 
@@ -418,13 +424,15 @@ def criarinfo(request):
     if request.method == 'POST':
         pendencia_form = Pendenciasform(request.POST)
         if pendencia_form.is_valid():
-            pendencia_form.save()
-        return redirect('informativo')
+            instance = pendencia_form.save(commit=False)
+            instance.created_by = request.user
+            instance.save()
+            return redirect('informativo')
+        else:
+            print(form.errors)
     else:
         pendencia_form = Pendenciasform()
-        formulario = {
-            'formulario': pendencia_form
-        }
+        formulario = { 'formulario': pendencia_form}
         return render(request, 'dados/Pendencias/criarinfo.html', context=formulario)
 
 
@@ -440,6 +448,7 @@ def excluir_p(request, id_pendencia):
 @ login_required
 def editar_p(request, id_pendencia):
     pendencia = Pendencias.objects.get(pk=id_pendencia)
+    criador = pendencia.created_by
     if request.method == 'GET':
         # instance vai deixar o dormulario com os itens ja preenchidos de forma visiveis 'populado'
         formulario = Pendenciasform(instance=pendencia)
@@ -447,5 +456,8 @@ def editar_p(request, id_pendencia):
     else:
         formulario = Pendenciasform(request.POST, instance=pendencia)
         if formulario.is_valid():
-            formulario.save()
+            item = formulario.save(commit=False)
+            item.created_by = criador
+            item.last_edited_by = request.user
+            item.save()
         return redirect('informativo')

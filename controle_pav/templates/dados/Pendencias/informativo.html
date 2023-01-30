@@ -118,7 +118,10 @@
         <thead>
             <tr>
                 <th></th>
-                <th >Localidade</th>
+                <th>Localidade</th>
+                <th>Criou</th>
+                <th>Editou</th> 
+                
                 <th >Situação</th>
                 <th>Ss</th>
                 <th>Tipo</th>
@@ -139,7 +142,9 @@
                 {% for dado in localidade_l.qs %}
                     <tr>   
                         <td></td>
-                         <td>{{dado.Localidade}} </td>
+                        <td>{{dado.Localidade}} </td>
+                        <td>{{dado.created_by}}</td> 
+                        <td>{{dado.last_edited_by}}</td>
                          <td>
                             {% if dado.Medir == 'Medir' %}  
                             <h2 style="color: Green;">P/ Medir</h2>
@@ -205,8 +210,10 @@
                 {% for dado in localidade_2.qs %}
                     <tr>   
                         <td></td>
-                         <td>{{dado.Localidade}} </td>
-                         <td>
+                        <td>{{dado.Localidade}}</td>
+                        <td>{{dado.created_by}}</td>
+                        <td>{{dado.last_edited_by}}</td>
+                        <td>
                             {% if dado.Medir == 'Medir' %}  
                             <h2 style="color: Green;">P/ Medir</h2>
                             {% elif dado.Medir == 'Prioridade' %}
@@ -271,8 +278,10 @@
                 {% for dado in filtro3.qs %}
                     <tr>   
                         <td></td>
-                         <td>{{dado.Localidade}} </td>
-                         <td>
+                        <td>{{dado.Localidade}} </td>
+                        <td>{{dado.created_by}}</td>
+                        <td>{{dado.last_edited_by}}</td>
+                        <td>
                             {% if dado.Medir == 'Medir' %}  
                             <h2 style="color: Green;">P/ Medir</h2>
                             {% elif dado.Medir == 'Prioridade' %}

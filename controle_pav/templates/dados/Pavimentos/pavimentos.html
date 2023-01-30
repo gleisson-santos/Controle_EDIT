@@ -120,7 +120,7 @@
         </div>
     </div> 
 
-    <!-- LInha informativa de demandas-->
+    <!-- Linha informativa de demandas-->
     <div class='form-control' style="font-size: 13px;" >        
         {% if user.groups.all.0.name == 'Lauro' %}
         <h8>  <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) -  {{qtdlf}} Pendente(s)</h8>
@@ -139,8 +139,8 @@
             <tr>
                 <th>ID</th>
                 <th>Localidade</th>
-                <th>Quem Criou</th>
-                <th>Quem Editou</th>
+                <th>Criou</th>
+                <th>Editou</th>
                 <th>Situação</th>
                 <th>Ss</th>
                 <th>Data</th>
@@ -170,6 +170,8 @@
                       <tr>
                     <td></td>
                     <td>{{dado.Localidade}}</td>
+                    <td>{{dado.created_by}}</td>
+                    <td>{{dado.last_edited_by}}</td>
                     <td>
                     {% if dado.Medir == 'Medir' %}
                         <h2 style="color: Green" >P/ Medir</h2>
@@ -255,6 +257,8 @@
                 <tr>
                     <td></td>
                     <td>{{dado.Localidade}}</td>
+                    <td>{{dado.created_by}}</td>
+                    <td>{{dado.last_edited_by}}</td>
                     <td>
                     {% if dado.Medir == 'Medir' %}
                         <h2 style="color: Green" >P/ Medir</h2>

@@ -35,7 +35,7 @@ def Equipe():
 class Pavimento(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
     last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
-    last_deleted_by = models.ForeignKey(User, related_name='deleted_items', on_delete=models.SET_NULL, null=True, blank=True)
+
      
     Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
@@ -102,9 +102,12 @@ class Pavimento(models.Model):
 
 
 class Esgoto(models.Model):
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
+    last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
+
+
     Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
-
     Equipe = models.CharField(max_length=255, choices=Equipe())
     Bairro = models.CharField(max_length=255)
     Rua = models.CharField(max_length=255)
@@ -164,6 +167,10 @@ class Esgoto(models.Model):
 
 
 class Pendencias(models.Model):
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
+    last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
+
+
     Ss = models.CharField(max_length=9)
     Tipo = models.CharField(max_length=255)
     Solicitante = models.CharField(max_length=255, blank=True)

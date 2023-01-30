@@ -141,6 +141,8 @@
       <tr>
         <th></th>
         <th>Localidade</th>
+        <th>Criou</th>
+        <th>Editou</th>
         <th>Situação</th>
         <th>Ss</th>
         <th>Data</th>
@@ -168,6 +170,8 @@
           <tr>
             <td></td>
             <td>{{dado.Localidade}}</td>
+            <td>{{dado.created_by}}</td>
+            <td>{{dado.last_edited_by}}</td>
             <td>
               {% if dado.Medir == 'Medir' %}
                 <h2 style="color: Green">P/ Medir</h2>
@@ -253,6 +257,8 @@
           <tr>
             <td></td>
             <td>{{dado.Localidade}}</td>
+            <td>{{dado.created_by}}</td>
+            <td>{{dado.last_edited_by}}</td>
             <td>
               {% if dado.Medir == 'Medir' %}
                 <h2 style="color: Green">P/ Medir</h2>
@@ -338,6 +344,8 @@
           <tr>
             <td></td>
             <td>{{dado.Localidade}}</td>
+            <td>{{dado.created_by}}</td> 
+            <td>{{dado.last_edited_by}}</td>
             <td>
               {% if dado.Medir == 'Medir' %}
                 <h2 style="color: Green">P/ Medir</h2>
