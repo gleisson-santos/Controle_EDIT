@@ -21,6 +21,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -150,5 +151,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 

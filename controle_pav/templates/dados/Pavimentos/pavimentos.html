@@ -159,7 +159,7 @@
                 <th>Editar</th>
                 <th>Executado</th>
                 {% comment %} <th>Detalhes</th> {% endcomment %}
-                <th>Excluir</th>
+                {% comment %} <th>Excluir</th> {% endcomment %}
             </tr>
         </thead>
 
@@ -202,6 +202,9 @@
                     <td>{{dado.Referencia|lower|capfirst}}</td>
                     <td>{{dado.Servico|lower|capfirst}}</td>
                     <td>{{dado.Metragem|lower|capfirst}}</td>
+
+                    <td>{{dado.Ss_Final|lower|capfirst}}</td>
+                    <td>{{dado.Met_Final|lower|capfirst}}</td>
                     
                     <!--  Filtro Copiar informaçoes da tabela-->
                     {% if dado.Copiar %}
@@ -219,9 +222,7 @@
                             clipboard.on("error", function (e) {});
                         </script>
                     {% endif %}
-                    <td>{{dado.Ss_Final|lower|capfirst}}</td>
-                    <td>{{dado.Met_Final|lower|capfirst}}</td>
-
+                   
                     <td>
                         <a href="{% url 'editar' dado.id %}">
                             <i class="fa fa-pencil" aria-hidden="true"></i>

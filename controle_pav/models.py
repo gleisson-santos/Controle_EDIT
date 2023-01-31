@@ -60,13 +60,13 @@ class Pavimento(models.Model):
         (False, "Pendente")
     )
 
-    Executado = models.BooleanField(default=False, choices=EXECUTADO)
+    Executado = models.BooleanField(default=False, choices=EXECUTADO, db_index=True)
 
     LOCALIDADE = (
         ('Salvador', "Salvador"),
         ('Lauro', "Lauro")
     )
-    Localidade = models.TextField(max_length=255, choices=LOCALIDADE)
+    Localidade = models.TextField(max_length=255, choices=LOCALIDADE, db_index=True)
 
     MEDIR = (
         ('Medir', "Medir"),
