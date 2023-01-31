@@ -323,7 +323,7 @@ def criar2(request):
     if request.method == 'POST':
         pavimento_form = Esgotoform(request.POST)
         if pavimento_form.is_valid():
-            instance = esgoto1_form.save(commit=False)
+            instance = pavimento_form.save(commit=False)
             instance.created_by = request.user
             instance.save()
             return redirect('novo_esgoto')
@@ -331,9 +331,7 @@ def criar2(request):
             print(form.errors)
     else:
         pavimento_form = Esgotoform()
-        formulario = {
-            'formulario': pavimento_form
-        }
+        formulario = {'formulario': pavimento_form}
 
         return render(request, 'dados/Esgoto/novo_esgoto.html', context=formulario)
 
