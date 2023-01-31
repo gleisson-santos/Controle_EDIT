@@ -9,10 +9,6 @@ from django.db import models
 
 
 
-
-
-
-
 # df = pd.read_csv("C:/Users/55719/Desktop/#Projeto - Controle_servcio_EDIT/Controle_EDIT/controle_pav/static/texto/equipes.csv", header=None)
 # print(df)
 

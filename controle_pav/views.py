@@ -190,9 +190,6 @@ def pavimentos(request):
     dados2 = Pavimento.objects.order_by("-id", "Executado", "Data").all()[:1]
     dados = PavimentoFilter(request.GET, queryset=dados2)
 
-    pk = request.GET.get('pk')
-    dados3 = Pavimento.objects.filter(pk=pk).order_by("-id", "Executado", "Data")[:1]
-
     qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
     qtdssa = Esgoto.objects.filter(Localidade="Salvador", Executado='0').count()
 
@@ -206,7 +203,7 @@ def pavimentos(request):
 
     context = {
         'dados': dados2,
-        'filtro': dados3,
+        'filtro': dados,
 
         'qtdlf': qtdlf,
         'qtdssa': qtdssa,

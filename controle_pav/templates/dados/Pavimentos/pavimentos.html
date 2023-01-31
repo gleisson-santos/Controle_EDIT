@@ -420,9 +420,9 @@
                     <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
                     </td>{% endcomment %}
 
-                    <td>
+                    {% comment %} <td>
                     <a href="{% url 'excluir' dado.id %}"> <i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
-                    </td> 
+                    </td>  {% endcomment %}
                 </tr>
                 </tr>
                 {% endfor %}
