@@ -38,7 +38,10 @@ class Pavimento(models.Model):
     Prazo = models.BooleanField(default=False)
 
     Equipe = models.CharField(max_length=255, choices=Equipe())
-    Bairro = models.CharField(max_length=255)
+
+    BAIRRO = [ ('ipitanga', 'Ipitanga'), ('vilasatlantico', 'Vilas Atlântico'), ('caji', 'Caji'), ('areiabranca', 'Areia Branca'), ('portao', 'Portão'), ('vilapraiana', 'Vila Praiana'), ('aracui', 'Aracui'), ('jockeyclube', 'Jockey Clube'), ('pitangueiras', 'Pitangueiras'), ('centro', 'Centro'), ('buraquinho', 'Buraquinho'), ('castanheiras', 'Castanheiras'), ('itinga', 'Itinga'), ('saocristovao', 'São Cristóvão'), ('cassange', 'Cassange'), ('estdococo', 'Est do Coco'), ('jdaeroporto', 'Jd Aeroporto'), ('padoflamengo', 'Pa do Flamengo'), ('jambeiro', 'Jambeiro'), ('capelaaossa', 'Capelaão SSA'), ('lotmiragem', 'Lot Miragem'), ('jdmargaridas', 'Jd Margaridas'), ('itingassa', 'Itinga SSA'), ('ipitangassa', 'Ipitanga SSA'), ('areiabranc_ssa', 'Areia Branc SSA'), ]
+
+    Bairro = models.CharField(max_length=255, choices=BAIRRO)
     Rua = models.CharField(max_length=255)
     Referencia = models.CharField(max_length=255)
 
