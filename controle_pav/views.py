@@ -1,7 +1,7 @@
 
 from ast import Return
 from multiprocessing import context
-
+import datetime
 from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator
@@ -187,8 +187,18 @@ def pavimentos(request):
         form = Pavimentoform()
 
 
-    dados2 = Pavimento.objects.order_by("-id", "Executado", "Data").all()[:1]
+    # dados2 = Pavimento.objects.order_by("-id", "Executado", "Data").all()[:1]
+    # dados = PavimentoFilter(request.GET, queryset=dados2)
+
+        limit = request.GET.get('limit')
+    if limit:
+        limit = int(limit)
+        dados2 = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=190)).order_by("-id", "Executado", "Data")[:limit]
+    else:
+        dados2 = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=190)).order_by("-id", "Executado", "Data")
+
     dados = PavimentoFilter(request.GET, queryset=dados2)
+
 
     qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
     qtdssa = Esgoto.objects.filter(Localidade="Salvador", Executado='0').count()
