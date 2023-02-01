@@ -102,13 +102,13 @@
     <div class='form-control' style="font-size: 13px;">
 
         {% if user.groups.all.0.name == 'Lauro' %}
-            <h8>  <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) -  {{qtdlf}} Pendente(s)</h8>
+            <h8>  <i class="fas fa-table me-1"></i>{{cont_pav_lf3}} registro(s) encontrado(s) -  {{qtdlf3}} Pendente(s)</h8>
 
         {% elif user.groups.all.0.name == 'Salvador' %}
-            <h8>  <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) -  {{qtdssa}} Pendente(s)</h8>
+            <h8>  <i class="fas fa-table me-1"></i>{{cont_pav_ssa3}} registro(s) encontrado(s) -  {{qtdssa3}} Pendente(s)</h8>
 
         {% else %}
-            <h8>  <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) -  {{qtd}} Pendente(s)</h8>
+            <h8>  <i class="fas fa-table me-1"></i>{{cont_pav4}} registro(s) encontrado(s) -  {{qtd4}} Pendente(s)</h8>
 
         {% endif %}
     </div>
@@ -127,12 +127,12 @@
                 <th>Tipo</th>
                 <th>Solicitante</th>
                 <th>Data</th>
-                <th>Detalhes</th>
+                {% comment %} <th>Detalhes</th> {% endcomment %}
 
                 <th>Editar</th>
                 <th>Executado</th>
                 <th>Copiar</th>
-                <th>Excluir</th>
+                {% comment %} <th>Excluir</th> {% endcomment %}
             </tr>
         </thead>
         
@@ -158,7 +158,7 @@
                         <td>{{dado.Tipo}}</td>
                         <td>{{dado.Solicitante|lower|capfirst}}</td>
                         <td>{{dado.Data|date:"d/m/Y"}}</td>
-                        <td>{{dado.Detalhes|lower|capfirst}}</td>
+                        {% comment %} <td>{{dado.Detalhes|lower|capfirst}}</td> {% endcomment %}
 
                         <td>
                             <a href="{% url 'editar_p' dado.id %}">
@@ -198,11 +198,11 @@
                             </script>
                         {% endif %}
                                           
-                        <td>
+                        {% comment %} <td>
                             <a href="{% url 'excluir_p' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
                         </td> 
-                     
+                      {% endcomment %}
                     </tr> 
                 {% endfor %}
                 <!-- Query para o Grupo de Salvador -->
@@ -226,7 +226,7 @@
                         <td>{{dado.Tipo}}</td>
                         <td>{{dado.Solicitante|lower|capfirst}}</td>
                         <td>{{dado.Data|date:"d/m/Y"}}</td>
-                        <td>{{dado.Detalhes|lower|capfirst}}</td>
+                        {% comment %} <td>{{dado.Detalhes|lower|capfirst}}</td> {% endcomment %}
 
                         <td>
                             <a href="{% url 'editar_p' dado.id %}">
@@ -294,7 +294,7 @@
                         <td>{{dado.Tipo}}</td>
                         <td>{{dado.Solicitante|lower|capfirst}}</td>
                         <td>{{dado.Data|date:"d/m/Y"}}</td>
-                        <td>{{dado.Detalhes|lower|capfirst}}</td>
+                        {% comment %} <td>{{dado.Detalhes|lower|capfirst}}</td> {% endcomment %}
 
                         <td>
                             <a href="{% url 'editar_p' dado.id %}">
@@ -334,11 +334,11 @@
                             </script>
                         {% endif %}
                                          
-                        <td>
+                        {% comment %} <td>
                             <a href="{% url 'excluir_p' dado.id %}">
                             <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
                         </td> 
-                       
+                        {% endcomment %}
                     </tr> 
                 {% endfor %}
             {% endif %} 

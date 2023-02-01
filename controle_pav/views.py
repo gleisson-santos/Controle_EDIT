@@ -1,20 +1,24 @@
-
 from ast import Return
 from multiprocessing import context
-
+import datetime
 from django.contrib.auth.decorators import login_required
-
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 
 from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter
 from .forms import Esgotoform, Pavimentoform, Pendenciasform
 from .models import Esgoto, Pavimento, Pendencias
-import datetime
+from django.contrib.sessions.models import Session
 
 from django.contrib.auth.models import User
 from django.db import models
 
+
+#Chamadas para encarts
+def encart(localidade, b):
+    qtdlf2 = b.objects.filter(Localidade=localidade, Executado='0').count()
+    cont_pav_lf2 = b.objects.filter(Localidade=localidade).count()
+    return qtdlf2, cont_pav_lf2
 
 # PÁGINA PRINCIPAL
 @login_required
@@ -23,13 +27,15 @@ def index(request):
 
     # Cadastro Pendencias
     if request.method == 'POST':
-        pendencia_form = Pendenciasform(request.POST)
-        if request.POST['gravar'] == 'Pendencia':
-            if pendencia_form.is_valid():
-                instance = pendencia_form.save(commit=False)
-                instance.created_by = request.user
-                instance.save()
-                return redirect('index')
+            pendencia_form = Pendenciasform(request.POST)
+            if request.POST['gravar'] == 'Pendencia':
+                if pendencia_form.is_valid():
+                    instance = pendencia_form.save(commit=False)
+                    instance.created_by = request.user
+                    instance.save()
+                    return redirect('index')
+                else:
+                    print(form.errors)
     else:
         pendencia_form = Pendenciasform()
 
@@ -42,6 +48,8 @@ def index(request):
                 instance.created_by = request.user
                 instance.save()
                 return redirect('index')
+            else:
+                print(form.errors)
     else:
         esgoto1_form = Esgotoform()
 
@@ -54,9 +62,11 @@ def index(request):
                 instance.created_by = request.user
                 instance.save()
                 return redirect('index')
+            else:
+                print(form.errors)
     else:
         pavimento2_form = Pavimentoform()
-    
+  
 
     def count_loc(localidade):
         pav_loc = Esgoto.objects.filter(Localidade=localidade, Executado='0').count()
@@ -103,23 +113,25 @@ def index(request):
     Pendenciassa = count_loc("Salvador")[2]    
     Pendencia = Pendencias.objects.filter(Executado='0').count()
 
+    Pendencialf = Pendencias.objects.filter(  Localidade="Lauro", Executado='0').count()
+    Pendenciassa = Pendencias.objects.filter(  Localidade="Salvador", Executado='0').count()
+
     #Filtro das tabelas
+    lauro = Pendencias.objects.order_by("Executado", "Data").filter(Localidade='Lauro', Executado='0').all()
+    filterlauro = PendenciasFilter(request.GET, queryset=lauro)
+
+    salvador = Pendencias.objects.order_by("Executado", "Data").filter(Localidade='Salvador', Executado='0').all()
+    filtersalvador = PendenciasFilter(request.GET, queryset=salvador)
+    
     dados2 = Pendencias.objects.order_by("Executado", "Data").filter(Executado='0').all()
     dados = PendenciasFilter(request.GET, queryset=dados2)
 
-    lauro = Pendencias.objects.filter(Localidade='Lauro')
-    filterlauro = PendenciasFilter( request.GET, queryset=lauro)
-
-    salvador = Pendencias.objects.filter(Localidade='Salvador')
-    filtersalvador = PendenciasFilter( request.GET, queryset=salvador)
-
     context = {
-   
+
         'dados': dados2,
         'filtro3': dados,
 
         'pav_pend': pav_pend,
-
         'filtrolf': pav_pendlf,
         'filtrossa': pav_pendssa,
 
@@ -171,58 +183,90 @@ def pavimentos(request):
 
     # Cadastro Pavimento
     if request.method == 'POST':
-        form = Pavimentoform(request.POST)
-        if form.is_valid():
-            instance = form.save(commit=False)
+        pavimento22_form = Pavimentoform(request.POST)
+        if pavimento22_form.is_valid():
+            instance = pavimento22_form.save(commit=False)
             instance.created_by = request.user
             instance.save()
-            return redirect('pavimentos')
-        else:
-            print(form.errors)
+        return redirect('pavimentos')
     else:
-        form = Pavimentoform()
+        pavimento22_form = Pavimentoform()
 
-    # dados2 = Pavimento.objects.order_by("-id", "Executado", "Data").all()
+
+    # limit = request.GET.get('limit')
+    # if limit:
+    #     limit = int(limit)
+    #     dados2 = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=400)).order_by("-id", "Executado", "Data")[:limit]
+    # else:
+    #     dados2 = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=400)).order_by("-id", "Executado", "Data")
+
     # dados = PavimentoFilter(request.GET, queryset=dados2)
 
-   
 
+    days = request.GET.get('days')
+
+    if days:
+        request.session['selected_days'] = days
+        days = int(days)
+        dados2 = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data")
+    else:
+        if 'selected_days' in request.session:
+            days = int(request.session['selected_days'])
+            dados2 = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data")
+        else:
+            dados2 = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=0)).order_by("-id", "Executado", "Data")
+
+    dados = PavimentoFilter(request.GET, queryset=dados2)
+
+
+
+
+    #Tabela Lauro
     limit = request.GET.get('limit')
     if limit:
         limit = int(limit)
-        dados2 = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=30)).order_by("-id", "Executado", "Data")[:limit]
+        lauro = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=400)).order_by("-id", "Executado", "Data").filter(Localidade='Lauro')[:limit]
     else:
-        dados2 = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=30)).order_by("-id", "Executado", "Data")
+        lauro = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=400)).order_by("-id", "Executado", "Data").filter(Localidade='Lauro')
 
-
-
-    qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
-    qtdssa = Esgoto.objects.filter(Localidade="Salvador", Executado='0').count()
-
-    qtd = Pavimento.objects.filter(Executado='0').count()
-
-    lauro = Pavimento.objects.filter(Localidade='Lauro')
     filterlauro = PavimentoFilter(request.GET, queryset=lauro)
 
-    salvador = Pavimento.objects.filter(Localidade='Salvador')
-    filtersalvador = PavimentoFilter(request.GET, queryset=salvador)
+    #Tabela Salvador
+    limit = request.GET.get('limit')
+    if limit:
+        limit = int(limit)
+        salvador = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=400)).order_by("-id", "Executado", "Data").filter(Localidade='Salvador')[:limit]
+    else:
+        salvador = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=400)).order_by("-id", "Executado", "Data").filter(Localidade='Salvador')
+
+    filtersalvador = PavimentoFilter(request.GET, queryset=lauro)
+
+    #Encart Pavimento
+    qtdlf = encart("Lauro", Pavimento)[0]
+    cont_pav_lf = encart("Lauro", Pavimento)[1]
+
+    qtdssa = encart("Salvador", Pavimento)[0]
+    cont_pav_ssa = encart("Salvador", Pavimento)[1]
+
+    cont_pav = Pavimento.objects.filter().count()
+    qtd = Pavimento.objects.filter(Executado='0').count()
 
     context = {
-
         'dados': dados2,
-        'dados': dados2,
-
         'filtro': dados,
+        'days': days,
 
+        #Cart Pavimento
+        'cont_pav':cont_pav,
+        'cont_pav_ssa':cont_pav_ssa,
+        'cont_pav_lf':cont_pav_lf,
         'qtdlf': qtdlf,
         'qtdssa': qtdssa,
         'qtd': qtd,
 
-
-        'pavimento9': form,
+        'pavimento9': pavimento22_form,
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
-
     }
 
     return render(request, template_name, context)
@@ -242,13 +286,12 @@ def criar(request):
             instance = pavimento_form.save(commit=False)
             instance.created_by = request.user
             instance.save()
-            return redirect('novo_pavimento')
-        else:
-            print(form.errors)
+        return redirect('novo_pavimento')
     else:
         pavimento_form = Pavimentoform()
         formulario = {'formulario': pavimento_form}
         return render(request, 'dados/Pavimentos/novo_pavimento.html', context=formulario)
+
 
 @ login_required
 def editar(request, id_pavimento):
@@ -272,9 +315,6 @@ def editar(request, id_pavimento):
 def excluir(request, id_pavimento):
     pavimento = Pavimento.objects.get(pk=id_pavimento)
     if request.method == 'POST':
-        pavimento.deleted_by = request.user
-        pavimento.last_deleted_by = request.user 
-        pavimento.save()
         pavimento.delete()
         return redirect('pavimentos')
     return render(request, 'dados/Pavimentos/confirmar_exclusao.html', {'item': pavimento})
@@ -292,38 +332,43 @@ def pavimentos2(request):
             instance = esgoto1_form.save(commit=False)
             instance.created_by = request.user
             instance.save()
-            return redirect('pavimentos2')
-        else:
-            print(form.errors)
+        return redirect('pavimentos2')
     else:
         esgoto1_form = Esgotoform()
 
     dados2 = Esgoto.objects.order_by("Executado", "Data").all()
     dados = EsgotoFilter(request.GET, queryset=dados2)
 
-    qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
-    qtdssa = Esgoto.objects.filter(Localidade="Salvador", Executado='0').count()
-    
-    qtd = Esgoto.objects.filter(Executado='0').count()
+    lauro = Esgoto.objects.order_by("Executado", "Data").filter(Localidade='Lauro').all()
+    filterlauro = EsgotoFilter(request.GET, queryset=lauro)
 
-    lauro = Esgoto.objects.filter(Localidade='Lauro')
-    filterlauro = EsgotoFilter( request.GET, queryset=lauro)
+    salvador = Esgoto.objects.order_by(  "Executado", "Data").filter(Localidade='Salvador').all()
+    filtersalvador = EsgotoFilter(request.GET, queryset=salvador)
 
-    salvador = Esgoto.objects.filter(Localidade='Salvador')
-    filtersalvador = EsgotoFilter(
-        request.GET, queryset=salvador)
+    #Encart Esgoto
+    qtdlf2 = encart("Lauro", Esgoto)[0]
+    cont_pav_lf2 = encart("Lauro", Esgoto)[1]
+
+    qtdssa2 = encart("Salvador", Esgoto)[0]
+    cont_pav_ssa = encart("Salvador", Esgoto)[1]
+
+    cont_pav3 = Esgoto.objects.filter().count()
+    qtd3 = Esgoto.objects.filter(Executado='0').count()
 
     context = {
         'dados': dados2,
         'filtro2': dados,
 
-        'qtdlf': qtdlf,
-        'qtdssa': qtdssa,
-        'qtd': qtd,
+        # #Cart Esgoto
+        'qtdlf2':qtdlf2,
+        'cont_pav_lf2':cont_pav_lf2,
+        'qtdssa2':qtdssa2,
+        'cont_pav_ssa': cont_pav_ssa,
+        'cont_pav3': cont_pav3,
+        'qtd3': qtd3,
 
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
-
         'esgoto01': esgoto1_form,
     }
 
@@ -341,17 +386,13 @@ def criar2(request):
     if request.method == 'POST':
         pavimento_form = Esgotoform(request.POST)
         if pavimento_form.is_valid():
-            instance = esgoto1_form.save(commit=False)
+            instance = pavimento_form.save(commit=False)
             instance.created_by = request.user
             instance.save()
-            return redirect('novo_esgoto')
-        else:
-            print(form.errors)
+        return redirect('novo_esgoto')
     else:
         pavimento_form = Esgotoform()
-        formulario = {
-            'formulario': pavimento_form
-        }
+        formulario = {'formulario': pavimento_form  }
 
         return render(request, 'dados/Esgoto/novo_esgoto.html', context=formulario)
 
@@ -383,9 +424,7 @@ def excluir2(request, id_pavimento2):
     return render(request, 'dados/Esgoto/confirmar_exclusao2.html', {'item': pavimento2})
 
 
-
-
-# Informativos
+# Pendencias
 @ login_required
 def informativo(request):
     template_name = 'dados/Pendencias/informativo.html'
@@ -397,38 +436,47 @@ def informativo(request):
             instance = pendencia_form.save(commit=False)
             instance.created_by = request.user
             instance.save()
-            return redirect('informativo')
-        else:
-            print(form.errors)
+        return redirect('informativo')
     else:
         pendencia_form = Pendenciasform()
 
     dados2 = Pendencias.objects.order_by("Executado", "Data")
     dados = PendenciasFilter(request.GET, queryset=dados2)
 
-    qtdlf = Pendencias.objects.filter( Localidade="Lauro", Executado='0').count()
-    qtdssa = Pendencias.objects.filter(Localidade="Salvador", Executado='0').count()
-
-    qtd = Pendencias.objects.filter(Executado='0').count()
-
-    lauro = Pendencias.objects.filter(Localidade='Lauro')
+    lauro = Pendencias.objects.order_by("Executado", "Data").filter(Localidade='Lauro').all()
     filterlauro = PendenciasFilter(request.GET, queryset=lauro)
 
-    salvador = Pendencias.objects.filter(Localidade='Salvador')
+    salvador = Pendencias.objects.order_by("Executado", "Data").filter(Localidade='Salvador').all()
     filtersalvador = PendenciasFilter(request.GET, queryset=salvador)
+
+    #Encart Pendencias
+    qtdlf3 = encart("Lauro", Pendencias)[0]
+    cont_pav_lf3 = encart("Lauro", Pendencias)[1]
+
+    qtdssa3 = encart("Salvador", Pendencias)[0]
+    cont_pav_ssa3 = encart("Salvador", Pendencias)[1]
+
+    cont_pav4 = Pendencias.objects.filter().count()
+    qtd4 = Pendencias.objects.filter(Executado='0').count()
+
 
     context = {
         'dados': dados2,
         'filtro3': dados,
 
-        'qtdlf': qtdlf,
-        'qtdssa': qtdssa,
-        'qtd': qtd,
+        # 'qtdlf': qtdlf,
+        # 'qtdssa': qtdssa,
+        # 'qtd': qtd,
+
+        'qtdlf3':qtdlf3,
+        'cont_pav_lf3':cont_pav_lf3,
+        'qtdssa3':qtdssa3,
+        'cont_pav_ssa3':cont_pav_ssa3,
+        'cont_pav4':cont_pav4,
+        'qtd4':qtd4,
 
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
-
-
         'cadastro2': pendencia_form,
     }
 
@@ -443,12 +491,12 @@ def criarinfo(request):
             instance = pendencia_form.save(commit=False)
             instance.created_by = request.user
             instance.save()
-            return redirect('informativo')
-        else:
-            print(form.errors)
+        return redirect('informativo')
     else:
         pendencia_form = Pendenciasform()
-        formulario = { 'formulario': pendencia_form}
+        formulario = {
+            'formulario': pendencia_form
+        }
         return render(request, 'dados/Pendencias/criarinfo.html', context=formulario)
 
 
@@ -457,7 +505,7 @@ def excluir_p(request, id_pendencia):
     pendencia = Pendencias.objects.get(pk=id_pendencia)
     if request.method == 'POST':
         pendencia.delete()
-        return redirect('informativo')
+        return redirect('index')
     return render(request, 'dados/Pendencias/excluir_pendencia.html', {'item': pendencia})
 
 

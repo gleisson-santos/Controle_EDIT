@@ -13,7 +13,7 @@ class PavimentoFilter(django_filters.FilterSet):
     Ss_Final = django_filters.CharFilter(lookup_expr='icontains')
     Ss = django_filters.CharFilter(lookup_expr='contains')
     Executado = django_filters.CharFilter(lookup_expr='exact')
-
+    
     # Constante
     Executado = ('A', 'B')
     Servico = ('Asfalto', 'Concreto', 'Blocos')
