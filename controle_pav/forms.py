@@ -14,8 +14,9 @@ class Pavimentoform(ModelForm):
 
 
 class Esgotoform(ModelForm):
-    Data = forms.DateField(label='Data', widget=forms.DateInput(format='%Y-%m-%d',
-                                                                attrs={'type': 'date', }), input_formats=('%Y-%m-%d',), )
+    Data = forms.DateField(label='Data', widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date', }), input_formats=('%Y-%m-%d',), )
+    days = forms.IntegerField(required=False)  
+                                                                
 
     class Meta:
         model = Esgoto
@@ -23,8 +24,8 @@ class Esgotoform(ModelForm):
 
 
 class Pendenciasform(ModelForm):
-    Data = forms.DateField(label='Data', widget=forms.DateInput(format='%Y-%m-%d',
-                                                                attrs={'type': 'date', }), input_formats=('%Y-%m-%d',), )
+    Data = forms.DateField(label='Data', widget=forms.DateInput(format='%Y-%m-%d',   attrs={'type': 'date', }), input_formats=('%Y-%m-%d',), )
+    days = forms.IntegerField(required=False)  
 
     class Meta:
         model = Pendencias

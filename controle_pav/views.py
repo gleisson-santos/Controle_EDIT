@@ -20,6 +20,30 @@ def encart(localidade, b):
     cont_pav_lf2 = b.objects.filter(Localidade=localidade).count()
     return qtdlf2, cont_pav_lf2
 
+
+#Filtra de periodos
+def filter_pavimento(request, tipo, filters, localidade=None ):
+    days = request.GET.get('days')
+    if days:
+        request.session['selected_days'] = days
+        days = int(days)
+        pavimentos = tipo.objects.select_related("Localidade").filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data")
+        if localidade:
+            pavimentos = pavimentos.filter(Localidade=localidade)
+    else:
+        if 'selected_days' in request.session:
+            days = int(request.session['selected_days'])
+            pavimentos = tipo.objects.select_related("Localidade").filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data")
+            if localidade:
+                pavimentos = pavimentos.filter(Localidade=localidade)
+        else:
+            pavimentos = tipo.objects.select_related("Localidade").filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=0)).order_by("-id", "Executado", "Data")
+            if localidade:
+                pavimentos = pavimentos.filter(Localidade=localidade)
+    filter_pavimentos = filters(request.GET, queryset=pavimentos)
+    return filter_pavimentos
+
+
 # PÁGINA PRINCIPAL
 @login_required
 def index(request):
@@ -27,15 +51,15 @@ def index(request):
 
     # Cadastro Pendencias
     if request.method == 'POST':
-            pendencia_form = Pendenciasform(request.POST)
-            if request.POST['gravar'] == 'Pendencia':
-                if pendencia_form.is_valid():
-                    instance = pendencia_form.save(commit=False)
-                    instance.created_by = request.user
-                    instance.save()
-                    return redirect('index')
-                else:
-                    print(form.errors)
+        pendencia_form = Pendenciasform(request.POST)
+        if request.POST['gravar'] == 'Pendencia':
+            if pendencia_form.is_valid():
+                instance = pendencia_form.save(commit=False)
+                instance.created_by = request.user
+                instance.save()
+                return redirect('index')
+            else:
+                print(form.errors)
     else:
         pendencia_form = Pendenciasform()
 
@@ -181,7 +205,7 @@ def index(request):
 def pavimentos(request):
     template_name = 'dados/Pavimentos/pavimentos.html'
 
-    # Cadastro Pavimento
+       # Cadastro Pavimento
     if request.method == 'POST':
         pavimento22_form = Pavimentoform(request.POST)
         if pavimento22_form.is_valid():
@@ -192,48 +216,12 @@ def pavimentos(request):
     else:
         pavimento22_form = Pavimentoform()
 
-    #Tabela Geral
-    days = request.GET.get('days')
-    if days:
-        request.session['selected_days'] = days
-        days = int(days)
-        dados2 = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data")
-    else:
-        if 'selected_days' in request.session:
-            days = int(request.session['selected_days'])
-            dados2 = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data")
-        else:
-            dados2 = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=0)).order_by("-id", "Executado", "Data")
-    dados = PavimentoFilter(request.GET, queryset=dados2)
-
-    #Tabela Lauro
-    days = request.GET.get('days')
-    if days:
-        request.session['selected_days'] = days
-        days = int(days)
-        lauro = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data").filter(Localidade='Lauro')
-    else:
-        if 'selected_days' in request.session:
-            days = int(request.session['selected_days'])
-            lauro = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data").filter(Localidade='Lauro')
-        else:
-            lauro = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=0)).order_by("-id", "Executado", "Data").filter(Localidade='Lauro')
-    filterlauro = PavimentoFilter(request.GET, queryset=lauro)
-
-    #Tabela Salvador
-    days = request.GET.get('days')
-    if days:
-        request.session['selected_days'] = days
-        days = int(days)
-        salvador = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data").filter(Localidade='Salvador')
-    else:
-        if 'selected_days' in request.session:
-            days = int(request.session['selected_days'])
-            salvador = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data").filter(Localidade='Salvador')
-        else:
-            salvador = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=0)).order_by("-id", "Executado", "Data").filter(Localidade='Salvador')
-    filtersalvador = PavimentoFilter(request.GET, queryset=salvador)
-
+    #Filtros para tabela de Pavimento
+    dados = filter_pavimento(request, Pavimento, PavimentoFilter, localidade='')
+    dados2 = filter_pavimento(request,  Pavimento, PavimentoFilter, localidade='')
+    filterlauro  = filter_pavimento(request,  Pavimento, PavimentoFilter, localidade='Salvador')
+    filtersalvador  = filter_pavimento(request, Pavimento, PavimentoFilter, localidade='Lauro')
+    days  = filter_pavimento(request,  Pavimento, PavimentoFilter, localidade='')
 
     #Encart Pavimento
     qtdlf = encart("Lauro", Pavimento)[0]
@@ -330,15 +318,15 @@ def pavimentos2(request):
     else:
         esgoto1_form = Esgotoform()
 
-    dados2 = Esgoto.objects.order_by("Executado", "Data").all()
-    dados = EsgotoFilter(request.GET, queryset=dados2)
 
-    lauro = Esgoto.objects.order_by("Executado", "Data").filter(Localidade='Lauro').all()
-    filterlauro = EsgotoFilter(request.GET, queryset=lauro)
+    #Filtros para tabela de Pavimento
+    dados = filter_pavimento(request, Esgoto, EsgotoFilter, localidade='')
+    dados2 = filter_pavimento(request,  Esgoto, EsgotoFilter, localidade='')
+    filterlauro  = filter_pavimento(request,  Esgoto, EsgotoFilter, localidade='Lauro')
+    filtersalvador  = filter_pavimento(request, Esgoto, EsgotoFilter, localidade='Salvador')
+    days  = filter_pavimento(request, Esgoto, EsgotoFilter, localidade='')
 
-    salvador = Esgoto.objects.order_by(  "Executado", "Data").filter(Localidade='Salvador').all()
-    filtersalvador = EsgotoFilter(request.GET, queryset=salvador)
-
+    
     #Encart Esgoto
     qtdlf2 = encart("Lauro", Esgoto)[0]
     cont_pav_lf2 = encart("Lauro", Esgoto)[1]
@@ -352,6 +340,7 @@ def pavimentos2(request):
     context = {
         'dados': dados2,
         'filtro2': dados,
+        'days': days,
 
         # #Cart Esgoto
         'qtdlf2':qtdlf2,
@@ -434,14 +423,13 @@ def informativo(request):
     else:
         pendencia_form = Pendenciasform()
 
-    dados2 = Pendencias.objects.order_by("Executado", "Data")
-    dados = PendenciasFilter(request.GET, queryset=dados2)
 
-    lauro = Pendencias.objects.order_by("Executado", "Data").filter(Localidade='Lauro').all()
-    filterlauro = PendenciasFilter(request.GET, queryset=lauro)
-
-    salvador = Pendencias.objects.order_by("Executado", "Data").filter(Localidade='Salvador').all()
-    filtersalvador = PendenciasFilter(request.GET, queryset=salvador)
+        #Filtros para tabela de Pavimento
+    dados = filter_pavimento(request, Pendencias, PendenciasFilter, localidade='')
+    dados2 = filter_pavimento(request,  Pendencias, PendenciasFilter, localidade='')
+    filterlauro  = filter_pavimento(request,  Pendencias, PendenciasFilter, localidade='Lauro')
+    filtersalvador  = filter_pavimento(request, Pendencias, PendenciasFilter, localidade='Salvador')
+    days  = filter_pavimento(request, Pendencias, PendenciasFilter, localidade='')
 
     #Encart Pendencias
     qtdlf3 = encart("Lauro", Pendencias)[0]
@@ -457,6 +445,7 @@ def informativo(request):
     context = {
         'dados': dados2,
         'filtro3': dados,
+        'days': days,
 
         # 'qtdlf': qtdlf,
         # 'qtdssa': qtdssa,

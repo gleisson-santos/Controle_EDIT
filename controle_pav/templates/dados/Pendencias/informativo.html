@@ -25,6 +25,15 @@
             <div class="form-inline col-md-1 mb-0" style='float:right' >
                 {{filtro3.form.Executado| as_crispy_field}}
             </div>
+
+             <select id="days" name="days">
+              <option value="">Filtrar Período</option>
+              <option value="7">Últimos 7 dias</option>
+              <option value="30">Últimos 30 dias</option>
+              <option value="60">Últimos 3 Meses</option>
+              <option value="90">Últimos 6 Meses</option>
+              <option value="365">Últimos 12 Meses</option>
+            </select>  
         </form>
     </div>
     
