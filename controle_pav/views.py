@@ -192,21 +192,8 @@ def pavimentos(request):
     else:
         pavimento22_form = Pavimentoform()
 
-    #     limit = request.GET.get('limit')
-    # if limit:
-    #     limit = int(limit)
-    #     dados2 = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=190)).order_by("-id", "Executado", "Data")[:limit]
-    # else:
-    #     dados2 = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=190)).order_by("-id", "Executado", "Data")
-
-    # dados = PavimentoFilter(request.GET, queryset=dados2)
-
-
-    # qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
-    # qtdssa = Esgoto.objects.filter(Localidade="Salvador", Executado='0').count()
-
+    #Tabela Geral
     days = request.GET.get('days')
-
     if days:
         request.session['selected_days'] = days
         days = int(days)
@@ -217,28 +204,35 @@ def pavimentos(request):
             dados2 = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data")
         else:
             dados2 = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=0)).order_by("-id", "Executado", "Data")
-
     dados = PavimentoFilter(request.GET, queryset=dados2)
 
     #Tabela Lauro
-    limit = request.GET.get('limit')
-    if limit:
-        limit = int(limit)
-        lauro = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=400)).order_by("-id", "Executado", "Data").filter(Localidade='Lauro')[:limit]
+    days = request.GET.get('days')
+    if days:
+        request.session['selected_days'] = days
+        days = int(days)
+        lauro = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data").filter(Localidade='Lauro')
     else:
-        lauro = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=400)).order_by("-id", "Executado", "Data").filter(Localidade='Lauro')
-
+        if 'selected_days' in request.session:
+            days = int(request.session['selected_days'])
+            lauro = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data").filter(Localidade='Lauro')
+        else:
+            lauro = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=0)).order_by("-id", "Executado", "Data").filter(Localidade='Lauro')
     filterlauro = PavimentoFilter(request.GET, queryset=lauro)
 
     #Tabela Salvador
-    limit = request.GET.get('limit')
-    if limit:
-        limit = int(limit)
-        salvador = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=400)).order_by("-id", "Executado", "Data").filter(Localidade='Salvador')[:limit]
+    days = request.GET.get('days')
+    if days:
+        request.session['selected_days'] = days
+        days = int(days)
+        salvador = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data").filter(Localidade='Salvador')
     else:
-        salvador = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=400)).order_by("-id", "Executado", "Data").filter(Localidade='Salvador')
-
-    filtersalvador = PavimentoFilter(request.GET, queryset=lauro)
+        if 'selected_days' in request.session:
+            days = int(request.session['selected_days'])
+            salvador = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data").filter(Localidade='Salvador')
+        else:
+            salvador = Pavimento.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=0)).order_by("-id", "Executado", "Data").filter(Localidade='Salvador')
+    filtersalvador = PavimentoFilter(request.GET, queryset=salvador)
 
 
     #Encart Pavimento
