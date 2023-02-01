@@ -10,14 +10,10 @@ from django.shortcuts import redirect, render
 from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter
 from .forms import Esgotoform, Pavimentoform, Pendenciasform
 from .models import Esgoto, Pavimento, Pendencias
-
+import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
-
-
-
-
 
 
 # PÁGINA PRINCIPAL
@@ -186,9 +182,20 @@ def pavimentos(request):
     else:
         form = Pavimentoform()
 
+    # dados2 = Pavimento.objects.order_by("-id", "Executado", "Data").all()
+    # dados = PavimentoFilter(request.GET, queryset=dados2)
 
-    dados2 = Pavimento.objects.order_by("-id", "Executado", "Data").all()[:2]
+   
+
+    limit = request.GET.get('limit')
+    if limit:
+        limit = int(limit)
+        dados2 = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=30)).order_by("-id", "Executado", "Data")[:limit]
+    else:
+        dados2 = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=30)).order_by("-id", "Executado", "Data")
+
     dados = PavimentoFilter(request.GET, queryset=dados2)
+ 
 
     qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
     qtdssa = Esgoto.objects.filter(Localidade="Salvador", Executado='0').count()
@@ -202,8 +209,7 @@ def pavimentos(request):
     filtersalvador = PavimentoFilter(request.GET, queryset=salvador)
 
     context = {
-        'dados': dados2,
-
+         'dados': dados2,
         'filtro': dados,
 
         'qtdlf': qtdlf,
@@ -211,7 +217,6 @@ def pavimentos(request):
         'qtd': qtd,
 
         'pavimento9': form,
-
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
 
