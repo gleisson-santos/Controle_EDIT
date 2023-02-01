@@ -75,14 +75,6 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     return filters
 
 
-
-
-
-
-
-
-
-
 # PÁGINA PRINCIPAL
 @login_required
 def index(request):
