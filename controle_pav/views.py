@@ -194,8 +194,7 @@ def pavimentos(request):
     else:
         dados2 = Pavimento.objects.filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=30)).order_by("-id", "Executado", "Data")
 
-    dados = PavimentoFilter(request.GET, queryset=dados2)
- 
+
 
     qtdlf = Esgoto.objects.filter(Localidade="Lauro", Executado='0').count()
     qtdssa = Esgoto.objects.filter(Localidade="Salvador", Executado='0').count()
@@ -209,12 +208,16 @@ def pavimentos(request):
     filtersalvador = PavimentoFilter(request.GET, queryset=salvador)
 
     context = {
+
          'dados': dados2,
+        'dados': dados2,
+
         'filtro': dados,
 
         'qtdlf': qtdlf,
         'qtdssa': qtdssa,
         'qtd': qtd,
+
 
         'pavimento9': form,
         'localidade_l': filterlauro,
@@ -338,7 +341,7 @@ def criar2(request):
     if request.method == 'POST':
         pavimento_form = Esgotoform(request.POST)
         if pavimento_form.is_valid():
-            instance = pavimento_form.save(commit=False)
+            instance = esgoto1_form.save(commit=False)
             instance.created_by = request.user
             instance.save()
             return redirect('novo_esgoto')
@@ -346,7 +349,9 @@ def criar2(request):
             print(form.errors)
     else:
         pavimento_form = Esgotoform()
-        formulario = {'formulario': pavimento_form}
+        formulario = {
+            'formulario': pavimento_form
+        }
 
         return render(request, 'dados/Esgoto/novo_esgoto.html', context=formulario)
 
