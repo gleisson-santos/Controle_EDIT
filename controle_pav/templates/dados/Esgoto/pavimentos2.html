@@ -125,13 +125,13 @@
 
   <div class="form-control" style="font-size: 12px">
     {% if user.groups.all.0.name == 'Lauro' %}
-    <h8> <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) - {{qtdlf}} Pendente(s)</h8>
+    <h8> <i class="fas fa-table me-1"></i>{{cont_pav_lf2}} registro(s) encontrado(s) - {{qtdlf2}} Pendente(s)</h8>
 
     {% elif user.groups.all.0.name == 'Salvador' %}
-    <h8> <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) - {{qtdssa}} Pendente(s)</h8>
+    <h8> <i class="fas fa-table me-1"></i>{{cont_pav_ssa}} registro(s) encontrado(s) - {{qtdssa2}} Pendente(s)</h8>
 
     {% else %}
-    <h8> <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) - {{qtd}} Pendente(s)</h8>
+    <h8> <i class="fas fa-table me-1"></i>{{cont_pav3}} registro(s) encontrado(s) - {{qtd3}} Pendente(s)</h8>
 
     {% endif %}
   </div>
@@ -156,9 +156,8 @@
 
         <th>Editar</th>
         <th>Copiar</th>
-        <th>Exe.</th>
-        {% comment %} <th>Executado</th>
-        <th>Detalhes</th>
+        <th>Executado</th>
+        {% comment %} <th>Detalhes</th>
         <th>Excluir</th> {% endcomment %}
       </tr>
     </thead>

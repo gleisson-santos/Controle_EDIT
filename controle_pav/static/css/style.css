@@ -124,7 +124,7 @@ h2 {
 
 .form-inline {
   float: right;
-  padding: 2px;
+  padding: 1px;
 }
 
 .form-inline button {
@@ -132,6 +132,27 @@ h2 {
   margin-top: 18px;
   margin-right: 20px;
 }
+
+#days {
+    float: right;
+    width: 150px;
+    height: 40px;
+    font-size: 13px;
+    padding: 7px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 19px;
+    margin-right: 8px;
+}
+
+label[for="days"] {
+    font-size: 13px;
+    margin-right: 2px;
+}
+
+
+
+
 
 /* Tabela de Pavimento :  Estilos do "Cadastro de Pavimento Modal*/
 #pavpend {

@@ -14,8 +14,8 @@
     <!--  Filtro superido geral da tabela--> 
     <div id="add">
         <form method="get"  >
+     
             {% csrf_token %}
-
             <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#cadpavimento">
                 <i class="fa fa-plus" aria-hidden="true"></i>Adicionar
             </button> 
@@ -27,13 +27,28 @@
             <div class="form-inline col-md-1 mb-0" >
                 {{filtro.form.Executado| as_crispy_field}}
             </div>
+
             <div class="form-inline col-md-1 mb-0" >
                 {{filtro.form.Bairro| as_crispy_field}}
             </div>
+
             <div class="form-inline col-md-1 mb-0">
                 {{filtro.form.Servico| as_crispy_field}}
             </div>
+
+
+            {% comment %} <label for="days">Escolha os dias:</label> {% endcomment %}
+            <select id="days" name="days">
+              <option value="">Filtrar Período</option>
+              <option value="7">Últimos 7 dias</option>
+              <option value="30">Últimos 30 dias</option>
+              <option value="60">Últimos 3 Meses</option>
+              <option value="90">Últimos 6 Meses</option>
+              <option value="365">Últimos 12 Meses</option>
+            </select>  
+       
         </form>
+
     </div>
 
     <!-- Modal Pendencias de Pavimentos-->
@@ -123,13 +138,13 @@
     <!-- Linha informativa de demandas-->
     <div class='form-control' style="font-size: 13px;" >        
         {% if user.groups.all.0.name == 'Lauro' %}
-        <h8>  <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) -  {{qtdlf}} Pendente(s)</h8>
+          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav_lf}} registro(s) encontrado(s) -  {{qtdlf}} Pendente(s)</h8>
 
         {% elif user.groups.all.0.name == 'Salvador' %}
-        <h8>  <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) -  {{qtdssa}} Pendente(s)</h8>
+          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav_ssa}} registro(s) encontrado(s) -  {{qtdssa}} Pendente(s)</h8>
 
         {% else %}
-        <h8>  <i class="fas fa-table me-1"></i>{{dados.count}} registro(s) encontrado(s) -  {{qtd}} Pendente(s)</h8>
+          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav}} registro(s) encontrado(s) -  {{qtd}} Pendente(s)</h8>
 
         {% endif %}  
     </div>
@@ -222,7 +237,7 @@
                             clipboard.on("error", function (e) {});
                         </script>
                     {% endif %}
-                   
+                  
                     <td>
                         <a href="{% url 'editar' dado.id %}">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
