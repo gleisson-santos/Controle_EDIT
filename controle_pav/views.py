@@ -22,26 +22,65 @@ def encart(localidade, b):
 
 
 #Filtra de periodos
-def filter_pavimento(request, tipo, filters, localidade=None ):
+def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
+    current_url = request.path
+    days_key = f"{current_url}_selected_days"
+    serv_key = f"{current_url}_selected_serv"
+    bairro_key = f"{current_url}_selected_bairro"
+    execut_key = f"{current_url}_selected_execut"
+    
     days = request.GET.get('days')
+    serv = request.GET.get('serv')
+    bairro = request.GET.get('bairro')
+    execut = request.GET.get('execut')
+
     if days:
-        request.session['selected_days'] = days
+        request.session[days_key] = days
         days = int(days)
-        pavimentos = tipo.objects.select_related("Localidade").filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data")
-        if localidade:
-            pavimentos = pavimentos.filter(Localidade=localidade)
+    elif days_key in request.session:
+        days = int(request.session[days_key])
     else:
-        if 'selected_days' in request.session:
-            days = int(request.session['selected_days'])
-            pavimentos = tipo.objects.select_related("Localidade").filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data")
-            if localidade:
-                pavimentos = pavimentos.filter(Localidade=localidade)
-        else:
-            pavimentos = tipo.objects.select_related("Localidade").filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=0)).order_by("-id", "Executado", "Data")
-            if localidade:
-                pavimentos = pavimentos.filter(Localidade=localidade)
-    filter_pavimentos = filters(request.GET, queryset=pavimentos)
-    return filter_pavimentos
+        days = 0
+
+    if serv:
+        request.session[serv_key] = serv
+    elif serv_key in request.session:
+        serv = request.session[serv_key]
+        
+    if bairro:
+        request.session[bairro_key] = bairro
+    elif bairro_key in request.session:
+        bairro = request.session[bairro_key]
+        
+    if execut:
+        request.session[execut_key] = execut
+    elif execut_key in request.session:
+        execut = request.session[execut_key]
+
+    if localidade:
+        pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data").filter(Localidade=localidade)
+    else:
+        pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data")
+
+    if serv:
+        pavimentos = pavimentos.filter(Servico=serv)
+
+    if bairro:
+        pavimentos = pavimentos.filter(Bairro=bairro)
+        
+    if execut:
+        pavimentos = pavimentos.filter(Executado=execut)
+
+    filters = filters(request.GET, queryset=pavimentos)
+    return filters
+
+
+
+
+
+
+
+
 
 
 # PÁGINA PRINCIPAL
@@ -205,7 +244,7 @@ def index(request):
 def pavimentos(request):
     template_name = 'dados/Pavimentos/pavimentos.html'
 
-       # Cadastro Pavimento
+    # Cadastro Pavimento
     if request.method == 'POST':
         pavimento22_form = Pavimentoform(request.POST)
         if pavimento22_form.is_valid():

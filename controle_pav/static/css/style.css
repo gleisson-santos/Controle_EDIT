@@ -133,7 +133,10 @@ h2 {
   margin-right: 20px;
 }
 
-#days {
+#days, 
+#serv,
+#execut, 
+#bairro  {
     float: right;
     width: 150px;
     height: 40px;

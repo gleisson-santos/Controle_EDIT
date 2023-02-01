@@ -24,7 +24,7 @@
                 ⠀<button type="submit" class="btn btn-primary mb-2">Filtrar</button>
             </div>
             
-            <div class="form-inline col-md-1 mb-0" >
+            {% comment %} <div class="form-inline col-md-1 mb-0" >
                 {{filtro.form.Executado| as_crispy_field}}
             </div>
 
@@ -34,7 +34,7 @@
 
             <div class="form-inline col-md-1 mb-0">
                 {{filtro.form.Servico| as_crispy_field}}
-            </div>
+            </div> {% endcomment %}
 
 
             {% comment %} <label for="days">Escolha os dias:</label> {% endcomment %}
@@ -45,6 +45,25 @@
               <option value="60">Últimos 3 Meses</option>
               <option value="90">Últimos 6 Meses</option>
               <option value="365">Últimos 12 Meses</option>
+            </select>  
+
+            <select id="serv" name="serv">
+              <option value="">Filtrar Serviço</option>
+              <option value="Asfalto">Asfalto</option>
+              <option value="Concreto">Concreto</option>
+              <option value="Blocos">Blocos</option>
+            </select>  
+
+            <select id="execut" name="execut">
+              <option value="">Filtrar Situação</option>
+                <option value=False >Pendente</option>
+                <option value=True>Executado</option>
+            </select>  
+
+            <select id="bairro" name="bairro">
+              <option value="">Filtrar Bairro</option>
+                <option value="Portao" >Portão</option>
+                <option value="Vilas">Vilas</option>
             </select>  
        
         </form>
