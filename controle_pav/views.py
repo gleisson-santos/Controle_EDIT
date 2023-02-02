@@ -34,25 +34,41 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     bairro = request.GET.get('bairro')
     execut = request.GET.get('execut')
 
-    if days:
+    if days == 'all':
+        days = None
+        if days_key in request.session:
+            del request.session[days_key]
+    elif days:
         request.session[days_key] = days
         days = int(days)
     elif days_key in request.session:
         days = int(request.session[days_key])
     else:
         days = 0
-
-    if serv:
+    
+    if serv == 'all':
+        serv = None
+        if serv_key in request.session:
+            del request.session[serv_key]
+    elif serv:
         request.session[serv_key] = serv
     elif serv_key in request.session:
         serv = request.session[serv_key]
         
-    if bairro:
+    if bairro == 'all':
+        bairro = None
+        if bairro_key in request.session:
+            del request.session[bairro_key]
+    elif bairro:
         request.session[bairro_key] = bairro
     elif bairro_key in request.session:
         bairro = request.session[bairro_key]
-        
-    if execut:
+    
+    if execut == 'all':
+        execut = None
+        if execut_key in request.session:
+            del request.session[execut_key]
+    elif execut:
         request.session[execut_key] = execut
     elif execut_key in request.session:
         execut = request.session[execut_key]
@@ -70,6 +86,8 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
         
     if execut:
         pavimentos = pavimentos.filter(Executado=execut)
+
+
 
     filters = filters(request.GET, queryset=pavimentos)
     return filters
