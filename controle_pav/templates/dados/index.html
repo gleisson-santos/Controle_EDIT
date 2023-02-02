@@ -387,8 +387,8 @@
                         <th>Solicitante</th>
                         <th>Data</th>
                         <th>Editar</th>
-                        {% comment %} <th>Excluir</th>
-                        <th>Detalhes</th> {% endcomment %}
+                        {% comment %} <th>Excluir</th>{% endcomment %}
+                        <th>Detalhes</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -480,15 +480,14 @@
                                 <td>{{dado.Tipo|lower|capfirst}}</td>
                                 <td >{{dado.Solicitante|lower|capfirst}}</td>
                                 <td >{{dado.Data|date:"d/m/Y"}}</td>
+                                <td >{{dado.Detalhes|lower|capfirst}}</td>
                                 <td>
                                     <a href="{% url 'editar_p' dado.id %}">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>                        
                                 </td>
 
-                                {% comment %} <td >{{dado.Detalhes|lower|capfirst}}
-                                    <i class="fa fa-file-code-o" aria-hidden="true"></i>
-                                </td> {% endcomment %} 
+                                
                                 {% comment %} <td>
                                    <a href="{% url 'excluir_p' dado.id %}"> <i class="fa fa-trash fa-lg" aria-hidden="true"></i> </a>                                 
                                 </td> {% endcomment %}

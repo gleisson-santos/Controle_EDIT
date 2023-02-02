@@ -6,7 +6,7 @@
 
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-<h1>Listagem de Pavimentos</h1>   .
+<h1>Listagem de Pavimentos</h1>   
 
 
 <div class='container-fluid'>
@@ -72,7 +72,7 @@
                 <option value="Jd Aeroporto">Jd Aeroporto</option>
                 <option value="Pa do Flamengo">Pa do Flamengo</option>
                 <option value="Jambeiro">Jambeiro</option>
-                <option value="Capelaão">Capelaão SSA</option>
+                <option value="Capelao">Capelão SSA</option>
                 <option value="Lot Miragem">Lot Miragem</option>
                 <option value="Jd Margaridas">Jd Margaridas</option>
                 <option value="Itinga SSA">Itinga SSA</option>
@@ -188,8 +188,6 @@
             <tr>
                 <th>ID</th>
                 <th>Localidade</th>
-                <th>Criou</th>
-                <th>Editou</th>
                 <th>Situação</th>
                 <th>Ss</th>
                 <th>Data</th>
@@ -207,6 +205,8 @@
                 <th>Copiar</th>
                 <th>Editar</th>
                 <th>Executado</th>
+                <th>Criou</th>
+                <th>Editou</th>
                 {% comment %} <th>Detalhes</th> {% endcomment %}
                 {% comment %} <th>Excluir</th> {% endcomment %}
             </tr>
@@ -219,8 +219,7 @@
                       <tr>
                     <td></td>
                     <td>{{dado.Localidade}}</td>
-                    <td>{{dado.created_by}}</td>
-                    <td>{{dado.last_edited_by}}</td>
+
                     <td>
                     {% if dado.Medir == 'Medir' %}
                         <h2 style="color: Green" >P/ Medir</h2>
@@ -290,6 +289,8 @@
                             <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
                         </td>
                     {% endif %}
+                    <td>{{dado.created_by}}</td>
+                    <td>{{dado.last_edited_by}}</td>
 
                     {% comment %} <td>
                     <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
@@ -307,8 +308,6 @@
                 <tr>
                     <td></td>
                     <td>{{dado.Localidade}}</td>
-                    <td>{{dado.created_by}}</td>
-                    <td>{{dado.last_edited_by}}</td>
                     <td>
                     {% if dado.Medir == 'Medir' %}
                         <h2 style="color: Green" >P/ Medir</h2>
@@ -377,6 +376,8 @@
                             <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
                         </td>
                     {% endif %}
+                    <td>{{dado.created_by}}</td>
+                    <td>{{dado.last_edited_by}}</td>
 
                     {% comment %} <td>
                     <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
@@ -394,8 +395,6 @@
                    <tr>
                     <td></td>
                     <td>{{dado.Localidade}}</td>
-                    <td>{{dado.created_by}}</td>
-                    <td>{{dado.last_edited_by}}</td>
                     <td>
                     {% if dado.Medir == 'Medir' %}
                         <h2 style="color: Green" >P/ Medir</h2>
@@ -464,6 +463,8 @@
                             <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
                         </td>
                     {% endif %}
+                    <td>{{dado.created_by}}</td>
+                    <td>{{dado.last_edited_by}}</td>
 
                     {% comment %} <td>
                     <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
@@ -493,7 +494,7 @@
           text: '<i class="fa fa-download" aria-hidden="true"></i>',
           titleAttr: "Excel",
         },
-        "colvis",
+        //"colvis", Botão para filtrar colunas
       ],
       stateSave: true,
       responsive: true,

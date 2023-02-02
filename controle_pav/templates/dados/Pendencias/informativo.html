@@ -7,6 +7,7 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 <h1>Listagem de Pendencias</h1>
+
 <div class='container-fluid' >
     
     <!--  Filtro superior geral da tabela--> 
@@ -138,19 +139,19 @@
             <tr>
                 <th></th>
                 <th>Localidade</th>
-                <th>Criou</th>
-                <th>Editou</th> 
                 
                 <th >Situação</th>
                 <th>Ss</th>
                 <th>Tipo</th>
                 <th>Solicitante</th>
                 <th>Data</th>
-                {% comment %} <th>Detalhes</th> {% endcomment %}
+                <th>Detalhes</th>
 
                 <th>Editar</th>
                 <th>Executado</th>
                 <th>Copiar</th>
+                <th>Criou</th>
+                <th>Editou</th>
                 {% comment %} <th>Excluir</th> {% endcomment %}
             </tr>
         </thead>
@@ -298,8 +299,6 @@
                     <tr>   
                         <td></td>
                         <td>{{dado.Localidade}} </td>
-                        <td>{{dado.created_by}}</td>
-                        <td>{{dado.last_edited_by}}</td>
                         <td>
                             {% if dado.Medir == 'Medir' %}  
                             <h2 style="color: Green;">P/ Medir</h2>
@@ -313,7 +312,7 @@
                         <td>{{dado.Tipo}}</td>
                         <td>{{dado.Solicitante|lower|capfirst}}</td>
                         <td>{{dado.Data|date:"d/m/Y"}}</td>
-                        {% comment %} <td>{{dado.Detalhes|lower|capfirst}}</td> {% endcomment %}
+                        <td>{{dado.Detalhes|lower|capfirst}}</td>
 
                         <td>
                             <a href="{% url 'editar_p' dado.id %}">
@@ -352,6 +351,8 @@
                                 });
                             </script>
                         {% endif %}
+                        <td>{{dado.created_by}}</td>
+                        <td>{{dado.last_edited_by}}</td>
                                          
                         {% comment %} <td>
                             <a href="{% url 'excluir_p' dado.id %}">
@@ -379,7 +380,7 @@
                     text:      '<i class="fa fa-download" aria-hidden="true"></i>',
                     titleAttr: 'Excel'
                 },
-                'colvis'
+               //"colvis", Botão para filtrar colunas 'colvis'
             ],
 
         stateSave: true,
