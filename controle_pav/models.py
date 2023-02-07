@@ -1,11 +1,10 @@
-from csv import reader
+import csv
 from datetime import date, datetime
 from random import choices
 from django.db import models
 import pandas as pd
-
 from django.contrib.auth.models import User
-from django.db import models
+
 
 
 
@@ -22,20 +21,18 @@ def Equipe():
             ('equipes', equipes.split()[3]),
             ('equipes', equipes.split()[4]),
             ('equipes', equipes.split()[5]),
-
                     )
         return EQUIPE
-
 
 # modelos que irão representar uma tabela no banco de dados
 class Pavimento(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
     last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
-
      
     Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
     Prazo = models.BooleanField(default=False)
+         
 
     Equipe = models.CharField(max_length=255, choices=Equipe())
     
