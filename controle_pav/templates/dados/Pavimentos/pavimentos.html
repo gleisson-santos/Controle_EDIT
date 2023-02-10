@@ -208,6 +208,7 @@
                 <th>Met_Final </th>
                 <th>Copiar</th>
                 <th>Editar</th>
+                <th>Edit</th>
                 <th>Executado</th>
                 <th>Criou</th>
                 <th>Editou</th>
@@ -454,6 +455,53 @@
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>                        
                     </td>
+
+        
+         
+                  <td>
+                    <a href="{% url 'pavimentos' %}?pavimento_id={{ dado.id }}" data-toggle="modal" data-target="#editModal">Editar</a>
+                  </td>
+                
+
+                    <!-- Modal de Edição -->
+                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Editar Pavimento</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <form method="post">
+                            <div id="pavpend"> 
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Localidade</span>
+                                    {% render_field formulario.Localidade class='form-control'%}
+                                    ⠀                               
+                                    <span class="input-group-text">Situação</span>
+                                    {% render_field formulario.Medir class='form-control' %}
+                                </div>
+                            </div>
+
+                            <div id="btn2pen">
+                              <!-- Botoes -->
+                              <button class="btn btn-secondary"><a href="{% url 'pavimentos'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
+                              <button class="btn btn-success" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
+                            </div>         
+                          </form>
+                        </div>
+                      </div>
+                    </div> 
+                    <script>
+                    $('#editModal').on('show.bs.modal', function (event) {
+                      var button = $(event.relatedTarget)
+                      var id = button.data('id')
+                      // Obtenha os dados do item com o id especificado e preencha o formulário de edição
+                    })
+                  </script>
+
 
                     <!--  Filtro checked-->
                     {% if dado.Executado %}

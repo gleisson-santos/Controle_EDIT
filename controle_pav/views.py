@@ -94,6 +94,8 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     return filters
 
 
+
+
 # PÁGINA PRINCIPAL
 @login_required
 def index(request):
@@ -255,6 +257,7 @@ def index(request):
 def pavimentos(request):
     template_name = 'dados/Pavimentos/pavimentos.html'
 
+
     # Cadastro Pavimento
     if request.method == 'POST':
         pavimento22_form = Pavimentoform(request.POST)
@@ -283,6 +286,7 @@ def pavimentos(request):
     cont_pav = Pavimento.objects.filter().count()
     qtd = Pavimento.objects.filter(Executado='0').count()
 
+
     context = {
         'dados': dados2,
         'filtro': dados,
@@ -299,6 +303,7 @@ def pavimentos(request):
         'pavimento9': pavimento22_form,
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
+
     }
 
     return render(request, template_name, context)

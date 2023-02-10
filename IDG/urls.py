@@ -17,8 +17,8 @@ urlpatterns = [
 
     path('Pavimentos/pavimentos',                                views.pavimentos,    name='pavimentos'),
     path('Pavimentos/novo_pavimento/',                           views.criar,         name='novo_pavimento'),
-    path('Pavimentos/novo_pavimento/<int:id_pavimento>',         views.editar,        name='editar'),
 
+    path('Pavimentos/novo_pavimento/<int:id_pavimento>',         views.editar,        name='editar'),
 
     # path('<int:pk>/',         views.expense_detail,        name='expense_detail'),
     # path('<int:pk>/update/',         views.expense_update,       name='expense_update'),
