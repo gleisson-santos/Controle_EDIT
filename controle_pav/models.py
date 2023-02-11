@@ -13,16 +13,9 @@ from django.contrib.auth.models import User
 
 def Equipe():
     with open("controle_pav/static/texto/equipes.csv", 'r') as arquivo:
-        equipes = arquivo.read()
-        EQUIPE = (                
-            ('equipes', equipes.split()[0]),
-            ('equipes', equipes.split()[1]),
-            ('equipes', equipes.split()[2]),
-            ('equipes', equipes.split()[3]),
-            ('equipes', equipes.split()[4]),
-            ('equipes', equipes.split()[5]),
-                    )
-        return EQUIPE
+        equipes = arquivo.read().split()
+        EQUIPE = tuple(('equipes', equipes[i]) for i in range(len(equipes)))
+    return EQUIPE
 
 # modelos que irão representar uma tabela no banco de dados
 class Pavimento(models.Model):

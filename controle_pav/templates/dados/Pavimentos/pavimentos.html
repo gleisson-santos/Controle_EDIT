@@ -8,6 +8,10 @@
 
 <h1>Listagem de Pavimentos</h1>   
 
+{% comment %} o ID esta no botão e o Scritp no Static
+<div class="alert alert-success" role="alert">
+  Item cadastrado com Sucesso!
+</div> {% endcomment %}
 
 <div class='container-fluid'>
     
@@ -157,7 +161,7 @@
                             <div id="btn2pen">
                                 <!-- Botoes -->
                                 <button class="btn btn-secondary"><a href="{% url 'pavimentos'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
-                                <button class="btn btn-success" value="Submit" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
+                                <button id="show" class="btn btn-success" value="Submit" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
                             </div>
 
 

@@ -21,6 +21,7 @@ def encart(localidade, b):
     return qtdlf2, cont_pav_lf2
 
 
+    
 #Filtra de periodos
 def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     current_url = request.path
@@ -563,3 +564,4 @@ def editar_p(request, id_pendencia):
             item.last_edited_by = request.user
             item.save()
         return redirect('informativo')
+
