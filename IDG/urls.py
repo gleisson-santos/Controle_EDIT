@@ -10,7 +10,8 @@ urlpatterns = [
     # path de pavimento agua
     path('admin/',         admin.site.urls),
     path('',  views.index,         name='index'),
-    path('index2/',  views.index2,         name='index2'),
+
+    
 
     path('Pavimentos/pavimentos',                                views.pavimentos,    name='pavimentos'),
     path('Pavimentos/novo_pavimento/',                           views.criar,         name='novo_pavimento'),
@@ -45,11 +46,15 @@ urlpatterns = [
 
 
     # path de Material
-path('Material/material/',                                                      views.material, name='material'),
-path('Material/detalhes_material/',                                              views.detalhes_material, name='detalhes_material'),
-path('Material/inserir_material/',                                                views.inserir_material,   name='inserir_material'),
-path('Material/inserir_material/<int:id_material>',                              views.editar_m,        name='editar_m'),
-path('Material/exluir_material/<int:id_material>',                          views.excluir_m,       name='excluir_m'),
+    path('Material/material/',                                                      views.material, name='material'),
+    path('Material/detalhes_material/',                                              views.detalhes_material, name='detalhes_material'),
+    path('Material/inserir_material/',                                                views.inserir_material,   name='inserir_material'),
+    path('Material/inserir_material/<int:id_material>',                              views.editar_m,        name='editar_m'),
+    path('Material/exluir_material/<int:id_material>',                          views.excluir_m,       name='excluir_m'),
+
+    path('index2/',  views.index2,         name='index2'),
+    path('Material/listagem/',  views.listagem,         name='listagem'),
+    path('Material/lancamentos/',  views.lancamentos,         name='lancamentos'),
 
 
 

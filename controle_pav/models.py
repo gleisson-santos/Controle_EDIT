@@ -94,14 +94,14 @@ class Pavimento(models.Model):
     def __str__(self):
         return '%s %s' % (self.Ss, self.Data)
 
-
 class Material(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
     last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
      
-    Equipe = models.CharField(max_length=255, choices=Equipe())
-    Data = models.DateField(default=datetime.now)
+    Equipe = models.CharField(max_length=255, choices=Equipe(), blank=True)
+    Data = models.DateField('data', null=True, blank=True)
     Item = models.CharField(max_length=800, choices=Material())
+    N_reserva = models.IntegerField(blank=True, null=False)
 
     Qtd = models.IntegerField(blank=False)
 
@@ -110,14 +110,14 @@ class Material(models.Model):
         ("Comercial", "Comercial"),
         ("Unid. Tec", "Unid. Tec")
     )
-    Servico = models.CharField(max_length=255, choices=SERVICO)
+    Servico = models.CharField(max_length=255, choices=SERVICO, blank=True)
 
     EXECUTADO = (
         (True, "Executado"),
         (False, "Pendente")
     )
 
-    Executado = models.BooleanField(default=False, choices=EXECUTADO)
+    Executado = models.BooleanField(default=False, choices=EXECUTADO, blank=True)
 
 
     LOCALIDADE = (
@@ -126,13 +126,18 @@ class Material(models.Model):
     )
     Localidade = models.TextField(max_length=255, choices=LOCALIDADE)
     Observacao = models.CharField(max_length=255, blank=True)
-    Devolucao = models.IntegerField(blank=True)
+    Devolucao = models.IntegerField(blank=True, null=True)
+
+    
+
+
+
+
 
 
     # Referencia de nome la na view na parte ADM django
     def __str__(self):
         return '%s %s' % (self.Equipe, self.Item)
-
 
 class Esgoto(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
@@ -201,7 +206,6 @@ class Esgoto(models.Model):
     # Referencia de nome la na view na parte ADM django
     def __str__(self):
         return '%s %s' % (self.Ss, self.Data)
-
 
 class Pendencias(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')

@@ -3,18 +3,21 @@
 {% load widget_tweaks %}
 {% block conteudo %}
 
-<h1>Controle de Material</h1>
+<h1>Controle de Demandas</h1>
+
+
+
 
 <div class="container mt-5">
     <div class="row mb-5">
  
-        <!-- Estoque -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <!-- Pavimentos -->
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="card border-dark">
-                <div class="card-header">Estoque</div>
+                <div class="card-header">Pavimentos</div>
 
                 <div class="card-body">
-                    <p class="card-text">Mantenha o <code>Estoque</code> Atualizado! </p>
+                    <p class="card-text">Mantenha os <code>Pavimentos</code> atualizados! </p>
 
                     {% if user.groups.all.0.name == 'Lauro' %}
                         <h8> <i class="fas fa-table me-1"></i>{{filtrolf}} Pavimento(s) Pendentes!(s)</h8>
@@ -25,18 +28,17 @@
                         <p class="card-text">{{Asfaltossa}} <code>Asfalto</code> {{Concretossa}}<code> Concreto</code> </p>
         
                     {% else %}
-                        <h8>  <i class="fas fa-table me-1"></i>{{pav_pend}} Materias(s) em falta!</h8>
-                        {% comment %} <p class="card-text">{{Asfalto}} <code>Asfalto</code> {{Concreto}}<code> Concreto</code> </p> {% endcomment %}
-                         <p class="card-text">1º Cobrança realizada em <code> 31/02/2023</code> </p> 
+                        <h8>  <i class="fas fa-table me-1"></i>{{pav_pend}} Pavimento(s) Pendentes!(s)</h8>
+                        <p class="card-text">{{Asfalto}} <code>Asfalto</code> {{Concreto}}<code> Concreto</code> </p>
                     {% endif %}
                 </div>
 
                 <div class="card-footer text-end">
                     <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#cadpavimento">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Lançar
+                        <i class="fa fa-plus" aria-hidden="true"></i> Cadastrar
                      </button>  
 
-                    <a href="{% url 'material' %}"
+                    <a href="{% url 'pavimentos' %}"
                        class="btn btn-outline-success btn-sm">
                        <i class="fa fa-list-alt" aria-hidden="true"></i>
                        Listar
@@ -45,13 +47,13 @@
             </div>
         </div>
 
-        <!-- Modal lançamento  de Estoque-->
+        <!-- Modal Pendencias de Pavimentos-->
         <div class="modal fade bd-example-modal-lg" id="cadpavimento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Entrada de Material</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Pavimentos</h5>
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                             <span aria-hidden="true">&times;</span>                         
@@ -65,26 +67,59 @@
 
                                 <div id="cadpav"> 
                                     <div class="input-group mb-3" >
-                                        <span class="input-group-text" >Nª Reserva</span>
+                                        <span class="input-group-text" >Localidade</span>
                                         {% render_field pavimento5.Localidade  class="form-control"  %}     
                                         ⠀                   
-                                        <span class="input-group-text">Data</span>
+                                        <span class="input-group-text">Situação</span>
                                         {% render_field pavimento5.Medir class="form-control" %}
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" >Material</span>
+                                        <span class="input-group-text" >Ss</span>
                                         {% render_field pavimento5.Ss  class="form-control" minlength="9" maxlength="9" %}     
                                         ⠀                   
-                                        <span class="input-group-text">Qtd</span>
+                                        <span class="input-group-text">Data</span>
                                         {% render_field pavimento5.Data class="form-control" %}
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span  class="input-group-text">Equipe</span>
+                                            {% render_field pavimento5.Equipe class="form-control" %}
+                                        ⠀
+                                        <span class="input-group-text">Bairro</span>
+                                        {% render_field pavimento5.Bairro class="form-control" placeholder=" item obrigatorio"%}
+                                    </div>
+                
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Rua</span>
+                                        {% render_field pavimento5.Rua class="form-control" placeholder=" item obrigatorio"%}
+                                        ⠀
+                                        <span class="input-group-text">Referência</span>
+                                        {% render_field pavimento5.Referencia class="form-control" placeholder=" item obrigatorio"%}
+                                    
+                                    </div>
+                
+                                    <div class="input-group mb-3">                                        
+                                        <span class="input-group-text">Metragem</span>
+                                        {% render_field pavimento5.Metragem class="form-control" placeholder=" Ex: 1,50 x 1,25" maxlength="50"%}
+                                        ⠀
+                                        <span  class="input-group-text">Obs</span>
+                                        {% render_field pavimento5.Observacao class="form-control" placeholder=" item opcional"%}
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Serviço</span>
+                                        {% render_field pavimento5.Servico  class="form-control" %}
+                                        ⠀
+                                        <span class="input-group-text">Executado</span>
+                                        {% render_field pavimento5.Executado class='form-control'  %}
                                     </div>
                                 </div>
                             
                                 
                                 <div id="btnpav">
                                     <!-- Botoes -->
-                                    <button  class="btn btn-secondary"><a href="{ url 'index2'}" ><i class="fa fa-reply" aria-hidden="true"></i>
+                                    <button  class="btn btn-secondary"><a href="{% url 'index'%}" ><i class="fa fa-reply" aria-hidden="true"></i>
                                         Voltar</a>
                                     </button> 
                                     <button  class="btn btn-success" name="gravar" value="Pav1" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
@@ -101,13 +136,13 @@
             </div>
         </div>
 
-        <!--Saida  -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <!--Esgoto  -->
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="card border-dark">
-                <div class="card-header">Saida</div>
+                <div class="card-header">Esgoto</div>
 
                 <div class="card-body">
-                    <p class="card-text">Mantenha as saidas de <code>Material</code> atualizadas! </p>
+                    <p class="card-text">Mantenha as pendências de <code>Esgoto</code> atualizadas! </p>
 
                     {% if user.groups.all.0.name == 'Lauro' %}
                         <h8>  <i class="fas fa-table me-1"></i>{{esg_pendlf}} Pendência(s) de Esgoto!</h8>
@@ -119,18 +154,17 @@
 
                     {% else %}
                         <h8>  <i class="fas fa-table me-1"></i>{{esg_pend}} Pendência(s) de Esgoto!</h8>
-                        {% comment %} <p class="card-text">{{Vedação}} <code>Vedações</code> {{Consertos}}<code> Consertos</code> {{Desobstrução}}<code> Desobstrução</code></p> {% endcomment %}
-                        <p class="card-text">Qtd ultimas saidas: {{Desobstrução}}<code> itens</code> </p>
+                        <p class="card-text">{{Vedação}} <code>Vedações</code> {{Consertos}}<code> Consertos</code> {{Desobstrução}}<code> Desobstrução</code></p>
 
                     {% endif %}
                 </div>
 
                 <div class="card-footer text-end">
                     <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#cadesgoto">
-                        <i class="fa fa-plus" aria-hidden="true"></i>  Saida
+                        <i class="fa fa-plus" aria-hidden="true"></i>  Cadastrar
                      </button> 
 
-                    <a href="{% url 'material' %}"
+                    <a href="{% url 'pavimentos2' %}"
                        class="btn btn-outline-success btn-sm">
                        <i class="fa fa-list-alt" aria-hidden="true"></i>
                        Listar
@@ -152,82 +186,212 @@
                     </div> <br>
         
                     <div class="container-fluid">
-                        <div class="card-body">    
-                            
-                            <form action="" method="POST" >
-                                {% csrf_token %} 
+                        <div class="card-body">                  
+                            <form action="" method="POST">
+                                {% csrf_token %}   
 
-                            <div id="matpend"> 
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Equipe</span>
-                                    {% render_field pavimento9.Equipe class='form-control'%}
-                                    ⠀                               
-                                    <span class="input-group-text">Data</span>
-                                    {% render_field pavimento9.Data class='form-control' %}
+                                <div id="cadesg"> 
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Localidade</span>
+                                        {% render_field esgoto21.Localidade  class="form-control"%}      
+                                        ⠀ 
+                                        <span class="input-group-text">Situação</span>
+                                        {% render_field esgoto21.Medir class="form-control"%}
+                                    </div>                                    
+                                    
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" >Ss</span>
+                                        {% render_field esgoto21.Ss  class="form-control" minlength="9" maxlength="9" %}      
+                                        ⠀ 
+                                        <span class="input-group-text">Data</span>
+                                        {% render_field esgoto21.Data class="form-control" %}
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Equipe</span>
+                                        {% render_field esgoto21.Equipe class="form-control" %}
+                                        ⠀ 
+                                        <span class="input-group-text">Bairro</span>
+                                        {% render_field esgoto21.Bairro class="form-control" placeholder=" item obrigatorio"%}
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span  class="input-group-text">Rua</span>
+                                        {% render_field esgoto21.Rua class="form-control" placeholder=" item obrigatorio"%}
+                                        ⠀ 
+                                        <span  class="input-group-text">Referência</span>
+                                        {% render_field esgoto21.Referencia class="form-control" placeholder=" item obrigatorio"%}
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Serviço</span>
+                                        {% render_field esgoto21.Servico  class="form-control" %}
+                                        ⠀ 
+                                        <span  class="input-group-text">Obs</span>
+                                        {% render_field esgoto21.Observacao class="form-control" placeholder=" item opcional"%}
+                                    </div>
+
+                                    <div  id="ex" class="input-group mb-3">
+                                        <span  class="input-group-text">Executado</span>
+                                        {% render_field esgoto21.Executado class='form-control'%}
+                                    </div>
                                 </div>
 
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" >Material</span>
-                                    {% render_field pavimento9.Item  class="form-control" %}     
+
+                                <div id="btnesg">
+                                    <button  class="btn btn-secondary"><a href="{% url 'index'%}"><i class="fa fa-reply" aria-hidden="true"></i>
+                                        Voltar</a>
+                                    </button> 
+                                    <button  class="btn btn-success"  name="gravar" value="Esgoto1" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
+                                        Salvar
+                                    </button>        
                                 </div>
 
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" >Qtd</span>
-                                    {% render_field pavimento9.Qtd  class="form-control" %}     
-                                    ⠀                   
-                                    <span class="input-group-text">Servico</span>
-                                    {% render_field pavimento9.Servico class="form-control"%}
-                                </div>
-
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Executado</span>
-                                    {% render_field pavimento9.Executado class="form-control" %}
-                                    ⠀
-                                    <span class="input-group-text">Localidade</span>
-                                    {% render_field pavimento9.Localidade class="form-control" %}
-                                </div>
-
-                                <div class="input-group mb-3">
-                                    <span  class="input-group-text">Observacao</span>
-                                    {% render_field pavimento9.Observacao class="form-control" %}
-                                    ⠀
-                                    <span class="input-group-text">Devolucao</span>
-                                    {% render_field pavimento9.Devolucao class="form-control"%}
-                                </div>          
-                            </div>
-                            
-                            <div id="btn2pen">
-                                <!-- Botoes -->
-                                <button class="btn btn-secondary"><a href="{% url 'material'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
-                                <button id="show" class="btn btn-success" value="Submit" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
-                            </div>
-                            </form> 
-    
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Pendencias  -->
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="card border-dark">
+                <div class="card-header">Pendencias</div>
+                <div class="card-body">
+                    <p class="card-text"> Mantenha as <code>Pendências</code> atualizadas.</p>
+
+                    {% if user.groups.all.0.name == 'Lauro' %}
+                        <h8> <i class="fas fa-table me-1"></i>Geradas em no maximo 24Hs!(s)</h8>
+                        <p class="card-text">{{Pendencialf}} <code>Pendencias</code>
+
+                    {% elif user.groups.all.0.name == 'Salvador' %}
+                        <h8> <i class="fas fa-table me-1"></i>Geradas em no maximo 24Hs!(s)</h8>
+                        <p class="card-text">{{Pendenciassa}} <code>Pendencias</code>
+
+                    {% else %}
+                        <h8>  <i class="fas fa-table me-1"></i>Geradas em no maximo 24Hs!(s)</h8>
+                        <p class="card-text">{{Pendencia}} <code>Pendencias</code>
+                    {% endif %}
+                </div>
+
+                <div class="card-footer text-end">
+                    
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#cadpendencia"  id="chama_modal_agendar">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Cadastrar
+                     </button>  
+
+                    <a href="{% url 'informativo' %}"
+                       class="btn btn-outline-success btn-sm">
+                       <i class="fa fa-list-alt" aria-hidden="true"></i>
+                       Listar
+                    </a>
+                </div>
+            </div>
+        </div>
+      
+        <!-- Modal Pendencias -->
+        <div class="modal fade" id="cadpendencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content row">
+                    
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Pendencias</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div><br>
+
+                    <div class="container">
+                        <div class="card-body">                  
+                            <form action="" method="POST">
+                                <!-- Não se esqueçer dessa misera dessa fdp tag -->
+                                {% csrf_token %}
+
+                                <div id="cadpend">      
+                                    
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" >Localidade</span>
+                                        {% render_field cadastro1.Localidade  class="form-control"%}     
+                                        ⠀                   
+                                        <span class="input-group-text">Situação</span>
+                                        {% render_field cadastro1.Medir class="form-control" %}
+                                    </div>
+                        
+                                    <div class="input-group mb-3">
+                                        <span  class="input-group-text">Ss</span>
+                                        {% render_field cadastro1.Ss  class="form-control" placeholder="Informe 9 Digitos" minlength="9"  maxlength="9" %}
+                                    </div>
+                
+                                    <div class="input-group mb-3">
+                                        <span  class="input-group-text">Tipo</span>
+                                        {% render_field cadastro1.Tipo  class="form-control" placeholder=" item obrigatorio" %}
+                                    </div>
+                
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" >Solicitante</span>
+                                        {% render_field cadastro1.Solicitante  class="form-control" placeholder=" item obrigatorio" %} 
+                                    </div>
+                
+                                    <!-- Data -->
+                                    <div class="input-group mb-3">
+                                        <span  class="input-group-text">Data</span>
+                                        {% render_field cadastro1.Data class="form-control" %}
+                                    </div>
+                
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" >Detalhes</span>
+                                        {% render_field cadastro1.Detalhes class="form-control" placeholder=" item opcional" %}
+                                    </div>
+                
+                                </div>
+                                <!-- Pendente -->
+                                <div style="width: 250px;" class="input-group mb-3">
+                                    <span style="width: 90px;" class="input-group-text">Executado</span>
+                                    {% render_field cadastro1.Executado class='form-control' style="height: 38px;"  %}
+                                </div>
+                                
+                                <div id="btnpen">
+                                <!-- Botoes -->
+                                    <button  class="btn btn-secondary"><a href="{% url 'index'%}" class="text-decoration-none"><i class="fa fa-reply" aria-hidden="true"></i>
+                                        Voltar</a>
+                                    </button> 
+                                    <button  class="btn btn-success" name="gravar" value="Pendencia" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
+                                        Salvar
+                                    </button>        
+                                </div>                         
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
     </div>
 
 
      <div  class="card border-secondary" id="pengeral">
         <div class="card-header">
-            Materiais
+            Pendencias
         </div>
         <div class="card-body text-secondary">
-            <p class="card-text">Aqui está a lista de <code>Materias</code> em falta ou a zerar!</p>
+            <p class="card-text">Aqui está a lista de <code>Pendências</code> registradas.</p>
 
             <table style="text-align: center" class="table table-striped table-bordered table-hover table-responsive" id='tabela-listar'>
                 <thead>
-                    <tr>
+                    <tr >
                         <th></th>
-                        <th>Material</th>
-                        <th>Qtd atual</th>
-                        <th>Situção</th>
-                        <th>Editar</th> 
+                        <th>localidade</th>
+                        <th>Criou</th>
+                        <th>Situação</th>
+                        <th>Ss</th>
+                        <th>Tipo</th>
+                        <th>Solicitante</th>
+                        <th>Data</th>
+                        <th>Editar</th>
+                        {% comment %} <th>Excluir</th>{% endcomment %}
+                        <th>Detalhes</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -302,6 +466,8 @@
                         {% for dado in filtro3.qs %}
                             <tr>
                                 <td></td>
+                                <!-- for para iterar sobre todos os itens do banco de dados -->
+                                <!-- Itens quais eu quero acessaar do BD -->
                                 <td>{{dado.Localidade}}</td>
                                 <td>{{dado.created_by}}</td>
                                 <td>
@@ -313,11 +479,21 @@
                                     <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
                                     {% endif %}
                                 </td>
+                                <td>{{dado.Ss}}</td>
+                                <td>{{dado.Tipo|lower|capfirst}}</td>
+                                <td >{{dado.Solicitante|lower|capfirst}}</td>
+                                <td >{{dado.Data|date:"d/m/Y"}}</td>
+                                <td >{{dado.Detalhes|lower|capfirst}}</td>
                                 <td>
-                                   <a href="{% url 'editar_p' dado.id %}">
+                                    <a href="{% url 'editar_p' dado.id %}">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>                        
                                 </td>
+
+                                
+                                {% comment %} <td>
+                                   <a href="{% url 'excluir_p' dado.id %}"> <i class="fa fa-trash fa-lg" aria-hidden="true"></i> </a>                                 
+                                </td> {% endcomment %}
                             </tr>
                         {% endfor %}
                     {% endif %}
@@ -332,7 +508,9 @@
 
 {% block scripts %}
 <script>
+
 $(document).ready(function(){
+
 var table = $('#tabela-listar').DataTable({
 
     dom: 'Bfrtip',
@@ -608,5 +786,6 @@ var table = $('#tabela-listar').DataTable({
     new $.fn.dataTable.FixedHeader( table );
 
 });
+
 </script>
 {% endblock %}

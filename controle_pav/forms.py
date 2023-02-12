@@ -16,6 +16,7 @@ class Pavimentoform(ModelForm):
         fields = '__all__'
 
 class Materialform(ModelForm):
+
     Data = forms.DateField(label='Data', widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date', }), input_formats=('%Y-%m-%d',), )
     days = forms.IntegerField(required=False)          
        
@@ -23,7 +24,6 @@ class Materialform(ModelForm):
     class Meta:
         model = Material
         fields = '__all__'
-
 
 class Esgotoform(ModelForm):
     Data = forms.DateField(label='Data', widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date', }), input_formats=('%Y-%m-%d',), )
