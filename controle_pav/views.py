@@ -5,9 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 
-from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter
-from .forms import Esgotoform, Pavimentoform, Pendenciasform
-from .models import Esgoto, Pavimento, Pendencias
+from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter, MaterialFilter
+from .forms import Esgotoform, Pavimentoform, Pendenciasform, Materialform
+from .models import Esgoto, Pavimento, Pendencias, Material
 from django.contrib.sessions.models import Session
 
 from django.contrib.auth.models import User
@@ -21,19 +21,23 @@ def encart(localidade, b):
     return qtdlf2, cont_pav_lf2
 
 
-    
 #Filtra de periodos
 def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     current_url = request.path
+
     days_key = f"{current_url}_selected_days"
     serv_key = f"{current_url}_selected_serv"
     bairro_key = f"{current_url}_selected_bairro"
     execut_key = f"{current_url}_selected_execut"
+    material_key = f"{current_url}_selected_material"
+
     
     days = request.GET.get('days')
     serv = request.GET.get('serv')
     bairro = request.GET.get('bairro')
     execut = request.GET.get('execut')
+    material = request.GET.get('material')
+
 
     if days == 'all':
         days = None
@@ -55,6 +59,15 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
         request.session[serv_key] = serv
     elif serv_key in request.session:
         serv = request.session[serv_key]
+    
+    if material == 'all':
+        material = None
+        if material_key in request.session:
+            del request.session[material_key]
+    elif material:
+        request.session[material_key] = material
+    elif material_key in request.session:
+        material = request.session[material_key]
         
     if bairro == 'all':
         bairro = None
@@ -87,6 +100,9 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
         
     if execut:
         pavimentos = pavimentos.filter(Executado=execut)
+
+    if material:
+        pavimentos = pavimentos.filter(Item=material)
 
 
 
@@ -565,3 +581,102 @@ def editar_p(request, id_pendencia):
             item.save()
         return redirect('informativo')
 
+
+
+#Material
+@ login_required
+def material(request):
+    template_name = 'dados/Material/material.html'
+
+    # Cadastro Pavimento
+    if request.method == 'POST':
+        material_form = Materialform(request.POST)
+        if material_form.is_valid():
+            print(material_form.cleaned_data)
+            instance = material_form.save(commit=False)
+            instance.created_by = request.user
+            instance.save()
+        return redirect('material')
+    else:
+        material_form = Materialform()
+
+    #Filtros para tabela de Pavimento
+    dados = filter_pavimento(request, Material, MaterialFilter, localidade='')
+    dados2 = filter_pavimento(request,  Material, MaterialFilter, localidade='')
+    filterlauro  = filter_pavimento(request,  Material, MaterialFilter, localidade='Salvador')
+    filtersalvador  = filter_pavimento(request, Material, MaterialFilter, localidade='Lauro')
+    days  = filter_pavimento(request,  Material, MaterialFilter, localidade='')
+
+    #Encart Pavimento
+    cont_pav_lf = encart("Lauro", Material)[1]
+    cont_pav_ssa = encart("Salvador", Material)[1]
+
+    cont_pav = Material.objects.filter().count()
+
+
+
+    context = {
+        'dados': dados2,
+        'filtro': dados,
+        'days': days,
+
+        #Cart Pavimento
+        'cont_pav_lf':cont_pav_lf,
+        'cont_pav_ssa':cont_pav_ssa,
+        'cont_pav':cont_pav,
+
+        'pavimento9': material_form,
+        'localidade_l': filterlauro,
+        'localidade_2': filtersalvador,
+   
+    }
+
+    return render(request, template_name, context)
+
+
+@ login_required
+def detalhes_material(request, id_pavimento):
+    dados = {'dados': Pavimento.objects.get(pk=id_pavimento)}
+    return render(request, 'dados/Pavimentos/detalhe.html', dados)
+
+
+@ login_required
+def inserir_material(request):
+    if request.method == 'POST':
+        material_form = Materialform(request.POST)
+        if material_form.is_valid():
+            instance = material_form.save(commit=False)
+            instance.created_by = request.user
+            instance.save()
+        return redirect('novo_pavimento')
+    else:
+        material_form = Materialform()
+        formulario = {'formulario': material_form}
+        return render(request, 'dados/Material/inserir_material.html', context=formulario)
+
+
+@ login_required
+def editar_m(request, id_material):
+    material = Material.objects.get(pk=id_material)
+    criador = material.created_by
+    if request.method == 'GET':
+        # instance vai deixar o dormulario com os itens ja preenchidos de forma visiveis 'populado'
+        formulario = Materialform(instance=material)
+        return render(request, 'dados/Material/inserir_material.html', {'formulario': formulario})
+    else:
+        formulario = Materialform(request.POST, instance=material)
+        if formulario.is_valid():
+            item = formulario.save(commit=False)
+            item.created_by = criador
+            item.last_edited_by = request.user
+            item.save()
+        return redirect('material')
+
+
+@ login_required
+def excluir_m(request, id_material):
+    material = Material.objects.get(pk=id_material)
+    if request.method == 'POST':
+        material.delete()
+        return redirect('material')
+    return render(request, 'dados/Material/exluir_material.html', {'item': material})

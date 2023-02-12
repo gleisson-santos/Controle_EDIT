@@ -1,6 +1,6 @@
 
 import django_filters
-from .models import Esgoto, Pavimento, Pendencias
+from .models import Esgoto, Pavimento, Pendencias, Material
 from datetime import timedelta
 
 
@@ -8,7 +8,7 @@ from datetime import timedelta
 
 class PavimentoFilter(django_filters.FilterSet):
 
-    Bairro = django_filters.CharFilter(lookup_expr='iexact')
+    # Bairro = django_filters.CharFilter(lookup_expr='iexact')
     Servico = django_filters.CharFilter(lookup_expr='iexact')
     Ss_Final = django_filters.CharFilter(lookup_expr='icontains')
     Ss = django_filters.CharFilter(lookup_expr='contains')
@@ -20,7 +20,7 @@ class PavimentoFilter(django_filters.FilterSet):
 
     class Meta:
         model = Pavimento
-        fields = ('Bairro', 'Servico', 'Executado')
+        fields = ('Servico', 'Executado')
 
 
 class EsgotoFilter(django_filters.FilterSet):
@@ -49,3 +49,11 @@ class PendenciasFilter(django_filters.FilterSet):
     class Meta:
         model = Pendencias
         fields = ('Executado', 'Data')
+
+
+class MaterialFilter(django_filters.FilterSet):
+
+    # constante
+    class Meta:
+        model = Material
+        fields = '__all__'

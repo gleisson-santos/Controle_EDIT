@@ -1,0 +1,66 @@
+{% extends 'dados/base.html'  %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block conteudo %}
+{% load static %}
+
+<div class="container">
+    <div class="card w-10">
+        <div class="card-body">
+            <h3 style='text-align:center'>Alterar informações</h3>
+            <form action="" method="POST">
+                 {% csrf_token %}
+
+                <div id="matpend"> 
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Equipe</span>
+                        {% render_field formulario.Equipe class='form-control'%}
+                        ⠀                               
+                        <span class="input-group-text">Data</span>
+                        {% render_field formulario.Data class='form-control' %}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Material</span>
+                        {% render_field formulario.Item  class="form-control" %}     
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Qtd</span>
+                        {% render_field formulario.Qtd  class="form-control" %}     
+                        ⠀                   
+                        <span class="input-group-text">Servico</span>
+                        {% render_field formulario.Servico class="form-control"%}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Executado</span>
+                        {% render_field formulario.Executado class="form-control" %}
+                        ⠀
+                        <span class="input-group-text">Localidade</span>
+                        {% render_field formulario.Localidade class="form-control" %}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span  class="input-group-text">Observacao</span>
+                        {% render_field formulario.Observacao class="form-control" %}
+                        ⠀
+                        <span class="input-group-text">Devolucao</span>
+                        {% render_field formulario.Devolucao class="form-control"%}
+                    </div>    
+
+                </div>
+                
+                <div id="btn2pen">
+                    <!-- Botoes -->
+                    <button class="btn btn-secondary"><a href="{% url 'material'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
+                    <button class="btn btn-success" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
+                </div>
+
+            </form>
+        </div>
+    </div>         
+</div>
+
+{% endblock %}

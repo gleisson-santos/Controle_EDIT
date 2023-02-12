@@ -1,0 +1,910 @@
+{% extends 'dados/base.html'  %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block conteudo %}
+{% load static %}
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+<h1>Listagem de Material</h1>   
+
+{% comment %} o ID esta no botão e o Scritp no Static
+<div class="alert alert-success" role="alert">
+  Item cadastrado com Sucesso!
+</div> {% endcomment %}
+
+<div class='container-fluid'>
+    
+    <!--  Filtro superido geral da tabela--> 
+    <div id="add">
+        <form method="get"  >
+     
+            {% csrf_token %}
+            <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#cadpavimento">
+                <i class="fa fa-plus" aria-hidden="true"></i>Adicionar
+            </button> 
+            
+            <div class="form-inline col-md-1 mb-0">
+                ⠀<button type="submit" class="btn btn-primary mb-2">Filtrar</button>
+            </div>
+            
+            <select id="days" name="days" autofocus>
+              <option value="">Filtrar Período</option>
+               <option value="7">Últimos 7 dias</option>
+              <option value="30">Últimos 30 dias</option>
+              <option value="60">Últimos 3 Meses</option>
+              <option value="90">Últimos 6 Meses</option>
+              <option value="365">Últimos 12 Meses</option>
+            </select>  
+
+            <select id="serv" name="serv">
+                <option value="">Filtrar Serviço</option>
+                <option value="all">All</option>
+                <option value="Comercial">Comercial</option>             
+                <option value="Operacional">Operacional</option>
+                <option value="Unid. Tec">Unid. Tec</option>          
+            </select>  
+
+            <select id="material" name="material">
+              <option value="">Filtrar Material</option>
+              <option value="all">All</option>
+              <optgroup label="Adaptadores">
+              <option value="ADAPTADO MACHO PEAD 20X1/2">Adaptado macho pead 20x1/2</option>
+              <option value="ADAPTADOR COMP PP FEMEA 20MMX1/2" PN10">Adaptador comp pp femea 20mmx1/2" pn10</option>
+              <option value="ADAPTADOR COMP PP FEMEA 20MMX1/2" PN16">Adaptador comp pp femea 20mmx1/2" pn16</option>
+              <option value="ADAPTADOR COMP PP MACHO 110MMX4" PN10">Adaptador comp pp macho 110mmx4" pn10</option>
+              <option value="ADAPTADOR COMP PP MACHO 20MMX1/2" PN10">Adaptador comp pp macho 20mmx1/2" pn10</option>
+              <option value="ADAPTADOR COMP PP MACHO 20MMX1/2" PN16">Adaptador comp pp macho 20mmx1/2" pn16</option>
+              <option value="ADAPTADOR COMP PP MACHO 20MMX3/4" PN10">Adaptador comp pp macho 20mmx3/4" pn10</option>
+              <option value="ADAPTADOR COMP PP MACHO 63MMX2"" PN16">Adaptador comp pp macho 63mmx2"" pn16</option>
+              <option value="ADAPTADOR COMP PP MACHO 75MMX2.1/2"PN10">Adaptador comp pp macho 75mmx2.1/2"pn10</option>
+              <option value="ADAPTADOR COMP/PT PP 63MM PEAD/PVC PN16">Adaptador comp/pt pp 63mm pead/pvc pn16</option>
+              <option value="ADAPTADOR COMPRESSAO FEMEA 20 X 1/2">Adaptador compressao femea 20 x 1/2</option>
+              <option value="ADAPTADOR COMPRESSAO PP MACHO 20 X 1/2 PN 16">Adaptador compressao pp macho 20 x 1/2 pn 16</option>
+              <option value="ADAPTADOR CURTO PVC JSR 20MMX1/2">Adaptador curto pvc jsr 20mmx1/2</option>
+              <option value="ADAPTADOR CURTO PVC JSR 25MMX3/4">Adaptador curto pvc jsr 25mmx3/4</option>
+              <option value="ADAPTADOR CURTO PVC JSR 32MMX1">Adaptador curto pvc jsr 32mmx1</option>
+              <option value="ADAPTADOR CURTO PVC JSR 60MMX2">Adaptador curto pvc jsr 60mmx2</option>
+              <option value="ADAPTADOR EM PEAD DN 20mmx1/2">Adaptador em pead dn 20mmx1/2</option>
+              <option value="ADAPTADOR LIG LUVA PVC FE FUND JE 110MM">Adaptador lig luva pvc fe fund je 110mm</option>
+              <option value="ADAPTADOR PVC COMP/ROSCA PEAD 20MMX1/2">Adaptador PVC Comp/Rosca Pead 20mmx1/2</option>
+              <option value="ADAPTADOR PVC IRRIG LF PB C/ANEL 50MM">Adaptador PVC Irrig Lf Pb C/Anel 50mm</option>
+              <option value="ADAPTADOR PVC JE 2B PBAXDEFOFO 140X150MM">Adaptador PVC Je 2B Pbaxdefofo 140x150mm</option>
+              <option value="ADAPTADOR PVC JE 2B PBAXDEFOFO 160X150MM">Adaptador PVC Je 2B Pbaxdefofo 160x150mm</option>
+              <option value="ADAPTADOR PVC JE 2B PBAXDEFOFO 250X250MM">Adaptador PVC Je 2B Pbaxdefofo 250x250mm</option>
+              <option value="ADAPTADOR PVC PBAXPVC DEFOFO DN 100X100">Adaptador PVC Pbaxpvc Defofo Dn 100x100</option>
+              </optgroup>
+              <optgroup label="Buchas">   
+              <option value="BUCHA DE REDUCAO EM ACO GALV.1 1/2" ">Bucha De Reducao Em Aco Galv.1 1/2" P/1</option>
+              <option value="BUCHA REDUCAO CURTA PVC JS 25X20MM">Bucha Reducao Curta PVC Js 25x20mm</option>
+              <option value="BUCHA REDUCAO CURTA PVC JS 32X25MM">Bucha Reducao Curta PVC Js 32x25mm</option>
+              <option value="BUCHA REDUCAO LONGA PVC JS 32X20MM">Bucha Reducao Longa PVC Js 32x20mm</option>
+              <option value="BUCHA REDUCAO LONGA PVC JS 60X32MM">Bucha Reducao Longa PVC Js 60x32mm</option>
+              <option value="BUCHA REDUCAO PVC JR 3/4""X1/2">Bucha Reducao PVC Jr 3/4"x1/2</option>
+              </optgroup>
+              <optgroup label="Caps"> 
+              <option value="CAP COMPRESSAO PP 110MM PN10">Cap Compressão Pp 110mm Pn10</option>
+              <option value="CAP COMPRESSAO PP 32MM PN10">Cap Compressão Pp 32mm Pn10</option>
+              <option value="CAP COMPRESSAO PP 63MM PN10">Cap Compressão Pp 63mm Pn10</option>
+              <option value="CAP COMPRESSAO PP 63MM PN16">Cap Compressão Pp 63mm Pn16</option>
+              <option value="CAP PVC JE C/ANEL 60MM">Cap Pvc Je C/Anel 60mm</option>
+              <option value="CAP PVC JE C/ANEL 85MM">Cap Pvc Je C/Anel 85mm</option>
+              <option value="CAP PVC JR 1">Cap Pvc Jr 1</option>
+              <option value="CAP PVC JR 1/2">Cap Pvc Jr 1/2</option>
+              <option value="CAP PVC JR 3/4">Cap Pvc Jr 3/4</option>
+              <option value="CAP PVC JS 20MM">Cap Pvc Js 20mm</option>
+              <option value="CAP PVC JS 25MM">Cap Pvc Js 25mm</option>
+              <option value="CAP PVC JS 32MM">Cap Pvc Js 32mm</option>
+              <option value="CAP PVC JS 60MM">Cap Pvc Js 60mm</option>
+              </optgroup>
+              <optgroup label="Colares"> 
+              <option value="COLAR TOMADA FF TB PVC PBA 110 MMX1">Colar Tomada Ff Tb Pvc Pba 110 Mmx1</option>
+              <option value="COLAR TOMADA FF TB PVC PBA 160 MMX1/2">Colar Tomada Ff Tb Pvc Pba 160 Mmx1/2</option>
+              <option value="COLAR TOMADA FF TB PVC PBA 200 MMX1/2">Colar Tomada Ff Tb Pvc Pba 200 Mmx1/2</option>
+              <option value="COLAR TOMADA FF TB PVC PBA 60 MMX1">Colar Tomada Ff Tb Pvc Pba 60 Mmx1</option>
+              <option value="COLAR TOMADA PP 110MMX1/2 TB PEAD/PVC">Colar Tomada Pp 110mmx1/2" Tb Pead/Pvc</option>
+              <option value="COLAR TOMADA PP 110MMX3/4 TB PEAD/PVC">Colar Tomada Pp 110mmx3/4" Tb Pead/Pvc</option>
+              <option value="COLAR TOMADA PP 160MMX1/2 TB PEAD/PVC">Colar Tomada Pp 160mmx1/2" Tb Pead/Pvc</option>
+              <option value="COLAR TOMADA PP 60MMX1/2 TUBO PVC">Colar Tomada Pp 60mmx1/2" Tubo Pvc</option>
+              <option value="COLAR TOMADA PP 75MMX1/2 TUBO PVC">Colar Tomada Pp 75mmx1/2 Tubo Pvc</option>	
+              <option value="COLARTOMADAPP63MMX1/2TBPEAD/PVC">Colar Tomada PP 63mmx1/2 TB PEAD/PVC</option>
+              <option value="COLAR TOMADA PP 75MMX3/4 TUBO PVC">Colar Tomada PP 75mmx3/4 TUBO PVC</option>
+              <option value="COLAR TOMADA PP 85MMX1/2 TUBO PVC">Colar Tomada PP 85mmx1/2 TUBO PVC</option>
+              <option value="COLAR TOMADA PVC 50MMX1/2">Colar Tomada PVC 50mmx1/2</option>
+              <option value="COLAR TOMADA PVC 75MMX1/2">Colar Tomada PVC 75mmx1/2</option>
+              <option value="COLAR TOMADA TUBO FE FUND 150 MMX 1">Colar Tomada TUBO FE FUND 150 mmx 1</option>
+              <option value="COLAR TOMADA TUBO FE FUND 150 MMX 1/2">Colar Tomada TUBO FE FUND 150 mmx 1/2</option>
+              <option value="COLAR TOMADA TUBO FE FUND 200 MMX1">Colar Tomada TUBO FE FUND 200 mmx1</option>
+              <option value="COLAR TOMADA TUBO FE FUND 250 MMX 1">Colar Tomada TUBO FE FUND 250 mmx 1</option>
+              <option value="COLAR TOMADA TUBO FE FUND 300 MMX 1">Colar Tomada TUBO FE FUND 300 mmx 1</option>
+              <option value="COLAR TOMADA TUBO FE FUND 300 MMX 1/2">Colar Tomada TUBO FE FUND 300 mmx 1/2</option>
+              <option value="COLAR�TOMADA�PP�63MMX1 TB PEAD/PVC">Colar Tomada PP 63mmx1 TB PEAD/PVC</option>
+              <option value="COLAR�TOMADA�PP�63MMX1/2 TB PEAD/PVC">Colar Tomada PP 63mmx1/2 TB PEAD/PVC</option>
+              <option value="COLAR�TOMADA�PP�63MMX3/4 TB PEAD/PVC">Colar Tomada PP 63mmx3/4 TB PEAD/PVC</option>
+              </optgroup>
+              <optgroup label="Curvas e Conjuntos"> 
+              <option value="CONJ CONEXOES HIDROM 1/2 PP 1,5 M3/H">Conj Conexoes Hidrom 1/2 PP 1,5 m3/h</option>
+              <option value="CONJ CONEXOES HIDROM 1/2 PP 3 E 1">Conj Conexoes Hidrom 1/2 PP 3 e 1</option>
+              <option value="CONJ CONEXOES HIDROM 1/2 PP 3 E 1,5 M3/H">Conj Conexoes Hidrom 1/2 PP 3 e 1,5 m3/h</option>
+              <option value="CONJ CONEXOES HIDROM 3/4">Conj Conexoes Hidrom 3/4</option>
+              <option value="CONJUNTO DE CONEXOES PARA HIDROMETRO 1,5m3 DN 1/2 EM POLIPROPILENO">Conjunto de conexoes para hidrometro 1,5m3 dn 1/2" em polipropileno</option>
+              <option value="CONJUNTO DE CONEXOES PARA HIDROMETRO 3m3 DN 1/2 EM PP">Conjunto de conexoes para hidrometro 3m3 dn 1/2" em pp</option>
+              <option value="CURVA 11 15 FERRO DUCTIL 2B JE 400MM">Curva 11 15 ferro ductil 2b je 400mm</option>
+              <option value="CURVA 11 15 FERRO DUCTIL JM 300 MM">Curva 11 15 ferro ductil jm 300 mm</option>
+              <option value="CURVA 22 30 FERRO DUCTIL 2B JE 300MM">Curva 22 30 ferro ductil 2b je 300mm</option>
+              <option value="CURVA 45 FERRO DUCTIL 2B JE 200MM">Curva 45 ferro ductil 2b je 200mm</option>
+              <option value="CURVA 45 PVC PB JE C/ANEL 60MM">Curva 45 pvc pb je c/anel 60mm</option>
+              <option value="CURVA 45 PVC RC JS 50MM ESG PRED">Curva 45 pvc rc js 50mm esg pred</option>
+              <option value="CURVA 45 PVC RL PB JE 200MM COL ESG">Curva 45 pvc rl pb je 200mm col esg</option>
+              <option value="CURVA 90 FERRO DUCTIL 2B JE 300MM">Curva 90 ferro ductil 2b je 300mm</option>
+              <option value="CURVA 90 PVC JR 2">Curva 90 pvc jr 2</option>
+              <option value="CURVA 90 PVC JS 20MM">Curva 90 pvc js 20mm</option>
+              <option value="CURVA 90 PVC PB JE C/ANEL 110MM">Curva 90 pvc pb je c/anel 110mm</option>
+              <option value="CURVA 90 PVC PB JE C/ANEL 60MM">Curva 90 pvc pb je c/anel 60mm</option>
+              <option value="CURVA 90 PVC RC PB JE 150MM COL ESG">Curva 90 pvc rc pb je 150mm col esg</option>
+              <option value="CURVA 90 PVC RL PB JE 100MM COL ESG">Curva 90 pvc rl pb je 100mm col esg</option>
+              <option value="CURVA 90 PVC RL PB JE 100MM ESG PRED">Curva 90 pvc rl pb je 100mm esg pred</option>
+              <option value="CURVA 90 PVC RL PB JE 150MM COL ESG">Curva 90 pvc rl pb je 150mm col esg</option>
+              </optgroup>
+              <optgroup label="Hds"> 
+              <option value="HIDROMETRO RES MONO 0,75M3/H 1/2"S/C 45">Hidrometro res mono 0,75m3/h 1/2"s/c 45</option>
+              <option value="HIDROMETRO RES MULT 1,5M3/H 1/2" S/C 45">Hidrometro res mult 1,5m3/h 1/2" s/c 45</option>
+              <option value="HIDROMETRO RES MULT 2,5 M3/H 3/4" C/C">Hidrometro res mult 2,5 m3/h 3/4" c/c</option>
+              <option value="HIDROMETRO RES MULT 5,0 M3/H 1">Hidrometro res mult 5,0 m3/h 1</option>
+              <option value="HIDROMETRO WOLTMANN VER 100MM 1,0MPA TEL">Hidrometro woltmann ver 100mm 1,0mpa tel</option>
+              </optgroup>
+              <optgroup label="Joelho"> 
+              <option value="JOELHO 90 COMPRESSAO PP 110MM PN10">Joelho 90 compressao pp 110mm pn10</option>
+              <option value="JOELHO 90 COMPRESSAO PP 20MM PN10">Joelho 90 compressao pp 20mm pn10</option>
+              <option value="JOELHO 90 COMPRESSAO PP 63MM PN16">Joelho 90 compressao pp 63mm pn16</option>
+              <option value="JOELHO 90 COMPRESSAO PP 90MM PN10">Joelho 90 compressao pp 90mm pn10</option>
+              <option value="JOELHO 90 PVC C/ANEL 100MM ESG PRED">Joelho 90 pvc c/anel 100mm esg pred</option>
+              <option value="JOELHO 90 PVC C/ANEL 150MM ESG PRED">Joelho 90 pvc c/anel 150mm esg pred</option>
+              <option value="JOELHO 90 PVC C/ANEL 50MM ESG PRED">Joelho 90 pvc c/anel 50mm esg pred</option>
+              <option value="JOELHO 90 PVC JR 1">Joelho 90 pvc jr 1</option>
+              <option value="JOELHO 90 PVC JR 1.1/2">Joelho 90 pvc jr 1.1/2</option>
+              <option value="JOELHO 90 PVC JR 1/2">Joelho 90 pvc jr 1/2</option>
+              <option value="JOELHO 90 PVC JR 2">Joelho 90 pvc jr 2</option>
+              <option value="JOELHO 90 PVC JR 3/4">Joelho 90 pvc jr 3/4</option>
+              <option value="JOELHO 90 PVC JS 20MM">Joelho 90 pvc js 20mm</option>
+              <option value="JOELHO 90 PVC JS 25MM">Joelho 90 pvc js 25mm</option>
+              <option value="JOELHO 90 PVC JS 32MM">Joelho 90 PVC JS 32mm</option>
+              <option value="JOELHO 90 PVC JS 40MM ESG PRED">Joelho 90 PVC JS 40mm Esg Pred</option>
+              <option value="JOELHO 90 PVC JS 60MM">Joelho 90 PVC JS 60mm</option>
+              <option value="JOELHO 90 PVC JSR 20MMX1/2">Joelho 90 PVC JSR 20mmx1/2</option>
+              <option value="JOELHO 90 PVC JSR 25MMX3/4">Joelho 90 PVC JSR 25mmx3/4</option>
+              <option value="JOELHO 90o PVC JS DN 20">Joelho 90o PVC JS DN 20</option>
+              <option value="JOELHO ADAP COMP PP MACHO 20MMX1/2" PN10">Joelho Adap Comp PP Macho 20mmx1/2" PN10</option>
+              </optgroup>
+              <optgroup label="Luvas e Lacres"> 
+              <option value="L PVC JS DN 20">L PVC JS DN 20</option>
+              <option value="LACRE ANTIFRAUDE HIDR (AZUL)">Lacre Antifraude Hidr (Azul)</option>
+              <option value="LACRE ANTIFRAUDE HIDR (VERMELHO)">Lacre Antifraude Hidr (Vermelho)</option>
+              <option value="LACRE ANTIFRAUDE PORCA HIDR 1/2" (AZUL)">Lacre Antifraude Porca Hidr 1/2" (Azul)</option>
+              <option value="LACRE ANTIFRAUDE PORCA HIDR 1/2" (VERM)">Lacre Antifraude Porca Hidr 1/2" (Verm)</option>
+              <option value="LACRE TAMPA CX HIDROM AJUSTAVEL (AZUL)">Lacre Tampa Cx Hidrom Ajustavel (Azul)</option>
+              <option value="LUVA CORRER FE DUCTIL JM 100 MM">Luva Correr Fe Ductil JM 100 MM</option>
+              <option value="LUVA CORRER FE DUCTIL JM 1000 MM">Luva Correr Fe Ductil JM 1000 MM</option>
+              <option value="LUVA CORRER FE DUCTIL JM 150 MM">Luva Correr Fe Ductil JM 150 MM</option>
+              <option value="LUVA CORRER FE DUCTIL JM 200 MM">Luva Correr Fe Ductil JM 200 MM</option>
+              <option value="LUVA CORRER FE DUCTIL JM 250 MM">Luva Correr Fe Ductil JM 250 MM</option>
+              <option value="LUVA CORRER FE DUCTIL JM 300 MM">Luva Correr Fe Ductil JM 300 MM</option>
+              <option value="LUVA CORRER FE DUCTIL JM 400 MM">Luva Correr Fe Ductil JM 400 MM</option>
+              <option value="LUVA CORRER FE DUCTIL JM 600 MM">Luva Correr Fe Ductil JM 600 MM</option>
+              <option value="LUVA CORRER PVC TUBO COL ESG JE 100MM">Luva correr pvc tubo col esg je 100mm</option>
+              <option value="LUVA CORRER PVC TUBO COL ESG JE 150MM">Luva correr pvc tubo col esg je 150mm</option>
+              <option value="LUVA CORRER PVC TUBO DEFOFO JEI/JE 100MM">Luva correr pvc tubo defofo jei/je 100mm</option>
+              <option value="LUVA CORRER PVC TUBO DEFOFO JEI/JE 150MM">Luva correr pvc tubo defofo jei/je 150mm</option>
+              <option value="LUVA CORRER PVC TUBO DEFOFO JEI/JE 200MM">Luva correr pvc tubo defofo jei/je 200mm</option>
+              <option value="LUVA CORRER PVC TUBO DEFOFO JEI/JE 250MM">Luva correr pvc tubo defofo jei/je 250mm</option>
+              <option value="LUVA CORRER PVC TUBO DEFOFO JEI/JE 300MM">Luva correr pvc tubo defofo jei/je 300mm</option>
+              <option value="LUVA CORRER PVC TUBO ESG PRED JE 75MM">Luva correr pvc tubo esg pred je 75mm</option>
+              <option value="LUVA CORRER PVC TUBO IRRIG JE 100MM">Luva correr pvc tubo irrig je 100mm</option>
+              <option value="LUVA CORRER PVC TUBO IRRIG JE 50MM">Luva correr pvc tubo irrig je 50mm</option>
+              <option value="LUVA CORRER PVC TUBO PBA JE DE 110MM">Luva correr pvc tubo pba je de 110mm</option>
+              <option value="LUVA CORRER PVC TUBO PBA JE DE 250MM">Luva correr pvc tubo pba je de 250mm</option>
+              <option value="LUVA CORRER PVC TUBO PBA JE DE 60MM">Luva correr pvc tubo pba je de 60mm</option>
+              <option value="LUVA CORRER PVC TUBO PBA JE DE 85MM">Luva correr pvc tubo pba je de 85mm</option>
+              <option value="LUVA CORRER PVC TUBO PBA JET DE 140MM">Luva correr pvc tubo pba jet de 140mm</option>
+              <option value="LUVA CORRER PVC TUBO PBA JET DE 160MM">Luva correr pvc tubo pba jet de 160mm</option>
+              <option value="LUVA CORRER PVC TUBO PBA JET DE 200MM">Luva correr pvc tubo pba jet de 200mm</option>
+              <option value="LUVA CORRER PVC TUBO PBA JET DE 250MM">Luva correr pvc tubo pba jet de 250mm</option>
+              <option value="LUVA CORRER PVC TUBO PBA JET DE 300MM">Luva correr pvc tubo pba jet de 300mm</option>
+              <option value="LUVA PVC JR 1">Luva pvc jr 1</option>
+              <option value="LUVA PVC JR 1.1/2">Luva pvc jr 1.1/2</option>
+              <option value="LUVA PVC JR 1/2">Luva pvc jr 1/2</option>
+              <option value="LUVA PVC JR 2">Luva pvc jr 2</option>
+              <option value="LUVA PVC JR 3">Luva pvc jr 3</option>
+              <option value="LUVA PVC JR 3/4">Luva pvc jr 3/4</option>
+              <option value="LUVA PVC JS 20MM">Luva pvc js 20mm</option>
+              <option value="LUVA PVC JS 25MM">Luva pvc js 25mm</option>
+              <option value="LUVA PVC JS 32MM">Luva pvc js 32mm</option>
+              <option value="LUVA PVC JS 50MM">Luva pvc js 50mm</option>
+              <option value="LUVA PVC JS 60MM">Luva pvc js 60mm</option>
+              <option value="LUVA PVC JS 85MM">Luva pvc js 85mm</option>
+              <option value="LUVA PVC JSR 20MMX1/2">Luva pvc jsr 20mmx1/2</option>
+              <option value="LUVA PVC JSR 25MMX1/2">Luva pvc jsr 25mmx1/2</option>
+              <option value="LUVA PVC JSR 25MMX3/4">Luva pvc jsr 25mmx3/4</option>
+              <option value="LUVA PVC JSR 32MMX1">Luva pvc jsr 32mmx1</option>
+              <option value="LUVA UNIAO COMPRESSAO PP 110MM PN10">Luva uniao compressao pp 110mm pn10</option>
+              <option value="LUVA UNIAO COMPRESSAO PP 20MM PN10">Luva uniao compressao pp 20mm pn10</option>
+              <option value="LUVA UNIAO COMPRESSAO PP 20MM PN16">Luva uniao compressao pp 20mm pn16</option>
+              <option value="LUVA UNIAO COMPRESSAO PP 32MM PN10">Luva uniao compressao pp 32mm pn10</option>
+              <option value="LUVA UNIAO COMPRESSAO PP 63MM PN16">Luva uniao compressao pp 63mm pn16</option>
+              <option value="LUVA UNIAO COMPRESSAO PP 75MM PN10">Luva uniao compressao pp 75mm pn10</option>
+              <option value="LUVA UNIAO COMPRESSAO PP 90MM PN10">Luva uniao compressao pp 90mm pn10</option>
+              <option value="LUVA CORRER PVC TUBO PBA JE DE 160MM">Luva correr pvc tubo pba je de 160mm</option>
+              <option value="LUVACORRERPVCTUBOPBAJEDE160MM">Luvacorrerpvctubopbajede160mm</option>
+              </optgroup>
+              <option value="MURETA CONCRETO CAIXA HIDROMETRO">Mureta concreto caixa hidrometro</option>
+              <option value="NIPLE PARALELO PVC JR 1">Niple paralelo pvc jr 1</option>
+              <option value="NIPLE PARALELO PVC JR 1.1/2">Niple paralelo pvc jr 1.1/2</option>
+              <option value="NIPLE PARALELO PVC JR 1/2">Niple paralelo pvc jr 1/2</option>
+              <option value="REDUCAO FERRO DUCTIL PB JE 150X100MM">Reducao ferro ductil pb je 150x100mm</option>
+              <option value="REDUCAO PEAD/PP PONTA 110X90MM PN16">Reducao pead/pp ponta 110x90mm pn16</option>
+              <option value="REDUCAO PEAD/PP PONTA 90X63MM PN16">Reducao pead/pp ponta 90x63mm pn16</option>
+              <option value="REDUCAO PVC PB JE C/ANEL DE 110X60MM">Reducao pvc pb je c/anel de 110x60mm</option>
+              <option value="REDUCAO PVC PB JE C/ANEL DE 110X85MM">Reducao pvc pb je c/anel de 110x85mm</option>
+              <option value="REG PRESSAO PVC JS DN 20">Reg pressao pvc js dn 20</option>
+              <option value="REGISTRO ANGULAR / TIPO TE PP 1/2">Registro angular / tipo te pp 1/2</option>
+              <option value="REGISTRO ANGULAR PP 1/2" ACIONAM RESTRIT">Registro angular pp 1/2" acionam restrit</option>
+              <option value="REGISTRO DE PASSEIO PVC LP P/ POLIETILENO DN 20">Registro de passeio pvc lp p/ polietileno dn 20</option>
+              <option value="REGISTRO ESFERA PVC JR 1">Registro esfera pvc jr 1</option>
+              <option value="REGISTRO GAV BRONZE 1" SANEAMENTO">Registro gav bronze 1" saneamento</option>
+              <option value="REGISTRO GAV BRONZE 1.1/2" SANEAMENTO">Registro gav bronze 1.1/2" saneamento</option>
+              <option value="REGISTRO GAV BRONZE 2" SANEAMENTO">Registro gav bronze 2" saneamento</option>
+              <option value="REGISTRO GAV BRONZE BSP 3/4 ACION REST">Registro Gav Bronze Bsp 3/4 Acion Rest</option>
+              <option value="REGISTRO GAV CURTO EMB FLG-CAB 100MM">Registro Gav Curto Emb Flg-Cab 100mm</option>
+              <option value="REGISTRO GAV CURTO EMB FLG-CAB 150MM">Registro Gav Curto Emb Flg-Cab 150mm</option>
+              <option value="REGISTRO GAV CURTO EMB FLG-CAB 200MM">Registro Gav Curto Emb Flg-Cab 200mm</option>
+              <option value="REGISTRO GAV CURTO EMB TUBO PBA 110MM">Registro Gav Curto Emb Tubo Pba 110mm</option>
+              <option value="REGISTRO GAV CURTO EMB TUBO PBA 60MM">Registro Gav Curto Emb Tubo Pba 60mm</option>
+              <option value="REGISTRO GAV CURTO EMB TUBO PBA 85MM">Registro Gav Curto Emb Tubo Pba 85mm</option>
+              <option value="REGISTRO PP 1/2 ACIONAM RESTRITO PN10">Registro Pp 1/2 Acionam Restrito Pn10</option>
+              <option value="REGISTRO PP 1/2 ACIONAM RESTRITO PN10">Registro Pp 1/2 Acionam Restrito Pn10</option>
+              <option value="SELIM 90 PVC SELA SOLDAVEL 200X100MM">Selim 90 Pvc Sela Soldavel 200x100mm</option>
+              <option value="SELIM 90 PVC TRAVA C/ANEL 150X100MM">Selim 90 Pvc Trava C/Anel 150x100mm</option>
+              <option value="T PVC JS DN 20">T Pvc Js Dn 20</option>
+              <option value="TAMPA CAIXA HIDROMETRO (POLICARB) C/MOLD">Tampa Caixa Hidrometro (Policarb) C/Mold</option>
+              <option value="TAMPA CAIXA HIDROMETRO POLICARB C/MOLD">Tampa Caixa Hidrometro Policarb C/Mold</option>
+              <option value="TAMPA PROTETORA CX HIDR FF CL 125KN">Tampa Protetora Cx Hidr Ff Cl 125kn</option>
+              <option value="TAMPAO CALCADA RET ARTIC CLASSE 125">Tampao Calcada Ret Artic Classe 125</option>
+              <option value="TAMPAO CIRC TD-900 CLASSE 400 FERRO DUCT">Tampao Circ Td-900 Classe 400 Ferro Duct</option>
+              <option value="TAMPAO CIRC TDA-600 CL 400 ARTICULADO">Tampao Circ Tda-600 Cl 400 Articulado</option>
+              <option value="TE COMPRESSAO PP 110MM PN10">Te Compressao Pp 110mm Pn10</option>
+              <option value="TE FERRO DUCTIL 3B JE 150X150 MM">Te Ferro Ductil 3b Je 150x150 Mm</option>
+              <option value="TE FERRO DUCTIL 3B JE 250X100 MM">Te Ferro Ductil 3b Je 250x100 Mm</option>
+              <option value="TE PVC 2BP JE C/ANEIS 100X100MM ESG PRED">Te Pvc 2bp Je C/Aneis 100x100mm Esg Pred</option>
+              <option value="TE PVC 3B JE C/ANEIS 110X110MM">Te Pvc 3b Je C/Aneis 110x110mm</option>
+              <option value="TE PVC 3B JE C/ANEIS 110X85MM">Te Pvc 3b Je C/Aneis 110x85mm</option>
+              <option value="TE PVC 3B JE C/ANEIS 60X60MM">Te Pvc 3b Je C/Aneis 60x60mm</option>
+              <option value="TE PVC 3B JE C/ANEIS 85X60MM">Te Pvc 3b Je C/Aneis 85x60mm</option>
+              <option value="TE PVC 3B JS 20X20MM">Te Pvc 3b Js 20x20mm</option>
+              <option value="TE PVC 3B JS 32X25MM">Te Pvc 3b Js 32x25mm</option>
+              <option value="TE PVC 3B JS 32X32MM">Te Pvc 3b Js 32x32mm</option>
+              <option value="TE REDUCAO COMPRESSAO PP 110X63MM PN10">Te Reducao Compressao Pp 110x63mm Pn10</option>
+              <option value="TE REDUCAO COMPRESSAO PP 110X90MM PN10">Te Reducao Compressao Pp 110x90mm Pn10</option>
+              <option value="TE SERVICO INTEGRADO ARTIC PP 60X20MM">Te Servico Integrado Artic Pp 60x20mm</option>
+              <option value="TE SERVICO INTEGRADO PP 110X20MM">Te Servico Integrado Pp 110x20mm</option>
+              <option value="TE SERVICO INTEGRADO PP 63X20MM">Te Servico Integrado Pp 63x20mm</option>
+              <option value="TE SERVICO INTEGRADO PP 63X25MM">Te Servico Integrado Pp 63x25mm</option>
+              <option value="TUBO FERRO DUCTIL K7 PB JGS 150MM">Tubo Ferro Ductil K7 Pb Jgs 150mm</option>
+              <option value="TUBO FERRO DUCTIL K7 PB JGS 200MM">Tubo Ferro Ductil K7 Pb Jgs 200mm</option>
+              <option value="TUBO FERRO DUCTIL K7 PB JGS 250MM">Tubo Ferro Ductil K7 Pb Jgs 250mm</option>
+              <option value="TUBO FERRO DUCTIL K7 PB JGS 300MM">Tubo Ferro Ductil K7 Pb Jgs 300mm</option>
+              <option value="TUBO FERRO DUCTIL K7 PB JGS 400MM">Tubo Ferro Ductil K7 Pb Jgs 400mm</option>
+              <option value="TUBO FERRO DUCTIL K7 PB JGS 600MM">Tubo Ferro Ductil K7 Pb Jgs 600mm</option>
+              <option value="TUBO PEAD 110MM PE 80 PN10 SDR 13,6 PRET">Tubo Pead 110mm Pe 80 Pn10 Sdr 13,6 Preto</option>
+              <option value="TUBO PEAD 200MM PE 100 PN16 SDR 11 PRETO">Tubo Pead 200mm Pe 100 Pn16 Sdr 11 Preto</option>
+              <option value="TUBO PEAD 20MM PN10 AZUL">Tubo Pead 20mm Pn10 Azul</option>
+              <option value="TUBO PEAD 20MM PN10 AZUL NBR 15561 PE80">Tubo Pead 20mm Pn10 Azul Nbr 15561 Pe80</option>
+              <option value="TUBO PEAD 400MM PE 80 PN4 SDR 32,25 PRET">Tubo Pead 400mm Pe 80 Pn4 Sdr 32,25 Preto</option>
+              <option value="TUBO PEAD 63MM PE 80 PN10 SDR 13,6 PRETO">Tubo Pead 63mm Pe 80 Pn10 Sdr 13,6 Preto</option>
+              <option value="TUBO PVC COL ESG PAREDE MACICA JEI 100MM">Tubo Pvc Col Esg Parede Macica Jei 100mm</option>
+              <option value="TUBO PVC COL ESG PAREDE MACICA JEI 150MM">Tubo Pvc Col Esg Parede Macica Jei 150mm</option>
+              <option value="TUBO PVC COL ESG PAREDE MACICA JEI 200MM">Tubo Pvc Col Esg Parede Macica Jei 200mm</option>
+              <option value="TUBO PVC COL ESG PAREDE MACICA JEI 250MM">Tubo Pvc Col Esg Parede Macica Jei 250mm</option>
+              <option value="TUBO PVC COL ESG PAREDE MACICA JEI 300MM">Tubo Pvc Col Esg Parede Macica Jei 300mm</option>
+              <option value="TUBO PVC DEFOFO 1 MPA PB JEI 100MM">Tubo Pvc Defofo 1 Mpa Pb Jei 100mm</option>
+              <option value="TUBO PVC DEFOFO 1 MPA PB JEI 150MM">Tubo Pvc Defofo 1 Mpa Pb Jei 150mm</option>
+              <option value="TUBO PVC DEFOFO 1 MPA PB JEI 200MM">Tubo Pvc Defofo 1 Mpa Pb Jei 200mm</option>
+              <option value="TUBO PVC DEFOFO 1 MPA PB JEI 250MM">Tubo Pvc Defofo 1 Mpa Pb Jei 250mm</option>
+              <option value="TUBO PVC DEFOFO 1 MPA PB JEI 300MM">Tubo Pvc Defofo 1 Mpa Pb Jei 300mm</option>
+              <option value="TUBO PVC ESG PRED JE PB 100MM">Tubo Pvc Esg Pred Je Pb 100mm</option>
+              <option value="TUBO PVC ESG PRED JE PB 150MM">Tubo Pvc Esg Pred Je Pb 150mm</option>
+              <option value="TUBO PVC ESG PRED JE PB 50MM">Tubo Pvc Esg Pred Je Pb 50mm</option>
+              <option value="TUBO PVC ESG PRED JE PB 75MM">Tubo Pvc Esg Pred Je Pb 75mm</option>
+              <option value="TUBO PVC ESG PRED JS PB 40MM">Tubo Pvc Esg Pred Js Pb 40mm</option>
+              <option value="TUBO PVC IRRIGACAO PN80 JE 100MM">Tubo Pvc Irrigacao Pn80 Je 100mm</option>
+              <option value="TUBO PVC IRRIGACAO PN80 JE 50MM">Tubo Pvc Irrigacao Pn80 Je 50mm</option>
+              <option value="TUBO PVC IRRIGACAO PN80 JE 75MM">Tubo Pvc Irrigacao Pn80 Je 75mm</option>
+              <option value="TUBO PVC JR 1">Tubo Pvc Jr 1</option>
+              <option value="TUBO PVC JR 1.1/2">Tubo Pvc Jr 1.1/2</option>
+              <option value="TUBO PVC JR 1/2">Tubo Pvc Jr 1/2</option>
+              <option value="TUBO PVC JS 20MM">Tubo Pvc Js 20mm</option>
+              <option value="TUBO PVC JS 25MM">Tubo Pvc Js 25mm</option>
+              <option value="TUBO PVC JS 32MM">Tubo Pvc Js 32mm</option>
+              <option value="UNIAO PVC JR 1/2">União PVC Jr 1/2</option>
+              <option value="UNIAO PVC JR 2">União PVC Jr 2</option>
+              <option value="UNIAO PVC JS 20MM">União PVC Js 20mm</option>
+              <option value="UNIAO PVC JS DN 20">União PVC Js DN 20</option>
+              <option value="UNIAO RED COMPR PP 110X63MM PN10">União Red Compr PP 110x63mm PN10</option>
+              <option value="VALVULA RET PVC JE 100MM ESG PRED">Valvula Ret PVC Je 100mm Esg Pred</option>
+            </select>
+
+
+           </select>
+
+
+        </form>
+
+    </div>
+
+    <!-- Modal Pendencias de Pavimentos bd-example-modal-lg modal-lg-->
+    <div class="modal fade" id="cadpavimento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Saida de Material</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="card-body">                  
+                        <form action="" method="POST" >
+                          {% csrf_token %} 
+
+                          <div id="matpend"> 
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Equipe</span>
+                                {% render_field pavimento9.Equipe class='form-control'%}
+                                ⠀                               
+                                <span class="input-group-text">Data</span>
+                                {% render_field pavimento9.Data class='form-control' %}
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" >Material</span>
+                                {% render_field pavimento9.Item  class="form-control" %}     
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" >Qtd</span>
+                                {% render_field pavimento9.Qtd  class="form-control" %}     
+                                ⠀                   
+                                <span class="input-group-text">Servico</span>
+                                {% render_field pavimento9.Servico class="form-control"%}
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Executado</span>
+                                {% render_field pavimento9.Executado class="form-control" %}
+                                ⠀
+                                <span class="input-group-text">Localidade</span>
+                                {% render_field pavimento9.Localidade class="form-control" %}
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span  class="input-group-text">Observacao</span>
+                                {% render_field pavimento9.Observacao class="form-control" %}
+                                ⠀
+                                <span class="input-group-text">Devolucao</span>
+                                {% render_field pavimento9.Devolucao class="form-control"%}
+                            </div>          
+                          </div>
+                          
+                          <div id="btn2pen">
+                              <!-- Botoes -->
+                              <button class="btn btn-secondary"><a href="{% url 'material'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
+                              <button id="show" class="btn btn-success" value="Submit" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
+                          </div>
+                        </form>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> 
+
+    <!-- Linha informativa de demandas-->
+     <div class='form-control' style="font-size: 13px;" >        
+        {% if user.groups.all.0.name == 'Lauro' %}
+          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav_lf}} registro(s) Lançados(s)</h8>
+
+        {% elif user.groups.all.0.name == 'Salvador' %}
+          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav_ssa}} registro(s) Lançados(s)</h8>
+
+        {% else %}
+          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav}} registro(s) Lançados(s)</h8>
+
+        {% endif %}  
+    </div> 
+
+    <table  class="table table-striped table-bordered table-hover table-responsive" id="tabela-listar">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Localidade</th>
+                <th>Equipe</th>
+                <th>Data Saida</th>
+                <th>Material</th>
+                <th>Qtd</th>
+                <th>Servico</th>
+                <th>Devolucao</th>
+                <th>Observacao</th>
+                <th>Editar</th>
+                {% comment %} <th>Executado</th> {% endcomment %}
+                <th>Inserido</th>
+                <th>Editou</th>
+                {% comment %} <th>Detalhes</th> {% endcomment %}
+                {% comment %} <th>Excluir</th> {% endcomment %}
+            </tr>
+        </thead>
+
+        <!-- Query para o Grupo de Lauro -->
+        <tbody>
+            {% if user.groups.all.0.name == "Lauro" %}
+                {% for dado in localidade_l.qs %}
+                  <tr>
+                    <td></td>
+                    <td>{{dado.Localidade}}</td>
+
+                    <td>
+                    {% if dado.Medir == 'Medir' %}
+                        <h2 style="color: Green" >P/ Medir</h2>
+                        {% elif dado.Medir == 'Prioridade' %}
+                        <h2 style="color: red" >Priorizar!</h2>
+                        {% else %}
+                        <h2 style="color: Grey">Normal</h2>
+                    {% endif %}
+                    </td>
+                    <td>{{dado.Ss}}</td>
+                    <td>{{dado.Data|date:"d/m/Y"}}</td>
+
+                    {% if dado.atual %}
+                        <td>
+                            {{dado.atual2}}
+                            <i class="fas fa-calendar-check fa-lg"></i>
+                        </td>
+                    {% else %}
+                        <td>
+                            {{dado.atual2}}
+                            <i class="fas fa-calendar-plus fa-lg"></i>
+                        </td>
+                    {% endif %}
+
+                    <td>{{dado.Equipe|lower|capfirst}}</td>
+                    <td>{{dado.Bairro|lower|capfirst}}</td>
+                    <td>{{dado.Rua|lower|capfirst}}</td>
+                    <td>{{dado.Referencia|lower|capfirst}}</td>
+                    <td>{{dado.Servico|lower|capfirst}}</td>
+                    <td>{{dado.Metragem|lower|capfirst}}</td>
+
+                    <td>{{dado.Ss_Final|lower|capfirst}}</td>
+                    <td>{{dado.Met_Final|lower|capfirst}}</td>
+                    
+                    <!--  Filtro Copiar informaçoes da tabela-->
+                    {% if dado.Copiar %}
+                        <td></td>
+                        {% else %}
+                        <td>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+                            <button class="btn" data-clipboard-text="  Recomposição de pavimento: {{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} inf {{dado.Equipe|capfirst}}">
+                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <script>
+                            const clipboard = new ClipboardJS(".btn");
+                            clipboard.on("success", function (e) {});
+                            clipboard.on("error", function (e) {});
+                        </script>
+                    {% endif %}
+                  
+                    <td>
+                        <a href="{% url 'editar' dado.id %}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </td>
+
+                    <!--  Filtro checked-->
+                    {% if dado.Executado %}
+                        <td>
+                            <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
+                            <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+                        </td>
+                    {% else %}
+                        <td>
+                            <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
+                            <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+                        </td>
+                    {% endif %}
+                    <td>{{dado.created_by}}</td>
+                    <td>{{dado.last_edited_by}}</td>
+
+                    {% comment %} <td>
+                    <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
+                    </td>
+
+                    <td>
+                    <a href="{% url 'excluir2' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
+                    </td> {% endcomment %}
+                </tr>
+                {% endfor %}
+
+                 <!-- Query para o Grupo de Salvador -->
+            {% elif user.groups.all.0.name == 'Salvador'%}
+             {% for dado in localidade_2.qs %}
+                <tr>
+                    <td></td>
+                    <td>{{dado.Localidade}}</td>
+                    <td>
+                    {% if dado.Medir == 'Medir' %}
+                        <h2 style="color: Green" >P/ Medir</h2>
+                        {% elif dado.Medir == 'Prioridade' %}
+                        <h2 style="color: red" >Priorizar!</h2>
+                        {% else %}
+                        <h2 style="color: Grey">Normal</h2>
+                    {% endif %}
+                    </td>
+                    <td>{{dado.Ss}}</td>
+                    <td>{{dado.Data|date:"d/m/Y"}}</td>
+
+                    {% if dado.atual %}
+                        <td>
+                            {{dado.atual2}}
+                            <i class="fas fa-calendar-check fa-lg"></i>
+                        </td>
+                    {% else %}
+                        <td>
+                            {{dado.atual2}}
+                            <i class="fas fa-calendar-plus fa-lg"></i>
+                        </td>
+                    {% endif %}
+
+                    <td>{{dado.Equipe|lower|capfirst}}</td>
+                    <td>{{dado.Bairro|lower|capfirst}}</td>
+                    <td>{{dado.Rua|lower|capfirst}}</td>
+                    <td>{{dado.Referencia|lower|capfirst}}</td>
+                    <td>{{dado.Servico|lower|capfirst}}</td>
+                    <td>{{dado.Metragem|lower|capfirst}}</td>
+                    
+                    <!--  Filtro Copiar informaçoes da tabela-->
+                    {% if dado.Copiar %}
+                        <td></td>
+                        {% else %}
+                        <td>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+                            <button class="btn" data-clipboard-text="  Recomposição de pavimento: {{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} inf {{dado.Equipe|capfirst}}">
+                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <script>
+                            const clipboard = new ClipboardJS(".btn");
+                            clipboard.on("success", function (e) {});
+                            clipboard.on("error", function (e) {});
+                        </script>
+                    {% endif %}
+                    <td>{{dado.Ss_Final|lower|capfirst}}</td>
+                    <td>{{dado.Met_Final|lower|capfirst}}</td>
+
+                    <td>
+                        <a href="{% url 'editar' dado.id %}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </td>
+
+                    <!--  Filtro checked-->
+                    {% if dado.Executado %}
+                        <td>
+                            <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
+                            <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+                        </td>
+                    {% else %}
+                        <td>
+                            <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
+                            <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
+                        </td>
+                    {% endif %}
+                    <td>{{dado.created_by}}</td>
+                    <td>{{dado.last_edited_by}}</td>
+
+                    {% comment %} <td>
+                    <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
+                    </td>
+
+                    <td>
+                    <a href="{% url 'excluir2' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
+                    </td> {% endcomment %}
+                </tr>
+                {% endfor %}
+
+                <!-- Query para o Grupo ADM GERAL -->
+            {% else %}
+                {% for dado in filtro.qs %}
+                   <tr>
+                    <td></td>
+                    <td>{{dado.Localidade|lower|capfirst}}</td>
+                    <td>{{dado.Equipe|lower|capfirst}}</td>
+                    <td>{{dado.Data|date:"d/m/Y"}}</td>
+                    <td>{{dado.Item|lower|capfirst}}</td>
+                    <td>{{dado.Qtd}}</td>
+                    <td>{{dado.Servico|lower|capfirst}}</td>
+                    <td>{{dado.Devolucao|lower|capfirst}}</td>
+                    <td>{{dado.Observacao|lower|capfirst}}</td>
+                    <td>
+                      <a href="{% url 'editar_m' dado.id %}">
+                          <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                    {% comment %} <td>{{dado.Executado|lower|capfirst}}</td> {% endcomment %}
+                    <td>{{dado.created_by|lower|capfirst}}</td>
+                    <td>{{dado.last_edited_by|lower|capfirst}}</td>
+                  </tr>
+                {% endfor %}
+            {% endif %}              
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+  $(document).ready(function () {
+    $("#tabela-listar").DataTable({
+      dom: "Bfrtip",
+      buttons: [
+        {
+          extend: "excelHtml5",
+          text: '<i class="fa fa-download" aria-hidden="true"></i>',
+          titleAttr: "Excel",
+        },
+        //"colvis", Botão para filtrar colunas
+      ],
+      stateSave: true,
+      responsive: true,
+      // "bSort": false,
+      aaSorting: [],
+      pageLength: 25,
+      language: {
+        emptyTable: "Nenhum registro encontrado",
+        info: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+        infoFiltered: "(Filtrados de _MAX_ registros)",
+        infoThousands: ".",
+        loadingRecords: "Carregando...",
+        zeroRecords: "Nenhum registro encontrado",
+        search: "Pesquisar",
+        paginate: {
+          next: "Próximo",
+          previous: "Anterior",
+          first: "Primeiro",
+          last: "Último",
+        },
+        aria: {
+          sortAscending: ": Ordenar colunas de forma ascendente",
+          sortDescending: ": Ordenar colunas de forma descendente",
+        },
+        select: {
+          rows: {
+            _: "Selecionado %d linhas",
+            1: "Selecionado 1 linha",
+          },
+          cells: {
+            1: "1 célula selecionada",
+            _: "%d células selecionadas",
+          },
+          columns: {
+            1: "1 coluna selecionada",
+            _: "%d colunas selecionadas",
+          },
+        },
+        buttons: {
+          copySuccess: {
+            1: "Uma linha copiada com sucesso",
+            _: "%d linhas copiadas com sucesso",
+          },
+          collection: 'Coleção  <span class="ui-button-icon-primary ui-icon ui-icon-triangle-1-s"><\/span>',
+          colvis: "Filtrar",
+          colvisRestore: "Restaurar Visibilidade",
+          copy: "Copiar",
+          copyKeys: "Pressione ctrl ou u2318 + C para copiar os dados da tabela para a área de transferência do sistema. Para cancelar, clique nesta mensagem ou pressione Esc..",
+          copyTitle: "Copiar para a Área de Transferência",
+          csv: "CSV",
+          excel: "Excel",
+          pageLength: {
+            "-1": "Mostrar todos os registros",
+            _: "Mostrar %d registros",
+          },
+          pdf: "PDF",
+          print: "Imprimir",
+          createState: "Criar estado",
+          removeAllStates: "Remover todos os estados",
+          removeState: "Remover",
+          renameState: "Renomear",
+          savedStates: "Estados salvos",
+          stateRestore: "Estado %d",
+          updateState: "Atualizar",
+        },
+        autoFill: {
+          cancel: "Cancelar",
+          fill: "Preencher todas as células com",
+          fillHorizontal: "Preencher células horizontalmente",
+          fillVertical: "Preencher células verticalmente",
+        },
+        lengthMenu: "Exibir _MENU_ resultados por página",
+        searchBuilder: {
+          add: "Adicionar Condição",
+          button: {
+            0: "Construtor de Pesquisa",
+            _: "Construtor de Pesquisa (%d)",
+          },
+          clearAll: "Limpar Tudo",
+          condition: "Condição",
+          conditions: {
+            date: {
+              after: "Depois",
+              before: "Antes",
+              between: "Entre",
+              empty: "Vazio",
+              equals: "Igual",
+              not: "Não",
+              notBetween: "Não Entre",
+              notEmpty: "Não Vazio",
+            },
+            number: {
+              between: "Entre",
+              empty: "Vazio",
+              equals: "Igual",
+              gt: "Maior Que",
+              gte: "Maior ou Igual a",
+              lt: "Menor Que",
+              lte: "Menor ou Igual a",
+              not: "Não",
+              notBetween: "Não Entre",
+              notEmpty: "Não Vazio",
+            },
+            string: {
+              contains: "Contém",
+              empty: "Vazio",
+              endsWith: "Termina Com",
+              equals: "Igual",
+              not: "Não",
+              notEmpty: "Não Vazio",
+              startsWith: "Começa Com",
+              notContains: "Não contém",
+              notStartsWith: "Não começa com",
+              notEndsWith: "Não termina com",
+            },
+            array: {
+              contains: "Contém",
+              empty: "Vazio",
+              equals: "Igual à",
+              not: "Não",
+              notEmpty: "Não vazio",
+              without: "Não possui",
+            },
+          },
+          data: "Data",
+          deleteTitle: "Excluir regra de filtragem",
+          logicAnd: "E",
+          logicOr: "Ou",
+          title: {
+            0: "Construtor de Pesquisa",
+            _: "Construtor de Pesquisa (%d)",
+          },
+          value: "Valor",
+          leftTitle: "Critérios Externos",
+          rightTitle: "Critérios Internos",
+        },
+        searchPanes: {
+          clearMessage: "Limpar Tudo",
+          collapse: {
+            0: "Painéis de Pesquisa",
+            _: "Painéis de Pesquisa (%d)",
+          },
+          count: "{total}",
+          countFiltered: "{shown} ({total})",
+          emptyPanes: "Nenhum Painel de Pesquisa",
+          loadMessage: "Carregando Painéis de Pesquisa...",
+          title: "Filtros Ativos",
+          showMessage: "Mostrar todos",
+          collapseMessage: "Fechar todos",
+        },
+        thousands: ".",
+        datetime: {
+          previous: "Anterior",
+          next: "Próximo",
+          hours: "Hora",
+          minutes: "Minuto",
+          seconds: "Segundo",
+          amPm: ["am", "pm"],
+          unknown: "-",
+          months: {
+            0: "Janeiro",
+            1: "Fevereiro",
+            10: "Novembro",
+            11: "Dezembro",
+            2: "Março",
+            3: "Abril",
+            4: "Maio",
+            5: "Junho",
+            6: "Julho",
+            7: "Agosto",
+            8: "Setembro",
+            9: "Outubro",
+          },
+          weekdays: ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinte-feira", "Sexta-feira", "Sábado"],
+        },
+        editor: {
+          close: "Fechar",
+          create: {
+            button: "Novo",
+            submit: "Criar",
+            title: "Criar novo registro",
+          },
+          edit: {
+            button: "Editar",
+            submit: "Atualizar",
+            title: "Editar registro",
+          },
+          error: {
+            system: 'Ocorreu um erro no sistema (<a target="\\" rel="nofollow" href="\\">Mais informações<\/a>).',
+          },
+          multi: {
+            noMulti: "Essa entrada pode ser editada individualmente, mas não como parte do grupo",
+            restore: "Desfazer alterações",
+            title: "Multiplos valores",
+            info: "Os itens selecionados contêm valores diferentes para esta entrada. Para editar e definir todos os itens para esta entrada com o mesmo valor, clique ou toque aqui, caso contrário, eles manterão seus valores individuais.",
+          },
+          remove: {
+            button: "Remover",
+            confirm: {
+              _: "Tem certeza que quer deletar %d linhas?",
+              1: "Tem certeza que quer deletar 1 linha?",
+            },
+            submit: "Remover",
+            title: "Remover registro",
+          },
+        },
+        decimal: ",",
+        stateRestore: {
+          creationModal: {
+            button: "Criar",
+            columns: {
+              search: "Busca de colunas",
+              visible: "Visibilidade da coluna",
+            },
+            name: "Nome:",
+            order: "Ordernar",
+            paging: "Paginação",
+            scroller: "Posição da barra de rolagem",
+            search: "Busca",
+            searchBuilder: "Mecanismo de busca",
+            select: "Selecionar",
+            title: "Criar novo estado",
+            toggleLabel: "Inclui:",
+          },
+          emptyStates: "Nenhum estado salvo",
+          removeConfirm: "Confirma remover %s?",
+          removeJoiner: "e",
+          removeSubmit: "Remover",
+          removeTitle: "Remover estado",
+          renameButton: "Renomear",
+          renameLabel: "Novo nome para %s:",
+          renameTitle: "Renomear estado",
+          duplicateError: "Já existe um estado com esse nome!",
+          emptyError: "Não pode ser vazio!",
+          removeError: "Falha ao remover estado!",
+        },
+        infoEmpty: "Mostrando 0 até 0 de 0 registro(s)",
+        processing: "Carregando...",
+        searchPlaceholder: "Buscar registros",
+      },
+    });
+  });
+</script>
+{% endblock %}

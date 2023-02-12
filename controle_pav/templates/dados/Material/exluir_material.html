@@ -1,0 +1,28 @@
+{% extends 'dados/base.html'  %}
+{% block conteudo %}
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Listagem-Pav</li>
+  </ol>
+</nav>
+
+<div class="container">
+  <div class="card text-center">
+      <div class="alert alert-danger" role="alert">
+          Confirmar exclusão da SS: {{item.Ss}} ? <a href="{% url 'pavimentos' %}" class="alert-link" >Clique para cancelar!</a>
+      </div>
+
+      <form method='POST'>
+          <button style="margin: 10px;" class="btn btn-danger" type="submit">Confirmar</button>
+          {% csrf_token %}
+      </form>
+
+      <div class="card-footer text-muted">
+          Após exclusão, não sera possivel restagar o item!
+      </div>
+      
+  </div>
+</div>
+{% endblock %}

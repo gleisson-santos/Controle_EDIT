@@ -18,7 +18,7 @@
   
     
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/buttonpav.css' %}">
 
     
@@ -91,22 +91,11 @@
                   <a class="nav-link" href="{% url 'informativo' %}">Pendencias</a>
                 </li>
 
-                {% comment %} <div class="btn-group " role="group" aria-label="Grupo de botões com dropdown aninhado">
-                <div class="btn-group btn-group-sm" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Gestão
-                  </button>
-                  <div class="dropdown-menu " aria-labelledby="btnGroupDrop1">
-                    <a class="dropdown-item" href="{% url 'informativo' %}">Adequação</a>
-                    <a class="dropdown-item" href="{% url 'pavimentos' %}">Material</a>
-                  </div>
-                </div>
-              </div> {% endcomment %}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Gestão</a>
                 <div class="dropdown-menu " aria-labelledby="dropdown01">
                   <a class="dropdown-item" href="#">Medição</a>
-                  <a class="dropdown-item" href="#">Material</a>
+                  <a class="dropdown-item" href="{% url 'material' %}">Material</a>
                   <a class="dropdown-item" href="#">Unidade Tec.</a>
                 </div>
               </li>	

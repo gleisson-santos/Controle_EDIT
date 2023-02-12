@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from datetime import timedelta
-from .models import Esgoto, Pavimento, Pendencias 
+from .models import Esgoto, Pavimento, Pendencias, Material
 
 
 class Pavimentoform(ModelForm):
@@ -13,6 +13,15 @@ class Pavimentoform(ModelForm):
 
     class Meta:
         model = Pavimento
+        fields = '__all__'
+
+class Materialform(ModelForm):
+    Data = forms.DateField(label='Data', widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date', }), input_formats=('%Y-%m-%d',), )
+    days = forms.IntegerField(required=False)          
+       
+
+    class Meta:
+        model = Material
         fields = '__all__'
 
 

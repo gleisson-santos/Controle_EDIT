@@ -8,14 +8,20 @@ from django.contrib.auth.models import User
 
 
 
-# df = pd.read_csv("C:/Users/55719/Desktop/#Projeto - Controle_servcio_EDIT/Controle_EDIT/controle_pav/static/texto/equipes.csv", header=None)
-# print(df)
-
 def Equipe():
     with open("controle_pav/static/texto/equipes.csv", 'r') as arquivo:
-        equipes = arquivo.read().split()
-        EQUIPE = tuple(('equipes', equipes[i]) for i in range(len(equipes)))
+        equipes = arquivo.read().splitlines()
+        EQUIPE = [(equipe, equipe) for equipe in equipes]
     return EQUIPE
+
+
+def Material():
+    with open("controle_pav/static/texto/Materiais.csv", 'r', encoding='utf-8') as arquivo:
+        materiais = arquivo.read().splitlines()
+        MATERIAL = [(material, material) for material in materiais]
+    return MATERIAL
+
+   
 
 # modelos que irão representar uma tabela no banco de dados
 class Pavimento(models.Model):
@@ -87,6 +93,45 @@ class Pavimento(models.Model):
     # Referencia de nome la na view na parte ADM django
     def __str__(self):
         return '%s %s' % (self.Ss, self.Data)
+
+
+class Material(models.Model):
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
+    last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
+     
+    Equipe = models.CharField(max_length=255, choices=Equipe())
+    Data = models.DateField(default=datetime.now)
+    Item = models.CharField(max_length=800, choices=Material())
+
+    Qtd = models.IntegerField(blank=False)
+
+    SERVICO = (
+        ("Operacional", "Operacional"),
+        ("Comercial", "Comercial"),
+        ("Unid. Tec", "Unid. Tec")
+    )
+    Servico = models.CharField(max_length=255, choices=SERVICO)
+
+    EXECUTADO = (
+        (True, "Executado"),
+        (False, "Pendente")
+    )
+
+    Executado = models.BooleanField(default=False, choices=EXECUTADO)
+
+
+    LOCALIDADE = (
+        ('Salvador', "Salvador"),
+        ('Lauro', "Lauro")
+    )
+    Localidade = models.TextField(max_length=255, choices=LOCALIDADE)
+    Observacao = models.CharField(max_length=255, blank=True)
+    Devolucao = models.IntegerField(blank=True)
+
+
+    # Referencia de nome la na view na parte ADM django
+    def __str__(self):
+        return '%s %s' % (self.Equipe, self.Item)
 
 
 class Esgoto(models.Model):

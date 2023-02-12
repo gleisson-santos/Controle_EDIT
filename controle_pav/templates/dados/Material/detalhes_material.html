@@ -1,0 +1,53 @@
+{% extends 'dados/base.html'  %}
+{% block conteudo %}
+
+<br><br><br>
+<h1 style="text-align: center;">Detalhe do Pavimento</h1>
+
+<div class="container">
+    <table class="table table-hover table-bordered">
+        <tr>
+            <th>Localidade</th>
+            <th >Situação</th>
+            <th>Ss</th>
+            <th>Data</th>
+            <th>Equipe</th>
+            <th>Rua</th>
+            <th>Referencia</th>
+            <th>Servico</th>
+            <th>Bairro</th>
+            <th>Metragem</th>
+            <th>Observações</th>
+            <th>Ss_Final</th>
+            <th>Met_Final</th>
+            <th>Executado</th>
+        </tr>
+        <tr>
+            <td>{{dados.Localidade}}</td>
+            <td>
+                {% if dado.Medir == 'Medir' %}  
+                <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
+                {% elif dado.Medir == 'Prioridade' %}
+                <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
+                {% else %}
+                <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
+                {% endif %}
+            </td> 
+            <td>{{dados.Ss}}</td>
+            <td>{{dados.Data|date:"d/m/Y"}}</td>
+            <td>{{dados.Equipe|lower|capfirst}}</td>
+            <td>{{dados.Rua|lower|capfirst}}</td>
+            <td>{{dados.Referencia|lower|capfirst}}</td>
+            <td>{{dados.Servico|lower|capfirst}}</td>
+            <td>{{dados.Bairro|lower|capfirst}}</td>
+            <td>{{dados.Metragem}}</td>
+            <td>{{dados.Observacao|lower|capfirst}}</td>
+            <td>{{dados.Ss_Final}}</td>
+            <td>{{dados.Met_Final}}</td>
+            <td>{{dados.Executado}}</td>
+        </tr>
+    </table>
+    
+    <button style="margin-top: 10px;" class="btn btn-secondary"><a style="color: white;" href="{% url 'pavimentos'%}" class="text-decoration-none">Voltar</a></button>
+</div>
+{% endblock %}
