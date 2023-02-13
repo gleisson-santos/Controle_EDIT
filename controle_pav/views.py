@@ -5,9 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 
-from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter, MaterialFilter
-from .forms import Esgotoform, Pavimentoform, Pendenciasform, Materialform
-from .models import Esgoto, Pavimento, Pendencias, Material
+from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter, MaterialFilter, LancamentoFilter
+from .forms import Esgotoform, Pavimentoform, Pendenciasform, Materialform, Lancamentoform
+from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento
 from django.contrib.sessions.models import Session
 
 from django.contrib.auth.models import User
@@ -706,15 +706,22 @@ def listagem(request):
     #Encart Pavimento
     cont_pav_lf = encart("Lauro", Material)[1]
     cont_pav_ssa = encart("Salvador", Material)[1]
-
     cont_pav = Material.objects.filter().count()
-
-
 
     #Quantidade em Estoque
     itens = Material.objects.values('Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
     for item in itens:
         item['total'] = item['total'] - item['total_devolucao']
+
+    itens1 = Lancamento.objects.values('Item').annotate(total=Sum('Qtd'))
+    for item in itens1:
+        item['total'] = item['total']
+
+    for item in itens:
+        for item1 in itens1:
+            if item['Item'] == item1['Item']:
+                sub = item1['total'] - item['total']
+                item['sub'] = sub
 
 
 
@@ -724,6 +731,8 @@ def listagem(request):
         'filtro': dados,
         'days': days,
         'itens': itens,
+        'itens1': itens1,
+
 
         #Cart Pavimento
         'cont_pav_lf':cont_pav_lf,
@@ -738,6 +747,8 @@ def listagem(request):
 
     return render(request, template_name, context)
 
+
+@ login_required
 def material(request):
     template_name = 'dados/Material/material.html'
 
@@ -787,11 +798,6 @@ def material(request):
     return render(request, template_name, context)
 
 
-@ login_required
-def detalhes_material(request, id_pavimento):
-    dados = {'dados': Pavimento.objects.get(pk=id_pavimento)}
-    return render(request, 'dados/Pavimentos/detalhe.html', dados)
-
 
 @ login_required
 def inserir_material(request):
@@ -826,6 +832,25 @@ def editar_m(request, id_material):
         return redirect('material')
 
 
+
+@ login_required
+def editar_entrada(request, id_lancamento):
+    material = Lancamento.objects.get(pk=id_lancamento)
+    criador = material.created_by
+    if request.method == 'GET':
+        # instance vai deixar o dormulario com os itens ja preenchidos de forma visiveis 'populado'
+        formulario = Lancamentoform(instance=material)
+        return render(request, 'dados/Material/editar_entrada.html', {'formulario': formulario})
+    else:
+        formulario = Lancamentoform(request.POST, instance=material)
+        if formulario.is_valid():
+            item = formulario.save(commit=False)
+            item.created_by = criador
+            item.last_edited_by = request.user
+            item.save()
+        return redirect('lancamentos')
+
+
 @ login_required
 def excluir_m(request, id_material):
     material = Material.objects.get(pk=id_material)
@@ -835,14 +860,13 @@ def excluir_m(request, id_material):
     return render(request, 'dados/Material/exluir_material.html', {'item': material})
 
 
-
 @ login_required
 def lancamentos(request):
     template_name = 'dados/Material/lancamentos.html'
 
     # Cadastro Pavimento
     if request.method == 'POST':
-        lancamento_form = Materialform(request.POST)
+        lancamento_form = Lancamentoform(request.POST)
         if lancamento_form.is_valid():
             print("cuuuuuuuuuuuuuuuuuu")
             instance = lancamento_form.save(commit=False)
@@ -850,19 +874,19 @@ def lancamentos(request):
             instance.save()
         return redirect('lancamentos')
     else:
-        lancamento_form = Materialform()
+        lancamento_form = Lancamentoform()
 
     #Filtros para tabela de Pavimento
-    dados = filter_pavimento(request, Material, MaterialFilter, localidade='')
+    dados = filter_pavimento(request, Lancamento, LancamentoFilter, localidade='')
 
-    filterlauro  = filter_pavimento(request,  Material, MaterialFilter, localidade='Salvador')
-    filtersalvador  = filter_pavimento(request, Material, MaterialFilter, localidade='Lauro')
-    days  = filter_pavimento(request,  Material, MaterialFilter, localidade='')
+    filterlauro  = filter_pavimento(request,  Lancamento, LancamentoFilter, localidade='Salvador')
+    filtersalvador  = filter_pavimento(request, Lancamento, LancamentoFilter, localidade='Lauro')
+    days  = filter_pavimento(request,  Lancamento, LancamentoFilter, localidade='')
 
     #Encart Pavimento
-    cont_pav_lf = encart("Lauro", Material)[1]
-    cont_pav_ssa = encart("Salvador", Material)[1]
-    cont_pav = Material.objects.filter().count()
+    cont_pav_lf = encart("Lauro", Lancamento)[1]
+    cont_pav_ssa = encart("Salvador", Lancamento)[1]
+    cont_pav = Lancamento.objects.filter().count()
 
  
     context = {

@@ -8,11 +8,6 @@
 
 <h1>Saida de Material</h1>   
 
-{% comment %} o ID esta no botão e o Scritp no Static
-<div class="alert alert-success" role="alert">
-  Item cadastrado com Sucesso!
-</div> {% endcomment %}
-
 <div class='container-fluid'>
     
     <!--  Filtro superido geral da tabela--> 
@@ -21,7 +16,7 @@
      
             {% csrf_token %}
             <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#cadpavimento">
-                <i class="fa fa-plus" aria-hidden="true"></i>Adicionar
+                <i class="fa fa-plus" aria-hidden="true"></i>Lançar Saida
             </button> 
             
             <div class="form-inline col-md-1 mb-0">
@@ -413,13 +408,13 @@
     <!-- Linha informativa de demandas-->
      <div class='form-control' style="font-size: 13px;" >        
         {% if user.groups.all.0.name == 'Lauro' %}
-          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav_lf}} registro(s) Lançados(s)</h8>
+          <h8>  <i class="fas fa-table me-1"></i> Registro(s) Lançados(s)</h8>
 
         {% elif user.groups.all.0.name == 'Salvador' %}
-          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav_ssa}} registro(s) Lançados(s)</h8>
+          <h8>  <i class="fas fa-table me-1"></i> Registro(s) Lançados(s)</h8>
 
         {% else %}
-          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav}} registro(s) Lançados(s)</h8>
+          <h8>  <i class="fas fa-table me-1"></i> Registro(s) Lançados(s)</h8>
 
         {% endif %}  
     </div> 

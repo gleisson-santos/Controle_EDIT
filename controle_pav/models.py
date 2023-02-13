@@ -94,14 +94,14 @@ class Pavimento(models.Model):
     def __str__(self):
         return '%s %s' % (self.Ss, self.Data)
 
-class Material(models.Model):
+class MaterialBase(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
     last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
      
     Equipe = models.CharField(max_length=255, choices=Equipe(), blank=True)
     Data = models.DateField('data', null=True, blank=True)
     Item = models.CharField(max_length=800, choices=Material())
-    N_reserva = models.IntegerField(blank=True, null=False)
+    N_reserva = models.IntegerField(blank=True, null=True)
 
     Qtd = models.IntegerField(blank=False)
 
@@ -128,16 +128,21 @@ class Material(models.Model):
     Observacao = models.CharField(max_length=255, blank=True)
     Devolucao = models.IntegerField(blank=True, null=True)
 
-    
-
-
-
-
-
-
     # Referencia de nome la na view na parte ADM django
     def __str__(self):
         return '%s %s' % (self.Equipe, self.Item)
+
+class Lancamento(MaterialBase):
+    class Meta:
+        # proxy = True Essa desgraça aqui atrasou o meu lado
+        verbose_name = "Lancamento"
+        verbose_name_plural = "Lançamentos"
+
+class Material(MaterialBase):
+    class Meta:
+        verbose_name = "Material"
+        verbose_name_plural = "Materiais"
+
 
 class Esgoto(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
