@@ -11,24 +11,12 @@
         <!-- Estoque Geral-->
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
             <div class="card border-dark">
-                <div class="card-header">Estoque</div>
+                <div class="card-header">Estoque Geral</div>
 
                 <div class="card-body">
-                    <p class="card-text">Mantenha o <code>Estoque</code> Atualizado! </p>
-
-                    {% if user.groups.all.0.name == 'Lauro' %}
-                        <h8> <i class="fas fa-table me-1"></i>{{filtrolf}} Pavimento(s) Pendentes!(s)</h8>
-                        <p class="card-text">{{Asfaltolf}} <code>Asfalto</code> {{Concretolf}}<code> Concreto</code> </p>
-
-                    {% elif user.groups.all.0.name == 'Salvador' %}
-                        <h8>  <i class="fas fa-table me-1"></i>{{filtrossa}} Pavimento(s) Pendentes!(s)</h8>
-                        <p class="card-text">{{Asfaltossa}} <code>Asfalto</code> {{Concretossa}}<code> Concreto</code> </p>
-        
-                    {% else %}
-                        <h8>  <i class="fas fa-table me-1"></i> Materias(s) em falta!</h8>
-                        {% comment %} <p class="card-text">{{Asfalto}} <code>Asfalto</code> {{Concreto}}<code> Concreto</code> </p> {% endcomment %}
-                         <p class="card-text">Controle geral de Materiais</code> </p> 
-                    {% endif %}
+                    <p class="card-text">Mantenha o <code>Estoque</code> Atualizado! </p>        
+                        <h8>  <i class="fas fa-table me-1"></i> Resumo Geral!</h8>
+                        <p class="card-text">Controle geral de Materiais</code> </p> 
                 </div>
 
                 <div class="card-footer text-end">
@@ -50,20 +38,8 @@
                 <div class="card-body">
                     <p class="card-text">Mantenha as Entradas de <code>Materiais</code> atualizadas! </p>
 
-                    {% if user.groups.all.0.name == 'Lauro' %}
-                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pendlf}} Pendência(s) de Esgoto!</h8>
-                        <p class="card-text">{{Vedaçãolf}} <code>Vedações</code> {{Consertoslf}}<code> Consertos</code> {{Desobstruçãolf}}<code> Desobstrução</code></p>
-
-                    {% elif  user.groups.all.0.name == 'Salvador' %}
-                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pendssa}} Pendência(s) de Esgoto!</h8>
-                        <p class="card-text">{{Vedaçãossa}} <code>Vedações</code> {{Consertosssa}}<code> Consertos</code> {{Desobstruçãossa}}<code> Desobstrução</code></p>
-
-                    {% else %}
-                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pend}} Pendência(s) de Esgoto!</h8>
-                        {% comment %} <p class="card-text">{{Vedação}} <code>Vedações</code> {{Consertos}}<code> Consertos</code> {{Desobstrução}}<code> Desobstrução</code></p> {% endcomment %}
-                        <p class="card-text">Qtd ultimas saidas: {{Desobstrução}}<code> itens</code> </p>
-
-                    {% endif %}
+                    <h8>  <i class="fas fa-table me-1"></i>{{esg_pend}} Resumo geral de entradas</h8>
+                    <p class="card-text">Confira sempre o nº da <code> Reserva!</code> </p>
                 </div>
 
                 <div class="card-footer text-end">
@@ -101,23 +77,23 @@
                                 <div id="matpend"> 
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">Nª Reserva</span>
-                                        {% render_field entrada.N_reserva class='form-control'%}
+                                        {% render_field lancamento_form.N_reserva class='form-control'%}
                                         ⠀                               
                                         <span class="input-group-text">Data</span>
-                                        {% render_field entrada.Data class='form-control' %}
+                                        {% render_field lancamento_form.Data class='form-control' %}
                                     </div>
 
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" >Material</span>
-                                        {% render_field entrada.Item  class="form-control" %}     
+                                        {% render_field lancamento_form.Item  class="form-control" %}     
                                     </div>
 
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" >Qtd</span>
-                                        {% render_field entrada.Qtd  class="form-control" %}     
+                                        {% render_field lancamento_form.Qtd  class="form-control" %}     
                                         ⠀
                                         <span class="input-group-text">Localidade</span>
-                                        {% render_field entrada.Localidade class="form-control" %}
+                                        {% render_field lancamento_form.Localidade class="form-control" %}
                                     </div>        
                                 </div>
                                 
@@ -142,27 +118,14 @@
                 <div class="card-header">Saida</div>
 
                 <div class="card-body">
-                    <p class="card-text">Mantenha as saidas de <code>Material</code> atualizadas! </p>
-
-                    {% if user.groups.all.0.name == 'Lauro' %}
-                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pendlf}} Pendência(s) de Esgoto!</h8>
-                        <p class="card-text">{{Vedaçãolf}} <code>Vedações</code> {{Consertoslf}}<code> Consertos</code> {{Desobstruçãolf}}<code> Desobstrução</code></p>
-
-                    {% elif  user.groups.all.0.name == 'Salvador' %}
-                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pendssa}} Pendência(s) de Esgoto!</h8>
-                        <p class="card-text">{{Vedaçãossa}} <code>Vedações</code> {{Consertosssa}}<code> Consertos</code> {{Desobstruçãossa}}<code> Desobstrução</code></p>
-
-                    {% else %}
-                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pend}} Pendência(s) de Esgoto!</h8>
-                        {% comment %} <p class="card-text">{{Vedação}} <code>Vedações</code> {{Consertos}}<code> Consertos</code> {{Desobstrução}}<code> Desobstrução</code></p> {% endcomment %}
-                        <p class="card-text">Qtd ultimas saidas: {{Desobstrução}}<code> itens</code> </p>
-
-                    {% endif %}
+                    <p class="card-text">Mantenha as saidas de <code >Materiais </code> atualizadas! </p>
+                    <h8>  <i class="fas fa-table me-1"></i> Resumo geral de Saidas!</h8>
+                    <p class="card-text">Insira das Devoluções em até <code> 24Hs</code> </p>
                 </div>
 
                 <div class="card-footer text-end">
                     <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#cadesgoto">
-                        <i class="fa fa-plus" aria-hidden="true"></i>  Saida
+                        <i class="fa fa-plus" aria-hidden="true"></i>  Lançar
                      </button> 
 
                     <a href="{% url 'material' %}"
@@ -175,12 +138,12 @@
         </div>
       
         <!-- Modal lancamento Saida Material-->
-        <div class="modal fade bd-example-modal-lg" id="cadesgoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+        <div class="modal fade " id="cadesgoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document">
                 <div class="modal-content row">
                     
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Pendencia de Esgoto</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Lançar Saida de Material </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -193,48 +156,41 @@
                                 {% csrf_token %} 
 
                             <div id="matpend"> 
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-4">
                                     <span class="input-group-text">Equipe</span>
-                                    {% render_field esgoto21.Equipe class='form-control'%}
+                                    {% render_field saida_form.Equipe class='form-control'%}
                                     ⠀                               
                                     <span class="input-group-text">Data</span>
-                                    {% render_field esgoto21.Data class='form-control' %}
+                                    {% render_field saida_form.Data class='form-control' %}
                                 </div>
 
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-4">
                                     <span class="input-group-text" >Material</span>
-                                    {% render_field esgoto21.Item  class="form-control" %}     
+                                    {% render_field saida_form.Item  class="form-control" %}     
                                 </div>
 
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-4">
                                     <span class="input-group-text" >Qtd</span>
-                                    {% render_field esgoto21.Qtd  class="form-control" %}     
+                                    {% render_field saida_form.Qtd  class="form-control" %}     
                                     ⠀                   
-                                    <span class="input-group-text">Servico</span>
-                                    {% render_field esgoto21.Servico class="form-control"%}
+                                    <span class="input-group-text">Serviço</span>
+                                    {% render_field saida_form.Servico class="form-control"%}
                                 </div>
 
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Executado</span>
-                                    {% render_field esgoto21.Executado class="form-control" %}
+                                <div class="input-group mb-4">
+                                    <span  class="input-group-text">Obs</span>
+                                    {% render_field saida_form.Observacao class="form-control" %}
                                     ⠀
                                     <span class="input-group-text">Localidade</span>
-                                    {% render_field esgoto21.Localidade class="form-control" %}
-                                </div>
-
-                                <div class="input-group mb-3">
-                                    <span  class="input-group-text">Observacao</span>
-                                    {% render_field esgoto21.Observacao class="form-control" %}
-                                    ⠀
-                                    <span class="input-group-text">Devolucao</span>
-                                    {% render_field esgoto21.Devolucao class="form-control"%}
+                                    {% render_field saida_form.Localidade class="form-control" %}
+    
                                 </div>          
                             </div>
                             
                             <div id="btn2pen">
                                 <!-- Botoes -->
-                                <button class="btn btn-secondary"><a href="{% url 'material'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
-                                <button id="show" class="btn btn-success" name="gravar" value="Saida1"  type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
+                                <button class="btn btn-secondary"><a href="{% url 'index2'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
+                                <button id="show" class="btn btn-success" name="saida" value="Saida1"  type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
                             </div>
                             </form> 
     
@@ -258,97 +214,63 @@
                 <thead>
                     <tr>
                         <th></th>
+                        <th>Localidade</t>                 
                         <th>Material</t>                 
                         <th>Em Estoque</th>
                         <th>Ultima Entrada</th>
-
                     </tr>
                 </thead>
 
                 <tbody>
                     {% if user.groups.all.0.name == 'Lauro' %}
-                        {% for dado in localidade_l.qs %}
-                            <tr>
-                                <td></td>
-                                <td>{{dado.Localidade}}</td>
-                                <td>{{dado.created_by}}</td>
-                                <td>
-                                    {% if dado.Medir == 'Medir' %}  
-                                    <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
-                                    {% elif dado.Medir == 'Prioridade' %}
-                                    <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
-                                    {% else %}
-                                    <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
-                                    {% endif %}
-                                </td>
-                                <td>{{dado.Ss}}</td>
-                                <td>{{dado.Tipo|lower|capfirst}}</td>
-                                <td>{{dado.Solicitante|lower|capfirst}}</td>
-                                <td>{{dado.Data|date:"d/m/Y"}}</td>
-                                  <td>
-                                    <a href="{% url 'editar_p' dado.id %}">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>                        
-                                </td>
-                                {% comment %} <td>{{dado.Detalhes|lower|capfirst}}
-                                    <i class="fa fa-file-code-o" aria-hidden="true"></i>
-                                </td> {% endcomment %}
-                        
-                                {% comment %} <td>
-                                    <a href="{% url 'excluir_p' dado.id %}"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a> 
-                                </td> {% endcomment %}
-                            </tr>
+                        {% for item in gerallf %}
+                            {% if item.sub < 30 %}
+                                <tr>
+                                    <td></td>
+                                    <td>{{ item.Item|lower|capfirst }}</td>              
+                                    <td>{{ item.sub }}</td>
+                                    {% for ultima_data in geral_datalf %}
+                                        {% if ultima_data.Item == item.Item %}
+                                            <td>{{ ultima_data.ultima_data }}</td>  
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            {% endif %}
                         {% endfor %}
+                    
                     {% elif  user.groups.all.0.name == 'Salvador'%}
-                        {% for dado in localidade_2.qs %}
-                            <tr>
-                                <td></td>
-                                <!-- for para iterar sobre todos os itens do banco de dados -->
-                                <!-- Itens quais eu quero acessaar do BD -->
-                                <td>{{dado.Localidade}}</td>
-                                <td>{{dado.created_by}}</td>
-                                <td>
-                                    {% if dado.Medir == 'Medir' %}  
-                                    <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
-                                    {% elif dado.Medir == 'Prioridade' %}
-                                    <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
-                                    {% else %}
-                                    <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
-                                    {% endif %}
-                                </td>
-                                <td>{{dado.Ss}}</td>
-                                <td>{{dado.Tipo|lower|capfirst}}</td>
-                                <td>{{dado.Solicitante|lower|capfirst}}</td>
-                                <td>
-                                    <a href="{% url 'editar_p' dado.id %}">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>                        
-                                </td>
-                                {% comment %} <td>{{dado.Detalhes|lower|capfirst}}
-                                    <i class="fa fa-file-code-o" aria-hidden="true"></i>
-                                </td> {% endcomment %}
-                        
-                                {% comment %} <td>
-                                    <a href="{% url 'excluir_p' dado.id %}"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a> 
-                                </td> {% endcomment %}
-                            </tr>
-                        {% endfor %}
-                    {% else %}
-                        {% for item in itens %}
-                        {% if item.sub < 30 %}
-                            <tr>
-                                <td></td>
-                                <td>{{ item.Item|lower|capfirst }}</td>              
-                                <td>{{ item.sub }}</td>
-                                {% for ultima_data in ultimas_datas %}
-                                    {% if ultima_data.Item == item.Item %}
-                                        <td>{{ ultima_data.ultima_data }}</td>  
-                                    {% endif %}
-                                {% endfor %}
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
 
+                        {% for item in geralssa %}
+                            {% if item.sub < 30 %}
+                                <tr>
+                                    <td></td>
+                                    <td>{{ item.Item|lower|capfirst }}</td>              
+                                    <td>{{ item.sub }}</td>
+                                    {% for ultima_data in geral_datassa %}
+                                        {% if ultima_data.Item == item.Item %}
+                                            <td>{{ ultima_data.ultima_data }}</td>  
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+
+                    {% else %}
+                        {% for item in geral %}
+                            {% if item.sub < 30 %}
+                                <tr>
+                                    <td></td>
+                                    <td>{{ item.Localidade }}</td>              
+                                    <td>{{ item.Item|lower|capfirst }}</td>              
+                                    <td>{{ item.sub }}</td>
+                                    {% for ultima_data in geral_data %}
+                                        {% if ultima_data.Item == item.Item %}
+                                            <td>{{ ultima_data.ultima_data }}</td>  
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
                     
                     {% endif %}
                 </tbody>

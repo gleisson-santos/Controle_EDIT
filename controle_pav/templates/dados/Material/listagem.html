@@ -403,6 +403,7 @@
         <thead>
             <tr>
                 <th></th>
+                <th>Localidade</t>
                 <th>Material</t>
                 <th>Qtd Saida</th>
                 <th>Qtd Entrada</th>
@@ -412,225 +413,108 @@
             </tr>
         </thead>
 
-        <!-- Query para o Grupo de Lauro -->
         <tbody>
+              <!-- Query para os Grupos de Lauro -->
             {% if user.groups.all.0.name == "Lauro" %}
-                {% for dado in localidade_l.qs %}
+            
+                <!-- Calculos gerais-->
+                {% for item in gerallf %}
+
                   <tr>
-                    <td></td>
-                    <td>{{dado.Localidade}}</td>
-
-                    <td>
-                    {% if dado.Medir == 'Medir' %}
-                        <h2 style="color: Green" >P/ Medir</h2>
-                        {% elif dado.Medir == 'Prioridade' %}
-                        <h2 style="color: red" >Priorizar!</h2>
-                        {% else %}
-                        <h2 style="color: Grey">Normal</h2>
-                    {% endif %}
-                    </td>
-                    <td>{{dado.Ss}}</td>
-                    <td>{{dado.Data|date:"d/m/Y"}}</td>
-
-                    {% if dado.atual %}
-                        <td>
-                            {{dado.atual2}}
-                            <i class="fas fa-calendar-check fa-lg"></i>
-                        </td>
-                    {% else %}
-                        <td>
-                            {{dado.atual2}}
-                            <i class="fas fa-calendar-plus fa-lg"></i>
-                        </td>
-                    {% endif %}
-
-                    <td>{{dado.Equipe|lower|capfirst}}</td>
-                    <td>{{dado.Bairro|lower|capfirst}}</td>
-                    <td>{{dado.Rua|lower|capfirst}}</td>
-                    <td>{{dado.Referencia|lower|capfirst}}</td>
-                    <td>{{dado.Servico|lower|capfirst}}</td>
-                    <td>{{dado.Metragem|lower|capfirst}}</td>
-
-                    <td>{{dado.Ss_Final|lower|capfirst}}</td>
-                    <td>{{dado.Met_Final|lower|capfirst}}</td>
+                    <th></th>
+                    <td>{{ item.Localidade }}</td> 
+                    <td>{{ item.Item|lower|capfirst }}</td>                
+                    <td>{{ item.total }}</td>  
                     
-                    <!--  Filtro Copiar informaçoes da tabela-->
-                    {% if dado.Copiar %}
-                        <td></td>
-                        {% else %}
-                        <td>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-                            <button class="btn" data-clipboard-text="  Recomposição de pavimento: {{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} inf {{dado.Equipe|capfirst}}">
-                                <i class="fa fa-clipboard" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                        <script>
-                            const clipboard = new ClipboardJS(".btn");
-                            clipboard.on("success", function (e) {});
-                            clipboard.on("error", function (e) {});
-                        </script>
-                    {% endif %}
-                  
                     <td>
-                        <a href="{% url 'editar' dado.id %}">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
-                    </td>
-
-                    <!--  Filtro checked-->
-                    {% if dado.Executado %}
-                        <td>
-                            <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
-                            <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-                        </td>
-                    {% else %}
-                        <td>
-                            <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
-                            <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-                        </td>
-                    {% endif %}
-                    <td>{{dado.created_by}}</td>
-                    <td>{{dado.last_edited_by}}</td>
-
-                    {% comment %} <td>
-                    <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
+                      {% for item1 in geral1lf %}
+                        {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
+                          {{ item1.total}}
+                        {% endif %}
+                      {% endfor %}
                     </td>
 
                     <td>
-                    <a href="{% url 'excluir2' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
-                    </td> {% endcomment %}
-                </tr>
-                {% endfor %}
+                      {% for item1 in geral1lf %}
+                        {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
+                            {{ item.sub }}
+                        {% endif %}
+                      {% endfor %}
+                    </td>
+                    <td></td> 
+                  </tr>   
 
-                 <!-- Query para o Grupo de Salvador -->
+                {% endfor %}   
+
+
+              <!-- Query para o Grupo de Salvador -->
             {% elif user.groups.all.0.name == 'Salvador'%}
-             {% for dado in localidade_2.qs %}
-                <tr>
-                    <td></td>
-                    <td>{{dado.Localidade}}</td>
-                    <td>
-                    {% if dado.Medir == 'Medir' %}
-                        <h2 style="color: Green" >P/ Medir</h2>
-                        {% elif dado.Medir == 'Prioridade' %}
-                        <h2 style="color: red" >Priorizar!</h2>
-                        {% else %}
-                        <h2 style="color: Grey">Normal</h2>
-                    {% endif %}
-                    </td>
-                    <td>{{dado.Ss}}</td>
-                    <td>{{dado.Data|date:"d/m/Y"}}</td>
 
-                    {% if dado.atual %}
-                        <td>
-                            {{dado.atual2}}
-                            <i class="fas fa-calendar-check fa-lg"></i>
-                        </td>
-                    {% else %}
-                        <td>
-                            {{dado.atual2}}
-                            <i class="fas fa-calendar-plus fa-lg"></i>
-                        </td>
-                    {% endif %}
+                  <!-- Calculos gerais-->
+                {% for item in geralssa %}
 
-                    <td>{{dado.Equipe|lower|capfirst}}</td>
-                    <td>{{dado.Bairro|lower|capfirst}}</td>
-                    <td>{{dado.Rua|lower|capfirst}}</td>
-                    <td>{{dado.Referencia|lower|capfirst}}</td>
-                    <td>{{dado.Servico|lower|capfirst}}</td>
-                    <td>{{dado.Metragem|lower|capfirst}}</td>
+                  <tr>
+                    <th></th>
+                    <td>{{ item.Localidade }}</td> 
+                    <td>{{ item.Item|lower|capfirst }}</td>                
+                    <td>{{ item.total }}</td>  
                     
-                    <!--  Filtro Copiar informaçoes da tabela-->
-                    {% if dado.Copiar %}
-                        <td></td>
-                        {% else %}
-                        <td>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-                            <button class="btn" data-clipboard-text="  Recomposição de pavimento: {{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} inf {{dado.Equipe|capfirst}}">
-                                <i class="fa fa-clipboard" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                        <script>
-                            const clipboard = new ClipboardJS(".btn");
-                            clipboard.on("success", function (e) {});
-                            clipboard.on("error", function (e) {});
-                        </script>
-                    {% endif %}
-                    <td>{{dado.Ss_Final|lower|capfirst}}</td>
-                    <td>{{dado.Met_Final|lower|capfirst}}</td>
-
                     <td>
-                        <a href="{% url 'editar' dado.id %}">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
-                    </td>
-
-                    <!--  Filtro checked-->
-                    {% if dado.Executado %}
-                        <td>
-                            <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
-                            <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-                        </td>
-                    {% else %}
-                        <td>
-                            <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" />
-                            <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
-                        </td>
-                    {% endif %}
-                    <td>{{dado.created_by}}</td>
-                    <td>{{dado.last_edited_by}}</td>
-
-                    {% comment %} <td>
-                    <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
+                      {% for item1 in geral1ssa %}
+                        {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
+                          {{ item1.total}}
+                        {% endif %}
+                      {% endfor %}
                     </td>
 
                     <td>
-                    <a href="{% url 'excluir2' dado.id %}"> <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png" height="25" width="25" /></a>
-                    </td> {% endcomment %}
-                </tr>
-                {% endfor %}
+                      {% for item1 in geral1ssa %}
+                        {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
+                            {{ item.sub }}
+                        {% endif %}
+                      {% endfor %}
+                    </td>
+                    <td></td> 
+                  </tr>   
+
+                {% endfor %}   
+
+             
+
 
                 <!-- Query para o Grupo ADM GERAL -->
             {% else %}
 
               <!-- Calculos gerais-->
-              {% for item in itens %}
+              {% for item in geral %}
                 <tr>
-                  <th></th>
-
-
+                  <td></td>
+                  <td>{{ item.Localidade }}</td> 
                   <td>{{ item.Item|lower|capfirst }}</td>                
                   <td>{{ item.total }}</td>  
                   
 
                   <td>
-                    {% for item1 in itens1 %}
-                      {% if item1.Item == item.Item %}
+                    {% for item1 in geral1 %}
+                      {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
                         {{ item1.total}}
                       {% endif %}
                     {% endfor %}
                   </td>
 
+
                   <td>
-                    {% for item1 in itens1 %}
-                      {% if item1.Item == item.Item  %}
-                        {% if item1.total < 30 %}
-                          <span style="color: red;">{{ item.sub }}</span>
-                        {% else %}
+                    {% for item1 in geral1 %}
+                     {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
                           {{ item.sub }}
-                        {% endif %}
                       {% endif %}
                     {% endfor %}
                   </td>
 
-
                   <td></td> 
-                </tr>                 
+                </tr>   
+
               {% endfor %}   
-
-
-
-
-
               
             {% endif %}              
         </tbody>

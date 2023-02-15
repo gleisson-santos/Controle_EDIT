@@ -13,7 +13,7 @@ from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 from django.db import models
 
-from django.db.models import Sum
+from django.db.models import Sum, Max
 
 
 #Chamadas para encarts
@@ -112,15 +112,57 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     return filters
 
 
+
+# Quantidade em Estoque view Principal
+def estoque_por_localidade(localidade=None):
+    if localidade:
+        itens = Material.objects.filter(Localidade=localidade).values('Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
+        for item in itens:
+            item['total'] = item['total'] - item['total_devolucao']
+
+        itens1 = Lancamento.objects.filter(Localidade=localidade).values( 'Localidade','Item').annotate(total=Sum('Qtd'))
+        for item in itens1:
+            item['total'] = item['total']
+
+        ult_data = Lancamento.objects.filter(Localidade=localidade).values( 'Item').annotate(ultima_data=Max('Data'))
+
+        for item in itens:
+            for item1 in itens1:
+                if item['Item'] == item1['Item']:
+                    sub = item1['total'] - item['total']
+                    item['sub'] = sub
+    else:
+        itens = Material.objects.values('Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
+        for item in itens:
+            item['total'] = item['total'] - item['total_devolucao']
+
+        itens1 = Lancamento.objects.values('Localidade','Item').annotate(total=Sum('Qtd'))
+
+        ult_data = Lancamento.objects.values( 'Item').annotate(ultima_data=Max('Data'))
+
+        for item in itens:
+            for item1 in itens1:
+                if item['Item'] == item1['Item']:
+                    sub = item1['total'] - item['total']
+                    item['sub'] = sub
+
+    return itens, ult_data, itens1
+
+
+
+
+
+
+
 # PÁGINA PRINCIPAL Material
 @login_required
 def index2(request):
     template_name = ('dados/index2.html')
 
-    # Lancamento Saide equipe
+    # Lancamento Saide de Material
     if request.method == 'POST':
         saida_form = Materialform(request.POST)
-        if request.POST['gravar'] == 'Saida1':
+        if request.POST['saida'] == 'Saida1':
             if saida_form.is_valid():
                 instance = saida_form.save(commit=False)
                 instance.created_by = request.user
@@ -132,94 +174,41 @@ def index2(request):
         saida_form = Materialform()
 
 
-    # Lancamento entrada Mateiral
+    # Lancamento Entarda de Mateiral
     if request.method == 'POST':
-        mateiral_form = Materialform(request.POST)
-        if request.POST['gravar'] == 'Saida1':
-            if mateiral_form.is_valid():
-                instance = mateiral_form.save(commit=False)
+        lancamento_form = Lancamentoform(request.POST)
+        if request.POST['entrada'] == 'Entrada1':
+            if lancamento_form.is_valid():
+                instance = lancamento_form.save(commit=False)
                 instance.created_by = request.user
                 instance.save()
-                return redirect('index2')
-            else:
-                print(mateiral_form.errors)
+            return redirect('index2')
     else:
-        mateiral_form = Materialform()
-  
-
-    def count_loc(localidade):
-        pav_loc = Esgoto.objects.filter(Localidade=localidade, Executado='0').count()
-        esg_loc = Pavimento.objects.filter(Localidade=localidade, Executado='0').count()
-        pend_loc = Pendencias.objects.filter(Localidade=localidade, Executado='0').count()
-        return pav_loc, esg_loc, pend_loc
-
-    def count_pavimentos(localidade, servico):
-        pavimento = Pavimento.objects.filter(Localidade=localidade, Servico=servico, Executado='0').count()
-        esgoto = Esgoto.objects.filter(Localidade=localidade, Servico=servico, Executado='0').count()
-        return pavimento, esgoto
-
-    #Card Pavimento
-    pav_pendlf = count_loc("Lauro")[1]
-    Asfaltolf = count_pavimentos("Lauro", "Asfalto")[0]
-    Concretolf = count_pavimentos("Lauro", "Concreto")[0]
-    
-    pav_pendssa = count_loc("Salvador")[1]
-    Asfaltossa = count_pavimentos("Salvador", "Asfalto")[0]
-    Concretossa = count_pavimentos("Salvador", "Concreto")[0]
-
-    pav_pend = Pavimento.objects.filter(Executado='0').count()
-    Asfalto = Pavimento.objects.filter(Servico='Asfalto', Executado='0').count()
-    Concreto = Pavimento.objects.filter(Servico='Concreto', Executado='0').count()
+        print("cuuuuuuuuuuuuuuuuuu")
+        lancamento_form = Lancamentoform()
 
 
-
-    #Quantidade em Estoque
-    itens = Material.objects.values('Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
-    for item in itens:
-        item['total'] = item['total'] - item['total_devolucao']
-
-    itens1 = Lancamento.objects.values('Item').annotate(total=Sum('Qtd'))
-    for item in itens1:
-        item['total'] = item['total']
-
-    from django.db.models import Max
-
-    ultimas_datas = (Lancamento.objects.values('Item').annotate(ultima_data=Max('Data')))
-
-    for item in itens:
-        for item1 in itens1:
-            if item['Item'] == item1['Item']:
-                sub = item1['total'] - item['total']
-                item['sub'] = sub
-
+    geral, geral_data, geral1 = estoque_por_localidade(localidade="")
+    gerallf, geral_datalf, geral1lf = estoque_por_localidade(localidade="Lauro")
+    geralssa, geral_datassa, geral1ssa = estoque_por_localidade(localidade="Salvador")
 
     context = {
+        'geral': geral,
+        'geral_data': geral_data,
+        'geral1': geral1,
 
-        'pav_pend': pav_pend,
-        'filtrolf': pav_pendlf,
-        'filtrossa': pav_pendssa,
+        'gerallf': gerallf,
+        'geral_datalf': geral_datalf,
+        'geral1lf': geral1lf,
 
-        'itens': itens,
-        'itens1': itens1,
-        'ultimas_datas': ultimas_datas,
-      
+        'geralssa': geralssa,
+        'geral_datassa': geral_datassa,
+        'geral1ssa': geral1ssa,
 
-        'Asfaltossa': Asfaltossa,
-        'Concretossa': Concretossa,
-
-        'Asfaltolf': Asfaltolf,
-        'Concretolf': Concretolf,
     
-        'esgoto21': saida_form,
-        'pavimento5': mateiral_form,
 
-        # 'lauro1': lauro1,
-        # 'lauro2': lauro2,
-        # 'lauro3': lauro3,
-
-        # 'Ssa1': Ssa1,
-        # 'Ssa2': Ssa2,
-        # 'Ssa3': Ssa3,
+        'lancamento_form': lancamento_form,
+        'saida_form': saida_form,
 
     }
 
@@ -701,67 +690,25 @@ def editar_p(request, id_pendencia):
 def listagem(request):
     template_name = 'dados/Material/listagem.html'
 
-    # Cadastro Pavimento
-    if request.method == 'POST':
-        material_form = Materialform(request.POST)
-        if material_form.is_valid():
-            print(material_form.cleaned_data)
-            instance = material_form.save(commit=False)
-            instance.created_by = request.user
-            instance.save()
-        return redirect('listagem')
-    else:
-        material_form = Materialform()
-
-    #Filtros para tabela de Pavimento
-    dados = filter_pavimento(request, Material, MaterialFilter, localidade='')
-
-    dados2 = filter_pavimento(request,  Material, MaterialFilter, localidade='')
-    filterlauro  = filter_pavimento(request,  Material, MaterialFilter, localidade='Salvador')
-    filtersalvador  = filter_pavimento(request, Material, MaterialFilter, localidade='Lauro')
-    days  = filter_pavimento(request,  Material, MaterialFilter, localidade='')
-
-    #Encart Pavimento
-    cont_pav_lf = encart("Lauro", Material)[1]
-    cont_pav_ssa = encart("Salvador", Material)[1]
-    cont_pav = Material.objects.filter().count()
-
-    #Quantidade em Estoque
-    itens = Material.objects.values('Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
-    for item in itens:
-        item['total'] = item['total'] - item['total_devolucao']
-
-
-    itens1 = Lancamento.objects.values('Item').annotate(total=Sum('Qtd'))
-    for item in itens1:
-        item['total'] = item['total']
-
-    itens2 = Lancamento.objects.values('Item').annotate(total=Sum('Qtd'))
-
-    for item in itens:
-        for item1 in itens1:
-            if item['Item'] == item1['Item']:
-                sub = item1['total'] - item['total']
-                item['sub'] = sub
+    geral, geral_data, geral1 = estoque_por_localidade(localidade="")
+    gerallf, geral_datalf, geral1lf = estoque_por_localidade(localidade="Lauro")
+    geralssa, geral_datassa, geral1ssa = estoque_por_localidade(localidade="Salvador")
 
 
     context = {
-        'dados': dados2,
-        'filtro': dados,
-        'days': days,
-        'itens': itens,
-        'itens1': itens1,
-        'itens2': itens2,
 
+        'geral': geral,
+        'geral_data': geral_data,
+        'geral1': geral1,
 
-        #Cart Pavimento
-        'cont_pav_lf':cont_pav_lf,
-        'cont_pav_ssa':cont_pav_ssa,
-        'cont_pav':cont_pav,
+        'gerallf': gerallf,
+        'geral_datalf': geral_datalf,
+        'geral1lf': geral1lf,
 
-        'pavimento9': material_form,
-        'localidade_l': filterlauro,
-        'localidade_2': filtersalvador,
+        'geralssa': geralssa,
+        'geral_datassa': geral_datassa,
+        'geral1ssa': geral1ssa,
+
    
     }
 
@@ -903,26 +850,15 @@ def lancamentos(request):
     filtersalvador  = filter_pavimento(request, Lancamento, LancamentoFilter, localidade='Lauro')
     days  = filter_pavimento(request,  Lancamento, LancamentoFilter, localidade='')
 
-    #Encart Pavimento
-    cont_pav_lf = encart("Lauro", Lancamento)[1]
-    cont_pav_ssa = encart("Salvador", Lancamento)[1]
-    cont_pav = Lancamento.objects.filter().count()
-
  
     context = {
         'filtro': dados,
         'days': days,
-    
-
-        #Cart Pavimento
-        'cont_pav_lf':cont_pav_lf,
-        'cont_pav_ssa':cont_pav_ssa,
-        'cont_pav':cont_pav,
-
-        'pavimento9': lancamento_form,
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
+    
    
+        'pavimento9': lancamento_form,
     }
 
     return render(request, template_name, context)

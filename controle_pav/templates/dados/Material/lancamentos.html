@@ -333,7 +333,7 @@
             <div class="modal-content">
                 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Lista de Materiais</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Lançar entrada de Material</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -399,11 +399,11 @@
         <thead>
             <tr>
                 <th></th>
+                <th>Localidade</th>
                 <th>Nª Reserva</th>
                 <th>Material</th>
                 <th>Data</th>
                 <th>Qtd</th>
-                <th>Localidade</th>
 
                 <th>Editar</th>
                 <th>Inserido</th>
@@ -593,12 +593,11 @@
                 {% for item in filtro.qs %}
                   <tr>
                     <td></td>                    
+                    <td>{{ item.Localidade|lower|capfirst }}</td>  
                     <td>{{ item.N_reserva|lower|capfirst }}</td>                
                     <td>{{ item.Item|lower|capfirst }}</td>  
                     <td>{{ item.Data }}</td>  
                     <td>{{ item.Qtd }}</td>  
-                    <td>{{ item.Localidade|lower|capfirst }}</td>  
-               
                   
                 
                     <td>
