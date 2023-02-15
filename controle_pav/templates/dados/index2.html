@@ -8,8 +8,8 @@
 <div class="container mt-5">
     <div class="row mb-5">
  
-        <!-- Estoque -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <!-- Estoque Geral-->
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
             <div class="card border-dark">
                 <div class="card-header">Estoque</div>
 
@@ -25,94 +25,119 @@
                         <p class="card-text">{{Asfaltossa}} <code>Asfalto</code> {{Concretossa}}<code> Concreto</code> </p>
         
                     {% else %}
-                        <h8>  <i class="fas fa-table me-1"></i>{{pav_pend}} Materias(s) em falta!</h8>
+                        <h8>  <i class="fas fa-table me-1"></i> Materias(s) em falta!</h8>
                         {% comment %} <p class="card-text">{{Asfalto}} <code>Asfalto</code> {{Concreto}}<code> Concreto</code> </p> {% endcomment %}
-                         <p class="card-text">1º Cobrança realizada em <code> 31/02/2023</code> </p> 
+                         <p class="card-text">Controle geral de Materiais</code> </p> 
                     {% endif %}
                 </div>
 
                 <div class="card-footer text-end">
-                    <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#cadpavimento">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Lançar
-                     </button>  
-
                     <a href="{% url 'listagem' %}"
+                       class="btn btn-outline-success btn-sm">
+                       <i class="fa fa-list-alt" aria-hidden="true"></i>
+                       Listar Geral
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Entrada Material  -->
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+            <div class="card border-dark">
+                <div class="card-header">Entradas</div>
+
+                <div class="card-body">
+                    <p class="card-text">Mantenha as Entradas de <code>Materiais</code> atualizadas! </p>
+
+                    {% if user.groups.all.0.name == 'Lauro' %}
+                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pendlf}} Pendência(s) de Esgoto!</h8>
+                        <p class="card-text">{{Vedaçãolf}} <code>Vedações</code> {{Consertoslf}}<code> Consertos</code> {{Desobstruçãolf}}<code> Desobstrução</code></p>
+
+                    {% elif  user.groups.all.0.name == 'Salvador' %}
+                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pendssa}} Pendência(s) de Esgoto!</h8>
+                        <p class="card-text">{{Vedaçãossa}} <code>Vedações</code> {{Consertosssa}}<code> Consertos</code> {{Desobstruçãossa}}<code> Desobstrução</code></p>
+
+                    {% else %}
+                        <h8>  <i class="fas fa-table me-1"></i>{{esg_pend}} Pendência(s) de Esgoto!</h8>
+                        {% comment %} <p class="card-text">{{Vedação}} <code>Vedações</code> {{Consertos}}<code> Consertos</code> {{Desobstrução}}<code> Desobstrução</code></p> {% endcomment %}
+                        <p class="card-text">Qtd ultimas saidas: {{Desobstrução}}<code> itens</code> </p>
+
+                    {% endif %}
+                </div>
+
+                <div class="card-footer text-end">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#entradamat">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Lançar
+                     </button> 
+
+                    <a href="{% url 'lancamentos' %}"
                        class="btn btn-outline-success btn-sm">
                        <i class="fa fa-list-alt" aria-hidden="true"></i>
                        Listar
                     </a>
-                    <a href="{% url 'lancamentos' %}"
-                       class="btn btn-outline-success btn-sm">
-                       <i class="fa fa-list-alt" aria-hidden="true"></i>
-                       Lançamentos
-                    </a>
                 </div>
             </div>
         </div>
-
-        <!-- Modal lançamento  de Estoque-->
-        <div class="modal fade " id="cadpavimento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      
+        <!-- Modal lancamento Entrada-->
+        <div class="modal fade " id="entradamat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog " role="document">
-                <div class="modal-content">
+                <div class="modal-content row">
                     
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Entrada de Material</h5>
-
+                        <h5 class="modal-title" id="exampleModalLabel">Lançar entrada de Material</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>                         
+                            <span aria-hidden="true">&times;</span>
                         </button>
-                    </div> 
-
+                    </div> <br>
+        
                     <div class="container-fluid">
-                        <div class="card-body">                  
-                            <form action="" method="POST">
-                                {% csrf_token %}   
+                        <div class="card-body">    
+                            
+                            <form action="" method="POST" >
+                                {% csrf_token %} 
 
-                                <div id="cadpav"> 
-                                    <div class="input-group mb-3" >
-                                        <span class="input-group-text" >Nª Reserva</span>
-                                        {% render_field pavimento5.N_reserva  class="form-control"  %}     
-                                        ⠀                   
+                                <div id="matpend"> 
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Nª Reserva</span>
+                                        {% render_field entrada.N_reserva class='form-control'%}
+                                        ⠀                               
                                         <span class="input-group-text">Data</span>
-                                        {% render_field pavimento5.Data class="form-control" %}
+                                        {% render_field entrada.Data class='form-control' %}
                                     </div>
 
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" >Material</span>
-                                        {% render_field pavimento5.Item  class="form-control" %}     
+                                        {% render_field entrada.Item  class="form-control" %}     
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" >Localidade</span>
-                                        {% render_field pavimento5.Localidade  class="form-control" minlength="9" maxlength="9" %}     
-                                        ⠀                   
-                                        <span class="input-group-text">Qtd</span>
-                                        {% render_field pavimento5.Qtd class="form-control" %}
-                                    </div>
+                                        <span class="input-group-text" >Qtd</span>
+                                        {% render_field entrada.Qtd  class="form-control" %}     
+                                        ⠀
+                                        <span class="input-group-text">Localidade</span>
+                                        {% render_field entrada.Localidade class="form-control" %}
+                                    </div>        
                                 </div>
-                            
                                 
-                                <div id="btnpav">
+                                <div id="btn2pen">
                                     <!-- Botoes -->
-                                    <button  class="btn btn-secondary"><a href="{% url 'index2'%}" ><i class="fa fa-reply" aria-hidden="true"></i>
-                                        Voltar</a>
-                                    </button> 
-                                    <button  class="btn btn-success" name="gravar" value="Lancar1" type="submit"><i class="fa fa-check" aria-hidden="true"></i>
-                                        Salvar
-                                    </button>    
+                                    <button class="btn btn-secondary"><a href="{% url 'index2' %}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
+                                    <button id="show" class="btn btn-success" name="entrada" value="Entrada1"  type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
                                 </div>
-
-
-                            </form>                            
+                            </form> 
+    
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
 
-        <!--Saida  -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+
+        <!--Saida Material  -->
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
             <div class="card border-dark">
                 <div class="card-header">Saida</div>
 
@@ -149,7 +174,7 @@
             </div>
         </div>
       
-        <!-- Modal lancamento saida equipe-->
+        <!-- Modal lancamento Saida Material-->
         <div class="modal fade bd-example-modal-lg" id="cadesgoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content row">
@@ -218,7 +243,6 @@
                 </div>
             </div>
         </div>
-
         
     </div>
 
@@ -234,12 +258,13 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Material</th>
-                        <th>Qtd atual</th>
-                        <th>Situção</th>
-                        <th>Editar</th> 
+                        <th>Material</t>                 
+                        <th>Em Estoque</th>
+                        <th>Ultima Entrada</th>
+
                     </tr>
                 </thead>
+
                 <tbody>
                     {% if user.groups.all.0.name == 'Lauro' %}
                         {% for dado in localidade_l.qs %}
@@ -309,27 +334,22 @@
                             </tr>
                         {% endfor %}
                     {% else %}
-                        {% for dado in filtro3.qs %}
+                        {% for item in itens %}
+                        {% if item.sub < 30 %}
                             <tr>
                                 <td></td>
-                                <td>{{dado.Localidade}}</td>
-                                <td>{{dado.created_by}}</td>
-                                <td>
-                                    {% if dado.Medir == 'Medir' %}  
-                                    <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
-                                    {% elif dado.Medir == 'Prioridade' %}
-                                    <h4 style="color: red;" class="badge badge-warning">Priorizar!</h4>
-                                    {% else %}
-                                    <h4 style="color: Grey;" class="badge badge-warning">Normal</h4>
+                                <td>{{ item.Item|lower|capfirst }}</td>              
+                                <td>{{ item.sub }}</td>
+                                {% for ultima_data in ultimas_datas %}
+                                    {% if ultima_data.Item == item.Item %}
+                                        <td>{{ ultima_data.ultima_data }}</td>  
                                     {% endif %}
-                                </td>
-                                <td>
-                                   <a href="{% url 'editar_p' dado.id %}">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>                        
-                                </td>
+                                {% endfor %}
                             </tr>
-                        {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+
+                    
                     {% endif %}
                 </tbody>
             </table>

@@ -15,10 +15,14 @@
         <form method="get"  >
      
             {% csrf_token %}
-            <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#cadpavimento">
-                <i class="fa fa-plus" aria-hidden="true"></i>Lançar Saida
-            </button> 
-            
+
+                <a href="{% url 'index2' %}"
+                       class="btn btn-outline-success btn-sm">
+                       <i class="fa fa-list-alt" aria-hidden="true"></i>
+                       Voltar
+                    </a>
+         
+
             <div class="form-inline col-md-1 mb-0">
                 ⠀<button type="submit" class="btn btn-primary mb-2">Filtrar</button>
             </div>
@@ -587,11 +591,16 @@
 
                 <!-- Query para o Grupo ADM GERAL -->
             {% else %}
+
+              <!-- Calculos gerais-->
               {% for item in itens %}
                 <tr>
                   <th></th>
+
+
                   <td>{{ item.Item|lower|capfirst }}</td>                
                   <td>{{ item.total }}</td>  
+                  
 
                   <td>
                     {% for item1 in itens1 %}
@@ -601,18 +610,28 @@
                     {% endfor %}
                   </td>
 
-                   <td>
+                  <td>
                     {% for item1 in itens1 %}
-                      {% if item.Item == item1.Item %}
-                        {{ item.sub }}
+                      {% if item1.Item == item.Item  %}
+                        {% if item1.total < 30 %}
+                          <span style="color: red;">{{ item.sub }}</span>
+                        {% else %}
+                          {{ item.sub }}
+                        {% endif %}
                       {% endif %}
                     {% endfor %}
                   </td>
-                  <td></td>
 
-                </tr>
 
-              {% endfor %}                 
+                  <td></td> 
+                </tr>                 
+              {% endfor %}   
+
+
+
+
+
+              
             {% endif %}              
         </tbody>
     </table>

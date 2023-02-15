@@ -112,7 +112,7 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     return filters
 
 
-# PÁGINA PRINCIPAL
+# PÁGINA PRINCIPAL Material
 @login_required
 def index2(request):
     template_name = ('dados/index2.html')
@@ -173,24 +173,36 @@ def index2(request):
 
 
 
-    #Filtro das tabelas
-    lauro = Pendencias.objects.order_by("Executado", "Data").filter(Localidade='Lauro', Executado='0').all()
-    filterlauro = PendenciasFilter(request.GET, queryset=lauro)
+    #Quantidade em Estoque
+    itens = Material.objects.values('Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
+    for item in itens:
+        item['total'] = item['total'] - item['total_devolucao']
 
-    salvador = Pendencias.objects.order_by("Executado", "Data").filter(Localidade='Salvador', Executado='0').all()
-    filtersalvador = PendenciasFilter(request.GET, queryset=salvador)
-    
-    dados2 = Pendencias.objects.order_by("Executado", "Data").filter(Executado='0').all()
-    dados = PendenciasFilter(request.GET, queryset=dados2)
+    itens1 = Lancamento.objects.values('Item').annotate(total=Sum('Qtd'))
+    for item in itens1:
+        item['total'] = item['total']
+
+    from django.db.models import Max
+
+    ultimas_datas = (Lancamento.objects.values('Item').annotate(ultima_data=Max('Data')))
+
+    for item in itens:
+        for item1 in itens1:
+            if item['Item'] == item1['Item']:
+                sub = item1['total'] - item['total']
+                item['sub'] = sub
+
 
     context = {
-
-        'dados': dados2,
-        'filtro3': dados,
 
         'pav_pend': pav_pend,
         'filtrolf': pav_pendlf,
         'filtrossa': pav_pendssa,
+
+        'itens': itens,
+        'itens1': itens1,
+        'ultimas_datas': ultimas_datas,
+      
 
         'Asfaltossa': Asfaltossa,
         'Concretossa': Concretossa,
@@ -201,10 +213,16 @@ def index2(request):
         'esgoto21': saida_form,
         'pavimento5': mateiral_form,
 
-        'localidade_l': filterlauro,
-        'localidade_2': filtersalvador,
+        # 'lauro1': lauro1,
+        # 'lauro2': lauro2,
+        # 'lauro3': lauro3,
+
+        # 'Ssa1': Ssa1,
+        # 'Ssa2': Ssa2,
+        # 'Ssa3': Ssa3,
 
     }
+
     return render(request, template_name, context)
 
 # PÁGINA PRINCIPAL
@@ -713,9 +731,12 @@ def listagem(request):
     for item in itens:
         item['total'] = item['total'] - item['total_devolucao']
 
+
     itens1 = Lancamento.objects.values('Item').annotate(total=Sum('Qtd'))
     for item in itens1:
         item['total'] = item['total']
+
+    itens2 = Lancamento.objects.values('Item').annotate(total=Sum('Qtd'))
 
     for item in itens:
         for item1 in itens1:
@@ -724,14 +745,13 @@ def listagem(request):
                 item['sub'] = sub
 
 
-
-
     context = {
         'dados': dados2,
         'filtro': dados,
         'days': days,
         'itens': itens,
         'itens1': itens1,
+        'itens2': itens2,
 
 
         #Cart Pavimento
@@ -868,12 +888,12 @@ def lancamentos(request):
     if request.method == 'POST':
         lancamento_form = Lancamentoform(request.POST)
         if lancamento_form.is_valid():
-            print("cuuuuuuuuuuuuuuuuuu")
             instance = lancamento_form.save(commit=False)
             instance.created_by = request.user
             instance.save()
         return redirect('lancamentos')
     else:
+        print("cuuuuuuuuuuuuuuuuuu")
         lancamento_form = Lancamentoform()
 
     #Filtros para tabela de Pavimento
