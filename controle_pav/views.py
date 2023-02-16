@@ -116,11 +116,11 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
 # Quantidade em Estoque view Principal
 def estoque_por_localidade(localidade=None):
     if localidade:
-        itens = Material.objects.filter(Localidade=localidade).values('Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
+        itens = Material.objects.filter(Localidade=localidade).values('Equipe','Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
         for item in itens:
             item['total'] = item['total'] - item['total_devolucao']
 
-        itens1 = Lancamento.objects.filter(Localidade=localidade).values( 'Localidade','Item').annotate(total=Sum('Qtd'))
+        itens1 = Lancamento.objects.filter(Localidade=localidade).values('Equipe', 'Localidade','Item').annotate(total=Sum('Qtd'))
         for item in itens1:
             item['total'] = item['total']
 
@@ -132,11 +132,11 @@ def estoque_por_localidade(localidade=None):
                     sub = item1['total'] - item['total']
                     item['sub'] = sub
     else:
-        itens = Material.objects.values('Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
+        itens = Material.objects.values('Equipe', 'Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
         for item in itens:
             item['total'] = item['total'] - item['total_devolucao']
 
-        itens1 = Lancamento.objects.values('Localidade','Item').annotate(total=Sum('Qtd'))
+        itens1 = Lancamento.objects.values('Equipe','Localidade','Item').annotate(total=Sum('Qtd'))
 
         ult_data = Lancamento.objects.values( 'Item').annotate(ultima_data=Max('Data'))
 
@@ -689,6 +689,35 @@ def editar_p(request, id_pendencia):
 @ login_required
 def listagem(request):
     template_name = 'dados/Material/listagem.html'
+
+    geral, geral_data, geral1 = estoque_por_localidade(localidade="")
+    gerallf, geral_datalf, geral1lf = estoque_por_localidade(localidade="Lauro")
+    geralssa, geral_datassa, geral1ssa = estoque_por_localidade(localidade="Salvador")
+
+
+    context = {
+
+        'geral': geral,
+        'geral_data': geral_data,
+        'geral1': geral1,
+
+        'gerallf': gerallf,
+        'geral_datalf': geral_datalf,
+        'geral1lf': geral1lf,
+
+        'geralssa': geralssa,
+        'geral_datassa': geral_datassa,
+        'geral1ssa': geral1ssa,
+
+   
+    }
+
+    return render(request, template_name, context)
+
+
+@ login_required
+def geral_eqps(request):
+    template_name = 'dados/Material/geral_eqps.html'
 
     geral, geral_data, geral1 = estoque_por_localidade(localidade="")
     gerallf, geral_datalf, geral1lf = estoque_por_localidade(localidade="Lauro")

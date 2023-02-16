@@ -55,8 +55,9 @@ urlpatterns = [
     path('Material/exluir_material/<int:id_material>',                          views.excluir_m,       name='excluir_m'),
     path('index2/',  views.index2,         name='index2'),
     path('Material/listagem/',  views.listagem,         name='listagem'),
-    path('Material/lancamentos/',  views.lancamentos,         name='lancamentos'),
 
+    path('Material/lancamentos/',  views.lancamentos,         name='lancamentos'),
+    path('Material/geral_eqps/',  views.geral_eqps,         name='geral_eqps'),
 
 
 ]
