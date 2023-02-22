@@ -141,10 +141,12 @@ class MaterialBase(models.Model):
             leitor_csv = csv.DictReader(arquivo)
             for linha in leitor_csv:
                 if linha['Nome do Insumo'] == self.Item:
-                    self.quantidade_total += int(linha['Quantidade'])
-        
+                    self.quantidade_total = 1
+                    break
+
         # salvar a atualização do objeto no banco de dados
         self.save()
+
 
     # Referencia de nome la na view na parte ADM django
     def __str__(self):
