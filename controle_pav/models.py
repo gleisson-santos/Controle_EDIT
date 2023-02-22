@@ -4,6 +4,9 @@ from random import choices
 from django.db import models
 import pandas as pd
 from django.contrib.auth.models import User
+from datetime import datetime, timedelta
+from django.utils import timezone
+
 
 
 
@@ -121,12 +124,27 @@ class MaterialBase(models.Model):
 
 
     LOCALIDADE = (
-        ('Salvador', "Salvador"),
-        ('Lauro', "Lauro")
+        ("Salvador", "Salvador"),
+        ("Lauro", "Lauro")
     )
     Localidade = models.TextField(max_length=255, choices=LOCALIDADE)
     Observacao = models.CharField(max_length=255, blank=True)
     Devolucao = models.IntegerField(blank=True, null=True,  default=0)
+
+
+
+    quantidade_total = models.IntegerField(default=0)
+
+    def atualizar_quantidade_total(self):
+        # abrir o arquivo Teste.csv e ler as quantidades de cada material
+        with open("controle_pav/static/texto/Teste.csv", 'r') as arquivo:
+            leitor_csv = csv.DictReader(arquivo)
+            for linha in leitor_csv:
+                if linha['Nome do Insumo'] == self.Item:
+                    self.quantidade_total += int(linha['Quantidade'])
+        
+        # salvar a atualização do objeto no banco de dados
+        self.save()
 
     # Referencia de nome la na view na parte ADM django
     def __str__(self):
@@ -142,7 +160,6 @@ class Material(MaterialBase):
     class Meta:
         verbose_name = "Material"
         verbose_name_plural = "Materiais"
-
 
 class Esgoto(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
@@ -194,19 +211,28 @@ class Esgoto(models.Model):
 
     @property
     def atual3(self):
-        hoje = datetime.now().date()
-        data = self.Data
-        # abs vai me retornar um numero positivo independente da ordem
-        a = abs((hoje - data).days)
-        return a <= 2
+        data_limite = self.Data
+        if self.Servico == 'Consertos':
+            prazo = timezone.timedelta(days=3)
+        elif self.Servico == 'Vedacao' or'Desobstrucao':
+            prazo = timezone.timedelta(days=1)
+        else:
+            prazo = timezone.timedelta(days=2)
+        dias_restantes = abs((data_limite - timezone.now().date()).days)
+        if self.Servico == 'Vedacao' and dias_restantes <= 1:
+            return 
+        elif dias_restantes <= prazo.days:
+            return 
+        else:
+            return f' {dias_restantes - prazo.days}'
 
-    @property
-    def atual4(self):
-        hoje = datetime.now().date()
-        data = self.Data
-        # abs vai me retornar um numero positivo independente da ordem
-        a = abs((hoje - data).days)
-        return a
+    # @property
+    # def atual4(self):
+    #     hoje = datetime.now().date()
+    #     data = self.Data
+    #     # abs vai me retornar um numero positivo independente da ordem
+    #     a = abs((hoje - data).days)
+    #     return a
 
     # Referencia de nome la na view na parte ADM django
     def __str__(self):

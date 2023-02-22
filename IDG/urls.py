@@ -46,13 +46,13 @@ urlpatterns = [
 
 
     # path de Material
-    path('Material/material/',                                                      views.material, name='material'),
-    path('Material/inserir_material/',                                                views.inserir_material,   name='inserir_material'),
-    path('Material/inserir_material/<int:id_material>',                              views.editar_m,        name='editar_m'),
+    path('Material/material/',                                                          views.material, name='material'),
+    path('Material/inserir_material/',                                                   views.inserir_material,   name='inserir_material'),
+    path('Material/inserir_material/<int:id_material>',                                  views.editar_m,        name='editar_m'),
 
-    path('Material/editar_entrada/<int:id_lancamento>',                              views.editar_entrada,        name='editar_entrada'),
+    path('Material/editar_entrada/<int:id_lancamento>',                                 views.editar_entrada,        name='editar_entrada'),
     
-    path('Material/exluir_material/<int:id_material>',                          views.excluir_m,       name='excluir_m'),
+    path('Material/exluir_material/<int:id_material>',                                  views.excluir_m,       name='excluir_m'),
     path('index2/',  views.index2,         name='index2'),
     path('Material/listagem/',  views.listagem,         name='listagem'),
 

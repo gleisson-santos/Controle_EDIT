@@ -29,11 +29,11 @@
 
              <select id="days" name="days">
               <option value="">Filtrar Período</option>
-              <option value="7">Últimos 7 dias</option>
-              <option value="30">Últimos 30 dias</option>
-              <option value="60">Últimos 3 Meses</option>
-              <option value="90">Últimos 6 Meses</option>
-              <option value="365">Últimos 12 Meses</option>
+                <option value="7">Últimos 7 dias</option>
+                <option value="30">Últimos 30 dias</option>
+                <option value="60">Últimos 60 dias</option>
+                <option value="90">Últimos 90 dias</option>
+                <option value="120">Últimos 120 dias</option>
             </select>  
 
             <select id="execut" name="execut">
@@ -139,20 +139,17 @@
             <tr>
                 <th></th>
                 <th>Localidade</th>
-                
                 <th >Situação</th>
                 <th>Ss</th>
                 <th>Tipo</th>
                 <th>Solicitante</th>
                 <th>Data</th>
-                <th>Detalhes</th>
-
                 <th>Editar</th>
                 <th>Executado</th>
-                <th>Copiar</th>
+                {% comment %} <th>Copiar</th> {% endcomment %}
+
                 <th>Criou</th>
                 <th>Editou</th>
-                {% comment %} <th>Excluir</th> {% endcomment %}
             </tr>
         </thead>
         
@@ -163,8 +160,6 @@
                     <tr>   
                         <td></td>
                         <td>{{dado.Localidade}} </td>
-                        <td>{{dado.created_by}}</td> 
-                        <td>{{dado.last_edited_by}}</td>
                          <td>
                             {% if dado.Medir == 'Medir' %}  
                             <h2 style="color: Green;">P/ Medir</h2>
@@ -178,8 +173,6 @@
                         <td>{{dado.Tipo}}</td>
                         <td>{{dado.Solicitante|lower|capfirst}}</td>
                         <td>{{dado.Data|date:"d/m/Y"}}</td>
-                        {% comment %} <td>{{dado.Detalhes|lower|capfirst}}</td> {% endcomment %}
-
                         <td>
                             <a href="{% url 'editar_p' dado.id %}">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -197,7 +190,7 @@
                         {% endif %}
 
                         <!--  Filtro Copiar informaçoes da tabela--> 
-                        {% if dado.Copiar %}
+                        {% comment %} {% if dado.Copiar %}
                             <td></td>
                             {% else %}
                             <td>
@@ -216,13 +209,10 @@
                     
                                 });
                             </script>
-                        {% endif %}
+                        {% endif %} {% endcomment %}
+                        <td>{{dado.created_by}}</td> 
+                        <td>{{dado.last_edited_by}}</td>
                                           
-                        {% comment %} <td>
-                            <a href="{% url 'excluir_p' dado.id %}">
-                            <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
-                        </td> 
-                      {% endcomment %}
                     </tr> 
                 {% endfor %}
                 <!-- Query para o Grupo de Salvador -->
@@ -231,8 +221,6 @@
                     <tr>   
                         <td></td>
                         <td>{{dado.Localidade}}</td>
-                        <td>{{dado.created_by}}</td>
-                        <td>{{dado.last_edited_by}}</td>
                         <td>
                             {% if dado.Medir == 'Medir' %}  
                             <h2 style="color: Green;">P/ Medir</h2>
@@ -246,7 +234,6 @@
                         <td>{{dado.Tipo}}</td>
                         <td>{{dado.Solicitante|lower|capfirst}}</td>
                         <td>{{dado.Data|date:"d/m/Y"}}</td>
-                        {% comment %} <td>{{dado.Detalhes|lower|capfirst}}</td> {% endcomment %}
 
                         <td>
                             <a href="{% url 'editar_p' dado.id %}">
@@ -265,7 +252,7 @@
                         {% endif %}
 
                         <!--  Filtro Copiar informaçoes da tabela--> 
-                        {% if dado.Copiar %}
+                        {% comment %} {% if dado.Copiar %}
                             <td></td>
                             {% else %}
                             <td>
@@ -284,13 +271,9 @@
                     
                                 });
                             </script>
-                        {% endif %}
-                        {% comment %}                     
-                            <td>
-                                <a href="{% url 'excluir_p' dado.id %}">
-                                <img src="https://img.icons8.com/dusk/64/000000/delete-forever.png"  height="25" width="25" /></a> 
-                            </td> 
-                        {% endcomment %}
+                        {% endif %} {% endcomment %}
+                        <td>{{dado.created_by}}</td>
+                        <td>{{dado.last_edited_by}}</td>
                     </tr> 
                 {% endfor %}
                 <!-- Query para o Grupo ADM GERAL -->
@@ -312,8 +295,7 @@
                         <td>{{dado.Tipo}}</td>
                         <td>{{dado.Solicitante|lower|capfirst}}</td>
                         <td>{{dado.Data|date:"d/m/Y"}}</td>
-                        <td>{{dado.Detalhes|lower|capfirst}}</td>
-
+        
                         <td>
                             <a href="{% url 'editar_p' dado.id %}">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -330,7 +312,7 @@
                         <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label></td>
                         {% endif %}
 
-                        <!--  Filtro Copiar informaçoes da tabela--> 
+                        {% comment %} <!--  Filtro Copiar informaçoes da tabela--> 
                         {% if dado.Copiar %}
                             <td></td>
                             {% else %}
@@ -350,7 +332,7 @@
                     
                                 });
                             </script>
-                        {% endif %}
+                        {% endif %} {% endcomment %}
                         <td>{{dado.created_by}}</td>
                         <td>{{dado.last_edited_by}}</td>
                                          

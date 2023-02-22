@@ -31,11 +31,11 @@
                
             <select id="days" name="days">
               <option value="">Filtrar Período</option>
-               <option value="7">Últimos 7 dias</option>
+              <option value="7">Últimos 7 dias</option>
               <option value="30">Últimos 30 dias</option>
-              <option value="60">Últimos 3 Meses</option>
-              <option value="90">Últimos 6 Meses</option>
-              <option value="365">Últimos 12 Meses</option>
+              <option value="60">Últimos 60 dias</option>
+              <option value="90">Últimos 90 dias</option>
+              <option value="120">Últimos 120 dias</option>
             </select>  
 
             <select id="serv" name="serv">
@@ -220,10 +220,9 @@
         <tbody>
             {% if user.groups.all.0.name == "Lauro" %}
                 {% for dado in localidade_l.qs %}
-                      <tr>
+                  <tr>
                     <td></td>
                     <td>{{dado.Localidade}}</td>
-
                     <td>
                     {% if dado.Medir == 'Medir' %}
                         <h2 style="color: Green" >P/ Medir</h2>
@@ -276,9 +275,9 @@
                     {% endif %}
                   
                     <td>
-                        <a href="{% url 'editar' dado.id %}">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
+                      <a href="{% url 'editar' dado.id %}">
+                          <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </a>
                     </td>
 
                     <!--  Filtro checked-->

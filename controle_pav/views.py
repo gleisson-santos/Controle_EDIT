@@ -151,42 +151,31 @@ def estoque_por_localidade(localidade=None):
 
 
 
-
-
-
 # PÁGINA PRINCIPAL Material
 @login_required
 def index2(request):
     template_name = ('dados/index2.html')
 
-    # Lancamento Saide de Material
     if request.method == 'POST':
+        lancamento_form = Lancamentoform(request.POST)
         saida_form = Materialform(request.POST)
-        if request.POST['saida'] == 'Saida1':
+
+        if request.POST.get('entrada') == 'Entrada1':
+            if lancamento_form.is_valid():
+                instance = lancamento_form.save(commit=False)
+                instance.created_by = request.user
+                instance.save()
+                return redirect('index2')
+        elif request.POST.get('saida') == 'Saida1':
             if saida_form.is_valid():
                 instance = saida_form.save(commit=False)
                 instance.created_by = request.user
                 instance.save()
                 return redirect('index2')
-            else:
-                print(saida_form.errors)
     else:
-        saida_form = Materialform()
-
-
-    # Lancamento Entarda de Mateiral
-    if request.method == 'POST':
-        lancamento_form = Lancamentoform(request.POST)
-        if request.POST['entrada'] == 'Entrada1':
-            if lancamento_form.is_valid():
-                instance = lancamento_form.save(commit=False)
-                instance.created_by = request.user
-                instance.save()
-            return redirect('index2')
-    else:
-        print("cuuuuuuuuuuuuuuuuuu")
         lancamento_form = Lancamentoform()
-
+        saida_form = Materialform()
+ 
 
     geral, geral_data, geral1 = estoque_por_localidade(localidade="")
     gerallf, geral_datalf, geral1lf = estoque_por_localidade(localidade="Lauro")
@@ -205,10 +194,8 @@ def index2(request):
         'geral_datassa': geral_datassa,
         'geral1ssa': geral1ssa,
 
-    
-
-        'lancamento_form': lancamento_form,
         'saida_form': saida_form,
+        'lancamento_form': lancamento_form,
 
     }
 
@@ -219,46 +206,32 @@ def index2(request):
 def index(request):
     template_name = ('dados/index.html')
 
-    # Cadastro Pendencias
     if request.method == 'POST':
         pendencia_form = Pendenciasform(request.POST)
-        if request.POST['gravar'] == 'Pendencia':
+        esgoto1_form = Esgotoform(request.POST)
+        pavimento2_form = Pavimentoform(request.POST)
+
+        if request.POST.get('gravar') == 'Pendencia':
             if pendencia_form.is_valid():
                 instance = pendencia_form.save(commit=False)
                 instance.created_by = request.user
                 instance.save()
                 return redirect('index')
-            else:
-                print(form.errors)
-    else:
-        pendencia_form = Pendenciasform()
-
-    # Cadastro Esgoto
-    if request.method == 'POST':
-        esgoto1_form = Esgotoform(request.POST)
-        if request.POST['gravar'] == 'Esgoto1':
+        elif request.POST.get('gravar') == 'Esgoto1':
             if esgoto1_form.is_valid():
                 instance = esgoto1_form.save(commit=False)
                 instance.created_by = request.user
                 instance.save()
                 return redirect('index')
-            else:
-                print(form.errors)
-    else:
-        esgoto1_form = Esgotoform()
-
-    # Cadastro Pavimento
-    if request.method == 'POST':
-        pavimento2_form = Pavimentoform(request.POST)
-        if request.POST['gravar'] == 'Pav1':
+        elif request.POST.get('gravar') == 'Pav1':
             if pavimento2_form.is_valid():
                 instance = pavimento2_form.save(commit=False)
                 instance.created_by = request.user
                 instance.save()
                 return redirect('index')
-            else:
-                print(form.errors)
     else:
+        pendencia_form = Pendenciasform()
+        esgoto1_form = Esgotoform()
         pavimento2_form = Pavimentoform()
   
 
@@ -375,8 +348,6 @@ def index(request):
 def pavimentos(request):
     template_name = 'dados/Pavimentos/pavimentos.html'
 
-
-
     # Cadastro Pavimento
     if request.method == 'POST':
         pavimento22_form = Pavimentoform(request.POST)
@@ -391,8 +362,8 @@ def pavimentos(request):
     #Filtros para tabela de Pavimento
     dados = filter_pavimento(request, Pavimento, PavimentoFilter, localidade='')
     dados2 = filter_pavimento(request,  Pavimento, PavimentoFilter, localidade='')
-    filterlauro  = filter_pavimento(request,  Pavimento, PavimentoFilter, localidade='Salvador')
-    filtersalvador  = filter_pavimento(request, Pavimento, PavimentoFilter, localidade='Lauro')
+    filterlauro  = filter_pavimento(request,  Pavimento, PavimentoFilter, localidade='Lauro')
+    filtersalvador  = filter_pavimento(request, Pavimento, PavimentoFilter, localidade='Salvador')
     days  = filter_pavimento(request,  Pavimento, PavimentoFilter, localidade='')
 
     #Encart Pavimento
@@ -694,7 +665,6 @@ def listagem(request):
     gerallf, geral_datalf, geral1lf = estoque_por_localidade(localidade="Lauro")
     geralssa, geral_datassa, geral1ssa = estoque_por_localidade(localidade="Salvador")
 
-
     context = {
 
         'geral': geral,
@@ -763,8 +733,8 @@ def material(request):
     #Filtros para tabela de Pavimento
     dados = filter_pavimento(request, Material, MaterialFilter, localidade='')
     dados2 = filter_pavimento(request,  Material, MaterialFilter, localidade='')
-    filterlauro  = filter_pavimento(request,  Material, MaterialFilter, localidade='Salvador')
-    filtersalvador  = filter_pavimento(request, Material, MaterialFilter, localidade='Lauro')
+    filterlauro  = filter_pavimento(request,  Material, MaterialFilter, localidade='Lauro')
+    filtersalvador  = filter_pavimento(request, Material, MaterialFilter, localidade='Salvador')
     days  = filter_pavimento(request,  Material, MaterialFilter, localidade='')
 
     #Encart Pavimento
@@ -875,8 +845,8 @@ def lancamentos(request):
     #Filtros para tabela de Pavimento
     dados = filter_pavimento(request, Lancamento, LancamentoFilter, localidade='')
 
-    filterlauro  = filter_pavimento(request,  Lancamento, LancamentoFilter, localidade='Salvador')
-    filtersalvador  = filter_pavimento(request, Lancamento, LancamentoFilter, localidade='Lauro')
+    filterlauro  = filter_pavimento(request,  Lancamento, LancamentoFilter, localidade='Lauro')
+    filtersalvador  = filter_pavimento(request, Lancamento, LancamentoFilter, localidade='Salvador')
     days  = filter_pavimento(request,  Lancamento, LancamentoFilter, localidade='')
 
  
@@ -885,8 +855,7 @@ def lancamentos(request):
         'days': days,
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
-    
-   
+       
         'pavimento9': lancamento_form,
     }
 
