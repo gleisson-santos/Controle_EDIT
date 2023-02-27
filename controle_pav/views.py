@@ -112,7 +112,6 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     return filters
 
 
-
 # Quantidade em Estoque view Principal
 def estoque_por_localidade(localidade=None):
     if localidade:
@@ -147,7 +146,6 @@ def estoque_por_localidade(localidade=None):
                     item['sub'] = sub
 
     return itens, ult_data, itens1
-
 
 
 

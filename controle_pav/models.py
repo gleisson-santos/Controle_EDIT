@@ -26,6 +26,7 @@ def Material():
 
    
 
+
 # modelos que irão representar uma tabela no banco de dados
 class Pavimento(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
@@ -130,22 +131,6 @@ class MaterialBase(models.Model):
     Localidade = models.TextField(max_length=255, choices=LOCALIDADE)
     Observacao = models.CharField(max_length=255, blank=True)
     Devolucao = models.IntegerField(blank=True, null=True,  default=0)
-
-
-
-    quantidade_total = models.IntegerField(default=0)
-
-    def atualizar_quantidade_total(self):
-        # abrir o arquivo Teste.csv e ler as quantidades de cada material
-        with open("controle_pav/static/texto/Teste.csv", 'r') as arquivo:
-            leitor_csv = csv.DictReader(arquivo)
-            for linha in leitor_csv:
-                if linha['Nome do Insumo'] == self.Item:
-                    self.quantidade_total = 1
-                    break
-
-        # salvar a atualização do objeto no banco de dados
-        self.save()
 
 
     # Referencia de nome la na view na parte ADM django

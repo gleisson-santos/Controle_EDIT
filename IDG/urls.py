@@ -59,5 +59,4 @@ urlpatterns = [
     path('Material/lancamentos/',  views.lancamentos,         name='lancamentos'),
     path('Material/geral_eqps/',  views.geral_eqps,         name='geral_eqps'),
 
-
 ]
