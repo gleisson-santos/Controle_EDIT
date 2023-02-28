@@ -1,8 +1,6 @@
 from unicodedata import name
-
 from django.contrib import admin
 from django.urls import include, path
-
 from accounts import views
 from controle_pav import views
 

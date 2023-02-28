@@ -1,6 +1,6 @@
 from ast import Return
 from multiprocessing import context
-import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from django.db.models import Sum, Max
-
+import datetime
 
 #Chamadas para encarts
 def encart(localidade, b):
@@ -112,8 +112,6 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     return filters
 
 
-
-
 # Quantidade em Estoque view Principal
 def estoque_por_localidade(localidade=None):
     if localidade:
@@ -201,6 +199,8 @@ def index2(request):
 
     return render(request, template_name, context)
 
+
+
 # PÁGINA PRINCIPAL
 @login_required
 def index(request):
@@ -216,19 +216,19 @@ def index(request):
                 instance = pendencia_form.save(commit=False)
                 instance.created_by = request.user
                 instance.save()
-                return redirect('index')
+                pendencia_form = Pendenciasform()
         elif request.POST.get('gravar') == 'Esgoto1':
             if esgoto1_form.is_valid():
                 instance = esgoto1_form.save(commit=False)
                 instance.created_by = request.user
                 instance.save()
-                return redirect('index')
+                esgoto1_form = Esgotoform()
         elif request.POST.get('gravar') == 'Pav1':
             if pavimento2_form.is_valid():
                 instance = pavimento2_form.save(commit=False)
                 instance.created_by = request.user
                 instance.save()
-                return redirect('index')
+                pavimento2_form = Pavimentoform()
     else:
         pendencia_form = Pendenciasform()
         esgoto1_form = Esgotoform()
