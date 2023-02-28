@@ -24,3 +24,4 @@ typing_extensions==4.3.0
 tzdata==2022.2
 whitenoise==6.2.0
 fontawesomefree==6.2.0
+pandas==1.5.3
