@@ -15,25 +15,25 @@
         <form method="get"  >
      
             {% csrf_token %}
-            <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#cadpavimento">
+            <button  type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#cadpavimento">
                 <i class="fa fa-plus" aria-hidden="true"></i>Lançar Entrada
             </button> 
             
             <div class="form-inline col-md-1 mb-0">
-                ⠀<button type="submit" class="btn btn-primary mb-2">Filtrar</button>
+              ⠀<button id='filterButton' type="submit" class="btn btn-primary mb-2">Filtrar</button>
             </div>
-            
-            <select id="days" name="days" autofocus>
-              <option value="">Filtrar Período</option>
-              <option value="7">Últimos 7 dias</option>
-              <option value="30">Últimos 30 dias</option>
-              <option value="60">Últimos 60 dias</option>
-              <option value="90">Últimos 90 dias</option>
-              <option value="120">Últimos 120 dias</option>
-            </select>  
 
+          <select id="days" name="days">
+            <option value="">Filtrar Período</option>
+            <option value="7">Últimos 7 dias</option>
+            <option value="30">Últimos 30 dias</option>
+            <option value="60">Últimos 60 dias</option>
+            <option value="90">Últimos 90 dias</option>
+            <option value="120">Últimos 120 dias</option>
+          </select>
+        
           
-            <select id="material" name="material">
+            <select id="material" name="material" >
               <option value="">Filtrar Material</option>
               <option value="all">All</option>
               <optgroup label="Adaptadores">

@@ -364,7 +364,11 @@
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text" >Material</span>
-                                {% render_field pavimento9.Item  class="form-control" %}     
+                                {% render_field pavimento9.Item  class="form-control" %}
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" >Insumados</span>
+                                {% render_field pavimento9.Insumados  class="form-control" %} 
                             </div>
 
                             <div class="input-group mb-3">
@@ -414,6 +418,7 @@
                 <th>Qtd</th>
                 <th>Serviço</th>
                 <th>Devolução</th>
+                <th>Insumados</th>
                 <th>Obs</th>
                 <th>Editar</th>
                 <th>Inserido</th>
@@ -482,6 +487,7 @@
                     <td>{{dado.Qtd}}</td>
                     <td>{{dado.Servico|lower|capfirst}}</td>
                     <td>{{dado.Devolucao|lower|capfirst}}</td>
+                    <td>{{dado.Insumados|lower|capfirst}}</td>
                     <td>{{dado.Observacao|lower|capfirst}}</td>
                     <td>
                       <a href="{% url 'editar_m' dado.id %}">

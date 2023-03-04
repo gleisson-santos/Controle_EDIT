@@ -14,6 +14,8 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from django.db.models import Sum, Max
+
+from django.db.models import Q
 import datetime
 
 #Chamadas para encarts
@@ -113,39 +115,68 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
 
 
 # Quantidade em Estoque view Principal
+# def estoque_por_localidade(localidade=None):
+#     if localidade:
+#         #itens = Material.objects.filter(Localidade=localidade).values('Equipe','Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
+#         itens = Material.objects.filter(Localidade=localidade).values('Insumados', 'Equipe','Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'), total_insumados=Sum('Insumados'))
+
+#         for item in itens:
+#             item['total'] = item['total'] - item['total_devolucao']
+#             item['total_insumados'] = item['total_insumados']
+
+#         itens1 = Lancamento.objects.filter(Localidade=localidade).values('Equipe', 'Localidade','Item').annotate(total=Sum('Qtd'))
+#         for item in itens1:
+#             item['total'] = item['total']
+
+#         ult_data = Lancamento.objects.filter(Localidade=localidade).values( 'Item').annotate(ultima_data=Max('Data'))
+
+#         for item in itens:
+#             for item1 in itens1:
+#                 if item['Item'] == item1['Item']:
+#                     sub = item1['total'] - item['total']
+#                     item['sub'] = sub
+
+#     else:
+#         itens = Material.objects.values('Insumados', 'Equipe', 'Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
+
+#         for item in itens:
+#             item['total'] = item['total'] - item['total_devolucao']
+
+#         itens1 = Lancamento.objects.values('Equipe','Localidade','Item').annotate(total=Sum('Qtd'))
+
+#         ult_data = Lancamento.objects.values( 'Item').annotate(ultima_data=Max('Data'))
+
+#         for item in itens:
+#             for item1 in itens1:
+#                 if item['Item'] == item1['Item']:
+#                     sub = item1['total'] - item['total']
+#                     item['sub'] = sub
+
+#     return itens, ult_data, itens1
+
+
+
+
+
 def estoque_por_localidade(localidade=None):
+    filtros = Q()
     if localidade:
-        itens = Material.objects.filter(Localidade=localidade).values('Equipe','Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
-        for item in itens:
-            item['total'] = item['total'] - item['total_devolucao']
+        filtros &= Q(Localidade=localidade)
+        
+    itens = Material.objects.filter(filtros).values('Equipe', 'Localidade', 'Item').annotate(total=Sum('Qtd') - Sum('Devolucao'), total_insumados=Sum('Insumados'), resumo_insumos=Sum('Qtd') - Sum('Insumados') - Sum('Devolucao'))
 
-        itens1 = Lancamento.objects.filter(Localidade=localidade).values('Equipe', 'Localidade','Item').annotate(total=Sum('Qtd'))
-        for item in itens1:
-            item['total'] = item['total']
+    itens1 = Lancamento.objects.filter(filtros).values('Equipe', 'Localidade', 'Item').annotate(total=Sum('Qtd'))
 
-        ult_data = Lancamento.objects.filter(Localidade=localidade).values( 'Item').annotate(ultima_data=Max('Data'))
+    ult_data = Lancamento.objects.filter(filtros).values('Item').annotate(ultima_data=Max('Data'))
 
-        for item in itens:
-            for item1 in itens1:
-                if item['Item'] == item1['Item']:
-                    sub = item1['total'] - item['total']
-                    item['sub'] = sub
-    else:
-        itens = Material.objects.values('Equipe', 'Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
-        for item in itens:
-            item['total'] = item['total'] - item['total_devolucao']
-
-        itens1 = Lancamento.objects.values('Equipe','Localidade','Item').annotate(total=Sum('Qtd'))
-
-        ult_data = Lancamento.objects.values( 'Item').annotate(ultima_data=Max('Data'))
-
-        for item in itens:
-            for item1 in itens1:
-                if item['Item'] == item1['Item']:
-                    sub = item1['total'] - item['total']
-                    item['sub'] = sub
+    for item in itens:
+        for item1 in itens1:
+            if item['Item'] == item1['Item']:
+                sub = item1['total'] - item['total']
+                item['sub'] = sub
 
     return itens, ult_data, itens1
+
 
 
 

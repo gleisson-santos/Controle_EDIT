@@ -131,6 +131,7 @@ class MaterialBase(models.Model):
     Localidade = models.TextField(max_length=255, choices=LOCALIDADE)
     Observacao = models.CharField(max_length=255, blank=True)
     Devolucao = models.IntegerField(blank=True, null=True,  default=0)
+    Insumados = models.IntegerField(blank=True, null=True,  default=0)
 
 
     # Referencia de nome la na view na parte ADM django

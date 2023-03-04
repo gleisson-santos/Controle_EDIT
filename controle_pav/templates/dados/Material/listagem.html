@@ -6,7 +6,7 @@
 
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-<h1>Controle Geral</h1>   
+<h1>Resumo de Material</h1>   
 
 <div class='container-fluid'>
     
@@ -42,6 +42,7 @@
               <option value="90">Últimos 90 dias</option>
               <option value="120">Últimos 120 dias</option>
             </select>  
+
 
             <select id="material" name="material">
               <option value="">Filtrar Material</option>
@@ -413,10 +414,11 @@
                 <th></th>
                 <th>Localidade</t>
                 <th>Material</t>
-                <th>Qtd Saida</th>
                 <th>Qtd Entrada</th>
+                <th>Qtd Saida</th>
                 <th>Em Estoque</th>
                 <th>Insumados</th>
+                <th>Saida/Insumos</th>
             </tr>
         </thead>
 
@@ -486,17 +488,17 @@
                   <td></td>
                   <td>{{ item.Localidade }}</td> 
                   <td>{{ item.Item|lower|capfirst }}</td>                
-                  <td>{{ item.total }}</td>  
                   
                   
                   <td>
                     {% for item1 in geral1 %}
-                      {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
-                        {{ item1.total}}
-                      {% endif %}
+                    {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
+                    {{ item1.total}}
+                    {% endif %}
                     {% endfor %}
                   </td>
                   
+                  <td>{{ item.total }}</td>  
                   
                   <td>
                     {% for item1 in geral1 %}
@@ -506,7 +508,9 @@
                     {% endfor %}
                   </td>
 
-                  <td></td>         
+ 
+                  <td>{{ item.total_insumados }}</td>  
+                  <td>{{ item.resumo_insumos }}</td>  
                 </tr>   
                 
               {% endfor %}   
