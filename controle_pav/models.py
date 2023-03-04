@@ -68,6 +68,8 @@ class Pavimento(models.Model):
         ('Salvador', "Salvador"),
         ('Lauro', "Lauro")
     )
+
+
     Localidade = models.TextField(max_length=255, choices=LOCALIDADE, db_index=True)
 
     MEDIR = (

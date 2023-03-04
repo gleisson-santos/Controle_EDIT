@@ -26,9 +26,7 @@
                   class="btn btn-outline-success btn-sm">
                   <i class="fa fa-list-alt" aria-hidden="true"></i>
                   Geral Equipes
-                </a>
-                
-                         
+                </a>     
 
             <div class="form-inline col-md-1 mb-0">
                 ⠀<button type="submit" class="btn btn-primary mb-2">Filtrar</button>
@@ -430,15 +428,15 @@
                     <th></th>
                     <td>{{ item.Localidade }}</td> 
                     <td>{{ item.Item|lower|capfirst }}</td>                
-                    <td>{{ item.total }}</td>  
                     
                     <td>
                       {% for item1 in geral1lf %}
-                        {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
-                          {{ item1.total}}
-                        {% endif %}
+                      {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
+                      {{ item1.total}}
+                      {% endif %}
                       {% endfor %}
                     </td>
+                    <td>{{ item.total }}</td>  
 
                     <td>
                       {% for item1 in geral1lf %}
@@ -447,7 +445,8 @@
                         {% endif %}
                       {% endfor %}
                     </td>
-                    <td></td> 
+                     <td>{{ item.total_insumados }}</td>  
+                    <td>{{ item.resumo_insumos }}</td>  
 
                   </tr>   
                 {% endfor %}   
@@ -459,15 +458,15 @@
                     <td></td>
                     <td>{{ item.Localidade }}</td> 
                     <td>{{ item.Item|lower|capfirst }}</td>                
-                    <td>{{ item.total }}</td>  
-
+                    
                     <td>
                       {% for item1 in geral1ssa %}
-                        {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
-                          {{ item1.total}}
-                        {% endif %}
+                      {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
+                      {{ item1.total}}
+                      {% endif %}
                       {% endfor %}
                     </td>
+                    <td>{{ item.total }}</td>  
 
                     <td>
                       {% for item1 in geral1ssa %}
@@ -476,7 +475,9 @@
                         {% endif %}
                       {% endfor %}
                     </td>
-                    <td></td> 
+
+                    <td>{{ item.total_insumados }}</td>  
+                    <td>{{ item.resumo_insumos }}</td>  
 
                   </tr>                      
                 {% endfor %}   
@@ -508,7 +509,6 @@
                     {% endfor %}
                   </td>
 
- 
                   <td>{{ item.total_insumados }}</td>  
                   <td>{{ item.resumo_insumos }}</td>  
                 </tr>   

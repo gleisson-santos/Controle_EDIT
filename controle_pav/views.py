@@ -156,8 +156,6 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
 
 
 
-
-
 def estoque_por_localidade(localidade=None):
     filtros = Q()
     if localidade:
