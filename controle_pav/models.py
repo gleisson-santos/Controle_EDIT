@@ -8,14 +8,32 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 
 
-
-
-
-def Equipe():
-    with open("controle_pav/static/texto/equipes.csv", 'r') as arquivo:
+def Equipe700():
+    with open("controle_pav/static/texto/Equipes-700.csv", 'r') as arquivo:
         equipes = arquivo.read().splitlines()
-        EQUIPE = [(equipe, equipe) for equipe in equipes]
-    return EQUIPE
+        EQUIPE700 = [(equipe, equipe) for equipe in equipes]
+    return EQUIPE700
+
+
+def Equipe900():
+    with open("controle_pav/static/texto/Equipes-900.csv", 'r') as arquivo:
+        equipes = arquivo.read().splitlines()
+        EQUIPE900 = [(equipe, equipe) for equipe in equipes]
+    return EQUIPE900
+
+
+def Bairro700():
+    with open("controle_pav/static/texto/Bairros-700.csv", 'r') as arquivo:
+        bairros = arquivo.read().splitlines()
+        BAIRRO700 = [(bairro, bairro) for bairro in bairros]
+    return BAIRRO700
+
+
+def Bairro900():
+    with open("controle_pav/static/texto/Bairros-900.csv", 'r') as arquivo:
+        bairros = arquivo.read().splitlines()
+        BAIRRO900 = [(bairro, bairro) for bairro in bairros]
+    return BAIRRO900
 
 
 def Material():
@@ -37,10 +55,12 @@ class Pavimento(models.Model):
     Prazo = models.BooleanField(default=False)
          
 
-    Equipe = models.CharField(max_length=255, choices=Equipe())
+    Equipe = models.CharField(max_length=255, blank=True)
     
     BAIRRO = [ ('Ipitanga', 'Ipitanga'), ('Vilas Atlântico', 'Vilas Atlântico'), ('Caji', 'Caji'), ('Areia Branca', 'Areia Branca'), ('Portao', 'Portão'), ('Vila Praiana', 'Vila Praiana'), ('Aracui', 'Aracui'), ('Jockey Clube', 'Jockey Clube'), ('Pitangueiras', 'Pitangueiras'), ('Centro', 'Centro'), ('Buraquinho', 'Buraquinho'), ('Castanheiras', 'Castanheiras'), ('Itinga', 'Itinga'), ('São Cristóvão', 'São Cristóvão'), ('Cassange', 'Cassange'), ('Est do Coco', 'Est do Coco'), ('Jd Aeroporto', 'Jd Aeroporto'), ('Pa do Flamengo', 'Pa do Flamengo'), ('Jambeiro', 'Jambeiro'), ('Capelao SSA', 'Capelão SSA'), ('Lot Miragem', 'Lot Miragem'), ('Jd Margaridas', 'Jd Margaridas'), ('Itinga SSA', 'Itinga SSA'), ('Ipitanga SSA', 'Ipitanga SSA'), ('Areia Branc SSA', 'Areia Branc SSA'), ]
-    Bairro = models.CharField(max_length=255, choices=BAIRRO)
+    
+    Bairro700 = models.CharField(max_length=255, choices=Bairro700(),  blank=True)
+    Bairro900 = models.CharField(max_length=255, choices=Bairro900(),  blank=True)
     Rua = models.CharField(max_length=255)
     Referencia = models.CharField(max_length=255)
 
@@ -70,6 +90,7 @@ class Pavimento(models.Model):
     )
 
 
+    Localidade = models.TextField(max_length=255, choices=LOCALIDADE, db_index=True)
     Localidade = models.TextField(max_length=255, choices=LOCALIDADE, db_index=True)
 
     MEDIR = (
@@ -104,7 +125,7 @@ class MaterialBase(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
     last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
      
-    Equipe = models.CharField(max_length=255, choices=Equipe(), blank=True)
+    Equipe = models.CharField(max_length=255, choices=Bairro700(), blank=True)
     Data = models.DateField('data', null=True, blank=True)
     Item = models.CharField(max_length=800, choices=Material())
     N_reserva = models.IntegerField(blank=True, null=True)
@@ -158,12 +179,12 @@ class Esgoto(models.Model):
 
     Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
-    Equipe = models.CharField(max_length=255, choices=Equipe())
+    Equipe = models.CharField(max_length=255, choices=Equipe700())
 
     BAIRRO = [ ('Ipitanga', 'Ipitanga'), ('Vilas Atlântico', 'Vilas Atlântico'), ('Caji', 'Caji'), ('Areia Branca', 'Areia Branca'), ('Portao', 'Portão'), ('Vila Praiana', 'Vila Praiana'), ('Aracui', 'Aracui'), ('Jockey Clube', 'Jockey Clube'), ('Pitangueiras', 'Pitangueiras'), ('Centro', 'Centro'), ('Buraquinho', 'Buraquinho'), ('Castanheiras', 'Castanheiras'), ('Itinga', 'Itinga'), ('São Cristóvão', 'São Cristóvão'), ('Cassange', 'Cassange'), ('"Est do Coco', 'Est do Coco'), ('Jd Aeroporto', 'Jd Aeroporto'), ('Pa do Flamengo', 'Pa do Flamengo'), ('Jambeiro', 'Jambeiro'), ('Capelao SSA', 'Capelão SSA'), ('Lot Miragem', 'Lot Miragem'), ('Jd Margaridas', 'Jd Margaridas'), ('Itinga SSA', 'Itinga SSA'), ('Ipitanga SSA', 'Ipitanga SSA'), ('Areia Branc SSA', 'Areia Branc SSA'), ]
 
 
-    Bairro = models.CharField(max_length=255, choices=BAIRRO)
+    Bairro = models.CharField(max_length=255, choices=Bairro700())
     Rua = models.CharField(max_length=255)
     Referencia = models.CharField(max_length=255)
 

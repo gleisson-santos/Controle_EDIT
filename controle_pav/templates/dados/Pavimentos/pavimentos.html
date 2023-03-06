@@ -57,31 +57,41 @@
             <select id="bairro" name="bairro">
               <option value="">Filtrar Bairro</option>
               <option value="all">All</option>
-                <option value="Ipitanga">Ipitanga</option>
-                <option value="Vilas Atlântico">Vilas Atlântico</option>
-                <option value="Caji">Caji</option>
-                <option value="Areia Branca">Areia Branca</option>
-                <option value="Portao">Portão</option>
-                <option value="Vila Praiana">Vila Praiana</option>
-                <option value="Aracui">Aracui</option>
-                <option value="Jockey Clube">Jockey Clube</option>
-                <option value="Pitangueiras">Pitangueiras</option>
-                <option value="Centro">Centro</option>
-                <option value="Buraquinho">Buraquinho</option>
-                <option value="Castanheiras">Castanheiras</option>
-                <option value="Itinga">Itinga</option>
-                <option value="São Cristóvão">São Cristóvão</option>
-                <option value="Cassange">Cassange</option>
-                <option value="Est do Coco">Est do Coco</option>
-                <option value="Jd Aeroporto">Jd Aeroporto</option>
-                <option value="Pa do Flamengo">Pa do Flamengo</option>
-                <option value="Jambeiro">Jambeiro</option>
-                <option value="Capelao">Capelão SSA</option>
-                <option value="Lot Miragem">Lot Miragem</option>
-                <option value="Jd Margaridas">Jd Margaridas</option>
-                <option value="Itinga SSA">Itinga SSA</option>
-                <option value="Ipitanga SSA">Ipitanga SSA</option>
-                <option value="Areia Branc SSA">Areia Branc SSA</option>
+                <option value="1 - Ipitinga">1 - Ipitinga</option>
+                  <option value="2 - Vilas Atlantico">2 - Vilas Atlantico</option>
+                  <option value="3 - Caji">3 - Caji</option>
+                  <option value="4 - Areia Branca">4 - Areia Branca</option>
+                  <option value="5 - Portao">5 - Portao</option>
+                  <option value="6 - Vila Praiana">6 - Vila Praiana</option>
+                  <option value="7 - Aracui">7 - Aracui</option>
+                  <option value="8 - Jockey Clube">8 - Jockey Clube</option>
+                  <option value="9 - Pitangueiras">9 - Pitangueiras</option>
+                  <option value="10 - Centro">10 - Centro</option>
+                  <option value="11 - Buraquinho">11 - Buraquinho</option>
+                  <option value="13 - Itinga">13 - Itinga</option>
+                  <option value="14 - Sao Cristovao">14 - Sao Cristovao</option>
+                  <option value="15 - Cassange">15 - Cassange</option>
+                  <option value="16 - Est do Coco">16 - Est do Coco</option>
+                  <option value="17 - Jd Aeroporto">17 - Jd Aeroporto</option>
+                  <option value="18 - Pa do Flamengo">18 - Pa do Flamengo</option>
+                  <option value="19 - Jambeiro">19 - Jambeiro</option>
+                  <option value="20 - Capelao SSA">20 - Capelao SSA</option>
+                  <option value="21 - Lote Miragem">21 - Lote Miragem</option>
+                  <option value="23 - Itinga SSA">23 - Itinga SSA</option>
+                  <option value="24 - Ipitinga SSA">24 - Ipitinga SSA</option>
+                  <option value="25 - Areia Branca SSA">25 - Areia Branca SSA</option>
+                  <option value="26 - Cassange SSA">26 - Cassange SSA</option>
+                  <option value="27 - Stella Maris SSA">27 - Stella Maris SSA</option>
+                  <option value="28 - Aeroporto">28 - Aeroporto</option>
+                  <option value="29 - Jd Castelao">29 - Jd Castelao</option>
+                  <option value="31 - Quingoma">31 - Quingoma</option>
+                  <option value="33 - Jd dos Passaros">33 - Jd dos Passaros</option>
+                  <option value="34 - Cia Mar SSA">34 - Cia Mar SSA</option>
+                  <option value="35 - Recrei Ipitinga">35 - Recrei Ipitinga</option>
+                  <option value="36 - Caixa Dagua">36 - Caixa Dagua</option>
+                  <option value="37 - Vida Nova">37 - Vida Nova</option>
+                  <option value="38 - Capelao">38 - Capelao</option>
+                  <option value="39 - Pq Sao Paulo">39 - Pq Sao Paulo</option>
             </select>
 
        
@@ -109,8 +119,11 @@
                             <div id="pavpend"> 
 
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text">Localidade</span>
-                                    {% render_field pavimento9.Localidade class='form-control'%}
+                                    <span  class="input-group-text">Localidade</span>
+
+                                    {% render_field pavimento9.Localidade  class='form-control' %}
+
+
                                     ⠀                               
                                     <span class="input-group-text">Situação</span>
                                     {% render_field pavimento9.Medir class='form-control' %}
@@ -125,11 +138,11 @@
                                 </div>
 
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text">Equipe</span>
-                                    {% render_field pavimento9.Equipe class="form-control" %}
+                                    <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                    {% render_field pavimento9.Equipe  class="form-control" %}
                                     ⠀
                                     <span class="input-group-text">Bairro</span>
-                                    {% render_field pavimento9.Bairro class="form-control" placeholder=" item obrigatorio"%}
+                                    {% render_field pavimento9.Bairro900 class="form-control" placeholder=" item obrigatorio"%}
                                 </div>
             
                                 <div class="input-group mb-3">
@@ -172,6 +185,13 @@
             </div>
         </div>
     </div> 
+
+
+
+
+
+
+
 
     <!-- Linha informativa de demandas-->
     <div class='form-control' style="font-size: 13px;" >        
