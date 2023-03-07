@@ -190,12 +190,17 @@ class Esgoto(models.Model):
 
     Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
-    Equipe = models.CharField(max_length=255, choices=Equipe700())
-
-    BAIRRO = [ ('Ipitanga', 'Ipitanga'), ('Vilas Atlântico', 'Vilas Atlântico'), ('Caji', 'Caji'), ('Areia Branca', 'Areia Branca'), ('Portao', 'Portão'), ('Vila Praiana', 'Vila Praiana'), ('Aracui', 'Aracui'), ('Jockey Clube', 'Jockey Clube'), ('Pitangueiras', 'Pitangueiras'), ('Centro', 'Centro'), ('Buraquinho', 'Buraquinho'), ('Castanheiras', 'Castanheiras'), ('Itinga', 'Itinga'), ('São Cristóvão', 'São Cristóvão'), ('Cassange', 'Cassange'), ('"Est do Coco', 'Est do Coco'), ('Jd Aeroporto', 'Jd Aeroporto'), ('Pa do Flamengo', 'Pa do Flamengo'), ('Jambeiro', 'Jambeiro'), ('Capelao SSA', 'Capelão SSA'), ('Lot Miragem', 'Lot Miragem'), ('Jd Margaridas', 'Jd Margaridas'), ('Itinga SSA', 'Itinga SSA'), ('Ipitanga SSA', 'Ipitanga SSA'), ('Areia Branc SSA', 'Areia Branc SSA'), ]
 
 
-    Bairro = models.CharField(max_length=255, choices=Bairro700())
+    Equipe700 = models.CharField(max_length=255, choices=Equipe700(), blank=True)
+    Equipe900 = models.CharField(max_length=255, choices=Equipe900(), blank=True)
+    EquipeGestor = models.CharField(max_length=255,choices=EquipeGestor(), blank=True)
+
+    Bairro700 = models.CharField(max_length=255, choices=Bairro700(),  blank=True)
+    Bairro900 = models.CharField(max_length=255, choices=Bairro900(),  blank=True)
+    BairroGestor = models.CharField(max_length=255, choices=BairroGestor(),  blank=True)
+
+
     Rua = models.CharField(max_length=255)
     Referencia = models.CharField(max_length=255)
 
