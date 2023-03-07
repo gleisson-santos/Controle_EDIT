@@ -161,9 +161,9 @@ def estoque_por_localidade(localidade=None):
     if localidade:
         filtros &= Q(Localidade=localidade)
         
-    itens = Material.objects.filter(filtros).values('Equipe', 'Localidade', 'Item').annotate(total=Sum('Qtd') - Sum('Devolucao'), total_insumados=Sum('Insumados'), resumo_insumos=Sum('Qtd') - Sum('Insumados') - Sum('Devolucao'))
+    itens = Material.objects.filter(filtros).values('EquipeGestor', 'Localidade', 'Item').annotate(total=Sum('Qtd') - Sum('Devolucao'), total_insumados=Sum('Insumados'), resumo_insumos=Sum('Qtd') - Sum('Insumados') - Sum('Devolucao'))
 
-    itens1 = Lancamento.objects.filter(filtros).values('Equipe', 'Localidade', 'Item').annotate(total=Sum('Qtd'))
+    itens1 = Lancamento.objects.filter(filtros).values('EquipeGestor', 'Localidade', 'Item').annotate(total=Sum('Qtd'))
 
     ult_data = Lancamento.objects.filter(filtros).values('Item').annotate(ultima_data=Max('Data'))
 

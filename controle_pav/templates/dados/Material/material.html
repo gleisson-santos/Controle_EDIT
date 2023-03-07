@@ -356,7 +356,7 @@
                           <div id="matpend"> 
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Equipe</span>
-                                {% render_field pavimento9.Equipe class='form-control'%}
+                                {% render_field pavimento9.EquipeGestor class='form-control'%}
                                 ⠀                               
                                 <span class="input-group-text">Data</span>
                                 {% render_field pavimento9.Data class='form-control' %}
@@ -433,7 +433,7 @@
                   <tr>
                     <td></td>
                     <td>{{dado.Localidade|lower|capfirst}}</td>
-                    <td>{{dado.Equipe|lower|capfirst}}</td>
+                    <td>{{dado.EquipeGestor|lower|capfirst}}</td>
                     <td>{{dado.Data|date:"d/m/Y"}}</td>
                     <td>{{dado.Item|lower|capfirst}}</td>
                     <td>{{dado.Qtd}}</td>
@@ -457,7 +457,7 @@
                 <tr>
                     <td></td>
                     <td>{{dado.Localidade|lower|capfirst}}</td>
-                    <td>{{dado.Equipe|lower|capfirst}}</td>
+                    <td>{{dado.EquipeGestor|lower|capfirst}}</td>
                     <td>{{dado.Data|date:"d/m/Y"}}</td>
                     <td>{{dado.Item|lower|capfirst}}</td>
                     <td>{{dado.Qtd}}</td>
@@ -481,7 +481,7 @@
                    <tr>
                     <td></td>
                     <td>{{dado.Localidade|lower|capfirst}}</td>
-                    <td>{{dado.Equipe|lower|capfirst}}</td>
+                    <td>{{dado.EquipeGestor|lower|capfirst}}</td>
                     <td>{{dado.Data|date:"d/m/Y"}}</td>
                     <td>{{dado.Item|lower|capfirst}}</td>
                     <td>{{dado.Qtd}}</td>

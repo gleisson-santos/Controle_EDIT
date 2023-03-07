@@ -338,60 +338,6 @@
 
     </div>
 
-    <!-- Modal Pendencias de Pavimentos bd-example-modal-lg modal-lg-->
-    <div class="modal fade" id="cadpavimento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Saida de Material</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="container-fluid">
-                    <div class="card-body">                  
-                        <form action="" method="POST" >
-                          {% csrf_token %} 
-
-                          <div id="matpend"> 
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Nª Reserva</span>
-                                {% render_field pavimento9.Equipe class='form-control'%}
-                                ⠀                               
-                                <span class="input-group-text">Data</span>
-                                {% render_field pavimento9.Data class='form-control' %}
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" >Material</span>
-                                {% render_field pavimento9.Item  class="form-control" %}     
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" >Qtd</span>
-                                {% render_field pavimento9.Qtd  class="form-control" %}     
-                               ⠀
-                                <span class="input-group-text">Localidade</span>
-                                {% render_field pavimento9.Localidade class="form-control" %}
-                            </div>        
-                          </div>
-                          
-                          <div id="btn2pen">
-                              <!-- Botoes -->
-                              <button class="btn btn-secondary"><a href="{% url 'listagem' %}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
-                              <button id="show" class="btn btn-success" value="Submit" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
-                          </div>
-                        </form>
-                        
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div> 
-
     <!-- Linha informativa de demandas-->
      <div class='form-control' style="font-size: 13px;" >        
         {% if user.groups.all.0.name == 'Lauro' %}

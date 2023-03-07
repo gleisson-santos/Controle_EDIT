@@ -136,6 +136,7 @@ class MaterialBase(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
     last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
      
+
     EquipeGestor = models.CharField(max_length=255,choices=EquipeGestor(), blank=True)
 
 
