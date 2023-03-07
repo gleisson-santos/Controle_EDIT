@@ -14,26 +14,37 @@ def Equipe700():
         EQUIPE700 = [(equipe, equipe) for equipe in equipes]
     return EQUIPE700
 
-
 def Equipe900():
     with open("controle_pav/static/texto/Equipes-900.csv", 'r') as arquivo:
         equipes = arquivo.read().splitlines()
         EQUIPE900 = [(equipe, equipe) for equipe in equipes]
     return EQUIPE900
 
+def EquipeGestor():
+    with open("controle_pav/static/texto/EquipesGestor.csv", 'r') as arquivo:
+        equipes = arquivo.read().splitlines()
+        EQUIPEGESTOR = [(equipe, equipe) for equipe in equipes]
+    return EQUIPEGESTOR
 
+
+#Bairros
 def Bairro700():
     with open("controle_pav/static/texto/Bairros-700.csv", 'r') as arquivo:
         bairros = arquivo.read().splitlines()
         BAIRRO700 = [(bairro, bairro) for bairro in bairros]
     return BAIRRO700
 
-
 def Bairro900():
     with open("controle_pav/static/texto/Bairros-900.csv", 'r') as arquivo:
         bairros = arquivo.read().splitlines()
         BAIRRO900 = [(bairro, bairro) for bairro in bairros]
     return BAIRRO900
+
+def BairroGestor():
+    with open("controle_pav/static/texto/BairrosGestor.csv", 'r') as arquivo:
+        bairros = arquivo.read().splitlines()
+        BAIRROGESTOR = [(bairro, bairro) for bairro in bairros]
+    return BAIRROGESTOR
 
 
 def Material():
@@ -53,14 +64,15 @@ class Pavimento(models.Model):
     Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
     Prazo = models.BooleanField(default=False)
-         
 
-    Equipe = models.CharField(max_length=255, blank=True)
-    
-    BAIRRO = [ ('Ipitanga', 'Ipitanga'), ('Vilas Atlântico', 'Vilas Atlântico'), ('Caji', 'Caji'), ('Areia Branca', 'Areia Branca'), ('Portao', 'Portão'), ('Vila Praiana', 'Vila Praiana'), ('Aracui', 'Aracui'), ('Jockey Clube', 'Jockey Clube'), ('Pitangueiras', 'Pitangueiras'), ('Centro', 'Centro'), ('Buraquinho', 'Buraquinho'), ('Castanheiras', 'Castanheiras'), ('Itinga', 'Itinga'), ('São Cristóvão', 'São Cristóvão'), ('Cassange', 'Cassange'), ('Est do Coco', 'Est do Coco'), ('Jd Aeroporto', 'Jd Aeroporto'), ('Pa do Flamengo', 'Pa do Flamengo'), ('Jambeiro', 'Jambeiro'), ('Capelao SSA', 'Capelão SSA'), ('Lot Miragem', 'Lot Miragem'), ('Jd Margaridas', 'Jd Margaridas'), ('Itinga SSA', 'Itinga SSA'), ('Ipitanga SSA', 'Ipitanga SSA'), ('Areia Branc SSA', 'Areia Branc SSA'), ]
-    
+    Equipe700 = models.CharField(max_length=255, choices=Equipe700(), blank=True)
+    Equipe900 = models.CharField(max_length=255, choices=Equipe900(), blank=True)
+    EquipeGestor = models.CharField(max_length=255,choices=EquipeGestor(), blank=True)
+
     Bairro700 = models.CharField(max_length=255, choices=Bairro700(),  blank=True)
     Bairro900 = models.CharField(max_length=255, choices=Bairro900(),  blank=True)
+    BairroGestor = models.CharField(max_length=255, choices=BairroGestor(),  blank=True)
+
     Rua = models.CharField(max_length=255)
     Referencia = models.CharField(max_length=255)
 
@@ -88,7 +100,6 @@ class Pavimento(models.Model):
         ('Salvador', "Salvador"),
         ('Lauro', "Lauro")
     )
-
 
     Localidade = models.TextField(max_length=255, choices=LOCALIDADE, db_index=True)
     Localidade = models.TextField(max_length=255, choices=LOCALIDADE, db_index=True)

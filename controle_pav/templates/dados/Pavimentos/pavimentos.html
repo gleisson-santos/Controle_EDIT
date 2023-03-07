@@ -119,14 +119,11 @@
                             <div id="pavpend"> 
 
                                 <div class="input-group mb-3">
-                                    <span  class="input-group-text">Localidade</span>
-
-                                    {% render_field pavimento9.Localidade  class='form-control' %}
-
-
-                                    ⠀                               
-                                    <span class="input-group-text">Situação</span>
-                                    {% render_field pavimento9.Medir class='form-control' %}
+                                      <span  class="input-group-text">Localidade</span>
+                                      {% render_field pavimento9.Localidade  class='form-control' %}
+                                      ⠀                               
+                                      <span class="input-group-text">Situação</span>
+                                      {% render_field pavimento9.Medir class='form-control' %}
                                 </div>
 
                                 <div class="input-group mb-3">
@@ -138,11 +135,19 @@
                                 </div>
 
                                 <div class="input-group mb-3">
-                                    <span id='id_Equipe' class="input-group-text">Equipe</span>
-                                    {% render_field pavimento9.Equipe  class="form-control" %}
-                                    ⠀
-                                    <span class="input-group-text">Bairro</span>
-                                    {% render_field pavimento9.Bairro900 class="form-control" placeholder=" item obrigatorio"%}
+                                    {% if user.groups.all.0.name == "Lauro" %}
+                                        <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                        {% render_field pavimento9.Equipe700  class="form-control" %}
+                                    {% elif user.groups.all.0.name == 'Salvador'%}
+                                        <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                        {% render_field pavimento9.EquipeGestor  class="form-control" %}
+                                    {% else %}
+                                        <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                        {% render_field pavimento9.Equipe900  class="form-control" %}
+                                      ⠀
+                                    
+                                      <span class="input-group-text">Bairro</span>
+                                      {% render_field pavimento9.Bairro900 class="form-control" placeholder=" item obrigatorio"%}
                                 </div>
             
                                 <div class="input-group mb-3">
