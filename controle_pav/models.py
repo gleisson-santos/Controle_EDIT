@@ -136,7 +136,9 @@ class MaterialBase(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
     last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
      
-    Equipe = models.CharField(max_length=255, choices=Bairro700(), blank=True)
+    EquipeGestor = models.CharField(max_length=255,choices=EquipeGestor(), blank=True)
+
+
     Data = models.DateField('data', null=True, blank=True)
     Item = models.CharField(max_length=800, choices=Material())
     N_reserva = models.IntegerField(blank=True, null=True)
@@ -186,8 +188,6 @@ class Material(MaterialBase):
 class Esgoto(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
     last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
-
-
     Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
 
