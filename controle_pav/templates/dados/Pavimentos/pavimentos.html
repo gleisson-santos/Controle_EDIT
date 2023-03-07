@@ -135,15 +135,18 @@
                                 </div>
 
                                 <div class="input-group mb-3">
-                                    {% if user.groups.all.0.name == "Lauro" %}
+                                    {% if request.user.groups.filter(name='Lauro').exists %}
                                         <span id='id_Equipe' class="input-group-text">Equipe</span>
                                         {% render_field pavimento9.Equipe700  class="form-control" %}
-                                    {% elif user.groups.all.0.name == 'Salvador'%}
-                                        <span id='id_Equipe' class="input-group-text">Equipe</span>
-                                        {% render_field pavimento9.EquipeGestor  class="form-control" %}
-                                    {% else %}
+
+                                    {% elif request.user.groups.filter(name='Salvador').exists %}
                                         <span id='id_Equipe' class="input-group-text">Equipe</span>
                                         {% render_field pavimento9.Equipe900  class="form-control" %}
+
+                                    {% else %}
+                                        <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                        {% render_field pavimento9.EquipesGestor  class="form-control" %}
+                                    {% endif %}  
                                       ⠀
                                     
                                       <span class="input-group-text">Bairro</span>
