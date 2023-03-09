@@ -81,11 +81,27 @@
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <span  class="input-group-text">Equipe</span>
-                                            {% render_field pavimento5.Equipe class="form-control" %}
+                                        {% if user.groups.all.0.name == 'Lauro' %}
+                                            <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                            {% render_field pavimento5.Equipe700  class="form-control" %}
+                                        {% elif user.groups.all.0.name == 'Salvador' %}
+                                            <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                            {% render_field pavimento5.Equipe900  class="form-control" %}
+                                        {% else %}
+                                            <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                            {% render_field pavimento5.EquipeGestor  class="form-control" %}
+                                        {% endif %}  
                                         ⠀
+                                        {% if user.groups.all.0.name == 'Lauro' %}
                                         <span class="input-group-text">Bairro</span>
-                                        {% render_field pavimento5.Bairro class="form-control" placeholder=" item obrigatorio"%}
+                                        {% render_field pavimento5.Bairro700 class="form-control"%}
+                                        {% elif user.groups.all.0.name == 'Salvador' %}
+                                        <span class="input-group-text">Bairro</span>
+                                        {% render_field pavimento5.Bairro900 class="form-control"%}
+                                        {% else %}
+                                        <span class="input-group-text">Bairro</span>
+                                        {% render_field pavimento5.BairroGestor class="form-control"%}
+                                        {% endif %}  
                                     </div>
                 
                                     <div class="input-group mb-3">
@@ -206,12 +222,28 @@
                                         {% render_field esgoto21.Data class="form-control" %}
                                     </div>
 
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">Equipe</span>
-                                        {% render_field esgoto21.Equipe class="form-control" %}
-                                        ⠀ 
+                                     <div class="input-group mb-3">
+                                        {% if user.groups.all.0.name == 'Lauro' %}
+                                            <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                            {% render_field pavimento5.Equipe700  class="form-control" %}
+                                        {% elif user.groups.all.0.name == 'Salvador' %}
+                                            <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                            {% render_field pavimento5.Equipe900  class="form-control" %}
+                                        {% else %}
+                                            <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                            {% render_field pavimento5.EquipeGestor  class="form-control" %}
+                                        {% endif %}  
+                                        ⠀
+                                        {% if user.groups.all.0.name == 'Lauro' %}
                                         <span class="input-group-text">Bairro</span>
-                                        {% render_field esgoto21.Bairro class="form-control" placeholder=" item obrigatorio"%}
+                                        {% render_field pavimento5.Bairro700 class="form-control"%}
+                                        {% elif user.groups.all.0.name == 'Salvador' %}
+                                        <span class="input-group-text">Bairro</span>
+                                        {% render_field pavimento5.Bairro900 class="form-control"%}
+                                        {% else %}
+                                        <span class="input-group-text">Bairro</span>
+                                        {% render_field pavimento5.BairroGestor class="form-control"%}
+                                        {% endif %}  
                                     </div>
 
                                     <div class="input-group mb-3">
