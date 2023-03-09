@@ -62,7 +62,7 @@ class Pavimento(models.Model):
     last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
      
     Ss = models.CharField(max_length=9)
-    Data = models.DateField('data', null=True, blank=True)
+    Data = models.DateField('data', null=True, blank=True, db_index=True)
     Prazo = models.BooleanField(default=False)
 
     Equipe700 = models.CharField(max_length=255, choices=Equipe700(), blank=True)

@@ -98,7 +98,10 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     if localidade:
         pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).filter(Localidade=localidade )
     else:
+        #pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days))
         pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days))
+        
+
 
     if serv:
         pavimentos = pavimentos.filter(Servico=serv)
