@@ -242,17 +242,17 @@ class Esgoto(models.Model):
         data_limite = self.Data
         if self.Servico == 'Consertos':
             prazo = timezone.timedelta(days=3)
-        elif self.Servico == 'Vedacao' or'Desobstrucao':
+        elif self.Servico == 'Vedacao' or self.Servico == 'Desobstrucao':
             prazo = timezone.timedelta(days=1)
         else:
             prazo = timezone.timedelta(days=2)
         dias_restantes = abs((data_limite - timezone.now().date()).days)
         if self.Servico == 'Vedacao' and dias_restantes <= 1:
-            return 
+            return f'{dias_restantes} <span class="fas fa-calendar-check fa-lg"></span>'
         elif dias_restantes <= prazo.days:
-            return 
+            return f'{dias_restantes}  <span class="fas fa-calendar-check fa-lg"></span>'
         else:
-            return f' {dias_restantes - prazo.days}'
+            return f'{dias_restantes - prazo.days}  <span class="fas fa-calendar-plus fa-lg"></span>'
 
     # @property
     # def atual4(self):
