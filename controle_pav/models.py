@@ -69,9 +69,9 @@ class Pavimento(models.Model):
     Equipe900 = models.CharField(max_length=255, choices=Equipe900(), blank=True)
     EquipeGestor = models.CharField(max_length=255,choices=EquipeGestor(), blank=True)
 
-    Bairro700 = models.CharField(max_length=255, choices=Bairro700(),  blank=True)
-    Bairro900 = models.CharField(max_length=255, choices=Bairro900(),  blank=True)
-    BairroGestor = models.CharField(max_length=255, choices=BairroGestor(),  blank=True)
+    Bairro700 = models.CharField(max_length=255, choices=Bairro700(),  blank=True, db_index=True)
+    Bairro900 = models.CharField(max_length=255, choices=Bairro900(),  blank=True, db_index=True)
+    BairroGestor = models.CharField(max_length=255, choices=BairroGestor(),  blank=True, db_index=True)
 
     Rua = models.CharField(max_length=255)
     Referencia = models.CharField(max_length=255)
@@ -82,7 +82,7 @@ class Pavimento(models.Model):
         ("Blocos", "Blocos")
     )
 
-    Servico = models.CharField(max_length=255, choices=SERVICO, verbose_name=("Serviço"))
+    Servico = models.CharField(max_length=255, choices=SERVICO, verbose_name=("Serviço"), db_index=True)
 
     Metragem = models.CharField(max_length=255)
     Observacao = models.CharField(max_length=255, blank=True)

@@ -18,6 +18,10 @@ from django.db.models import Sum, Max
 from django.db.models import Q
 import datetime
 
+
+from django.http import JsonResponse
+
+
 #Chamadas para encarts
 def encart(localidade, b):
     qtdlf2 = b.objects.filter(Localidade=localidade, Executado='0').count()
@@ -92,16 +96,24 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
         execut = request.session[execut_key]
 
     if localidade:
-        pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data").filter(Localidade=localidade)
+        pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).filter(Localidade=localidade )
     else:
-        pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).order_by("-id", "Executado", "Data")
+        pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days))
 
     if serv:
         pavimentos = pavimentos.filter(Servico=serv)
 
-    if bairro:
-        pavimentos = pavimentos.filter(Bairro=bairro)
-        
+    if request.user.groups.filter(name='Lauro').exists():
+        if bairro:
+            pavimentos = pavimentos.filter(Bairro700=bairro)
+    elif request.user.groups.filter(name='Salvador').exists():
+        if bairro:
+            pavimentos = pavimentos.filter(Bairro900=bairro)
+    else:
+        if bairro:
+            pavimentos = pavimentos.filter(BairroGestor=bairro)
+
+
     if execut:
         pavimentos = pavimentos.filter(Executado=execut)
 
@@ -114,7 +126,7 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     return filters
 
 
-# Quantidade em Estoque view Principal
+
 # def estoque_por_localidade(localidade=None):
 #     if localidade:
 #         #itens = Material.objects.filter(Localidade=localidade).values('Equipe','Localidade', 'Item').annotate(total=Sum('Qtd'), total_devolucao=Sum('Devolucao'))
