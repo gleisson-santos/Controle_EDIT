@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from django.utils import timezone
 
-#Equipes
+
 def Equipe700():
     with open("controle_pav/static/texto/Equipes-700.csv", 'r') as arquivo:
         equipes = arquivo.read().splitlines()
