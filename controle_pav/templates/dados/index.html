@@ -2,6 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block conteudo %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <h1>Controle de Demandas</h1>
 
@@ -80,6 +81,7 @@
                                         {% render_field pavimento5.Data class="form-control" %}
                                     </div>
 
+                                    
                                     <div class="input-group mb-3">
                                         {% if user.groups.all.0.name == 'Lauro' %}
                                             <span id='id_Equipe' class="input-group-text">Equipe</span>
@@ -222,27 +224,27 @@
                                         {% render_field esgoto21.Data class="form-control" %}
                                     </div>
 
-                                     <div class="input-group mb-3">
+                                    <div class="input-group mb-3">
                                         {% if user.groups.all.0.name == 'Lauro' %}
                                             <span id='id_Equipe' class="input-group-text">Equipe</span>
-                                            {% render_field pavimento5.Equipe700  class="form-control" %}
+                                            {% render_field esgoto21.Equipe700  class="form-control" %}
                                         {% elif user.groups.all.0.name == 'Salvador' %}
                                             <span id='id_Equipe' class="input-group-text">Equipe</span>
-                                            {% render_field pavimento5.Equipe900  class="form-control" %}
+                                            {% render_field esgoto21.Equipe900  class="form-control" %}
                                         {% else %}
                                             <span id='id_Equipe' class="input-group-text">Equipe</span>
-                                            {% render_field pavimento5.EquipeGestor  class="form-control" %}
+                                            {% render_field esgoto21.EquipeGestor  class="form-control" %}
                                         {% endif %}  
                                         ⠀
                                         {% if user.groups.all.0.name == 'Lauro' %}
                                         <span class="input-group-text">Bairro</span>
-                                        {% render_field pavimento5.Bairro700 class="form-control"%}
+                                        {% render_field esgoto21.Bairro700 class="form-control"%}
                                         {% elif user.groups.all.0.name == 'Salvador' %}
                                         <span class="input-group-text">Bairro</span>
-                                        {% render_field pavimento5.Bairro900 class="form-control"%}
+                                        {% render_field esgoto21.Bairro900 class="form-control"%}
                                         {% else %}
                                         <span class="input-group-text">Bairro</span>
-                                        {% render_field pavimento5.BairroGestor class="form-control"%}
+                                        {% render_field esgoto21.BairroGestor class="form-control"%}
                                         {% endif %}  
                                     </div>
 
@@ -383,7 +385,7 @@
                                 </div>
                                 
                                 <div id="btnpen">
-                                <!-- Botoes -->
+                                    <!-- Botoes -->
                                     <button  class="btn btn-secondary"><a href="{% url 'index'%}" class="text-decoration-none"><i class="fa fa-reply" aria-hidden="true"></i>
                                         Voltar</a>
                                     </button> 

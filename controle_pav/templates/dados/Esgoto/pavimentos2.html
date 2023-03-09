@@ -44,11 +44,11 @@
           <option value="Desobstrucao">Deesobstrução</option>
         </select> 
 
-        
+          {% if user.groups.all.0.name == "Lauro" %}
             <select id="bairro" name="bairro">
               <option value="">Filtrar Bairro</option>
-              <option value="all">All</option>
-                <option value="1 - Ipitinga">1 - Ipitinga</option>
+                  <option value="all">All</option>
+                  <option value="1 - Ipitinga">1 - Ipitinga</option>
                   <option value="2 - Vilas Atlantico">2 - Vilas Atlantico</option>
                   <option value="3 - Caji">3 - Caji</option>
                   <option value="4 - Areia Branca">4 - Areia Branca</option>
@@ -84,6 +84,140 @@
                   <option value="38 - Capelao">38 - Capelao</option>
                   <option value="39 - Pq Sao Paulo">39 - Pq Sao Paulo</option>
             </select>
+          {% elif user.groups.all.0.name == 'Salvador'%}
+            <select id="bairro" name="bairro">
+                <option value="">Filtrar Bairro</option>
+                <option value="all">All</option>
+                    <option value="13 - Rio Vermelho">13 - Rio Vermelho</option>
+                    <option value="14 - Amaralina">14 - Amaralina</option>
+                    <option value="15 - Pituba">15 - Pituba</option>
+                    <option value="16 - Boca do Rio">16 - Boca do Rio</option>
+                    <option value="17 - Piata">17 - Piata</option>
+                    <option value="18 - Itapua">18 - Itapua</option>
+                    <option value="22 - Jd Margaridas">22 - Jd Margaridas</option>
+                    <option value="29 - Pernambues">29 - Pernambues</option>
+                    <option value="50 - CAB">50 - CAB</option>
+                    <option value="52 - Cam das Arvores">52 - Cam das Arvores</option>
+                    <option value="53 - Itaigara">53 - Itaigara</option>
+                    <option value="54 - Stiep">54 - Stiep</option>
+                    <option value="64 - Sao Cristovao">64 - Sao Cristovao</option>
+                    <option value="105 - Nordt Amaralina">105 - Nordt Amaralina</option>
+                    <option value="113 - Patamares">113 - Patamares</option>
+                    <option value="115 - Imbui">115 - Imbui</option>
+                    <option value="116 - Costa Azul">116 - Costa Azul</option>
+                    <option value="117 - Stella Maris">117 - Stella Maris</option>
+                    <option value="118 - Jardim Armacao">118 - Jardim Armacao</option>
+                    <option value="119 - Mussurunga">119 - Mussurunga</option>
+                    <option value="139 - Trobogy">139 - Trobogy</option>
+                    <option value="140 - Paralela">140 - Paralela</option>
+                    <option value="141 - Pituaçu">141 - Pituaçu</option>
+                    <option value="145 - Alt Coqueirinho">145 - Alt Coqueirinho</option>
+                    <option value="149 - Aeroporto">149 - Aeroporto</option>
+                    <option value="183 - Narandiba">183 - Narandiba</option>
+                    <option value="186 - Pa do Flamengo">186 - Pa do Flamengo</option>
+                    <option value="191 - Bairro da Paz">191 - Bairro da Paz</option>
+                    <option value="193 - N Brasilia Itap">193 - N Brasilia Itap</option>
+                    <option value="204 - Faz Grande IV">204 - Faz Grande IV</option>
+                    <option value="233 - Cassange">233 - Cassange</option>
+                    <option value="238 - Itinga">238 - Itinga</option>
+                    <option value="242 - Mussurunga">242 - Mussurunga</option>
+                    <option value="243 - Sao Cristovao">243 - Sao Cristovao</option>
+                    <option value="246 - Cassange">246 - Cassange</option>
+                    <option value="238 - Itinga">238 - Itinga</option>
+                    <option value="242 - Mussurunga">242 - Mussurunga</option>
+                    <option value="243 - Sao Cristovao">243 - Sao Cristovao</option>
+                    <option value="246 - Cassange">246 - Cassange</option>
+                    <option value="301 - Areia Branca">301 - Areia Branca</option>
+                    <option value="304 - Saboeiro">304 - Saboeiro</option>
+                    <option value="305 - Sao Rafael">305 - Sao Rafael</option>
+                    <option value="306 - Vale dos Lagos">306 - Vale dos Lagos</option>
+                    <option value="307 - Canabrava">307 - Canabrava</option>
+            </select>
+          {% else %}
+            <select id="bairro" name="bairro">
+              <option value="">Filtrar Bairro</option>
+                  <option value="all">All</option>
+                  <option value="1 - Ipitinga">1 - Ipitinga</option>
+                  <option value="2 - Vilas Atlantico">2 - Vilas Atlantico</option>
+                  <option value="3 - Caji">3 - Caji</option>
+                  <option value="4 - Areia Branca">4 - Areia Branca</option>
+                  <option value="5 - Portao">5 - Portao</option>
+                  <option value="6 - Vila Praiana">6 - Vila Praiana</option>
+                  <option value="7 - Aracui">7 - Aracui</option>
+                  <option value="8 - Jockey Clube">8 - Jockey Clube</option>
+                  <option value="9 - Pitangueiras">9 - Pitangueiras</option>
+                  <option value="10 - Centro">10 - Centro</option>
+                  <option value="11 - Buraquinho">11 - Buraquinho</option>
+                  <option value="13 - Itinga">13 - Itinga</option>
+                  <option value="14 - Sao Cristovao">14 - Sao Cristovao</option>
+                  <option value="15 - Cassange">15 - Cassange</option>
+                  <option value="16 - Est do Coco">16 - Est do Coco</option>
+                  <option value="17 - Jd Aeroporto">17 - Jd Aeroporto</option>
+                  <option value="18 - Pa do Flamengo">18 - Pa do Flamengo</option>
+                  <option value="19 - Jambeiro">19 - Jambeiro</option>
+                  <option value="20 - Capelao SSA">20 - Capelao SSA</option>
+                  <option value="21 - Lote Miragem">21 - Lote Miragem</option>
+                  <option value="23 - Itinga SSA">23 - Itinga SSA</option>
+                  <option value="24 - Ipitinga SSA">24 - Ipitinga SSA</option>
+                  <option value="25 - Areia Branca SSA">25 - Areia Branca SSA</option>
+                  <option value="26 - Cassange SSA">26 - Cassange SSA</option>
+                  <option value="27 - Stella Maris SSA">27 - Stella Maris SSA</option>
+                  <option value="28 - Aeroporto">28 - Aeroporto</option>
+                  <option value="29 - Jd Castelao">29 - Jd Castelao</option>
+                  <option value="31 - Quingoma">31 - Quingoma</option>
+                  <option value="33 - Jd dos Passaros">33 - Jd dos Passaros</option>
+                  <option value="34 - Cia Mar SSA">34 - Cia Mar SSA</option>
+                  <option value="35 - Recrei Ipitinga">35 - Recrei Ipitinga</option>
+                  <option value="36 - Caixa Dagua">36 - Caixa Dagua</option>
+                  <option value="37 - Vida Nova">37 - Vida Nova</option>
+                  <option value="38 - Capelao">38 - Capelao</option>
+                  <option value="39 - Pq Sao Paulo">39 - Pq Sao Paulo</option>
+                  <option value="13 - Rio Vermelho">13 - Rio Vermelho</option>
+                  <option value="14 - Amaralina">14 - Amaralina</option>
+                  <option value="15 - Pituba">15 - Pituba</option>
+                  <option value="16 - Boca do Rio">16 - Boca do Rio</option>
+                  <option value="17 - Piata">17 - Piata</option>
+                  <option value="18 - Itapua">18 - Itapua</option>
+                  <option value="22 - Jd Margaridas">22 - Jd Margaridas</option>
+                  <option value="29 - Pernambues">29 - Pernambues</option>
+                  <option value="50 - CAB">50 - CAB</option>
+                  <option value="52 - Cam das Arvores">52 - Cam das Arvores</option>
+                  <option value="53 - Itaigara">53 - Itaigara</option>
+                  <option value="54 - Stiep">54 - Stiep</option>
+                  <option value="64 - Sao Cristovao">64 - Sao Cristovao</option>
+                  <option value="105 - Nordt Amaralina">105 - Nordt Amaralina</option>
+                  <option value="113 - Patamares">113 - Patamares</option>
+                  <option value="115 - Imbui">115 - Imbui</option>
+                  <option value="116 - Costa Azul">116 - Costa Azul</option>
+                  <option value="117 - Stella Maris">117 - Stella Maris</option>
+                  <option value="118 - Jardim Armacao">118 - Jardim Armacao</option>
+                  <option value="119 - Mussurunga">119 - Mussurunga</option>
+                  <option value="139 - Trobogy">139 - Trobogy</option>
+                  <option value="140 - Paralela">140 - Paralela</option>
+                  <option value="141 - Pituaçu">141 - Pituaçu</option>
+                  <option value="145 - Alt Coqueirinho">145 - Alt Coqueirinho</option>
+                  <option value="149 - Aeroporto">149 - Aeroporto</option>
+                  <option value="183 - Narandiba">183 - Narandiba</option>
+                  <option value="186 - Pa do Flamengo">186 - Pa do Flamengo</option>
+                  <option value="191 - Bairro da Paz">191 - Bairro da Paz</option>
+                  <option value="193 - N Brasilia Itap">193 - N Brasilia Itap</option>
+                  <option value="204 - Faz Grande IV">204 - Faz Grande IV</option>
+                  <option value="233 - Cassange">233 - Cassange</option>
+                  <option value="238 - Itinga">238 - Itinga</option>
+                  <option value="242 - Mussurunga">242 - Mussurunga</option>
+                  <option value="243 - Sao Cristovao">243 - Sao Cristovao</option>
+                  <option value="246 - Cassange">246 - Cassange</option>
+                  <option value="238 - Itinga">238 - Itinga</option>
+                  <option value="242 - Mussurunga">242 - Mussurunga</option>
+                  <option value="243 - Sao Cristovao">243 - Sao Cristovao</option>
+                  <option value="246 - Cassange">246 - Cassange</option>
+                  <option value="301 - Areia Branca">301 - Areia Branca</option>
+                  <option value="304 - Saboeiro">304 - Saboeiro</option>
+                  <option value="305 - Sao Rafael">305 - Sao Rafael</option>
+                  <option value="306 - Vale dos Lagos">306 - Vale dos Lagos</option>
+                  <option value="307 - Canabrava">307 - Canabrava</option>
+            </select>
+          {% endif %}
 
         
     </form>
@@ -260,7 +394,8 @@
             {% endif %}
 
             <td>{{dado.Equipe700|lower|capfirst}}</td>
-            <td>{{dado.Bairro|lower|capfirst}}</td>
+            <td>{{dado.Bairro700|lower|capfirst}}</td>
+
             <td>{{dado.Rua|lower|capfirst}}</td>
             <td>{{dado.Referencia|lower|capfirst}}</td>
             <td>{{dado.Servico|lower|capfirst}}</td>
@@ -350,7 +485,8 @@
  
 
             <td>{{dado.Equipe900|lower|capfirst}}</td>
-            <td>{{dado.Bairro|lower|capfirst}}</td>
+            <td>{{dado.Bairro900|lower|capfirst}}</td>
+
             <td>{{dado.Rua|lower|capfirst}}</td>
             <td>{{dado.Referencia|lower|capfirst}}</td>
             <td>{{dado.Servico|lower|capfirst}}</td>
@@ -424,20 +560,11 @@
             <td>{{dado.Ss}}</td>
             <td>{{dado.Data|date:"d/m/Y"}}</td>
 
-            {% if dado.atual3 %}
-              <td>
-                {{dado.atual4}}
-                <i class="fas fa-calendar-check fa-lg"></i>
-              </td>
-            {% else %}
-              <td>
-                {{dado.atual4}}
-                <i class="fas fa-calendar-plus fa-lg"></i>
-              </td>
-            {% endif %}
+            <td>{{ dado.atual3|safe }}</td>
 
             <td>{{dado.EquipeGestor|lower|capfirst}}</td>
-            <td>{{dado.Bairro|lower|capfirst}}</td>
+            <td>{{dado.BairroGestor|lower|capfirst}}</td>
+
             <td>{{dado.Rua|lower|capfirst}}</td>
             <td>{{dado.Referencia|lower|capfirst}}</td>
             <td>{{dado.Servico|lower|capfirst}}</td>
