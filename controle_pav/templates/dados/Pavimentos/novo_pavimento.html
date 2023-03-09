@@ -30,27 +30,16 @@
                     </div>
 
                         <div class="input-group mb-3">
-                    {% if user.groups.all.0.name == 'Lauro' %}
-                        <span id='id_Equipe' class="input-group-text">Equipe</span>
-                        {% render_field formulario.Equipe700  class="form-control" %}
-                    {% elif user.groups.all.0.name == 'Salvador' %}
-                        <span id='id_Equipe' class="input-group-text">Equipe</span>
-                        {% render_field formulario.Equipe900  class="form-control" %}
-                    {% else %}
+  
                         <span id='id_Equipe' class="input-group-text">Equipe</span>
                         {% render_field formulario.EquipeGestor  class="form-control" %}
-                    {% endif %}  
+
+          
                         ⠀
-                    {% if user.groups.all.0.name == 'Lauro' %}
-                        <span class="input-group-text">Bairro</span>
-                        {% render_field formulario.Bairro700 class="form-control"%}
-                    {% elif user.groups.all.0.name == 'Salvador' %}
-                        <span class="input-group-text">Bairro</span>
-                        {% render_field formulario.Bairro900 class="form-control"%}
-                    {% else %}
+
                         <span class="input-group-text">Bairro</span>
                         {% render_field formulario.BairroGestor class="form-control"%}
-                    {% endif %}  
+
                 </div>
 
                     <div class="input-group mb-3">

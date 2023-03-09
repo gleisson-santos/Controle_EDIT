@@ -53,7 +53,7 @@
                 <option value=True>Executado</option>
             </select>  
 
-          {% if user.groups.all.0.name == "Lauro" %}
+            {% comment %} {% if user.groups.all.0.name == "Lauro" %}
               <select id="bairro" name="bairro">
                 <option value="">Filtrar Bairro</option>
                     <option value="all">All</option>
@@ -226,7 +226,88 @@
                     <option value="306 - Vale dos Lagos">306 - Vale dos Lagos</option>
                     <option value="307 - Canabrava">307 - Canabrava</option>
               </select>
-            {% endif %}
+            {% endif %} {% endcomment %}
+
+              <select id="bairro" name="bairro">
+                <option value="">Filtrar Bairro</option>
+                    <option value="all">All</option>
+                    <option value="">Selecione uma equipe</option>
+                      <option value="Ipitinga">Ipitinga</option>
+                      <option value="Vilas Atlantico">Vilas Atlantico</option>
+                      <option value="Caji">Caji</option>
+                      <option value="Areia Branca">Areia Branca</option>
+                      <option value="Portao">Portao</option>
+                      <option value="Vila Praiana">Vila Praiana</option>
+                      <option value="Aracui">Aracui</option>
+                      <option value="Jockey Clube">Jockey Clube</option>
+                      <option value="Pitangueiras">Pitangueiras</option>
+                      <option value="Centro">Centro</option>
+                      <option value="Buraquinho">Buraquinho</option>
+                      <option value="Itinga">Itinga</option>
+                      <option value="Sao Cristovao">Sao Cristovao</option>
+                      <option value="Cassange">Cassange</option>
+                      <option value="Est do Coco">Est do Coco</option>
+                      <option value="Jd Aeroporto">Jd Aeroporto</option>
+                      <option value="Pa do Flamengo">Pa do Flamengo</option>
+                      <option value="Jambeiro">Jambeiro</option>
+                      <option value="Capelao SSA">Capelao SSA</option>
+                      <option value="Lote Miragem">Lote Miragem</option>
+                      <option value="Itinga SSA">Itinga SSA</option>
+                      <option value="Ipitinga SSA">Ipitinga SSA</option>
+                      <option value="Areia Branca SSA">Areia Branca SSA</option>
+                      <option value="Cassange SSA">Cassange SSA</option>
+                      <option value="Stella Maris SSA">Stella Maris SSA</option>
+                      <option value="Aeroporto">Aeroporto</option>
+                      <option value="Jd Castelao">Jd Castelao</option>
+                      <option value="Quingoma">Quingoma</option>
+                      <option value="Jd dos Passaros">Jd dos Passaros</option>
+                      <option value="Cia Mar SSA">Cia Mar SSA</option>
+                      <option value="Recrei Ipitinga">Recrei Ipitinga</option>
+                      <option value="Caixa Dagua">Caixa Dagua</option>
+                      <option value="Vida Nova">Vida Nova</option>
+                      <option value="Capelao">Capelao</option>
+                      <option value="Pq Sao Paulo">Pq Sao Paulo</option>
+                      <option value="Rio Vermelho">Rio Vermelho</option>
+                      <option value="Amaralina">Amaralina</option>
+                      <option value="Pituba">Pituba</option>
+                      <option value="Boca do Rio">Boca do Rio</option>
+                      <option value="Piata">Piata</option>
+                      <option value="Itapua">Itapua</option>
+                      <option value="Jd Margaridas">Jd Margaridas</option>
+                      <option value="Pernambues">Pernambues</option>
+                      <option value="CAB">CAB</option>
+                      <option value="Cam das Arvores">Cam das Arvores</option>
+                      <option value="Itaigara">Itaigara</option>
+                      <option value="Stiep">Stiep</option>
+                      <option value="Nordt Amaralina">Nordt Amaralina</option>
+                      <option value="Patamares">Patamares</option>
+                      <option value="Imbui">Imbui</option>
+                      <option value="Costa Azul">Costa Azul</option>
+                      <option value="Stella Maris">Stella Maris</option>
+                      <option value="Jardim Armacao">Jardim Armacao</option>
+                      <option value="Mussurunga">Mussurunga</option>
+                      <option value="Trobogy">Trobogy</option>
+                      <option value="Paralela">Paralela</option>
+                      <option value="Pituaçu">Pituaçu</option>
+                      <option value="Alt Coqueirinho">Alt Coqueirinho</option>
+                      <option value="Aeroporto">Aeroporto</option>
+                      <option value="Narandiba">Narandiba</option>
+                      <option value="Pa do Flamengo">Pa do Flamengo</option>
+                      <option value="Bairro da Paz">Bairro da Paz</option>
+                      <option value="N Brasilia Itap">N Brasilia Itap</option>
+                      <option value="Faz Grande IV">Faz Grande IV</option>
+                      <option value="Cassange">Cassange</option>
+                      <option value="Itinga">Itinga</option>
+                      <option value="Mussurunga">Mussurunga</option>
+                      <option value="Sao Cristovao">Sao Cristovao</option>
+                      <option value="Cassange">Cassange</option>
+                      <option value="Areia Branca">Areia Branca</option>
+                      <option value="Saboeiro">Saboeiro</option>
+                      <option value="Sao Rafael">Sao Rafael</option>
+                      <option value="Vale dos Lagos">Vale dos Lagos</option>
+                      <option value="Canabrava">Canabrava</option>
+              </select>
+
        
         </form>
 
@@ -268,27 +349,12 @@
                                 </div>
 
                                 <div class="input-group mb-3">
-                                    {% if user.groups.all.0.name == 'Lauro' %}
-                                        <span id='id_Equipe' class="input-group-text">Equipe</span>
-                                        {% render_field pavimento9.Equipe700  class="form-control" %}
-                                    {% elif user.groups.all.0.name == 'Salvador' %}
-                                        <span id='id_Equipe' class="input-group-text">Equipe</span>
-                                        {% render_field pavimento9.Equipe900  class="form-control" %}
-                                    {% else %}
-                                        <span id='id_Equipe' class="input-group-text">Equipe</span>
-                                        {% render_field pavimento9.EquipeGestor  class="form-control" %}
-                                    {% endif %}  
+                                      <span id='id_Equipe' class="input-group-text">Equipe</span>
+                                      {% render_field pavimento9.EquipeGestor  class="form-control" %}
+                     
                                       ⠀
-                                    {% if user.groups.all.0.name == 'Lauro' %}
-                                      <span class="input-group-text">Bairro</span>
-                                      {% render_field pavimento9.Bairro700 class="form-control"%}
-                                    {% elif user.groups.all.0.name == 'Salvador' %}
-                                      <span class="input-group-text">Bairro</span>
-                                      {% render_field pavimento9.Bairro900 class="form-control"%}
-                                    {% else %}
-                                      <span class="input-group-text">Bairro</span>
-                                      {% render_field pavimento9.BairroGestor class="form-control"%}
-                                    {% endif %}  
+                                    <span class="input-group-text">Bairro</span>
+                                    {% render_field pavimento9.BairroGestor class="form-control"%}
                                 </div>
             
                                 <div class="input-group mb-3">
@@ -407,8 +473,8 @@
                         </td>
                     {% endif %}
 
-                    <td>{{dado.Equipe700|lower|capfirst}}</td>
-                    <td>{{dado.Bairro700|lower|capfirst}}</td>
+                    <td>{{dado.EquipeGestor|lower|capfirst}}</td>
+                    <td>{{dado.BairroGestor}}</td>
                     <td>{{dado.Rua|lower|capfirst}}</td>
                     <td>{{dado.Referencia|lower|capfirst}}</td>
                     <td>{{dado.Servico|lower|capfirst}}</td>
@@ -495,8 +561,8 @@
                         </td>
                     {% endif %}
 
-                    <td>{{dado.Equipe900|lower|capfirst}}</td>
-                    <td>{{dado.Bairro900|lower|capfirst}}</td>
+                    <td>{{dado.EquipeGestor|lower|capfirst}}</td>
+                    <td>{{dado.BairroGestor|lower|capfirst}}</td>
                     <td>{{dado.Rua|lower|capfirst}}</td>
                     <td>{{dado.Referencia|lower|capfirst}}</td>
                     <td>{{dado.Servico|lower|capfirst}}</td>

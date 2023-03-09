@@ -102,19 +102,11 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
         pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days))
         
 
-
     if serv:
         pavimentos = pavimentos.filter(Servico=serv)
 
-    if request.user.groups.filter(name='Lauro').exists():
-        if bairro:
-            pavimentos = pavimentos.filter(Bairro700=bairro)
-    elif request.user.groups.filter(name='Salvador').exists():
-        if bairro:
-            pavimentos = pavimentos.filter(Bairro900=bairro)
-    else:
-        if bairro:
-            pavimentos = pavimentos.filter(BairroGestor=bairro)
+    if bairro:
+        pavimentos = pavimentos.filter(BairroGestor=bairro)
 
 
     if execut:
