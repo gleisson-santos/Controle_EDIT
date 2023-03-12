@@ -8,17 +8,17 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 
 
-def Equipe700():
-    with open("controle_pav/static/texto/Equipes-700.csv", 'r') as arquivo:
-        equipes = arquivo.read().splitlines()
-        EQUIPE700 = [(equipe, equipe) for equipe in equipes]
-    return EQUIPE700
+# def Equipe700():
+#     with open("controle_pav/static/texto/Equipes-700.csv", 'r') as arquivo:
+#         equipes = arquivo.read().splitlines()
+#         EQUIPE700 = [(equipe, equipe) for equipe in equipes]
+#     return EQUIPE700
 
-def Equipe900():
-    with open("controle_pav/static/texto/Equipes-900.csv", 'r') as arquivo:
-        equipes = arquivo.read().splitlines()
-        EQUIPE900 = [(equipe, equipe) for equipe in equipes]
-    return EQUIPE900
+# def Equipe900():
+#     with open("controle_pav/static/texto/Equipes-900.csv", 'r') as arquivo:
+#         equipes = arquivo.read().splitlines()
+#         EQUIPE900 = [(equipe, equipe) for equipe in equipes]
+#     return EQUIPE900
 
 def EquipeGestor():
     with open("controle_pav/static/texto/EquipesGestor.csv", 'r') as arquivo:
@@ -28,17 +28,17 @@ def EquipeGestor():
 
 
 #Bairros
-def Bairro700():
-    with open("controle_pav/static/texto/Bairros-700.csv", 'r') as arquivo:
-        bairros = arquivo.read().splitlines()
-        BAIRRO700 = [(bairro, bairro) for bairro in bairros]
-    return BAIRRO700
+# def Bairro700():
+#     with open("controle_pav/static/texto/Bairros-700.csv", 'r') as arquivo:
+#         bairros = arquivo.read().splitlines()
+#         BAIRRO700 = [(bairro, bairro) for bairro in bairros]
+#     return BAIRRO700
 
-def Bairro900():
-    with open("controle_pav/static/texto/Bairros-900.csv", 'r') as arquivo:
-        bairros = arquivo.read().splitlines()
-        BAIRRO900 = [(bairro, bairro) for bairro in bairros]
-    return BAIRRO900
+# def Bairro900():
+#     with open("controle_pav/static/texto/Bairros-900.csv", 'r') as arquivo:
+#         bairros = arquivo.read().splitlines()
+#         BAIRRO900 = [(bairro, bairro) for bairro in bairros]
+#     return BAIRRO900
 
 def BairroGestor():
     with open("controle_pav/static/texto/BairrosGestor.csv", 'r') as arquivo:
@@ -52,8 +52,7 @@ def Material():
         materiais = arquivo.read().splitlines()
         MATERIAL = [(material, material) for material in materiais]
     return MATERIAL
-
-   
+ 
 
 
 # modelos que irão representar uma tabela no banco de dados
@@ -65,12 +64,12 @@ class Pavimento(models.Model):
     Data = models.DateField('data', null=True, blank=True, db_index=True)
     Prazo = models.BooleanField(default=False)
 
-    Equipe700 = models.CharField(max_length=255, choices=Equipe700(), blank=True)
-    Equipe900 = models.CharField(max_length=255, choices=Equipe900(), blank=True)
+    # Equipe700 = models.CharField(max_length=255, choices=Equipe700(), blank=True)
+    # Equipe900 = models.CharField(max_length=255, choices=Equipe900(), blank=True)
     EquipeGestor = models.CharField(max_length=255,choices=EquipeGestor(), blank=True)
 
-    Bairro700 = models.CharField(max_length=255, choices=Bairro700(),  blank=True, db_index=True)
-    Bairro900 = models.CharField(max_length=255, choices=Bairro900(),  blank=True, db_index=True)
+    # Bairro700 = models.CharField(max_length=255, choices=Bairro700(),  blank=True, db_index=True)
+    # Bairro900 = models.CharField(max_length=255, choices=Bairro900(),  blank=True, db_index=True)
     BairroGestor = models.CharField(max_length=255, choices=BairroGestor(),  blank=True, db_index=True)
 
     Rua = models.CharField(max_length=255)
@@ -193,12 +192,12 @@ class Esgoto(models.Model):
     Data = models.DateField('data', null=True, blank=True)
 
 
-    Equipe700 = models.CharField(max_length=255, choices=Equipe700(), blank=True)
-    Equipe900 = models.CharField(max_length=255, choices=Equipe900(), blank=True)
+    # Equipe700 = models.CharField(max_length=255, choices=Equipe700(), blank=True)
+    # Equipe900 = models.CharField(max_length=255, choices=Equipe900(), blank=True)
     EquipeGestor = models.CharField(max_length=255,choices=EquipeGestor(), blank=True)
 
-    Bairro700 = models.CharField(max_length=255, choices=Bairro700(),  blank=True)
-    Bairro900 = models.CharField(max_length=255, choices=Bairro900(),  blank=True)
+    # Bairro700 = models.CharField(max_length=255, choices=Bairro700(),  blank=True)
+    # Bairro900 = models.CharField(max_length=255, choices=Bairro900(),  blank=True)
     BairroGestor = models.CharField(max_length=255, choices=BairroGestor(),  blank=True)
 
 

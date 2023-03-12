@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "debug_toolbar",
     "controle_pav",
     "widget_tweaks",
     "django_filters",
@@ -38,6 +39,8 @@ INSTALLED_APPS = [
     "crispy_forms",
     "bootstrap5",
     'fontawesomefree',
+    'rest_framework',
+    
 
 
 ]
@@ -49,13 +52,23 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
 ]
 
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 4000  # Deslogar apos 30min
-SESSION_SAVE_EVERY_REQUEST = True
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
+
+
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# SESSION_COOKIE_AGE = 4000  # Deslogar apos 30min
+# SESSION_SAVE_EVERY_REQUEST = True
 
 
 MIDDLEWARE_CLASSES = (
@@ -149,8 +162,15 @@ LOGOUT_REDIRECT_URL = '/accounts/login'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/tmp/django_cache',
+    }
+}
 
 
