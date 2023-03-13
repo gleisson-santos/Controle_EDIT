@@ -32,7 +32,7 @@ from django.http import JsonResponse
 # from django_datatables_view.base_datatable_view import BaseDatatableView
 
 
-# #dados API
+#dados API
 # class Pavimentolist(generics.ListCreateAPIView):
 #     queryset = Pavimento.objects.all()
 #     serializer_class = PavimentoSerializer
@@ -167,6 +167,8 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
 #                     item['sub'] = sub
 
 #   return itens, ult_data, itens1
+
+
 def estoque_por_localidade(localidade=None):
     filtros = Q()
     if localidade:
@@ -809,7 +811,6 @@ def editar_m(request, id_material):
             item.last_edited_by = request.user
             item.save()
         return redirect('material')
-
 
 
 @ login_required
