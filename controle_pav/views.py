@@ -586,42 +586,17 @@ def informativo(request):
         pendencia_form = Pendenciasform()
 
 
-        #Filtros para tabela de Pavimento
+    #Filtros para tabela de Pavimento
     dados = filter_pavimento(request, Pendencias, PendenciasFilter, localidade='')
-    dados2 = filter_pavimento(request,  Pendencias, PendenciasFilter, localidade='')
     filterlauro  = filter_pavimento(request,  Pendencias, PendenciasFilter, localidade='Lauro')
     filtersalvador  = filter_pavimento(request, Pendencias, PendenciasFilter, localidade='Salvador')
-    days  = filter_pavimento(request, Pendencias, PendenciasFilter, localidade='')
-
-    # #Encart Pendencias
-    # qtdlf3 = encart("Lauro", Pendencias)[0]
-    # cont_pav_lf3 = encart("Lauro", Pendencias)[1]
-
-    # qtdssa3 = encart("Salvador", Pendencias)[0]
-    # cont_pav_ssa3 = encart("Salvador", Pendencias)[1]
-
-    cont_pav4 = Pendencias.objects.filter().count()
-    qtd4 = Pendencias.objects.filter(Executado='0').count()
 
 
     context = {
-        'dados': dados2,
         'filtro3': dados,
-        'days': days,
-
-        # 'qtdlf': qtdlf,
-        # 'qtdssa': qtdssa,
-        # 'qtd': qtd,
-
-        # 'qtdlf3':qtdlf3,
-        # 'cont_pav_lf3':cont_pav_lf3,
-        # 'qtdssa3':qtdssa3,
-        # 'cont_pav_ssa3':cont_pav_ssa3,
-        'cont_pav4':cont_pav4,
-        'qtd4':qtd4,
-
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
+   
         'cadastro2': pendencia_form,
     }
 
