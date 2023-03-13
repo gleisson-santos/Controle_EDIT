@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import include, path
 from accounts import views
 from controle_pav import views
-from controle_pav.views import Pavimentolist
+# from controle_pav.views import Pavimentolist
 
 
 urlpatterns = [
@@ -60,15 +60,15 @@ urlpatterns = [
     path('Material/geral_eqps/',  views.geral_eqps,         name='geral_eqps'),
 
 
-    path('pessoas/', Pavimentolist.as_view(), name='pessoa-list'),
+    # path('pessoas/', Pavimentolist.as_view(), name='pessoa-list'),
 
 ]
 
 
-from django.conf import settings
+# from django.conf import settings
 
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns = [
-        path('__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns = [
+#         path('__debug__/', include(debug_toolbar.urls)),
+#     ] + urlpatterns

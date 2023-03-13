@@ -1,6 +1,6 @@
 from ast import Return
 from multiprocessing import context
-from django.core.cache import cache
+
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -15,30 +15,27 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from django.db.models import Sum, Max
-
 from django.db.models import Q
 import datetime
-
 
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-
 from django.http import JsonResponse
 
 
-from rest_framework import generics
-from .serializers import PavimentoSerializer
-from rest_framework import serializers
-from django_datatables_view.base_datatable_view import BaseDatatableView
+# from rest_framework import generics
+# from .serializers import PavimentoSerializer
+# from rest_framework import serializers
+# from django_datatables_view.base_datatable_view import BaseDatatableView
 
 
-#dados API
-class Pavimentolist(generics.ListCreateAPIView):
-    queryset = Pavimento.objects.all()
-    serializer_class = PavimentoSerializer
+# #dados API
+# class Pavimentolist(generics.ListCreateAPIView):
+#     queryset = Pavimento.objects.all()
+#     serializer_class = PavimentoSerializer
 
 
 # #Chamadas para encarts
@@ -63,9 +60,6 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     bairro = request.GET.get('bairro')
     execut = request.GET.get('execut')
     material = request.GET.get('material')
-
- 
-
 
     if days == 'all':
         days = None
@@ -118,23 +112,17 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     if localidade:
         pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days)).filter(Localidade=localidade )
     else:
-        #pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days))
         pavimentos = tipo.objects.select_related().filter(Data__gte=datetime.datetime.now() - datetime.timedelta(days=days))
         
 
     if serv:
         pavimentos = pavimentos.filter(Servico=serv)
-
     if bairro:
         pavimentos = pavimentos.filter(BairroGestor=bairro)
-
-
     if execut:
         pavimentos = pavimentos.filter(Executado=execut)
-
     if material:
         pavimentos = pavimentos.filter(Item=material)
-
 
 
     filters = filters(request.GET, queryset=pavimentos)
@@ -178,7 +166,7 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
 #                     sub = item1['total'] - item['total']
 #                     item['sub'] = sub
 
-#     return itens, ult_data, itens1
+#   return itens, ult_data, itens1
 def estoque_por_localidade(localidade=None):
     filtros = Q()
     if localidade:
@@ -197,13 +185,6 @@ def estoque_por_localidade(localidade=None):
                 item['sub'] = sub
 
     return itens, ult_data, itens1
-
-
-
-
-@receiver(post_save, sender=Pavimento)
-def invalidate_pavimentos_cache(sender, instance, **kwargs):
-    cache.delete('pavimentos')
 
 
 # PÁGINA PRINCIPAL Material
@@ -255,7 +236,6 @@ def index2(request):
     }
 
     return render(request, template_name, context)
-
 
 
 # PÁGINA PRINCIPAL
@@ -401,7 +381,6 @@ def index(request):
 
 
 # Pavimentos
-@cache_page(60 * 15, key_prefix='pavimentos')
 @ login_required
 def pavimentos(request):
     template_name = 'dados/Pavimentos/pavimentos.html'
@@ -418,37 +397,12 @@ def pavimentos(request):
         pavimento22_form = Pavimentoform()
 
     #Filtros para tabela de Pavimento
-    dados = filter_pavimento(request, Pavimento, PavimentoFilter, localidade='')
-    filterlauro  = filter_pavimento(request,  Pavimento, PavimentoFilter, localidade='Lauro')
-    filtersalvador  = filter_pavimento(request, Pavimento, PavimentoFilter, localidade='Salvador')
-
-
-    # #Encart Pavimento
-    # qtdlf = encart("Lauro", Pavimento)[0]
-    # cont_pav_lf = encart("Lauro", Pavimento)[1]
-
-    # qtdssa = encart("Salvador", Pavimento)[0]
-    # cont_pav_ssa = encart("Salvador", Pavimento)[1]
-
-    # cont_pav = Pavimento.objects.filter().count()
-    # qtd = Pavimento.objects.filter(Executado='0').count()
-
+    localidades = ['', 'Lauro', 'Salvador']
+    dados, filterlauro, filtersalvador = [filter_pavimento(request, Pavimento, PavimentoFilter, localidade=l) for l in localidades]
 
     context = {
-     
+
         'filtro': dados,
-    
-
-        #Cart Pavimento
-        # 'cont_pav':cont_pav,
-        # 'qtd': qtd,
-
-        # 'cont_pav_ssa':cont_pav_ssa,
-        # 'cont_pav_lf':cont_pav_lf,
-        # 'qtdlf': qtdlf,        
-        # 'qtdssa': qtdssa,
-
-
         'pavimento9': pavimento22_form,
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,

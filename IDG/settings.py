@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'rest_framework',
     
 
-
 ]
 
 MIDDLEWARE = [
@@ -52,18 +51,18 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
 ]
 
 
-INTERNAL_IPS = [
-    # ...
-    '127.0.0.1',
-    # ...
-]
+# INTERNAL_IPS = [
+#     # ...
+#     '127.0.0.1',
+#     # ...
+# ]
 
 
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True
@@ -161,16 +160,16 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': '/tmp/django_cache',
-    }
-}
+
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+#         'LOCATION': '/tmp/django_cache',
+#     }
+# }
 
 
