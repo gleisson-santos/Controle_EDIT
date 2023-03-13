@@ -12,8 +12,7 @@
     
     <!--  Filtro superido geral da tabela--> 
     <div id="add">
-        <form method="get"  >
-     
+        <form method="get"  >     
             {% csrf_token %}
             <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#cadpavimento">
                 <i class="fa fa-plus" aria-hidden="true"></i>Lançar Saida
@@ -326,14 +325,7 @@
               <option value="UNIAO RED COMPR PP 110X63MM PN10">União Red Compr PP 110x63mm PN10</option>
               <option value="VALVULA RET PVC JE 100MM ESG PRED">Valvula Ret PVC Je 100mm Esg Pred</option>
             </select>
-
-
-
-           </select>
-
-
         </form>
-
     </div>
 
     <!-- Modal Pendencias de Pavimentos bd-example-modal-lg modal-lg-->
@@ -410,7 +402,6 @@
     <table  class="table table-striped table-bordered table-hover table-responsive" id="tabela-listar">
         <thead>
             <tr>
-                <th></th>
                 <th>Localidade</th>
                 <th>Equipe</th>
                 <th>Data Saida</th>
@@ -431,7 +422,6 @@
             {% if user.groups.all.0.name == "Lauro" %}
                 {% for dado in localidade_l.qs %}
                   <tr>
-                    <td></td>
                     <td>{{dado.Localidade|lower|capfirst}}</td>
                     <td>{{dado.EquipeGestor|lower|capfirst}}</td>
                     <td>{{dado.Data|date:"d/m/Y"}}</td>
@@ -455,7 +445,6 @@
             {% elif user.groups.all.0.name == 'Salvador'%}
              {% for dado in localidade_2.qs %}
                 <tr>
-                    <td></td>
                     <td>{{dado.Localidade|lower|capfirst}}</td>
                     <td>{{dado.EquipeGestor|lower|capfirst}}</td>
                     <td>{{dado.Data|date:"d/m/Y"}}</td>
@@ -479,7 +468,6 @@
             {% else %}
                 {% for dado in filtro.qs %}
                    <tr>
-                    <td></td>
                     <td>{{dado.Localidade|lower|capfirst}}</td>
                     <td>{{dado.EquipeGestor|lower|capfirst}}</td>
                     <td>{{dado.Data|date:"d/m/Y"}}</td>
@@ -520,7 +508,10 @@
         //"colvis", Botão para filtrar colunas
       ],
       stateSave: true,
-      responsive: true,
+            responsive: {
+        details: window.matchMedia("(max-width: 767px)").matches //retorna tru se a tela for menor que 767
+      },
+
       // "bSort": false,
       aaSorting: [],
       pageLength: 25,

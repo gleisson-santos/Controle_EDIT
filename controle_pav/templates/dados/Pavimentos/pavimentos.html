@@ -216,22 +216,12 @@
 
     <!-- Linha informativa de demandas-->
      <div class='form-control' style="font-size: 13px;" >        
-        {% if user.groups.all.0.name == 'Lauro' %}
-          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav_lf}} registro(s) encontrado(s) -  {{qtdlf}} Pendente(s)</h8>
-
-        {% elif user.groups.all.0.name == 'Salvador' %}
-          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav_ssa}} registro(s) encontrado(s) -  {{qtdssa}} Pendente(s)</h8>
-
-        {% else %}
-          <h8>  <i class="fas fa-table me-1"></i>{{cont_pav}} registro(s) encontrado(s) -  {{qtd}} Pendente(s)</h8>
-
-        {% endif %}  
+          <h8>  <i class="fas fa-table me-1"></i>registro(s) encontrado(s)</h8>
     </div>
 
     <table  class="table table-striped table-bordered table-hover table-responsive" id="tabela-listar" >
         <thead>
             <tr>
-              {% comment %} <th>ID</th> {% endcomment %}
               <th>Localidade</th>
               <th>Situação</th>
               <th>Ss</th>
@@ -249,7 +239,7 @@
               <th>Met_Final </th>
               <th>Copiar</th>
               <th>Editar</th>
-                <th>Executado</th>
+              <th>Executado</th>
               <th>Criou</th>
               <th>Editou</th>
             </tr>
@@ -260,7 +250,6 @@
             {% if user.groups.all.0.name == "Lauro" %}
                 {% for dado in localidade_l.qs %}
                   <tr>
-                    <td></td>
                     <td>{{dado.Localidade}}</td>
                     <td>
                     {% if dado.Medir == 'Medir' %}
@@ -274,15 +263,15 @@
                     <td>{{dado.Ss}}</td>
                     <td>{{dado.Data|date:"d/m/Y"}}</td>
 
-                    {% if dado.atual %}
+                     {% if dado.atual %}
                         <td>
                             {{dado.atual2}}
-                            <i class="fas fa-calendar-check fa-lg"></i>
+                            <i style="color: green" class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                         </td>
                     {% else %}
                         <td>
                             {{dado.atual2}}
-                            <i class="fas fa-calendar-plus fa-lg"></i>
+                            <i style="color: red" class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                         </td>
                     {% endif %}
 
@@ -297,17 +286,24 @@
                     <td>{{dado.Met_Final|lower|capfirst}}</td>
                     
                     <!--  Filtro Copiar informaçoes da tabela-->
+                    
                     {% if not dado.Copiar %}
-                    <td></td>
-
-                    {% else %}
-                      <td>
-                          <button class="btn" onclick="copyToClipboard('{{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} inf {{dado.Equipe|capfirst}}')">
-                              <i class="fa fa-clipboard" aria-hidden="true"></i>
-                          </button>
-                      </td>
+                        <td>
+                            <button class="btn" onclick="copyToClipboard('{{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} inf {{dado.Equipe|capfirst}}')">
+                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                            </button>
+                        </td>
                     {% endif %}
-
+                    <script>
+                      function copyToClipboard(text) {
+                          const el = document.createElement('textarea');
+                          el.value = text;
+                          document.body.appendChild(el);
+                          el.select();
+                          document.execCommand('copy');
+                          document.body.removeChild(el);
+                      }
+                    </script>
 
 
                   
@@ -346,7 +342,6 @@
             {% elif user.groups.all.0.name == 'Salvador'%}
              {% for dado in localidade_2.qs %}
                 <tr>
-                    <td></td>
                     <td>{{dado.Localidade}}</td>
                     <td>
                     {% if dado.Medir == 'Medir' %}
@@ -360,15 +355,15 @@
                     <td>{{dado.Ss}}</td>
                     <td>{{dado.Data|date:"d/m/Y"}}</td>
 
-                    {% if dado.atual %}
+                      {% if dado.atual %}
                         <td>
                             {{dado.atual2}}
-                            <i class="fas fa-calendar-check fa-lg"></i>
+                            <i style="color: green" class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                         </td>
                     {% else %}
                         <td>
                             {{dado.atual2}}
-                            <i class="fas fa-calendar-plus fa-lg"></i>
+                            <i style="color: red" class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                         </td>
                     {% endif %}
 
@@ -380,21 +375,25 @@
                     <td>{{dado.Metragem|lower|capfirst}}</td>
                     
                     <!--  Filtro Copiar informaçoes da tabela-->
-                    {% if dado.Copiar %}
-                        <td></td>
-                        {% else %}
+                  
+                    {% if not dado.Copiar %}
                         <td>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-                            <button class="btn" data-clipboard-text="  Recomposição de pavimento: {{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} inf {{dado.Equipe|capfirst}}">
+                            <button class="btn" onclick="copyToClipboard('{{dado.Servico|capfirst}} de: {{dado.Metragem|capfirst}} inf {{dado.Equipe|capfirst}}')">
                                 <i class="fa fa-clipboard" aria-hidden="true"></i>
                             </button>
                         </td>
-                        <script>
-                            const clipboard = new ClipboardJS(".btn");
-                            clipboard.on("success", function (e) {});
-                            clipboard.on("error", function (e) {});
-                        </script>
                     {% endif %}
+                    <script>
+                      function copyToClipboard(text) {
+                          const el = document.createElement('textarea');
+                          el.value = text;
+                          document.body.appendChild(el);
+                          el.select();
+                          document.execCommand('copy');
+                          document.body.removeChild(el);
+                      }
+                    </script>
+
                     <td>{{dado.Ss_Final|lower|capfirst}}</td>
                     <td>{{dado.Met_Final|lower|capfirst}}</td>
 
@@ -433,7 +432,6 @@
             {% else %}
                 {% for dado in filtro.qs %}
                    <tr>
-                    {% comment %} <td></td> {% endcomment %}
                     <td>{{dado.Localidade}}</td>
                     <td>
                     {% if dado.Medir == 'Medir' %}
@@ -455,7 +453,7 @@
                     {% else %}
                         <td>
                             {{dado.atual2}}
-                            <i class="fas fa-calendar-plus fa-lg"></i>
+                            <i style="color: red" class="fa fa-calendar-plus-o" aria-hidden="true"></i>
                         </td>
                     {% endif %}
 
@@ -518,7 +516,6 @@
                     <a href="{% url 'excluir' dado.id %}"> <i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
                     </td>  {% endcomment %}
                 </tr>
-                </tr>
                 {% endfor %}
             {% endif %}              
         </tbody>
@@ -543,8 +540,8 @@
 
       stateSave: true,
       responsive: {
-            details: false
-        },
+        details: window.matchMedia("(max-width: 767px)").matches //retorna tru se a tela for menor que 767
+      },
 
       bSort: true, //Ordenação de colunas
       aaSorting: [],      // ordenar por coluna
@@ -785,6 +782,7 @@
         searchPlaceholder: "Buscar registros",
       },
     });
+    
   });
 </script>
 {% endblock %}

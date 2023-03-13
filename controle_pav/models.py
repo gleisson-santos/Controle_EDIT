@@ -148,7 +148,7 @@ class MaterialBase(models.Model):
 
     # Referencia de nome la na view na parte ADM django
     def __str__(self):
-        return '%s %s' % (self.Equipe, self.Item)
+        return '%s %s' % (self.EquipeGestor, self.Item)
 
 class Lancamento(MaterialBase):
     class Meta:
@@ -203,11 +203,11 @@ class Esgoto(models.Model):
             prazo = timezone.timedelta(days=2)
         dias_restantes = abs((data_limite - timezone.now().date()).days)
         if self.Servico == 'Vedacao' and dias_restantes <= 1:
-            return f'{dias_restantes} <span class="fas fa-calendar-check fa-lg"></span>'
+            return f'{dias_restantes} <i style="color: green" class="fa fa-calendar-plus-o" aria-hidden="true"></i>'
         elif dias_restantes <= prazo.days:
-            return f'{dias_restantes}  <span class="fas fa-calendar-check fa-lg"></span>'
+            return f'{dias_restantes}  <i style="color: green" class="fa fa-calendar-plus-o" aria-hidden="true"></i>'
         else:
-            return f'{dias_restantes - prazo.days}  <span class="fas fa-calendar-plus fa-lg"></span>'
+            return f'{dias_restantes - prazo.days}  <i style="color: red" class="fa fa-calendar-plus-o" aria-hidden="true"></i>'
 
     def __str__(self):
         return '%s %s' % (self.Ss, self.Data)

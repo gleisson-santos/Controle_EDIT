@@ -336,7 +336,7 @@
     <table  class="table table-striped table-bordered table-hover table-responsive" id="tabela-listar">
         <thead>
             <tr>
-                <th></th>
+   
                 <th>Localidade</th>
                 <th>Equipe</th>
                 <th>Material</th>
@@ -375,11 +375,9 @@
              
                 <!-- Query para o Grupo ADM GERAL -->
             {% else %}
-
               <!-- Calculos gerais-->
-              {% for item in geral %}
+              {% for item in aaa %}
                 <tr>
-                  <td></td>
                   <td>{{ item.Localidade }}</td> 
                   <td>{{ item.EquipeGestor }}</td> 
                   <td>{{ item.Item|lower|capfirst }}</td>                

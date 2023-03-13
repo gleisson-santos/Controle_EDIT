@@ -22,20 +22,18 @@ from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
 from django.http import JsonResponse
 
 
-# from rest_framework import generics
-# from .serializers import PavimentoSerializer
-# from rest_framework import serializers
-# from django_datatables_view.base_datatable_view import BaseDatatableView
+from rest_framework import generics
+from .serializers import PavimentoSerializer
+from rest_framework import serializers
 
 
 #dados API
-# class Pavimentolist(generics.ListCreateAPIView):
-#     queryset = Pavimento.objects.all()
-#     serializer_class = PavimentoSerializer
+class Pavimentolist(generics.ListCreateAPIView):
+    queryset = Pavimento.objects.all()
+    serializer_class = PavimentoSerializer
 
 
 # #Chamadas para encarts
@@ -173,8 +171,10 @@ def estoque_por_localidade(localidade=None):
     filtros = Q()
     if localidade:
         filtros &= Q(Localidade=localidade)
-        
-    itens = Material.objects.filter(filtros).values('EquipeGestor', 'Localidade', 'Item').annotate(total=Sum('Qtd') - Sum('Devolucao'), total_insumados=Sum('Insumados'), resumo_insumos=Sum('Qtd') - Sum('Insumados') - Sum('Devolucao'))
+        # em values informamos as colunas que devem ser agrupadas ou mostradas na tabela - nn
+    itens = Material.objects.filter(filtros).values('Localidade', 'Item').annotate(total=Sum('Qtd') - Sum('Devolucao'), total_insumados=Sum('Insumados'), resumo_insumos=Sum('Qtd') - Sum('Insumados') - Sum('Devolucao'))
+    
+    teste10 = Material.objects.filter(filtros).values('EquipeGestor','Localidade', 'Item').annotate(total=Sum('Qtd') - Sum('Devolucao'), total_insumados=Sum('Insumados'), resumo_insumos=Sum('Qtd') - Sum('Insumados') - Sum('Devolucao'))
 
     itens1 = Lancamento.objects.filter(filtros).values('EquipeGestor', 'Localidade', 'Item').annotate(total=Sum('Qtd'))
 
@@ -186,7 +186,7 @@ def estoque_por_localidade(localidade=None):
                 sub = item1['total'] - item['total']
                 item['sub'] = sub
 
-    return itens, ult_data, itens1
+    return itens, ult_data, itens1, teste10
 
 
 # PÁGINA PRINCIPAL Material
@@ -215,22 +215,24 @@ def index2(request):
         saida_form = Materialform()
  
 
-    geral, geral_data, geral1 = estoque_por_localidade(localidade="")
-    gerallf, geral_datalf, geral1lf = estoque_por_localidade(localidade="Lauro")
-    geralssa, geral_datassa, geral1ssa = estoque_por_localidade(localidade="Salvador")
+    geral, geral_data, geral1,uuu = estoque_por_localidade(localidade="")
+    gerallf, geral_datalf, geral1lf,eee = estoque_por_localidade(localidade="Lauro")
+    geralssa, geral_datassa, geral1ssa,kkk= estoque_por_localidade(localidade="Salvador")
 
     context = {
         'geral': geral,
         'geral_data': geral_data,
         'geral1': geral1,
+        'uuu': uuu,
 
         'gerallf': gerallf,
         'geral_datalf': geral_datalf,
-        'geral1lf': geral1lf,
+        'eee': eee,
 
         'geralssa': geralssa,
         'geral_datassa': geral_datassa,
         'geral1ssa': geral1ssa,
+        'kkk': kkk,
 
         'saida_form': saida_form,
         'lancamento_form': lancamento_form,
@@ -676,24 +678,26 @@ def editar_p(request, id_pendencia):
 def listagem(request):
     template_name = 'dados/Material/listagem.html'
 
-    geral, geral_data, geral1 = estoque_por_localidade(localidade="")
-    gerallf, geral_datalf, geral1lf = estoque_por_localidade(localidade="Lauro")
-    geralssa, geral_datassa, geral1ssa = estoque_por_localidade(localidade="Salvador")
+    geral, geral_data, geral1, aaa = estoque_por_localidade(localidade="")    
+    gerallf, geral_datalf, geral1lf, bbb = estoque_por_localidade(localidade="Lauro")
+    geralssa, geral_datassa, geral1ssa, ccc = estoque_por_localidade(localidade="Salvador")
 
     context = {
 
         'geral': geral,
         'geral_data': geral_data,
         'geral1': geral1,
+        'aaa': aaa,
 
         'gerallf': gerallf,
         'geral_datalf': geral_datalf,
         'geral1lf': geral1lf,
+        'bbb': bbb,
 
         'geralssa': geralssa,
         'geral_datassa': geral_datassa,
         'geral1ssa': geral1ssa,
-
+        'ccc': ccc,
    
     }
 
@@ -704,9 +708,9 @@ def listagem(request):
 def geral_eqps(request):
     template_name = 'dados/Material/geral_eqps.html'
 
-    geral, geral_data, geral1 = estoque_por_localidade(localidade="")
-    gerallf, geral_datalf, geral1lf = estoque_por_localidade(localidade="Lauro")
-    geralssa, geral_datassa, geral1ssa = estoque_por_localidade(localidade="Salvador")
+    geral, geral_data, geral1, aaa = estoque_por_localidade(localidade="")
+    gerallf, geral_datalf, geral1lf, bbb = estoque_por_localidade(localidade="Lauro")
+    geralssa, geral_datassa, geral1ssa,ccc = estoque_por_localidade(localidade="Salvador")
 
 
     context = {
@@ -714,14 +718,17 @@ def geral_eqps(request):
         'geral': geral,
         'geral_data': geral_data,
         'geral1': geral1,
+        'aaa': aaa,
 
         'gerallf': gerallf,
         'geral_datalf': geral_datalf,
         'geral1lf': geral1lf,
+        'bbb': bbb,
 
         'geralssa': geralssa,
         'geral_datassa': geral_datassa,
         'geral1ssa': geral1ssa,
+        'ccc': ccc,
 
    
     }
