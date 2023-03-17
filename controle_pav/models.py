@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 
 
+
 # def Equipe700():
 #     with open("controle_pav/static/texto/Equipes-700.csv", 'r') as arquivo:
 #         equipes = arquivo.read().splitlines()
