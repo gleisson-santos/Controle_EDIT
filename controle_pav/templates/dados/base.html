@@ -31,6 +31,8 @@
     {% comment %} <link rel="stylesheet" type="text/css" href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.csss"/> {% endcomment %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <!-- Title -->
+ 
+    <link rel="stylesheet" href="{% static 'css/chosen.min.css' %}">
     <title>
       {% block title %}Gerenciamento de Serviços{% endblock %}
     </title>
@@ -177,6 +179,8 @@
      {% endcomment %}
 
      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+     <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+
     {% block scripts %} {% endblock %}
     
   </body>

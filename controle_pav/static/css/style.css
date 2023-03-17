@@ -154,7 +154,7 @@ label[for="days"] {
     margin-right: 2px;
 }
 
-.select2 {
+ .select22 {
     float: right !important;
     width: 250px !important;
     height: 40px !important;
@@ -162,10 +162,12 @@ label[for="days"] {
     padding: 5px !important;
     border-radius: 5px !important;
     border: 1px solid #ccc !important;
-    margin-top: 19px !important;
+    margin-top: 1px !important;
     margin-right: 8px !important;
 
-}
+} 
+
+
 
 
 
@@ -294,3 +296,4 @@ label[for="days"] {
 
 
 
+/*Teste do plugin Select2*/

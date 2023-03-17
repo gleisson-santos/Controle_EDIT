@@ -47,7 +47,7 @@
                 <option value=True>Executado</option>
             </select>  
           
-            <select id="bairro" name="bairro">
+            <select  id="bairro" name="bairro"  >
               <option value="">Filtrar Bairro</option>
                   <option value="all">All</option>
                     <option value="Ipitinga">Ipitinga</option>
@@ -165,13 +165,14 @@
                                     {% render_field pavimento9.Data class="form-control"%}
                                 </div>
 
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 ">
                                     <span id='id_Equipe' class="input-group-text">Equipe</span>
-                                    {% render_field pavimento9.EquipeGestor  class="form-control" %}
+                                    {% render_field pavimento9.EquipeGestor class="form-control" %}
                                     ⠀
-                                    <span class="input-group-text">Bairro</span>
-                                    {% render_field pavimento9.BairroGestor class="form-control"%}
+                                    <span class="input-group-text ">Bairro</span>
+                                    {% render_field pavimento9.BairroGestor id="id_bairro" class="form-control"%}
                                 </div>
+
             
                                 <div class="input-group mb-3">
                                     <span  class="input-group-text">Rua</span>
@@ -240,9 +241,9 @@
               <th>Met_Final </th>
               <th>Copiar</th>
               <th>Editar</th>
-              <th>Executado</th>
+              {% comment %} <th>Executado</th>
               <th>Criou</th>
-              <th>Editou</th>
+              <th>Editou</th> {% endcomment %}
             </tr>
         </thead>
 
@@ -315,7 +316,7 @@
                     </td>
 
                     <!--  Filtro checked-->
-                    {% if dado.Executado %}
+                    {% comment %} {% if dado.Executado %}
                         <td>
                             <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
                             <label class="form-check-label" for="flexSwitchCheckDefaultXl"></label>
@@ -327,7 +328,7 @@
                         </td>
                     {% endif %}
                     <td>{{dado.created_by}}</td>
-                    <td>{{dado.last_edited_by}}</td>
+                    <td>{{dado.last_edited_by}}</td> {% endcomment %}
 
                     {% comment %} <td>
                     <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
@@ -404,7 +405,7 @@
                         </a>
                     </td>
 
-                    <!--  Filtro checked-->
+                    {% comment %} <!--  Filtro checked-->
                     {% if dado.Executado %}
                         <td>
                             <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
@@ -417,7 +418,7 @@
                         </td>
                     {% endif %}
                     <td>{{dado.created_by}}</td>
-                    <td>{{dado.last_edited_by}}</td>
+                    <td>{{dado.last_edited_by}}</td> {% endcomment %}
 
                     {% comment %} <td>
                     <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
@@ -494,7 +495,7 @@
                         </a>                        
                     </td>
 
-                    <!--  Filtro checked-->
+                    {% comment %} <!--  Filtro checked-->
                     {% if dado.Executado %}
                         <td>
                             <input disabled type="checkbox" class="form-check-input" id="flexSwitchCheckDefaultXl" checked />
@@ -507,7 +508,7 @@
                         </td>
                     {% endif %}
                     <td>{{dado.created_by}}</td>
-                    <td>{{dado.last_edited_by}}</td>
+                    <td>{{dado.last_edited_by}}</td> {% endcomment %}
 
                     {% comment %} <td>
                     <a id="teste1" font size="2" class="text-decoration-none" href="{% url 'detalhe2' dado.id%}"> <img src="https://img.icons8.com/dusk/64/000000/redo.png" height="25" width="25" /></a>
@@ -528,8 +529,8 @@
 {% block scripts %}
 <script>
   $(document).ready(function () {
+
     $('#bairro').select2();
-    $('.bairro').select2();
     $("#tabela-listar").DataTable({
 
       dom: "Bfrtip",
