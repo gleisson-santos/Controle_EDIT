@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "bootstrap5",
     'fontawesomefree',
-    'rest-framework',
+    # 'rest-framework',
     
 
 ]

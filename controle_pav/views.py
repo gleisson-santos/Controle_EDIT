@@ -25,15 +25,15 @@ from django.dispatch import receiver
 from django.http import JsonResponse
 
 
-from rest_framework import generics
-from .serializers import PavimentoSerializer
-from rest_framework import serializers
+# from rest_framework import generics
+# from .serializers import PavimentoSerializer
+# from rest_framework import serializers
 
 
-#dados API
-class Pavimentolist(generics.ListCreateAPIView):
-    queryset = Pavimento.objects.all()
-    serializer_class = PavimentoSerializer
+# #dados API
+# class Pavimentolist(generics.ListCreateAPIView):
+#     queryset = Pavimento.objects.all()
+#     serializer_class = PavimentoSerializer
 
 
 # #Chamadas para encarts
