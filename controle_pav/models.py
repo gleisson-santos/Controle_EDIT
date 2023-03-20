@@ -9,6 +9,8 @@ from django.utils import timezone
 
 
 
+
+
 # def Equipe700():
 #     with open("controle_pav/static/texto/Equipes-700.csv", 'r') as arquivo:
 #         equipes = arquivo.read().splitlines()
@@ -116,7 +118,10 @@ class Pavimento(models.Model):
         a = abs((hoje - data).days)
         return a
 
-    # Referencia de nome la na view na parte ADM django
+
+
+
+      # Referencia de nome la na view na parte ADM django
     def __str__(self):
         return '%s %s' % (self.Ss, self.Data)
 
