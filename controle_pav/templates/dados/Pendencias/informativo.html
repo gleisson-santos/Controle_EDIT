@@ -142,8 +142,8 @@ $(function () {
                 <th>Data</th>
                 <th>Editar</th>
                 <th>Executado</th>
-                <th>Criou</th>
-                <th>Editou</th>
+                {% comment %} <th>Criou</th>
+                <th>Editou</th> {% endcomment %}
             </tr>
         </thead>
         
@@ -357,9 +357,9 @@ $(function () {
             ],
 
         stateSave: true,
-              responsive: {
-        details: window.matchMedia("(max-width: 767px)").matches //retorna tru se a tela for menor que 767
-      },
+        responsive: {
+            details: window.matchMedia("(max-width: 767px)").matches //retorna tru se a tela for menor que 767
+        },
 
 
         // "bSort": false,

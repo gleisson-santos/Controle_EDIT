@@ -1,7 +1,5 @@
 from ast import Return
 from multiprocessing import context
-
-
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
@@ -11,19 +9,19 @@ from .forms import Esgotoform, Pavimentoform, Pendenciasform, Materialform, Lanc
 from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento
 from django.contrib.sessions.models import Session
 
+
 from django.contrib.auth.models import User
 from django.db import models
-
 from django.db.models import Sum, Max
 from django.db.models import Q
 import datetime
 
+#Dados de teste de Rast API
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.http import JsonResponse
-
 
 from rest_framework import generics
 from .serializers import PavimentoSerializer
@@ -405,12 +403,10 @@ def pavimentos(request):
     dados, filterlauro, filtersalvador = [filter_pavimento(request, Pavimento, PavimentoFilter, localidade=l) for l in localidades]
 
     context = {
-
         'filtro': dados,
         'pavimento9': pavimento22_form,
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
-   
     }
 
     return render(request, template_name, context)
@@ -482,35 +478,13 @@ def pavimentos2(request):
 
 
     #Filtros para tabela de Pavimento
-    dados = filter_pavimento(request, Esgoto, EsgotoFilter, localidade='')
     dados2 = filter_pavimento(request,  Esgoto, EsgotoFilter, localidade='')
     filterlauro  = filter_pavimento(request,  Esgoto, EsgotoFilter, localidade='Lauro')
     filtersalvador  = filter_pavimento(request, Esgoto, EsgotoFilter, localidade='Salvador')
-    days  = filter_pavimento(request, Esgoto, EsgotoFilter, localidade='')
-
-    
-    # #Encart Esgoto
-    # qtdlf2 = encart("Lauro", Esgoto)[0]
-    # cont_pav_lf2 = encart("Lauro", Esgoto)[1]
-
-    # qtdssa2 = encart("Salvador", Esgoto)[0]
-    # cont_pav_ssa = encart("Salvador", Esgoto)[1]
-
-    cont_pav3 = Esgoto.objects.filter().count()
-    qtd3 = Esgoto.objects.filter(Executado='0').count()
 
     context = {
         'dados': dados2,
         'filtro2': dados,
-        'days': days,
-
-        # #Cart Esgoto
-        # 'qtdlf2':qtdlf2,
-        # 'cont_pav_lf2':cont_pav_lf2,
-        # 'qtdssa2':qtdssa2,
-        # 'cont_pav_ssa': cont_pav_ssa,
-        'cont_pav3': cont_pav3,
-        'qtd3': qtd3,
 
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
@@ -596,7 +570,6 @@ def informativo(request):
         'filtro3': dados,
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
-   
         'cadastro2': pendencia_form,
     }
 
@@ -729,17 +702,8 @@ def material(request):
 
     #Filtros para tabela de Pavimento
     dados = filter_pavimento(request, Material, MaterialFilter, localidade='')
-    dados2 = filter_pavimento(request,  Material, MaterialFilter, localidade='')
     filterlauro  = filter_pavimento(request,  Material, MaterialFilter, localidade='Lauro')
     filtersalvador  = filter_pavimento(request, Material, MaterialFilter, localidade='Salvador')
-    days  = filter_pavimento(request,  Material, MaterialFilter, localidade='')
-
-    #Encart Pavimento
-    # cont_pav_lf = encart("Lauro", Material)[1]
-    # cont_pav_ssa = encart("Salvador", Material)[1]
-
-    cont_pav = Material.objects.filter().count()
-
 
 
     context = {
@@ -843,15 +807,11 @@ def lancamentos(request):
 
     filterlauro  = filter_pavimento(request,  Lancamento, LancamentoFilter, localidade='Lauro')
     filtersalvador  = filter_pavimento(request, Lancamento, LancamentoFilter, localidade='Salvador')
-    days  = filter_pavimento(request,  Lancamento, LancamentoFilter, localidade='')
-
- 
+   
     context = {
         'filtro': dados,
-        'days': days,
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
-       
         'pavimento9': lancamento_form,
     }
 

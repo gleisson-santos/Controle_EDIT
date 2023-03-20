@@ -2,6 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block conteudo %}
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <h1>Controle de Demandas</h1>
@@ -381,9 +382,8 @@
             <table style="text-align: center" class="table table-striped table-bordered table-hover table-responsive" id='tabela-listar'>
                 <thead>
                     <tr >
-                        <th></th>
                         <th>localidade</th>
-                        <th>Criou</th>
+                        {% comment %} <th>Criou</th> {% endcomment %}
                         <th>Situação</th>
                         <th>Ss</th>
                         <th>Tipo</th>
@@ -398,9 +398,8 @@
                     {% if user.groups.all.0.name == 'Lauro' %}
                         {% for dado in localidade_l.qs %}
                             <tr>
-                                <td></td>
                                 <td>{{dado.Localidade}}</td>
-                                <td>{{dado.created_by}}</td>
+                                {% comment %} <td>{{dado.created_by}}</td> {% endcomment %}
                                 <td>
                                     {% if dado.Medir == 'Medir' %}  
                                     <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>
