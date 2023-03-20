@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import include, path
 from accounts import views
 from controle_pav import views
-from controle_pav.views import Pavimentolist
+# from controle_pav.views import Pavimentolist
 
 
 urlpatterns = [
@@ -60,7 +60,7 @@ urlpatterns = [
     path('Material/geral_eqps/',  views.geral_eqps,         name='geral_eqps'),
 
 
-    path('pessoas/', Pavimentolist.as_view(), name='pessoa-list'),
+    # path('pessoas/', Pavimentolist.as_view(), name='pessoa-list'),
 
 ]
 

@@ -18,7 +18,7 @@ SECRET_KEY = "django-insecure-_4&@1n_bxim29ik7m4@*tg6m)l-+v9buwc)-%kif@$e%x!v^gc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "debug_toolbar",
     "controle_pav",
     "widget_tweaks",
     "django_filters",
@@ -39,7 +38,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "bootstrap5",
     'fontawesomefree',
-    'rest_framework',
+    # 'rest-framework',
     
 
 ]
@@ -51,7 +50,6 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
@@ -70,14 +68,15 @@ MIDDLEWARE = [
 # SESSION_SAVE_EVERY_REQUEST = True
 
 
-MIDDLEWARE_CLASSES = (
-    # Other middleware classes go here
-    'responsive.middleware.DeviceInfoMiddleware',
-)
+# MIDDLEWARE_CLASSES = (
+#     # Other middleware classes go here
+#     'responsive.middleware.DeviceInfoMiddleware',
+# )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     # Other context processors included here
     'responsive.context_processors.device_info',
+    'django.template.context_processors.static',
 )
 
 # Name, Max Width (inclusive)
@@ -162,14 +161,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-
-
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-#         'LOCATION': '/tmp/django_cache',
-#     }
-# }
 
 
