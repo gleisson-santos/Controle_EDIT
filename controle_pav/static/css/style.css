@@ -167,6 +167,23 @@ label[for="days"] {
 
 } 
 
+.chosen-container-single .chosen-single  {
+    position: relative;
+    display: block;
+    overflow: hidden;
+
+    height: 35px !important;
+    width: 275px !important;
+
+    border: 1px solid #aaa !important;
+    border-radius: none !important;
+    background-color: #fff;
+    color: #df1010;
+    text-decoration: none;
+    white-space: nowrap;
+
+}
+
 
 
 

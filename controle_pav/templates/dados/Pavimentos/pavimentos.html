@@ -166,10 +166,10 @@
                                 </div>
 
                                 <div class="input-group mb-3 ">
-                                    <span class="input-group-text">Equipe</span>
-                                    {% render_field pavimento9.EquipeGestor class="form-control" %}
+                                    {% comment %} <span class="input-group-text">Equipe</span>
+                                    {% render_field pavimento9.EquipeGestor class="form-control" %} {% endcomment %}
                                     ⠀
-                                    <span class="input-group-text" >Bairro</span>
+                                    <span class="input-group-text"  >Bairro</span>
                                     {% render_field pavimento9.BairroGestor class="form-control" id='id_Equipe'%}
                                 </div>
 
@@ -529,7 +529,7 @@
 {% block scripts %}
 <script>
   $(document).ready(function () {
-    $('#id_Equipe').select2();
+    $('#id_Equipe').chosen();
     $('#bairro').select2();
     $("#tabela-listar").DataTable({
 
