@@ -131,12 +131,9 @@ class MaterialBase(models.Model):
      
 
     EquipeGestor = models.CharField(max_length=255,choices=EquipeGestor(), blank=True)
-
-
     Data = models.DateField('data', null=True, blank=True)
     Item = models.CharField(max_length=800, choices=Material())
     N_reserva = models.IntegerField(blank=True, null=True)
-
     Qtd = models.IntegerField(blank=False)
 
     SERVICOS = (

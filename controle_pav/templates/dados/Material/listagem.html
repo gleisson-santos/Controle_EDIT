@@ -354,7 +354,6 @@
     <table  class="table table-striped table-bordered table-hover table-responsive" id="tabela-listar">
         <thead>
             <tr>
-            
                 <th>Localidade</t>
                 <th>Material</t>
                 <th>Qtd Entrada</th>
@@ -370,8 +369,8 @@
                 {% for item in gerallf %}
                   <tr>
                     <td>{{ item.Localidade }}</td> 
-                    <td>{{ item.Item|lower|capfirst }}</td>                
-                    
+                    <td>{{ item.Item|lower|capfirst }}</td>    
+
                     <td>
                       {% for item1 in geral1lf %}
                       {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
@@ -398,7 +397,8 @@
                 {% for item in geralssa %}
                   <tr>
                     <td>{{ item.Localidade }}</td> 
-                    <td>{{ item.Item|lower|capfirst }}</td>                
+                    <td>{{ item.Item|lower|capfirst }}</td>  
+
                     <td>
                       {% for item1 in geral1ssa %}
                       {% if item1.Localidade == item.Localidade and item1.Item == item.Item %}
@@ -406,6 +406,7 @@
                       {% endif %}
                       {% endfor %}
                     </td>
+                    
                     <td>{{ item.total }}</td>  
 
                     <td>
