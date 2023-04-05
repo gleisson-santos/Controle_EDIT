@@ -382,7 +382,7 @@
             <table style="text-align: center" class="table table-striped table-bordered table-hover table-responsive" id='tabela-listar'>
                 <thead>
                     <tr >
-                        <th>localidade</th>
+                        <th>Localidade</th>
                         {% comment %} <th>Criou</th> {% endcomment %}
                         <th>Situação</th>
                         <th>Ss</th>
@@ -464,11 +464,10 @@
                     {% else %}
                         {% for dado in filtro3.qs %}
                             <tr>
-                                <td></td>
                                 <!-- for para iterar sobre todos os itens do banco de dados -->
                                 <!-- Itens quais eu quero acessaar do BD -->
                                 <td>{{dado.Localidade}}</td>
-                                <td>{{dado.created_by}}</td>
+                                {% comment %} <td>{{dado.created_by}}</td> {% endcomment %}
                                 <td>
                                     {% if dado.Medir == 'Medir' %}  
                                     <h4 style="color: Green;" class="badge badge-warning">P/ Medir</h4>

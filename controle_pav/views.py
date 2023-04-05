@@ -24,9 +24,9 @@ from django.dispatch import receiver
 from django.http import JsonResponse
 
 
-from rest_framework import generics
-from .serializers import PavimentoSerializer
-from rest_framework import serializers
+# from rest_framework import generics
+# from .serializers import PavimentoSerializer
+# from rest_framework import serializers
 
 
 # from rest_framework import generics
@@ -55,7 +55,7 @@ def filter_pavimento(request, tipo, filters, localidade=None, servico=None):
     serv_key = f"{current_url}_selected_serv"
     bairro_key = f"{current_url}_selected_bairro"
     execut_key = f"{current_url}_selected_execut"
-    material_key = f"{current_url}_selected_material"
+    material_key = f"{current_url}_selected_mateclsrial"
     
     days = request.GET.get('days')
     serv = request.GET.get('serv')
