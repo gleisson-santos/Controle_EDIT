@@ -10,7 +10,6 @@ urlpatterns = [
     # path de pavimento agua
     path('admin/',         admin.site.urls),
     path('',  views.index,         name='index'),
-
     
 
     path('Pavimentos/pavimentos',                                views.pavimentos,    name='pavimentos'),
