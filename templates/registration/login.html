@@ -1,43 +1,3 @@
-<style>
-    /* Estilos para o pop-up */
-    .popup {
-        display: none; /* Esconde o pop-up por padrão */
-        position: fixed; /* Posição fixa para o pop-up */
-        z-index: 1; /* Coloca o pop-up em cima de tudo */
-        left: 0;
-        top: 0;
-        width: 100%; /* Largura total */
-        height: 100%; /* Altura total */
-        overflow: auto; /* Adiciona rolagem se necessário */
-        background-color: rgba(0,0,0,0.5); /* Fundo preto semi-transparente */
-    }
-
-    /* Estilos para o conteúdo do pop-up */
-    .popup-content {
-        background-color: #fefefe; /* Fundo branco */
-        margin: 15% auto; /* Centraliza o conteúdo */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%; /* Largura do conteúdo */
-    }
-
-    /* Estilos para o botão de fechar */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-</style>
-
-
 {% extends 'dados/base.html'%} 
 {% load crispy_forms_tags %}
 {% block conteudo %}
@@ -66,30 +26,6 @@
         <p><a href="/accounts/register" class="btn btn-info btn-block">Criar uma conta!</a></p>
         {% endcomment %}
         <p class="text-center">&copy; 2022</p>
-    </form>
-
-        <!-- Adicione a div para o pop-up -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <span class="close">&times;</span>
-            <iframe width="560" height="315" src="https://youtu.be/vzsoYxRxPy4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-    </div>
-
-    <script>
-        // Quando a página for carregada
-        window.onload = function() {
-            // Mostra o pop-up
-            document.getElementById('popup').style.display = "block";
-        }
-
-        // Quando o usuário clicar no botão de fechar
-        document.getElementsByClassName('close')[0].onclick = function() {
-            // Esconde o pop-up
-            document.getElementById('popup').style.display = "none";
-        }
-    </script>
-
-    
+    </form>    
 </div>
 {% endblock %}
