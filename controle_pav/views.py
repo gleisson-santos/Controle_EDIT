@@ -490,7 +490,7 @@ def pavimentos2(request):
 
     context = {
         'dados': dados2,
-        'filtro2': dados,
+        'filtro2': dados2,
 
         'localidade_l': filterlauro,
         'localidade_2': filtersalvador,
