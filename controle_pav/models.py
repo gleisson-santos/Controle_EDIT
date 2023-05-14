@@ -169,15 +169,8 @@ class Esgoto(models.Model):
     last_edited_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='+', editable=False)
     Ss = models.CharField(max_length=9)
     Data = models.DateField('data', null=True, blank=True)
-
-    # Equipe700 = models.CharField(max_length=255, choices=Equipe700(), blank=True)
-    # Equipe900 = models.CharField(max_length=255, choices=Equipe900(), blank=True)
     EquipeGestor = models.CharField(max_length=255,choices=EquipeGestor(), blank=True)
-
-    # Bairro700 = models.CharField(max_length=255, choices=Bairro700(),  blank=True)
-    # Bairro900 = models.CharField(max_length=255, choices=Bairro900(),  blank=True)
     BairroGestor = models.CharField(max_length=255, choices=BairroGestor(),  blank=True)
-
 
     Rua = models.CharField(max_length=255)
     Referencia = models.CharField(max_length=255)

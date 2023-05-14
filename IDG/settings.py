@@ -120,23 +120,12 @@ WSGI_APPLICATION = "IDG.wsgi.application"
 
 
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": "controllserv",
-#         "HOST": "127.0.0.1",
-#         "PORT": "3306",
-#         "USER": "root",
-#         "PASSWORD": "12345",
-#     }
-# }
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.db.backends.mysql",
         "NAME": "controllserv",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
         "USER": "root",
         "PASSWORD": "12345",
     }
