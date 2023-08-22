@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 
 from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter, MaterialFilter, LancamentoFilter, CompraFilter
 from .forms import Esgotoform, Pavimentoform, Pendenciasform, Materialform, Lancamentoform, CompraForm, ProdutoForm
-from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento, Fornecedor, Compra, Produto, Materiall
+from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento, Compra, Produto
 from django.contrib.sessions.models import Session
 
 
@@ -35,6 +35,7 @@ def orcamento(request, id=None, *args, **kwargs):
 
 
 def lista(request):
+    print(request.POST)
     template_name = 'dados/Orcamento/lista.html'
     if request.method == 'POST':
         compra_form = CompraForm(request.POST)

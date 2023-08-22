@@ -44,7 +44,7 @@
     </div>
 
     <!-- Modal Pendencias de Pavimentos-->
-    <div class="modal fade bd-example-modal-lg" id="cadpavimento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal" id="cadpavimento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 
@@ -61,8 +61,6 @@
                             {% csrf_token %}   
 
                             <div id="pavpend"> 
-                                <!-- Campos do formulário de Compra -->
-                                <!-- ... -->
                                 <div class="input-group mb-3">
                                   <span  class="input-group-text">Fornecedor</span>
                                   {% render_field compra_form.fornecedor class="form-control" %}
@@ -75,8 +73,8 @@
                                   <span class="input-group-text" >Data</span>
                                   {% render_field compra_form.data  class="form-control" %}     
                                   ⠀                   
-                                  <span class="input-group-text">Valor</span>
-                                  {% render_field compra_form.valor_compra class="form-control"%}
+                                  <span class="input-group-text">Quantidade</span>
+                                  {% render_field produto_form.quantidade class="form-control"%}
                                 </div>
                             
                                 <div class="input-group mb-3">
@@ -86,11 +84,8 @@
                                   <span class="input-group-text">Preço</span>
                                   {% render_field produto_form.preco class="form-control"%}
                                 </div>
-        
+                          </div>
 
-                              </div>
-
-                            
                             <div id="btn2pen">
                                 <!-- Botoes -->
                                 <button class="btn btn-secondary"><a href="{% url 'lista'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 

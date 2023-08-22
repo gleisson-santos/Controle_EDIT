@@ -62,23 +62,45 @@ class Pendenciasform(ModelForm):
 
 
 
-class CompraForm(forms.ModelForm):
+class CompraForm(ModelForm):
     data = forms.DateField(label='Data', widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date', }), input_formats=('%Y-%m-%d',), )
+    fornecedor = forms.ModelChoiceField(
+        queryset=Fornecedor.objects.all(), 
+        label='Fornecedor',
+        widget=forms.TextInput(attrs={'placeholder': 'Informe o fornecedor'}),
+        required=False
+    )
+
     class Meta:
         model = Compra
         fields = '__all__'
 
+
 class ProdutoForm(forms.ModelForm):
+    material = forms.ModelChoiceField(
+    queryset=Fornecedor.objects.all(), 
+    label='Fornecedor',
+    widget=forms.TextInput(attrs={'placeholder': 'Informe o fornecedor'}),
+    required=False
+    )
     class Meta:
         model = Produto
         fields = ['material', 'preco', 'quantidade']
 
 class FornecedorForm(forms.ModelForm):
+    fornecedor_nome = forms.CharField(label='Fornecedor', max_length=200)  # Campo de texto para o nome do fornecedor
+
     class Meta:
         model = Fornecedor
         fields = '__all__'
 
 class MaterialForm(forms.ModelForm):
+    nome = forms.ModelChoiceField(
+    queryset=Materiall.objects.all(), 
+    label='Material',
+    widget=forms.TextInput(attrs={'placeholder': 'Informe o material'}),
+    required=False
+    )
     class Meta:
         model = Materiall
         fields = '__all__'
