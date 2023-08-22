@@ -39,9 +39,13 @@ INSTALLED_APPS = [
     "bootstrap5",
     'fontawesomefree',
     # 'rest-framework',
-    
 
 ]
+
+
+DECIMAL_SEPARATOR = '.' 
+USE_THOUSAND_SEPARATOR = True
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

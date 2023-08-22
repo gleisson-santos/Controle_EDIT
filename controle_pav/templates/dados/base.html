@@ -35,6 +35,7 @@
     <!-- Title -->
  
     <link rel="stylesheet" href="{% static 'css/chosen.min.css' %}">
+    
     <title>
       {% block title %}Gerenciamento de Serviços{% endblock %}
     </title>
@@ -100,7 +101,7 @@
                 <div class="dropdown-menu " aria-labelledby="dropdown01">
                   <a class="dropdown-item" href="#">Medição</a>
                   <a class="dropdown-item" href="{% url 'index2' %}">Material</a>
-                  <a class="dropdown-item" href="#">Unidade Tec.</a>
+                  <a class="dropdown-item" href="#">Orçamentos</a>
                   {% comment %} <a class="dropdown-item" href="{% url 'pessoa-list' %}">Acessar API</a> {% endcomment %}
                 </div>
               </li>	

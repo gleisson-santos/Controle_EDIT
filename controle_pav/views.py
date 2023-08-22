@@ -1,12 +1,13 @@
 from ast import Return
 from multiprocessing import context
 from django.contrib.auth.decorators import login_required
+
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 
 from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter, MaterialFilter, LancamentoFilter
 from .forms import Esgotoform, Pavimentoform, Pendenciasform, Materialform, Lancamentoform
-from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento
+from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento, Fornecedor, Compra, Produto, Materiall
 from django.contrib.sessions.models import Session
 
 
@@ -22,6 +23,15 @@ from django.core.cache import cache
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.http import JsonResponse
+
+
+@login_required(redirect_field_name='redirect_to')
+def orcamento(request, id=None, *args, **kwargs):
+	contexto = {}
+	contexto['orcamento'] = Compra.objects.get(id=id)
+
+	return render(request, "dados/Orcamento/orcamento.html", contexto)
+
 
 
 # from rest_framework import generics
