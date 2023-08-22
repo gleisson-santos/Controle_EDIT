@@ -1,6 +1,6 @@
 
 import django_filters
-from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento
+from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento, Compra
 from datetime import timedelta
 
 
@@ -68,3 +68,9 @@ class LancamentoFilter(django_filters.FilterSet):
 
 
 
+class CompraFilter(django_filters.FilterSet):
+
+
+    class Meta:
+        model = Compra
+        fields = ('fornecedor', 'nota_fiscal')

@@ -1,0 +1,84 @@
+{% extends 'dados/base.html'  %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block conteudo %}
+{% load static %}
+
+<div class="container">
+    <div class="card w-10">
+        <div class="card-body">
+            <h3 style='text-align:center'>Alterar orçamento</h3>
+            <form action="" method="POST">
+                 {% csrf_token %}
+
+                <div id="pavpend"> 
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Localidade</span>
+                        {% render_field formulario.Localidade class='form-control'%}
+                        ⠀                               
+                        <span class="input-group-text">Situação</span>
+                        {% render_field formulario.Medir class='form-control' %}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Ss</span>
+                        {% render_field formulario.Ss  class="form-control" placeholder="Informe 9 Digitos" %}     
+                        ⠀                   
+                        <span class="input-group-text">Data</span>
+                        {% render_field formulario.Data class="form-control"%}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span id='id_Equipe' class="input-group-text">Equipe</span>
+                        {% render_field formulario.EquipeGestor  class="form-control" %}
+                        ⠀
+                        <span class="input-group-text">Bairro</span>
+                        {% render_field formulario.BairroGestor class="form-control"%}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span  class="input-group-text">Rua</span>
+                        {% render_field formulario.Rua class="form-control" placeholder=" item obrigatorio"%}
+                        ⠀
+                        <span class="input-group-text">Referência</span>
+                        {% render_field formulario.Referencia class="form-control" placeholder=" item obrigatorio"%}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Metragem</span>
+                        {% render_field formulario.Metragem class="form-control" placeholder=" Ex: 1,50 x 1,25" %}
+                        ⠀
+                        <span class="input-group-text">Obs</span>
+                        {% render_field formulario.Observacao class="form-control" placeholder=" item opcional"%}
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Met_Final</span>
+                        {% render_field formulario.Met_Final class="form-control" placeholder=" Ex: 1,50 x 1,25" %}
+                        ⠀
+                        <span class="input-group-text">Ss_Final</span>
+                        {% render_field formulario.Ss_Final class="form-control" placeholder=" item opcional"%}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Serviço</span>
+                        {% render_field formulario.Servico  class="form-control"%}
+                        ⠀
+                        <span class="input-group-text">Executado</span>
+                        {% render_field formulario.Executado class='form-control'%}
+                    </div>
+                </div>
+                
+                <div id="btn2pen">
+                    <!-- Botoes -->
+                    <button class="btn btn-secondary"><a href="{% url 'pavimentos'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
+                    <button class="btn btn-success" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
+                </div>
+
+            </form>
+        </div>
+    </div>         
+</div>
+
+{% endblock %}

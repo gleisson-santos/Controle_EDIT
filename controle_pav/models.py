@@ -37,12 +37,17 @@ class Materiall(models.Model):
 class Compra(models.Model):
     fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
     nota_fiscal = models.CharField(max_length=10)
-    data = models.DateField()
+    data = models.DateField('data', null=True, blank=True, db_index=True)
     valor_compra = models.DecimalField(max_digits=10,
     decimal_places=2, blank=True, default=0)
 
+    # def imprimir(self):
+    #         return mark_safe("""<a href=\"/orcamento/%s/\" target="_blank"><img src=\"/static/images/b_print.png\"></a>""" % self.id)
+    
     def imprimir(self):
-            return mark_safe("""<a href=\"/orcamento/%s/\" target="_blank"><img src=\"/static/images/b_print.png\"></a>""" % self.id)
+        return mark_safe(f'<a href="/orcamento/{self.id}/" target="_blank"><i class="fas fa-eye"></i></a>')
+
+
 
     class Meta:
         verbose_name = u'Compra'
@@ -70,6 +75,8 @@ class Produto(models.Model):
         self.compra.valor_compra += self.subtotal
         self.compra.save()
         return super(Produto, self).save(*args, **kwargs)
+
+
 
 
 

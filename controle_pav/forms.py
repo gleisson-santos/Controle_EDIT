@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from datetime import timedelta
-from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento
+from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento, Compra, Produto, Fornecedor, Materiall
 
 
 class Pavimentoform(ModelForm):
@@ -14,6 +14,7 @@ class Pavimentoform(ModelForm):
     class Meta:
         model = Pavimento
         fields = '__all__'
+
 
 class Materialform(ModelForm):
 
@@ -55,5 +56,30 @@ class Pendenciasform(ModelForm):
 
     class Meta:
         model = Pendencias
+        fields = '__all__'
+
+
+
+
+
+class CompraForm(forms.ModelForm):
+    data = forms.DateField(label='Data', widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date', }), input_formats=('%Y-%m-%d',), )
+    class Meta:
+        model = Compra
+        fields = '__all__'
+
+class ProdutoForm(forms.ModelForm):
+    class Meta:
+        model = Produto
+        fields = ['material', 'preco', 'quantidade']
+
+class FornecedorForm(forms.ModelForm):
+    class Meta:
+        model = Fornecedor
+        fields = '__all__'
+
+class MaterialForm(forms.ModelForm):
+    class Meta:
+        model = Materiall
         fields = '__all__'
 

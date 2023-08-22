@@ -61,6 +61,8 @@ urlpatterns = [
 
     # path de Orçamento
     path('orcamento/<int:id>/', views.orcamento, name='orcamento'),
+    path('lista/', views.lista, name='lista'),
+
 
     # path('pessoas/', Pavimentolist.as_view(), name='pessoa-list'),
 
