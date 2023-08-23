@@ -1,5 +1,6 @@
 
 from __future__ import unicode_literals
+from django.db import models
 from django.utils.safestring import mark_safe
 
 
@@ -23,7 +24,7 @@ class Fornecedor(models.Model):
     class Meta:
         verbose_name = u'Fornecedor'
         verbose_name_plural = u'FORNECEDOR'
-      
+        
 class Materiall(models.Model):
     nome = models.CharField(max_length=200)
 
@@ -31,20 +32,17 @@ class Materiall(models.Model):
         return self.nome
 
     class Meta:
-        verbose_name = u'Materiall'
+        verbose_name = u'Material'
         verbose_name_plural = u'MATERIAL'
 
 class Compra(models.Model):
     fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
-    nota_fiscal = models.CharField(max_length=10)
-    data = models.DateField('data', null=True, blank=True, db_index=True)
-    valor_compra = models.DecimalField(max_digits=10,
-    decimal_places=2, blank=True, default=0)
+    nota_fiscal = models.IntegerField()
+    data = models.DateField()
+    valor_compra = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
 
     def imprimir(self):
-        return mark_safe("""<a href=\"/orcamento/%s/\" target="_blank"><img src=\"/static/image/b_print.png\"></a>""" % self.id)
-
-
+            return mark_safe("""<a href=\"/orcamento/%s/\" target="_blank"><img src=\"/static/image/b_print.png\"></a>""" % self.id)
 
     class Meta:
         verbose_name = u'Compra'
@@ -72,10 +70,6 @@ class Produto(models.Model):
         self.compra.valor_compra += self.subtotal
         self.compra.save()
         return super(Produto, self).save(*args, **kwargs)
-
-
-
-
 
 
 

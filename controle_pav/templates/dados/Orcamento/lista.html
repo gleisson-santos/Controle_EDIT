@@ -18,6 +18,7 @@
                 <i class="fa fa-plus" aria-hidden="true"></i>Adicionar
             </button> 
             
+            
             <div class="form-inline col-md-1 mb-0">
                 ⠀<button type="submit" class="btn btn-primary mb-2">Filtrar</button>
             </div>
@@ -45,7 +46,7 @@
 
     <!-- Modal Pendencias de Pavimentos-->
     <div class="modal fade bd-example-modal" id="cadpavimento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 
                 <div class="modal-header">
@@ -56,44 +57,95 @@
                 </div>
 
                 <div class="container-fluid">
-                    <div class="card-body">                  
-                        <form action="" method="POST" >
+                    <div class="card-body">   
+<!-- 
+                         <form action="" method="POST" >
                             {% csrf_token %}   
 
                             <div id="pavpend"> 
-                                <div class="input-group mb-3">
-                                  <span  class="input-group-text">Fornecedor</span>
-                                  {% render_field compra_form.fornecedor class="form-control" %}
-                                  ⠀                               
-                                  <span class="input-group-text">Nota Fiscal</span>
-                                  {% render_field compra_form.nota_fiscal class="form-control" %}
-                                </div>
 
-                                <div class="input-group mb-3">
-                                  <span class="input-group-text" >Data</span>
-                                  {% render_field compra_form.data  class="form-control" %}     
-                                  ⠀                   
-                                  <span class="input-group-text">Quantidade</span>
-                                  {% render_field produto_form.quantidade class="form-control"%}
-                                </div>
-                            
-                                <div class="input-group mb-3">
-                                  <span class="input-group-text" >Material</span>
-                                  {% render_field produto_form.material  class="form-control"  %}     
-                                  ⠀                   
-                                  <span class="input-group-text">Preço</span>
-                                  {% render_field produto_form.preco class="form-control"%}
-                                </div>
-                          </div>
+                              <div class="input-group mb-3">
+                                <span class="input-group-text">Fornecedor</span>
+                                {% render_field compra_form.fornecedor class="form-control" %}
+                              </div>
+
+                              <div class="input-group mb-3">               
+                                <span class="input-group-text">Material</span>
+                                {% render_field produto_form.material  class="form-control"  %}     
+                              </div>
+
+                              <div class="input-group mb-3">
+                                <span class="input-group-text">Data</span>
+                                {% render_field compra_form.data class="form-control" %}
+                                ⠀ 
+                                <span class="input-group-text">Nota Fiscal</span>
+                                {% render_field compra_form.nota_fiscal class="form-control" %}
+                              </div>
+                           
+                              <div class="input-group mb-3">               
+                                <span class="input-group-text">Quantidade</span>
+                                {% render_field produto_form.quantidade class="form-control"%}
+                                ⠀     
+                                <span class="input-group-text">Preço</span>
+                                {% render_field produto_form.preco class="form-control"%}
+                              </div>
+                            </div>
 
                             <div id="btn2pen">
-                                <!-- Botoes -->
                                 <button class="btn btn-secondary"><a href="{% url 'lista'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
                                 <button id="show" class="btn btn-success" value="Submit" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
                             </div>
 
 
-                        </form>
+                        </form>  -->
+
+                      
+                        <form action="" method="POST" id="produto-form">
+                          {% csrf_token %}
+                          
+                          <!-- Campos do produto existente -->
+                          <div id="pavpend"> 
+
+                            <div class="input-group mb-3">
+                              <span class="input-group-text">Fornecedor</span>
+                              {% render_field compra_form.fornecedor class="form-control" %}
+                            </div>
+
+                            <div class="input-group mb-3">               
+                              <span class="input-group-text">Material</span>
+                              {% render_field produto_form.material  class="form-control"  %}     
+                            </div>
+
+                            <div class="input-group mb-3">
+                              <span class="input-group-text">Data</span>
+                              {% render_field compra_form.data class="form-control" %}
+                              ⠀ 
+                              <span class="input-group-text">Nota Fiscal</span>
+                              {% render_field compra_form.nota_fiscal class="form-control" %}
+                            </div>
+                         
+                            <div class="input-group mb-3">               
+                              <span class="input-group-text">Quantidade</span>
+                              {% render_field produto_form.quantidade class="form-control"%}
+                              ⠀     
+                              <span class="input-group-text">Preço</span>
+                              {% render_field produto_form.preco class="form-control"%}
+                            </div>
+                          </div>
+                          
+                          <div id="itens-container">
+                              <!-- Aqui você irá adicionar os campos de material, preço e quantidade dinamicamente -->
+                          </div>
+                          
+                          <button type="button" id="add-item-btn" class="btn btn-primary">Adicionar Item</button>
+                          <div id="btn2pen">
+                            <button class="btn btn-secondary"><a href="{% url 'lista'%}"><i class="fa fa-reply" aria-hidden="true"></i> Voltar</a></button> 
+                            <button id="show" class="btn btn-success" value="Submit" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Salvar</button>        
+                        </div>
+                      </form>
+                      
+                      
+
                     </div>
                 </div>
 
@@ -121,7 +173,7 @@
       <tbody>
           {% for compra in compras %}
           <tr>
-              <td>{{ compra.fornecedor.nome }}</td>
+              <td>{{ compra.fornecedor}}</td>
               <td>{{ compra.nota_fiscal }}</td>
               <td>{{ compra.data }}</td>
               <td>{{ compra.valor_compra }}</td>
@@ -131,6 +183,7 @@
                       {{ produto.quantidade }}
                   {% endfor %}
               </td> -->
+              
               <td>{{ compra.imprimir|safe }}</td>
           </tr>
           {% endfor %}
@@ -407,4 +460,31 @@
     
   });
 </script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#add-item-btn').click(function() {
+            var newItem = `
+              <div id="pavpend"> 
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Material</span>
+                    {{ produto_form.material|add_class:"form-control" }}
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Preço</span>
+                    {{ produto_form.preco|add_class:"form-control" }}
+                    ⠀ 
+                    <span class="input-group-text">Quantidade</span>
+                    {{ produto_form.quantidade|add_class:"form-control" }}
+                </div>
+              </div> 
+            `;
+            $('#itens-container').append(newItem);
+        });
+    });
+</script>
+
+
 {% endblock %}

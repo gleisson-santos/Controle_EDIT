@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from datetime import timedelta
 from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento, Compra, Produto, Fornecedor, Materiall
-from django_select2.forms import Select2Widget
+from django.forms import DateInput
 
 
 class Pavimentoform(ModelForm):
@@ -63,31 +63,53 @@ class Pendenciasform(ModelForm):
 
 
 
+#---------------------------------------------------------------------
+
+# class CompraForm(forms.ModelForm):
+#     fornecedor = forms.CharField(max_length=200, label='Fornecedor')
+#     material = forms.CharField(max_length=200, label='Material')
+
+#     class Meta:
+#         model = Compra
+#         fields = ['fornecedor', 'nota_fiscal', 'data']
+
+
+# class ProdutoForm(forms.ModelForm):
+#     material = forms.CharField(max_length=200, label='Material')
+
+#     class Meta:
+#         model = Produto
+#         fields = ['material', 'preco', 'quantidade']
+        
 
 class CompraForm(forms.ModelForm):
-    fornecedor = forms.CharField(max_length=200, label='Fornecedor')
-    material = forms.CharField(max_length=200, label='Material')
+    fornecedor = forms.ModelChoiceField(
+        queryset=Fornecedor.objects.all(),
+        label='Fornecedor',
+        widget=forms.Select(attrs={'class': 'form-control'}),
+    )
 
     class Meta:
         model = Compra
         fields = ['fornecedor', 'nota_fiscal', 'data']
-        
         widgets = {
-            'fornecedor': Select2Widget,
+            'data': DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
 
-
-
 class ProdutoForm(forms.ModelForm):
-    material_nome = forms.CharField(max_length=200, label='Material')
+    material = forms.ModelChoiceField(
+        queryset=Materiall.objects.all(),
+        label='Material',
+        widget=forms.Select(attrs={'class': 'form-control'}),
+    )
 
     class Meta:
         model = Produto
         fields = ['material', 'preco', 'quantidade']
-        
+
 
 class FornecedorForm(forms.ModelForm):
-    fornecedor_nome = forms.CharField(label='Fornecedor', max_length=200)  # Campo de texto para o nome do fornecedor
+    fornecedor = forms.CharField(label='Fornecedor', max_length=200)  # Campo de texto para o nome do fornecedor
     data = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     
 

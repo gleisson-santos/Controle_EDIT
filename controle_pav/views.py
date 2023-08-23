@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 
 from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter, MaterialFilter, LancamentoFilter
-from .forms import Esgotoform, Pavimentoform, Pendenciasform, Materialform, Lancamentoform, CompraForm, ProdutoForm, FornecedorForm
+from .forms import Esgotoform, Pavimentoform, Pendenciasform, Materialform, Lancamentoform, FornecedorForm, ProdutoForm, CompraForm
 from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento, Compra, Produto, Fornecedor, Materiall
 from django.contrib.sessions.models import Session
 
@@ -34,34 +34,115 @@ def orcamento(request, id=None, *args, **kwargs):
 
 
 
-def lista(request):
-    print("Request method:", request.method)
-    template_name = 'dados/Orcamento/lista.html'
+# def lista(request):
+#     print("Request method:", request.method)
+#     template_name = 'dados/Orcamento/lista.html'
     
+#     if request.method == 'POST':
+#         print("POST data:", request.POST)
+#         compra_form = CompraForm(request.POST)
+#         print("Compra form errors:", compra_form.errors)
+#         produto_form = ProdutoForm(request.POST)
+#         print("Produto form errors:", produto_form.errors)
+
+#         if compra_form.is_valid() and produto_form.is_valid():
+#             compra = compra_form.save()
+#             fornecedor_nome = compra_form.cleaned_data['fornecedor']
+#             fornecedor, created = Fornecedor.objects.get_or_create(nome=fornecedor_nome)
+#             compra.fornecedor = fornecedor
+#             compra.save()
+
+#             produto = produto_form.save(commit=False)
+#             material_nome = produto_form.cleaned_data['material']
+#             material, created = Materiall.objects.get_or_create(nome=material_nome)
+#             produto.material = material
+#             produto.compra = compra
+#             produto.save()
+
+#             return redirect('lista')
+#     else:
+#         compra_form = CompraForm()
+#         produto_form = ProdutoForm()
+
+#     compras = Compra.objects.all()
+#     produtos = Produto.objects.all()
+
+#     context = {
+#         'compra_form': compra_form,
+#         'produto_form': produto_form,
+#         'compras': compras,
+#         'produtos': produtos,
+#     }
+
+#     return render(request, template_name, context)
+
+# def lista(request):
+#     template_name = 'dados/Orcamento/lista.html'
+    
+#     if request.method == 'POST':
+#         compra_form = CompraForm(request.POST)
+#         produto_form = ProdutoForm(request.POST)
+
+#         if compra_form.is_valid() and produto_form.is_valid():
+#             compra = compra_form.save()
+#             produto = produto_form.save(commit=False)
+#             produto.compra = compra
+#             produto.save()
+
+#             novos_materiais = request.POST.getlist('produto_form.material')
+#             novos_precos = request.POST.getlist('produto_form.preco')
+#             novas_quantidades = request.POST.getlist('produto_form.quantidade')
+            
+#             for material, preco, quantidade in zip(novos_materiais, novos_precos, novas_quantidades):
+#                 Produto.objects.create(material=material, preco=preco, quantidade=quantidade, compra=compra)
+
+#             return redirect('lista')
+#     else:
+#         compra_form = CompraForm()
+#         produto_form = ProdutoForm()
+
+#     compras = Compra.objects.all()
+#     produtos = Produto.objects.all()
+
+#     context = {
+#         'compra_form': compra_form,
+#         'produto_form': produto_form,
+#         'compras': compras,
+#         'produtos': produtos,
+#     }
+
+#     return render(request, template_name, context)
+
+def lista(request):
+    template_name = 'dados/Orcamento/lista.html'
+
     if request.method == 'POST':
-        print("POST data:", request.POST)
-        compra_form = FornecedorForm(request.POST)
-        print("Compra form errors:", compra_form.errors)
+        compra_form = CompraForm(request.POST)
         produto_form = ProdutoForm(request.POST)
-        print("Produto form errors:", produto_form.errors)
 
         if compra_form.is_valid() and produto_form.is_valid():
+            # Criar e salvar o produto principal
             compra = compra_form.save()
-            fornecedor_nome = compra_form.cleaned_data['fornecedor_nome']
-            fornecedor, created = Fornecedor.objects.get_or_create(nome=fornecedor_nome)
-            compra.fornecedor = fornecedor
-            compra.save()
-
             produto = produto_form.save(commit=False)
-            material_nome = produto_form.cleaned_data['material_nome']
-            material, created = Materiall.objects.get_or_create(nome=material_nome)
-            produto.material = material
             produto.compra = compra
             produto.save()
 
+            # Salvar os novos itens dinâmicos
+            materiais = request.POST.getlist('materiais[]')
+            precos = request.POST.getlist('precos[]')
+            quantidades = request.POST.getlist('quantidades[]')
+            
+            for material, preco, quantidade in zip(materiais, precos, quantidades):
+                Produto.objects.create(
+                    material=material,
+                    preco=preco,
+                    quantidade=quantidade,
+                    compra=compra
+                )
+
             return redirect('lista')
     else:
-        compra_form = FornecedorForm()
+        compra_form = CompraForm()
         produto_form = ProdutoForm()
 
     compras = Compra.objects.all()
