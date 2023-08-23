@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "accounts",
     "crispy_forms",
     "bootstrap5",
+    'django_select2',
     'fontawesomefree',
     # 'rest-framework',
 

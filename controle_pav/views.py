@@ -5,9 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 
-from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter, MaterialFilter, LancamentoFilter, CompraFilter
-from .forms import Esgotoform, Pavimentoform, Pendenciasform, Materialform, Lancamentoform, CompraForm, ProdutoForm
-from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento, Compra, Produto
+from .filters import EsgotoFilter, PavimentoFilter, PendenciasFilter, MaterialFilter, LancamentoFilter
+from .forms import Esgotoform, Pavimentoform, Pendenciasform, Materialform, Lancamentoform, CompraForm, ProdutoForm, FornecedorForm
+from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento, Compra, Produto, Fornecedor, Materiall
 from django.contrib.sessions.models import Session
 
 
@@ -35,38 +35,46 @@ def orcamento(request, id=None, *args, **kwargs):
 
 
 def lista(request):
-    print(request.POST)
+    print("Request method:", request.method)
     template_name = 'dados/Orcamento/lista.html'
+    
     if request.method == 'POST':
-        compra_form = CompraForm(request.POST)
+        print("POST data:", request.POST)
+        compra_form = FornecedorForm(request.POST)
+        print("Compra form errors:", compra_form.errors)
         produto_form = ProdutoForm(request.POST)
+        print("Produto form errors:", produto_form.errors)
 
         if compra_form.is_valid() and produto_form.is_valid():
             compra = compra_form.save()
+            fornecedor_nome = compra_form.cleaned_data['fornecedor_nome']
+            fornecedor, created = Fornecedor.objects.get_or_create(nome=fornecedor_nome)
+            compra.fornecedor = fornecedor
+            compra.save()
+
             produto = produto_form.save(commit=False)
+            material_nome = produto_form.cleaned_data['material_nome']
+            material, created = Materiall.objects.get_or_create(nome=material_nome)
+            produto.material = material
             produto.compra = compra
             produto.save()
-            # Resto do seu código
-        return redirect('lista')
 
+            return redirect('lista')
     else:
-        compra_form = CompraForm()
+        compra_form = FornecedorForm()
         produto_form = ProdutoForm()
-    
+
     compras = Compra.objects.all()
-    produto = Produto.objects.all()
-        
+    produtos = Produto.objects.all()
 
     context = {
         'compra_form': compra_form,
         'produto_form': produto_form,
         'compras': compras,
-        'produto': produto,
-        
+        'produtos': produtos,
     }
 
     return render(request, template_name, context)
-
 
 
 # from rest_framework import generics

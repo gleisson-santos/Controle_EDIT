@@ -41,11 +41,8 @@ class Compra(models.Model):
     valor_compra = models.DecimalField(max_digits=10,
     decimal_places=2, blank=True, default=0)
 
-    # def imprimir(self):
-    #         return mark_safe("""<a href=\"/orcamento/%s/\" target="_blank"><img src=\"/static/images/b_print.png\"></a>""" % self.id)
-    
     def imprimir(self):
-        return mark_safe(f'<a href="/orcamento/{self.id}/" target="_blank"><i class="fas fa-eye"></i></a>')
+        return mark_safe("""<a href=\"/orcamento/%s/\" target="_blank"><img src=\"/static/image/b_print.png\"></a>""" % self.id)
 
 
 

@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from datetime import timedelta
 from .models import Esgoto, Pavimento, Pendencias, Material, Lancamento, Compra, Produto, Fornecedor, Materiall
+from django_select2.forms import Select2Widget
 
 
 class Pavimentoform(ModelForm):
@@ -62,37 +63,37 @@ class Pendenciasform(ModelForm):
 
 
 
-class CompraForm(ModelForm):
-    data = forms.DateField(label='Data', widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date', }), input_formats=('%Y-%m-%d',), )
-    fornecedor = forms.ModelChoiceField(
-        queryset=Fornecedor.objects.all(), 
-        label='Fornecedor',
-        widget=forms.TextInput(attrs={'placeholder': 'Informe o fornecedor'}),
-        required=False
-    )
+
+class CompraForm(forms.ModelForm):
+    fornecedor = forms.CharField(max_length=200, label='Fornecedor')
+    material = forms.CharField(max_length=200, label='Material')
 
     class Meta:
         model = Compra
-        fields = '__all__'
+        fields = ['fornecedor', 'nota_fiscal', 'data']
+        
+        widgets = {
+            'fornecedor': Select2Widget,
+        }
+
 
 
 class ProdutoForm(forms.ModelForm):
-    material = forms.ModelChoiceField(
-    queryset=Fornecedor.objects.all(), 
-    label='Fornecedor',
-    widget=forms.TextInput(attrs={'placeholder': 'Informe o fornecedor'}),
-    required=False
-    )
+    material_nome = forms.CharField(max_length=200, label='Material')
+
     class Meta:
         model = Produto
         fields = ['material', 'preco', 'quantidade']
+        
 
 class FornecedorForm(forms.ModelForm):
     fornecedor_nome = forms.CharField(label='Fornecedor', max_length=200)  # Campo de texto para o nome do fornecedor
+    data = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    
 
     class Meta:
-        model = Fornecedor
-        fields = '__all__'
+        model = Compra
+        fields = ['fornecedor', 'nota_fiscal', 'data']
 
 class MaterialForm(forms.ModelForm):
     nome = forms.ModelChoiceField(
