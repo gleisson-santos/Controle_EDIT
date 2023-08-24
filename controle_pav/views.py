@@ -76,69 +76,25 @@ def orcamento(request, id=None, *args, **kwargs):
 
 #     return render(request, template_name, context)
 
-# def lista(request):
-#     template_name = 'dados/Orcamento/lista.html'
-    
-#     if request.method == 'POST':
-#         compra_form = CompraForm(request.POST)
-#         produto_form = ProdutoForm(request.POST)
-
-#         if compra_form.is_valid() and produto_form.is_valid():
-#             compra = compra_form.save()
-#             produto = produto_form.save(commit=False)
-#             produto.compra = compra
-#             produto.save()
-
-#             novos_materiais = request.POST.getlist('produto_form.material')
-#             novos_precos = request.POST.getlist('produto_form.preco')
-#             novas_quantidades = request.POST.getlist('produto_form.quantidade')
-            
-#             for material, preco, quantidade in zip(novos_materiais, novos_precos, novas_quantidades):
-#                 Produto.objects.create(material=material, preco=preco, quantidade=quantidade, compra=compra)
-
-#             return redirect('lista')
-#     else:
-#         compra_form = CompraForm()
-#         produto_form = ProdutoForm()
-
-#     compras = Compra.objects.all()
-#     produtos = Produto.objects.all()
-
-#     context = {
-#         'compra_form': compra_form,
-#         'produto_form': produto_form,
-#         'compras': compras,
-#         'produtos': produtos,
-#     }
-
-#     return render(request, template_name, context)
-
 def lista(request):
     template_name = 'dados/Orcamento/lista.html'
-
+    
     if request.method == 'POST':
         compra_form = CompraForm(request.POST)
         produto_form = ProdutoForm(request.POST)
 
         if compra_form.is_valid() and produto_form.is_valid():
-            # Criar e salvar o produto principal
             compra = compra_form.save()
             produto = produto_form.save(commit=False)
             produto.compra = compra
             produto.save()
 
-            # Salvar os novos itens dinâmicos
-            materiais = request.POST.getlist('materiais[]')
-            precos = request.POST.getlist('precos[]')
-            quantidades = request.POST.getlist('quantidades[]')
+            novos_materiais = request.POST.getlist('produto_form-material')
+            novos_precos = request.POST.getlist('produto_form-preco')
+            novas_quantidades = request.POST.getlist('produto_form-quantidade')
             
-            for material, preco, quantidade in zip(materiais, precos, quantidades):
-                Produto.objects.create(
-                    material=material,
-                    preco=preco,
-                    quantidade=quantidade,
-                    compra=compra
-                )
+            for material, preco, quantidade in zip(novos_materiais, novos_precos, novas_quantidades):
+                Produto.objects.create(material=material, preco=preco, quantidade=quantidade, compra=compra)
 
             return redirect('lista')
     else:
@@ -156,7 +112,6 @@ def lista(request):
     }
 
     return render(request, template_name, context)
-
 
 # from rest_framework import generics
 # from .serializers import PavimentoSerializer
